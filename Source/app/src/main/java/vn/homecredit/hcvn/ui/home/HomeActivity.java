@@ -31,6 +31,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.ui.contract.ContractFragment;
+import vn.homecredit.hcvn.ui.more.MoreFragment;
+import vn.homecredit.hcvn.ui.notification.NotificationFragment;
 import vn.homecredit.hcvn.ui.support.SupportFragment;
 
 public class HomeActivity extends AppCompatActivity {
@@ -148,8 +151,14 @@ public class HomeActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
+                case 0:
+                    return ContractFragment.newInstance(1);
+                case 1:
+                    return NotificationFragment.newInstance(1);
                 case 2:
                     return SupportFragment.newInstance("A", "B");
+                case 3:
+                    return MoreFragment.newInstance("A", "B");
                 default:
                     break;
             }
@@ -159,7 +168,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 5;
+            return 4;
         }
     }
 }
