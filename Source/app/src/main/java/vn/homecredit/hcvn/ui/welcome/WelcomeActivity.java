@@ -23,13 +23,15 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.databinding.ActivityWelcomeBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.splash.SplashNavigator;
 import vn.homecredit.hcvn.ui.splash.SplashViewModel;
 
-public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements SplashNavigator {
+public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeNavigator {
 
     @Inject
     WelcomeViewModel mWelcomeViewModel;
+    ActivityWelcomeBinding mActivityWelcomeBinding;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, WelcomeActivity.class);
@@ -61,9 +63,16 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     }
 
     @Override
+    public void openLoginActivity() {
+        Intent intent = LoginActivity.newIntent(WelcomeActivity.this);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        openWelcomeActivity();
+        mActivityWelcomeBinding = getViewDataBinding();
+        mWelcomeViewModel.setNavigator(this);
     }
 }

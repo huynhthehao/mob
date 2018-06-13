@@ -7,11 +7,8 @@
  * Last modified 6/12/18 11:29 AM
  */
 
-package vn.homecredit.hcvn.ui.welcome;
+package vn.homecredit.hcvn.ui.login;
 
-public interface WelcomeNavigator {
-    void openWelcomeActivity();
+public interface LoginNavigator {
     void openHomeActivity();
-
-    void openLoginActivity();
 }

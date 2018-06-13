@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ strings.xml
+  ~
+  ~ Created by quan.p@homecredit.vn
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 6/13/18 1:15 PM
+  -->
+
+<resources>
+    <string name="app_name">HCVN</string>
+    <string name="welcome_login">Log in</string>
+    <string name="welcome_sign_up">Sign up</string>
+    <string name="welcome_cash_loan">Cash loan</string>
+</resources>

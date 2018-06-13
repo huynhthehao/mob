@@ -47,6 +47,7 @@
             <View style="@style/Separator_Horizontal" />
 
             <LinearLayout
+                android:onClick="@{() -> viewModel.onLoginClick()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
@@ -64,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Đăng nhập"
+                    android:text="@string/welcome_login"
                     android:textColor="@color/my_primary" />
 
                 <ImageView
@@ -94,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Đăng ký"
+                    android:text="@string/welcome_sign_up"
                     android:textColor="@color/my_primary" />
 
                 <ImageView
@@ -124,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Vay tiền mặt"
+                    android:text="@string/welcome_cash_loan"
                     android:textColor="@color/my_primary" />
 
                 <ImageView

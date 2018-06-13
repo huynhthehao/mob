@@ -64,6 +64,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        openWelcomeActivity();
+        this.mSplashViewModel.setNavigator(this);
+
+        //check if not logged in
+        this.mSplashViewModel.getNavigator().openWelcomeActivity();
     }
 }
