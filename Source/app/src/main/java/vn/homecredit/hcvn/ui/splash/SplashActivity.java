@@ -19,7 +19,8 @@ import javax.inject.Inject;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.ApiResponse;
+import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 
@@ -49,7 +50,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void openWelcomeActivity() {
-        Single<ApiResponse> single = this.mSplashViewModel.getRestService().CheckUpdateAsync();
+        Single<VersionResp> single = this.mSplashViewModel.getRestService().CheckUpdateAsync();
         single.doOnSuccess(response -> {
             System.out.println("Do" + response);
         }).subscribeOn(getViewModel().getSchedulerProvider().io()).observeOn(getViewModel().getSchedulerProvider().ui()).subscribe(apiResponse -> {

@@ -10,8 +10,9 @@
 package vn.homecredit.hcvn.data.remote;
 
 import io.reactivex.Single;
-import vn.homecredit.hcvn.data.model.api.ApiResponse;
+import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
 public interface RestService {
-    Single<ApiResponse> CheckUpdateAsync();
+    Single<VersionResp> CheckUpdateAsync();
 }

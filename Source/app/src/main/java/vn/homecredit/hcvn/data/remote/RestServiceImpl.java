@@ -17,9 +17,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
-import okhttp3.OkHttpClient;
-import vn.homecredit.hcvn.data.model.api.ApiResponse;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
 @Singleton
 public class RestServiceImpl implements RestService {
@@ -31,7 +30,7 @@ public class RestServiceImpl implements RestService {
         mApiHeader = apiHeader;
     }
 
-    public Single<ApiResponse> CheckUpdateAsync()
+    public Single<VersionResp> CheckUpdateAsync()
     {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         requestHeader.put("X-DEVICE-ID", "abc");
@@ -44,6 +43,6 @@ public class RestServiceImpl implements RestService {
 
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/version?platform=2")
                 .addHeaders(requestHeader)
-                .build().getObjectSingle(ApiResponse.class);
+                .build().getObjectSingle(VersionResp.class);
     }
 }

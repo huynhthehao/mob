@@ -1,23 +1,19 @@
 /*
- * ApiResponse.java
+ * BaseApiResponse.java
  *
  * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/12/18 1:15 PM
+ * Last modified 6/13/18 10:50 AM
  */
 
-package vn.homecredit.hcvn.data.model.api;
+package vn.homecredit.hcvn.data.model.api.base;
 
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ApiResponse<T> {
-
-    @SerializedName("data")
-    @Expose
-    private T data;
+public class BaseApiResponse {
 
     @SerializedName("response_code")
     @Expose
@@ -26,14 +22,6 @@ public class ApiResponse<T> {
     @SerializedName("response_message")
     @Expose
     private String responseMessage;
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 
     public Integer getResponseCode() {
         return responseCode;

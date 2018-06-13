@@ -13,184 +13,198 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import vn.homecredit.hcvn.data.model.api.RateOptions;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
-public class VersionResp {
-
-    @SerializedName("Platform")
+public class VersionResp extends BaseApiResponse {
+    @SerializedName("data")
     @Expose
-    private String platform;
-    @SerializedName("Version")
-    @Expose
-    private String version;
-    @SerializedName("MaintenanceStart")
-    @Expose
-    private String maintenanceStart;
-    @SerializedName("MaintenanceEnd")
-    @Expose
-    private String maintenanceEnd;
-    @SerializedName("UnderMaintenance")
-    @Expose
-    private Boolean underMaintenance;
-    @SerializedName("CustomerSupportPhone")
-    @Expose
-    private String customerSupportPhone;
-    @SerializedName("MarketingPhone")
-    @Expose
-    private String marketingPhone;
-    @SerializedName("ClwoQRScanEnabled")
-    @Expose
-    private Boolean clwoQRScanEnabled;
-    @SerializedName("RateOptions")
-    @Expose
-    private RateOptions rateOptions;
-    @SerializedName("TrackingEnabled")
-    @Expose
-    private Boolean trackingEnabled;
-    @SerializedName("TrackingSize")
-    @Expose
-    private Integer trackingSize;
-    @SerializedName("PasscodeEnabled")
-    @Expose
-    private Boolean passcodeEnabled;
-    @SerializedName("PasscodeExpiredInMinutes")
-    @Expose
-    private Integer passcodeExpiredInMinutes;
-    @SerializedName("Settings")
-    @Expose
-    private ServerSettings settings;
-    @SerializedName("CredoEnabled")
-    @Expose
-    private Boolean credoEnabled;
-    @SerializedName("AppExpiredInMinutes")
-    @Expose
-    private Integer appExpiredInMinutes;
+    private VersionRespData Data;
 
-    public String getPlatform() {
-        return platform;
+    public VersionRespData getData() {
+        return Data;
     }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
+    public void setData(VersionRespData data) {
+        Data = data;
     }
 
-    public String getVersion() {
-        return version;
-    }
+    public class VersionRespData {
+        @SerializedName("Platform")
+        @Expose
+        private String platform;
+        @SerializedName("Version")
+        @Expose
+        private String version;
+        @SerializedName("MaintenanceStart")
+        @Expose
+        private String maintenanceStart;
+        @SerializedName("MaintenanceEnd")
+        @Expose
+        private String maintenanceEnd;
+        @SerializedName("UnderMaintenance")
+        @Expose
+        private Boolean underMaintenance;
+        @SerializedName("CustomerSupportPhone")
+        @Expose
+        private String customerSupportPhone;
+        @SerializedName("MarketingPhone")
+        @Expose
+        private String marketingPhone;
+        @SerializedName("ClwoQRScanEnabled")
+        @Expose
+        private Boolean clwoQRScanEnabled;
+        @SerializedName("RateOptions")
+        @Expose
+        private RateOptions rateOptions;
+        @SerializedName("TrackingEnabled")
+        @Expose
+        private Boolean trackingEnabled;
+        @SerializedName("TrackingSize")
+        @Expose
+        private Integer trackingSize;
+        @SerializedName("PasscodeEnabled")
+        @Expose
+        private Boolean passcodeEnabled;
+        @SerializedName("PasscodeExpiredInMinutes")
+        @Expose
+        private Integer passcodeExpiredInMinutes;
+        @SerializedName("Settings")
+        @Expose
+        private ServerSettings settings;
+        @SerializedName("CredoEnabled")
+        @Expose
+        private Boolean credoEnabled;
+        @SerializedName("AppExpiredInMinutes")
+        @Expose
+        private Integer appExpiredInMinutes;
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
+        public String getPlatform() {
+            return platform;
+        }
 
-    public String getMaintenanceStart() {
-        return maintenanceStart;
-    }
+        public void setPlatform(String platform) {
+            this.platform = platform;
+        }
 
-    public void setMaintenanceStart(String maintenanceStart) {
-        this.maintenanceStart = maintenanceStart;
-    }
+        public String getVersion() {
+            return version;
+        }
 
-    public String getMaintenanceEnd() {
-        return maintenanceEnd;
-    }
+        public void setVersion(String version) {
+            this.version = version;
+        }
 
-    public void setMaintenanceEnd(String maintenanceEnd) {
-        this.maintenanceEnd = maintenanceEnd;
-    }
+        public String getMaintenanceStart() {
+            return maintenanceStart;
+        }
 
-    public Boolean getUnderMaintenance() {
-        return underMaintenance;
-    }
+        public void setMaintenanceStart(String maintenanceStart) {
+            this.maintenanceStart = maintenanceStart;
+        }
 
-    public void setUnderMaintenance(Boolean underMaintenance) {
-        this.underMaintenance = underMaintenance;
-    }
+        public String getMaintenanceEnd() {
+            return maintenanceEnd;
+        }
 
-    public String getCustomerSupportPhone() {
-        return customerSupportPhone;
-    }
+        public void setMaintenanceEnd(String maintenanceEnd) {
+            this.maintenanceEnd = maintenanceEnd;
+        }
 
-    public void setCustomerSupportPhone(String customerSupportPhone) {
-        this.customerSupportPhone = customerSupportPhone;
-    }
+        public Boolean getUnderMaintenance() {
+            return underMaintenance;
+        }
 
-    public String getMarketingPhone() {
-        return marketingPhone;
-    }
+        public void setUnderMaintenance(Boolean underMaintenance) {
+            this.underMaintenance = underMaintenance;
+        }
 
-    public void setMarketingPhone(String marketingPhone) {
-        this.marketingPhone = marketingPhone;
-    }
+        public String getCustomerSupportPhone() {
+            return customerSupportPhone;
+        }
 
-    public Boolean getClwoQRScanEnabled() {
-        return clwoQRScanEnabled;
-    }
+        public void setCustomerSupportPhone(String customerSupportPhone) {
+            this.customerSupportPhone = customerSupportPhone;
+        }
 
-    public void setClwoQRScanEnabled(Boolean clwoQRScanEnabled) {
-        this.clwoQRScanEnabled = clwoQRScanEnabled;
-    }
+        public String getMarketingPhone() {
+            return marketingPhone;
+        }
 
-    public RateOptions getRateOptions() {
-        return rateOptions;
-    }
+        public void setMarketingPhone(String marketingPhone) {
+            this.marketingPhone = marketingPhone;
+        }
 
-    public void setRateOptions(RateOptions rateOptions) {
-        this.rateOptions = rateOptions;
-    }
+        public Boolean getClwoQRScanEnabled() {
+            return clwoQRScanEnabled;
+        }
 
-    public Boolean getTrackingEnabled() {
-        return trackingEnabled;
-    }
+        public void setClwoQRScanEnabled(Boolean clwoQRScanEnabled) {
+            this.clwoQRScanEnabled = clwoQRScanEnabled;
+        }
 
-    public void setTrackingEnabled(Boolean trackingEnabled) {
-        this.trackingEnabled = trackingEnabled;
-    }
+        public RateOptions getRateOptions() {
+            return rateOptions;
+        }
 
-    public Integer getTrackingSize() {
-        return trackingSize;
-    }
+        public void setRateOptions(RateOptions rateOptions) {
+            this.rateOptions = rateOptions;
+        }
 
-    public void setTrackingSize(Integer trackingSize) {
-        this.trackingSize = trackingSize;
-    }
+        public Boolean getTrackingEnabled() {
+            return trackingEnabled;
+        }
 
-    public Boolean getPasscodeEnabled() {
-        return passcodeEnabled;
-    }
+        public void setTrackingEnabled(Boolean trackingEnabled) {
+            this.trackingEnabled = trackingEnabled;
+        }
 
-    public void setPasscodeEnabled(Boolean passcodeEnabled) {
-        this.passcodeEnabled = passcodeEnabled;
-    }
+        public Integer getTrackingSize() {
+            return trackingSize;
+        }
 
-    public Integer getPasscodeExpiredInMinutes() {
-        return passcodeExpiredInMinutes;
-    }
+        public void setTrackingSize(Integer trackingSize) {
+            this.trackingSize = trackingSize;
+        }
 
-    public void setPasscodeExpiredInMinutes(Integer passcodeExpiredInMinutes) {
-        this.passcodeExpiredInMinutes = passcodeExpiredInMinutes;
-    }
+        public Boolean getPasscodeEnabled() {
+            return passcodeEnabled;
+        }
 
-    public ServerSettings getSettings() {
-        return settings;
-    }
+        public void setPasscodeEnabled(Boolean passcodeEnabled) {
+            this.passcodeEnabled = passcodeEnabled;
+        }
 
-    public void setSettings(ServerSettings settings) {
-        this.settings = settings;
-    }
+        public Integer getPasscodeExpiredInMinutes() {
+            return passcodeExpiredInMinutes;
+        }
 
-    public Boolean getCredoEnabled() {
-        return credoEnabled;
-    }
+        public void setPasscodeExpiredInMinutes(Integer passcodeExpiredInMinutes) {
+            this.passcodeExpiredInMinutes = passcodeExpiredInMinutes;
+        }
 
-    public void setCredoEnabled(Boolean credoEnabled) {
-        this.credoEnabled = credoEnabled;
-    }
+        public ServerSettings getSettings() {
+            return settings;
+        }
 
-    public Integer getAppExpiredInMinutes() {
-        return appExpiredInMinutes;
-    }
+        public void setSettings(ServerSettings settings) {
+            this.settings = settings;
+        }
 
-    public void setAppExpiredInMinutes(Integer appExpiredInMinutes) {
-        this.appExpiredInMinutes = appExpiredInMinutes;
-    }
+        public Boolean getCredoEnabled() {
+            return credoEnabled;
+        }
 
+        public void setCredoEnabled(Boolean credoEnabled) {
+            this.credoEnabled = credoEnabled;
+        }
+
+        public Integer getAppExpiredInMinutes() {
+            return appExpiredInMinutes;
+        }
+
+        public void setAppExpiredInMinutes(Integer appExpiredInMinutes) {
+            this.appExpiredInMinutes = appExpiredInMinutes;
+        }
+
+    }
 }

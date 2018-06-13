@@ -18,7 +18,8 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.data.model.api.ApiResponse;
+import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.remote.RestService;
 
 @Singleton
@@ -37,7 +38,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<ApiResponse> CheckUpdateAsync() {
+    public Single<VersionResp> CheckUpdateAsync() {
         return mRestService.CheckUpdateAsync();
     }
 }

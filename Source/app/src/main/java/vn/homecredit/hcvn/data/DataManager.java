@@ -10,9 +10,10 @@
 package vn.homecredit.hcvn.data;
 
 import io.reactivex.Single;
-import vn.homecredit.hcvn.data.model.api.ApiResponse;
+import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.remote.RestService;
 
 public interface DataManager extends RestService {
-    Single<ApiResponse> CheckUpdateAsync();
+    Single<VersionResp> CheckUpdateAsync();
 }
