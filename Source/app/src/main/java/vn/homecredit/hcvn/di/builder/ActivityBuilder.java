@@ -13,6 +13,8 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
+import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.ui.welcome.WelcomeActivityModule;
 
 @Module
 public abstract class ActivityBuilder {
@@ -34,4 +36,7 @@ public abstract class ActivityBuilder {
 //
     @ContributesAndroidInjector(modules = SplashActivityModule.class)
     abstract SplashActivity bindSplashActivity();
+
+    @ContributesAndroidInjector(modules = WelcomeActivityModule.class)
+    abstract WelcomeActivity bindWelcomeActivity();
 }

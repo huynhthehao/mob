@@ -4,18 +4,22 @@
  * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/12/18 11:27 AM
+ * Last modified 6/12/18 5:16 PM
  */
 
-package vn.homecredit.hcvn.ui.splash;
+package vn.homecredit.hcvn.ui.welcome;
 
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
-public class SplashViewModel extends BaseViewModel<SplashNavigator> {
-    public SplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
+    public WelcomeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
+    }
+
+    public void hardCode()
+    {
+        getNavigator().openWelcomeActivity();
     }
 }

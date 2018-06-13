@@ -23,6 +23,7 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel> implements SplashNavigator {
 
@@ -50,14 +51,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 
     @Override
     public void openWelcomeActivity() {
-        Single<VersionResp> single = this.mSplashViewModel.getRestService().CheckUpdateAsync();
-        single.doOnSuccess(response -> {
-            System.out.println("Do" + response);
-        }).subscribeOn(getViewModel().getSchedulerProvider().io()).observeOn(getViewModel().getSchedulerProvider().ui()).subscribe(apiResponse -> {
-            System.out.println("Done " + apiResponse);
-        }, throwable -> {
-            System.out.println(throwable.getMessage());
-        });
+        Intent intent = WelcomeActivity.newIntent(SplashActivity.this);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -68,7 +64,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         openWelcomeActivity();
     }
 }

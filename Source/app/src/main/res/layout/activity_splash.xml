@@ -13,11 +13,9 @@
     tools:context=".ui.splash.SplashActivity">
 
     <data>
-
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.splash.SplashViewModel" />
-
     </data>
 
     <RelativeLayout
