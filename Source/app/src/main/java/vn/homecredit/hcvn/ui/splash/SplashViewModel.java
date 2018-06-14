@@ -18,4 +18,26 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
     public SplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
     }
+
+    public void Init()
+    {
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        setIsLoading(true);
+        getCompositeDisposable().add(getDataManager()
+                .CheckUpdateAsync()
+                .doOnSuccess(response -> getDataManager()
+                        .setVersionRespData(response.getData()))
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(response -> {
+                    setIsLoading(false);
+                    getNavigator().openWelcomeActivity();
+                }, throwable -> {
+                    setIsLoading(false);
+                }));
+    }
 }

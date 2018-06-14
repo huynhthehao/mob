@@ -13,19 +13,45 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", "\"https://mobileapp2-uat.homecredit.vn\"")
+            minifyEnabled false
+            debuggable true
         }
 
-        uat {
+        release {
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://mobileapp2-uat.homecredit.vn\"")
         }
+    }
 
-        production {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://onlineapi.homecredit.vn\"")
+    android {
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
+    }
+
+    flavorDimensions "mode"
+    productFlavors
+    {
+        beta {
+            dimension "mode"
+            applicationId "vn.homecredit.hcvn.beta"
+            buildConfigField "String", "APPCENTER_SECRET",  '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
+            buildConfigField "String", "BASE_URL",  '"https://mobileapp2-uat.homecredit.vn"'
+        }
+        uat
+        {
+            dimension "mode"
+            applicationId "vn.homecredit.hcvn.uat"
+            buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
+        }
+        product
+        {
+            dimension "mode"
+            buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
         }
     }
 
@@ -83,4 +109,8 @@ dependencies {
     // view model
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycle"
+
+    // appCenter
+    compile "com.microsoft.appcenter:appcenter-analytics:$rootProject.appCenterSdkVersion"
+    compile "com.microsoft.appcenter:appcenter-crashes:$rootProject.appCenterSdkVersion"
 }

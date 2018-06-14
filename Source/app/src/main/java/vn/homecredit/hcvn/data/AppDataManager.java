@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
@@ -28,17 +29,30 @@ public class AppDataManager implements DataManager {
     private final PreferencesHelper mPreferencesHelper;
     private final RestService mRestService;
     private final Gson mGson;
+    private MemoryHelper mMemoryHelper;
+
 
     @Inject
-    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson) {
+    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper) {
         mContext = context;
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
         mGson = gson;
+        mMemoryHelper = memoryHelper;
     }
 
     @Override
     public Single<VersionResp> CheckUpdateAsync() {
         return mRestService.CheckUpdateAsync();
+    }
+
+    @Override
+    public VersionResp.VersionRespData getVersionRespData() {
+        return mMemoryHelper.getVersionRespData();
+    }
+
+    @Override
+    public void setVersionRespData(VersionResp.VersionRespData versionRespData) {
+
     }
 }

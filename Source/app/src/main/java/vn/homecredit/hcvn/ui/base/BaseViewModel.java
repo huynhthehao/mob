@@ -50,7 +50,7 @@ public abstract class BaseViewModel<N> extends ViewModel {
         return mCompositeDisposable;
     }
 
-    public RestService getRestService() {
+    public DataManager getDataManager() {
         return mDataManager;
     }
 

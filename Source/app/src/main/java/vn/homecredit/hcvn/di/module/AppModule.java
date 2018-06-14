@@ -14,6 +14,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.AppDataManager;
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
+import vn.homecredit.hcvn.data.local.memory.MemoryHelperImpl;
 import vn.homecredit.hcvn.data.local.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
@@ -58,6 +60,12 @@ public class AppModule {
     @Singleton
     Gson provideGson() {
         return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+    }
+
+    @Provides
+    @Singleton
+    MemoryHelper provideMemoryHelper(MemoryHelperImpl memoryHelper) {
+        return memoryHelper;
     }
 
     @Provides

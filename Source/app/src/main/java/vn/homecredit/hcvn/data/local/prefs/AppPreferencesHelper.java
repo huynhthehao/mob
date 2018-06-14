@@ -31,4 +31,9 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return mPrefs.getString(PREF_KEY_ACCESS_TOKEN, null);
     }
 
+    @Override
+    public void setAccessToken(String accessToken) {
+        mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, accessToken).apply();
+    }
+
 }

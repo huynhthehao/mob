@@ -14,10 +14,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
+
 import javax.inject.Inject;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BR;
+import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
@@ -64,9 +69,14 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AppCenter.start(getApplication(), BuildConfig.APPCENTER_SECRET,
+                Analytics.class, Crashes.class);
+
         this.mSplashViewModel.setNavigator(this);
 
         //check if not logged in
-        this.mSplashViewModel.getNavigator().openWelcomeActivity();
+//        this.mSplashViewModel.getNavigator().openWelcomeActivity();
+        getViewModel().Init();
     }
 }
