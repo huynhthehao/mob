@@ -14,5 +14,7 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
 public interface RestService {
-    Single<VersionResp> CheckUpdateAsync();
+    Single<VersionResp> CheckUpdate();
+
+    Single GetToken(String phoneNumber, String password);
 }

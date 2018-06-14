@@ -10,7 +10,6 @@
 package vn.homecredit.hcvn.ui.splash;
 
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -28,7 +27,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
     {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
-                .CheckUpdateAsync()
+                .CheckUpdate()
                 .doOnSuccess(response -> getDataManager()
                         .setVersionRespData(response.getData()))
                 .subscribeOn(getSchedulerProvider().io())

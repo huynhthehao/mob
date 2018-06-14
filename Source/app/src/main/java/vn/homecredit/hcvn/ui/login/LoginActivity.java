@@ -39,6 +39,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,21 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         Intent intent = HomeActivity.newIntent(LoginActivity.this);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void login() {
+        String phoneNumber = getViewDataBinding().phoneNumberTextView.getText().toString();
+        String password = getViewDataBinding().passwordTextView.getText().toString();
+        if (getViewModel().Validate(phoneNumber, password))
+        {
+            hideKeyboard();
+            getViewModel().login(phoneNumber,password);
+        }
+        else
+        {
+            Toast.makeText(this, "Số điện thoại hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static Intent newIntent(Context context) {

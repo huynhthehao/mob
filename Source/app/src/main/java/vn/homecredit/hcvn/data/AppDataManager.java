@@ -20,7 +20,6 @@ import io.reactivex.Single;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
-import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.remote.RestService;
 
 @Singleton
@@ -42,8 +41,13 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<VersionResp> CheckUpdateAsync() {
-        return mRestService.CheckUpdateAsync();
+    public Single<VersionResp> CheckUpdate() {
+        return mRestService.CheckUpdate();
+    }
+
+    @Override
+    public Single GetToken(String phoneNumber, String password) {
+        return mRestService.GetToken(phoneNumber, password);
     }
 
     @Override
@@ -53,6 +57,6 @@ public class AppDataManager implements DataManager {
 
     @Override
     public void setVersionRespData(VersionResp.VersionRespData versionRespData) {
-
+        mMemoryHelper.setVersionRespData(versionRespData);
     }
 }
