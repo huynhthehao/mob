@@ -10,6 +10,7 @@ import android.app.Application;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
+import com.onesignal.OneSignal;
 
 import javax.inject.Inject;
 
@@ -53,5 +54,10 @@ public class HCVNApp extends Application implements HasActivityInjector {
         }
 
         CalligraphyConfig.initDefault(mCalligraphyConfig);
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
     }
 }
