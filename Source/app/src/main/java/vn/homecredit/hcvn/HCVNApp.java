@@ -2,6 +2,7 @@ package vn.homecredit.hcvn;
 
 import android.app.Activity;
 import android.app.Application;
+import android.widget.Toast;
 
 //import com.androidnetworking.AndroidNetworking;
 //import com.androidnetworking.interceptors.HttpLoggingInterceptor;
@@ -10,7 +11,11 @@ import android.app.Application;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
+import com.onesignal.OSNotification;
+import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
+
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -57,7 +62,25 @@ public class HCVNApp extends Application implements HasActivityInjector {
 
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+                .unsubscribeWhenNotificationsAreDisabled(true).setNotificationOpenedHandler(new OneSignal.NotificationOpenedHandler() {
+                    @Override
+                    public void notificationOpened(OSNotificationOpenResult result) {
+                        //TODO: Tracking
+                        //TODO: Process Push
+                    }
+                }).setNotificationReceivedHandler(new OneSignal.NotificationReceivedHandler() {
+                    @Override
+                    public void notificationReceived(OSNotification notification) {
+
+                        AppLogger.d(notification.payload.body);
+                        JSONObject additionalData = notification.payload.additionalData;
+                        //TODO: Tracking
+                        // ...
+                        //End TODO
+                        Toast.makeText(HCVNApp.this.getApplicationContext(), notification.payload.body, Toast.LENGTH_SHORT).show();
+
+                        AppLogger.d(String.format("%s", additionalData));
+                    }
+                }).init();
     }
 }
