@@ -1,3 +1,12 @@
+<!--
+  ~ styles.xml
+  ~
+  ~ Created by quan.p@homecredit.vn
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 6/19/18 5:25 PM
+  -->
+
 <resources>
 
     <!-- Base application theme. -->
@@ -6,6 +15,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:positiveButtonText">@color/white</item>
+        <item name="android:textViewStyle">@style/AppTheme.TextView</item>
+        <item name="android:textAppearanceButton">@style/AppTheme.TextAppearanceButton</item>
+
     </style>
 
     <style name="Separator_Horizontal">
@@ -27,5 +40,22 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.TextView" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/myriadpro_regular</item>
+        <item name="android:textColor">@color/brownishGrey</item>
+    </style>
+
+    <style name="PrimaryButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="fontFamily">@font/myriadpro_regular</item>
+        <item name="android:textAppearanceButton">@style/AppTheme.TextAppearanceButton</item>
+    </style>
+
+    <style name="AppTheme.TextAppearanceButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/xlarge_text</item>
+
+    </style>
 
 </resources>

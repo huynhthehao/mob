@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ styles.xml
+  ~
+  ~ Created by quan.p@homecredit.vn
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 6/19/18 4:41 PM
+  -->
+
+<resources>
+
+    <style name="PrimaryButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/my_primary_text</item>
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:fontFamily">@font/myriadpro_regular</item>
+    </style>
+
+    <style name="AppTheme.TextView" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/myriadpro_regular</item>
+        <item name="android:textColor">@color/brownishGrey</item>
+    </style>
+</resources>

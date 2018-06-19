@@ -310,10 +310,6 @@
     <color name="my_icons">#FFFFFF</color>
     <color name="my_divider">#B6B6B6</color>
 
-    <color name="table_status_available">@color/green_300</color>
-    <color name="table_status_dirty">@color/deep_purple_400</color>
-    <color name="table_status_inactive">@color/grey_400</color>
-    <color name="table_status_reserved">@color/blue_400</color>
-    <color name="table_status_serving">@color/red_900</color>
+    <color name="brownishGrey">#666666</color>
 
 </resources>

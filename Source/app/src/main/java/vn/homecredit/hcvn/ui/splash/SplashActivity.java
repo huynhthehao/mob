@@ -11,9 +11,12 @@ package vn.homecredit.hcvn.ui.splash;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.generated.callback.OnClickListener;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
+import com.gturedi.views.StatefulLayout;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
@@ -24,13 +27,15 @@ import io.reactivex.Single;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.control.MyStatefulLayout;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.base.BaseStatefulActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
-public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashViewModel> implements SplashNavigator {
+public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, SplashViewModel> implements SplashNavigator {
 
     @Inject
     SplashViewModel mSplashViewModel;
@@ -55,6 +60,11 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     }
 
     @Override
+    public MyStatefulLayout getStatefulLayout() {
+        return getViewDataBinding().statefulLayout;
+    }
+
+    @Override
     public void openWelcomeActivity() {
         Intent intent = WelcomeActivity.newIntent(SplashActivity.this);
         startActivity(intent);
@@ -64,6 +74,16 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
     @Override
     public void openHomeActivity() {
 
+    }
+
+    @Override
+    public void retryCheckUpdate() {
+        this.showOffline(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getViewModel().CheckUpdate();
+            }
+        });
     }
 
     @Override
@@ -79,4 +99,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding, SplashVi
 //        this.mSplashViewModel.getNavigator().openWelcomeActivity();
         getViewModel().Init();
     }
+
+
 }

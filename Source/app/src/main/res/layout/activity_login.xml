@@ -83,13 +83,13 @@
 
                 <Button
                     android:id="@+id/email_sign_in_button"
-                    style="?android:textAppearanceSmall"
+                    style="@style/PrimaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:onClick="@{() -> viewModel.onLoginClick()}"
                     android:text="@string/action_sign_in"
-                    android:textStyle="bold"
-                    android:onClick="@{() -> viewModel.onLoginClick()}"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </ScrollView>

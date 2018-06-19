@@ -20,10 +20,10 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     public void Init()
     {
-        LoadData();
+        CheckUpdate();
     }
 
-    private void LoadData()
+    public void CheckUpdate()
     {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
@@ -37,6 +37,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
                     getNavigator().openWelcomeActivity();
                 }, throwable -> {
                     setIsLoading(false);
+                    getNavigator().retryCheckUpdate();
                 }));
     }
 }

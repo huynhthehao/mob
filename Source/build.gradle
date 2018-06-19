@@ -55,4 +55,6 @@ ext {
     espressoVersion = '3.0.1'
     mockitoVersion = '2.15.0'
     appCenterSdkVersion = '1.5.1'
+
+    statefulLayoutVersion = '1.2.1'
 }

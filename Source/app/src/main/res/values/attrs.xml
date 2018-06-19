@@ -1,0 +1,14 @@
+<!--
+  ~ attrs.xml
+  ~
+  ~ Created by quan.p@homecredit.vn
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 6/19/18 6:21 PM
+  -->
+
+<resources>
+    <declare-styleable name="stfStatefulLayout">
+        <attr name="stfLayoutRes" format="integer" />
+    </declare-styleable>
+</resources>
