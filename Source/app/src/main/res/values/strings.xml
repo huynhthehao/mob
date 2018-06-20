@@ -47,4 +47,5 @@
     <string name="notifications">Thông báo</string>
     <string name="feedback">Phản hồi</string>
     <string name="more">Thêm</string>
+    <string name="forgot_password">Forgot your password?</string>
 </resources>
