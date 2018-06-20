@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HCVN</string>
+    <string name="app_name" translatable="false">Home Credit Vietnam</string>
 
     <!--play store-->
     <string name="app_google_play_store_link" translatable="false">"https://play.google.com/store/apps/details?id="</string>
@@ -36,4 +36,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Support_FormTitle">Nếu bạn có bất kỳ thắc mắc nào hoặc cần hỗ trợ, xin vui lòng gửi theo mẫu dưới. Chúng tôi sẽ phản hồi bạn sớm</string>
+    <string name="my_profile">Hồ sơ của tôi</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="change_password">Đổi mật khẩu</string>
+    <string name="settings">Cài đặt</string>
+    <string name="locations">Địa điểm</string>
+    <string name="terms_and_conditions">Điều khoản sử dụng</string>
+    <string name="user_manual">Hướng dẫn sử dụng</string>
+    <string name="contracts">Hợp đồng</string>
+    <string name="notifications">Thông báo</string>
+    <string name="feedback">Phản hồi</string>
+    <string name="more">Thêm</string>
 </resources>
