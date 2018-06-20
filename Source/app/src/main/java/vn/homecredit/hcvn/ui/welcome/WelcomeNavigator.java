@@ -14,4 +14,6 @@ public interface WelcomeNavigator {
     void openHomeActivity();
 
     void openLoginActivity();
+    void openSignupActivity();
+    void startIntro();
 }
