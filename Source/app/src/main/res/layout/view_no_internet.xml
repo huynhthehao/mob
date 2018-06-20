@@ -36,6 +36,7 @@
         </RelativeLayout>
 
         <ProgressBar
+            android:layout_gravity="center"
             android:visibility="gone"
             android:id="@+id/stProgress"
             style="@style/stfProgress"
