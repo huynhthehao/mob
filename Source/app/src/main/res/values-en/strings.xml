@@ -9,7 +9,4 @@
   -->
 
 <resources>
-    <string name="welcome_login">Log in</string>
-    <string name="welcome_sign_up">Sign up</string>
-    <string name="welcome_cash_loan">Cash loan</string>
 </resources>
