@@ -21,6 +21,10 @@
 
         <item name="android:actionBarTabStyle">@style/AppTabLayout</item>
 
+        <!-- Dialog -->
+        <item name="md_positive_color">?attr/colorPrimary</item>
+        <!-- End Dialog -->
+
     </style>
 
     <style name="Separator_Horizontal">
@@ -82,5 +86,8 @@
         <item name="colorControlNormal">@color/brownishGrey</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
+
+
+
 
 </resources>

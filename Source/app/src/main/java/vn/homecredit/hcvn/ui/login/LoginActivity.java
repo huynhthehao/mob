@@ -41,6 +41,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,7 @@ import vn.homecredit.hcvn.databinding.ActivityLoginBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.utils.CommonUtils;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -108,8 +111,19 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         }
         else
         {
-            Toast.makeText(this, "Số điện thoại hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
+            showError("Số điện thoại hoặc mật khẩu không hợp lệ");
         }
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+                .title(R.string.notice)
+                .content(errorMessage)
+                .positiveText(R.string.ok);
+
+        MaterialDialog dialog = builder.build();
+        dialog.show();
     }
 
     public static Intent newIntent(Context context) {

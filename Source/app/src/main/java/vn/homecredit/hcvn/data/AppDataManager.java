@@ -19,6 +19,7 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 
@@ -46,7 +47,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single GetToken(String phoneNumber, String password) {
+    public Single<TokenResp> GetToken(String phoneNumber, String password) {
         return mRestService.GetToken(phoneNumber, password);
     }
 

@@ -140,5 +140,9 @@ dependencies {
     //onesignal
     implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
 
+    //layout
     implementation "com.github.gturedi:stateful-layout:$rootProject.statefulLayoutVersion"
+
+    // Dialogs
+    implementation "com.afollestad.material-dialogs:core:$rootProject.materialDialogVersion"
 }

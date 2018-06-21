@@ -48,4 +48,6 @@
     <string name="feedback">Phản hồi</string>
     <string name="more">Thêm</string>
     <string name="forgot_password">Forgot your password?</string>
+    <string name="notice">Thông báo</string>
+    <string name="ok">Đồng ý</string>
 </resources>

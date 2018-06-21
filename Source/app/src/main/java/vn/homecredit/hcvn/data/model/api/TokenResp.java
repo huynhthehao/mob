@@ -23,6 +23,14 @@ public class TokenResp {
     @Expose
     private Integer expiresIn;
 
+    @SerializedName("error")
+    @Expose
+    private String ErrorType;
+
+    @SerializedName("error_description")
+    @Expose
+    private String ErrorDescription;
+
     public String getAccessToken() {
         return accessToken;
     }
@@ -45,5 +53,21 @@ public class TokenResp {
 
     public void setExpiresIn(Integer expiresIn) {
         this.expiresIn = expiresIn;
+    }
+
+    public String getErrorType() {
+        return ErrorType;
+    }
+
+    public void setErrorType(String errorType) {
+        ErrorType = errorType;
+    }
+
+    public String getErrorDescription() {
+        return ErrorDescription;
+    }
+
+    public void setErrorDescription(String errorDescription) {
+        ErrorDescription = errorDescription;
     }
 }

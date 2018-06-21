@@ -10,11 +10,12 @@
 package vn.homecredit.hcvn.data.remote;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
 public interface RestService {
     Single<VersionResp> CheckUpdate();
 
-    Single GetToken(String phoneNumber, String password);
+    Single<TokenResp> GetToken(String phoneNumber, String password);
 }

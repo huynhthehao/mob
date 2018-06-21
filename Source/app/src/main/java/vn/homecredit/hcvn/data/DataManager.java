@@ -16,5 +16,5 @@ import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.remote.RestService;
 
 public interface DataManager extends RestService, MemoryHelper {
-    Single<VersionResp> CheckUpdate();
+
 }

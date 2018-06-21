@@ -11,8 +11,12 @@ package vn.homecredit.hcvn.ui.login;
 
 import android.text.TextUtils;
 
+import com.androidnetworking.error.ANError;
+
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
@@ -49,6 +53,8 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                     setIsLoading(false);
                     getNavigator().openHomeActivity();
                 }, throwable -> {
+                    String t = (((ANError)throwable).getErrorAsObject(TokenResp.class)).getErrorDescription();
+                    getNavigator().showError(t);
                     setIsLoading(false);
                 }));
     }
