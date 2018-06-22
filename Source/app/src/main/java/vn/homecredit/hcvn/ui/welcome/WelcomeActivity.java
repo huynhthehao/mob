@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -94,7 +95,14 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus && !mHasAnimationStarted) {
             mHasAnimationStarted = true;
-            getViewModel().startIntro();
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getViewModel().startIntro();
+                }
+            }, 1000);
         }
     }
 
@@ -111,8 +119,6 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
                     .setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(WelcomeActivity.this, "Welcome to Home Credit Vietnam", Toast.LENGTH_LONG).show();
-
                     root.setVisibility(View.GONE);
                 }
             }).setDuration(1000);

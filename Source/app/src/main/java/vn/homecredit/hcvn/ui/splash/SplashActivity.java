@@ -34,6 +34,7 @@ import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.base.BaseStatefulActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.utils.CommonUtils;
 
 public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, SplashViewModel> implements SplashNavigator {
 
@@ -67,8 +68,10 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     @Override
     public void openWelcomeActivity() {
         Intent intent = WelcomeActivity.newIntent(SplashActivity.this);
+
         startActivity(intent);
         finish();
+        overridePendingTransition(0,0);
     }
 
     @Override
@@ -100,5 +103,16 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
         getViewModel().Init();
     }
 
+    @Override
+    public void showLoading() {
+        hideLoading();
+        mProgressDialog = CommonUtils.showLoadingDialog(this);
+    }
 
+    @Override
+    public void hideLoading() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
+        }
+    }
 }

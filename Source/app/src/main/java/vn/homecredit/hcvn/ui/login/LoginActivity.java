@@ -38,6 +38,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,6 +95,12 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        adjustBottom();
+    }
+
+    @Override
     public void openHomeActivity() {
         Intent intent = HomeActivity.newIntent(LoginActivity.this);
         startActivity(intent);
@@ -104,13 +111,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     public void login() {
         String phoneNumber = getViewDataBinding().phoneNumberTextView.getText().toString();
         String password = getViewDataBinding().passwordTextView.getText().toString();
-        if (getViewModel().Validate(phoneNumber, password))
-        {
+        if (getViewModel().Validate(phoneNumber, password)) {
             hideKeyboard();
-            getViewModel().login(phoneNumber,password);
-        }
-        else
-        {
+            getViewModel().login(phoneNumber, password);
+        } else {
             showError("Số điện thoại hoặc mật khẩu không hợp lệ");
         }
     }
@@ -129,5 +133,19 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }
+
+    private void adjustBottom() {
+
+        View bottomGroupView = getViewDataBinding().bottomGroupView;
+        View scrollView = getViewDataBinding().scrollView;
+        View topGroupView = getViewDataBinding().topGroupView;
+
+        int marginTop = scrollView.getHeight() - topGroupView.getHeight() - bottomGroupView.getHeight();
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, marginTop, 0, 0);
+        bottomGroupView.setLayoutParams(lp);
+    }
+
 }
 

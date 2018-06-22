@@ -38,6 +38,6 @@ public abstract class BaseStatefulActivity<T extends ViewDataBinding, V extends 
 
     public void showOffline(View.OnClickListener clickListener)
     {
-        getStatefulLayout().showOffline("No internet connection", clickListener);
+        getStatefulLayout().showOffline(R.string.unable_to_connect_message, clickListener);
     }
 }

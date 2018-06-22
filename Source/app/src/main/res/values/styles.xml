@@ -56,6 +56,7 @@
         <item name="android:background">@drawable/rounded_button</item>
         <item name="fontFamily">@font/myriadpro_regular</item>
         <item name="android:textAppearanceButton">@style/AppTheme.TextAppearanceButton</item>
+        <item name="android:height">60dp</item>
     </style>
 
     <style name="AppTheme.TextAppearanceButton">
@@ -87,7 +88,10 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
-
+    <style name="Fade">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
 
 
 </resources>
