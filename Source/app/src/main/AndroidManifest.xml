@@ -50,8 +50,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.welcome.WelcomeActivity" />
         </activity>
-        <activity android:name=".ui.acl.introduction.AclIntroduction" />
-        <activity android:name=".ui.acl.validation.AclValidationPage"></activity>
+        <activity android:name=".ui.acl.introduction.AclIntroductionActivity" />
+        <activity android:name=".ui.acl.validation.AclValidationActivity"></activity>
     </application>
 
 </manifest>

@@ -1,15 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
   ~
   ~ Last modified 7/2/18 4:06 PM, by quan.p@homecredit.vn
   -->
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="vn.homecredit.hcvn.ui.acl.validation.AclValidationPage">
+    tools:context=".AclValidationActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.acl.validation.AclValidationViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

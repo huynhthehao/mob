@@ -14,7 +14,7 @@ import android.os.Bundle;
 
 import vn.homecredit.hcvn.R;
 
-public class AclIntroduction extends AppCompatActivity {
+public class AclIntroductionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

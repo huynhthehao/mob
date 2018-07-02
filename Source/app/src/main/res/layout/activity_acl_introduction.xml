@@ -13,6 +13,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction">
+    tools:context="vn.homecredit.hcvn.ui.acl.introduction.AclIntroductionActivity">
 
 </android.support.constraint.ConstraintLayout>
