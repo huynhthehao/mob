@@ -38,8 +38,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +55,7 @@ import vn.homecredit.hcvn.databinding.ActivityLoginBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.utils.CommonUtils;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -91,6 +95,12 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        adjustBottom();
+    }
+
+    @Override
     public void openHomeActivity() {
         Intent intent = HomeActivity.newIntent(LoginActivity.this);
         startActivity(intent);
@@ -101,19 +111,41 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     public void login() {
         String phoneNumber = getViewDataBinding().phoneNumberTextView.getText().toString();
         String password = getViewDataBinding().passwordTextView.getText().toString();
-        if (getViewModel().Validate(phoneNumber, password))
-        {
+        if (getViewModel().Validate(phoneNumber, password)) {
             hideKeyboard();
-            getViewModel().login(phoneNumber,password);
+            getViewModel().login(phoneNumber, password);
+        } else {
+            showError("Số điện thoại hoặc mật khẩu không hợp lệ");
         }
-        else
-        {
-            Toast.makeText(this, "Số điện thoại hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
-        }
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+                .title(R.string.notice)
+                .content(errorMessage)
+                .positiveText(R.string.ok);
+
+        MaterialDialog dialog = builder.build();
+        dialog.show();
     }
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }
+
+    private void adjustBottom() {
+
+        View bottomGroupView = getViewDataBinding().bottomGroupView;
+        View scrollView = getViewDataBinding().scrollView;
+        View topGroupView = getViewDataBinding().topGroupView;
+
+        int marginTop = scrollView.getHeight() - topGroupView.getHeight() - bottomGroupView.getHeight();
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, marginTop, 0, 0);
+        bottomGroupView.setLayoutParams(lp);
+    }
+
 }
 

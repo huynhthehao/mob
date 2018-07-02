@@ -57,7 +57,7 @@ public class MyStatefulLayout extends LinearLayout {
     private int animCounter;
 
     private View content;
-    private LinearLayout stContainer;
+    private View stContainer;
     private ProgressBar stProgress;
     private ImageView stImage;
     private TextView stMessage;
@@ -120,7 +120,7 @@ public class MyStatefulLayout extends LinearLayout {
         setOrientation(VERTICAL);
         content = getChildAt(0); // assume first child as content
         LayoutInflater.from(getContext()).inflate(contentLayout, this, true);
-        stContainer = (LinearLayout) findViewById(com.gturedi.views.R.id.stContainer);
+        stContainer = (View) findViewById(com.gturedi.views.R.id.stContainer);
         stProgress = (ProgressBar) findViewById(com.gturedi.views.R.id.stProgress);
         stImage = (ImageView) findViewById(com.gturedi.views.R.id.stImage);
         stMessage = (TextView) findViewById(com.gturedi.views.R.id.stMessage);
@@ -215,7 +215,7 @@ public class MyStatefulLayout extends LinearLayout {
     public void showOffline(String message, OnClickListener clickListener) {
         showCustom(new CustomStateOptions()
                 .message(message)
-                .image(R.drawable.no_wifi)
+                .image(R.drawable.no_server)
                 .buttonText(str(com.gturedi.views.R.string.stfButtonText))
                 .buttonClickListener(clickListener));
     }

@@ -45,25 +45,25 @@
                 android:id="@+id/tabContract"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/contract_list_ico" />
+                android:icon="@drawable/contract_list_ico" android:text="@string/contracts" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabNotification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/notification_ico" />
+                android:icon="@drawable/notification_ico" android:text="@string/notifications" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabSupport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/support_ico" />
+                android:icon="@drawable/support_ico" android:text="@string/feedback" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/more_ico" />
+                android:icon="@drawable/more_ico" android:text="@string/more" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>

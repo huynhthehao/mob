@@ -12,30 +12,37 @@
     tools:context=".ui.welcome.WelcomeActivity">
 
     <data>
+
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.welcome.WelcomeViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="0dp">
-
+        android:layout_height="match_parent">
+        <!-- Logo Zone -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_above="@id/buttonStackView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true">
 
             <ImageView
+                android:id="@+id/logoWelcomeImageView"
                 android:layout_width="149dp"
                 android:layout_height="63dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/logo_welcome" />
         </RelativeLayout>
+        <!-- End of Logo Zone -->
 
+
+        <!-- Button Zone -->
         <LinearLayout
+            android:id="@+id/buttonStackView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -44,13 +51,13 @@
             <View style="@style/Separator_Horizontal" />
 
             <LinearLayout
-                android:paddingVertical="@dimen/activity_vertical_margin"
-                android:paddingHorizontal="@dimen/activity_horizontal_margin"
-                android:onClick="@{() -> viewModel.onLoginClick()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
-                android:orientation="horizontal">
+                android:onClick="@{() -> viewModel.onLoginClick()}"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:paddingVertical="@dimen/activity_vertical_margin">
 
                 <ImageView
                     android:layout_width="40dp"
@@ -59,13 +66,13 @@
                     android:tint="@color/my_primary" />
 
                 <TextView
-                    android:layout_marginLeft="@dimen/text_margin"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/text_margin"
                     android:layout_weight="1"
                     android:text="@string/welcome_login"
-                    style="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/my_primary" />
 
                 <ImageView
@@ -79,11 +86,13 @@
             <View style="@style/Separator_Horizontal" />
 
             <LinearLayout
-                android:paddingVertical="@dimen/activity_vertical_margin"
-                android:paddingHorizontal="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{() -> viewModel.onSignupClick()}"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:paddingVertical="@dimen/activity_vertical_margin">
 
                 <ImageView
                     android:layout_width="40dp"
@@ -112,11 +121,11 @@
             <View style="@style/Separator_Horizontal" />
 
             <LinearLayout
-                android:paddingVertical="@dimen/activity_vertical_margin"
-                android:paddingHorizontal="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/activity_horizontal_margin"
+                android:paddingVertical="@dimen/activity_vertical_margin">
 
                 <ImageView
                     android:layout_width="40dp"
@@ -125,26 +134,41 @@
                     android:tint="@color/my_primary" />
 
                 <TextView
-                    android:layout_marginLeft="@dimen/text_margin"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/text_margin"
                     android:layout_weight="1"
                     android:text="@string/welcome_cash_loan"
-                    style="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/my_primary" />
 
                 <ImageView
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_chevron_right_black_24dp"
-                    style="@style/TextAppearance.AppCompat.Medium"
                     android:tint="@color/my_primary" />
             </LinearLayout>
 
         </LinearLayout>
+        <!-- End of Button Zone -->
 
-    </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/animateViewHolder"
+            android:visibility="visible"
+            tools:visibility="gone"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/logoWelcomeImageViewFront"
+                android:layout_width="149dp"
+                android:layout_height="63dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo_welcome" />
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

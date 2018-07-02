@@ -13,4 +13,6 @@ public interface LoginNavigator {
     void openHomeActivity();
 
     void login();
+
+    void showError(String errorMessage);
 }

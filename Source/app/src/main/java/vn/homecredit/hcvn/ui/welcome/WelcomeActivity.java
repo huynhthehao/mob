@@ -11,17 +11,27 @@ package vn.homecredit.hcvn.ui.welcome;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import javax.inject.Inject;
+
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityWelcomeBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 
-import javax.inject.Inject;
-
 public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeNavigator {
+
+    boolean mHasAnimationStarted = false;
 
     @Inject
     WelcomeViewModel mWelcomeViewModel;
@@ -60,7 +70,17 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     public void openLoginActivity() {
         Intent intent = LoginActivity.newIntent(WelcomeActivity.this);
         startActivity(intent);
-        finish();
+//        finish();
+    }
+
+    @Override
+    public void openSignupActivity() {
+        animateLogo();
+    }
+
+    @Override
+    public void startIntro() {
+        animateLogo();
     }
 
     @Override
@@ -68,5 +88,44 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
         super.onCreate(savedInstanceState);
         mActivityWelcomeBinding = getViewDataBinding();
         mWelcomeViewModel.setNavigator(this);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && !mHasAnimationStarted) {
+            mHasAnimationStarted = true;
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getViewModel().startIntro();
+                }
+            }, 1000);
+        }
+    }
+
+    public void animateLogo() {
+        ImageView logoWelcomeImageViewFront = getViewDataBinding().logoWelcomeImageViewFront;
+        ImageView logoWelcomeImageView = getViewDataBinding().logoWelcomeImageView;
+        RelativeLayout root = getViewDataBinding().animateViewHolder;
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            logoWelcomeImageViewFront.animate()
+                    .translationX(logoWelcomeImageView.getX() - root.getWidth() / 2 + logoWelcomeImageViewFront.getWidth() / 2)
+                    .translationY(logoWelcomeImageView.getY() - root.getHeight() / 2 + logoWelcomeImageViewFront.getHeight() / 2)
+                    .setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    root.setVisibility(View.GONE);
+                }
+            }).setDuration(1000);
+        }
+        else
+        {
+            root.setVisibility(View.GONE);
+        }
     }
 }

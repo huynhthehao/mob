@@ -39,7 +39,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     // TODO
     // this can probably depend on isLoading variable of BaseViewModel,
     // since its going to be common for all the activities
-    private ProgressDialog mProgressDialog;
+    protected ProgressDialog mProgressDialog;
     private T mViewDataBinding;
     private V mViewModel;
 

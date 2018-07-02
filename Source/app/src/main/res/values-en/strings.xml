@@ -9,8 +9,13 @@
   -->
 
 <resources>
-    <string name="app_name">Home Credit Vietnam</string>
-    <string name="welcome_login">Log in</string>
-    <string name="welcome_sign_up">Sign up</string>
+    <string name="unable_to_connect_message">Unable connect to the server,  please try again</string>
+    <string name="more">More</string>
+    <string name="feedback">Feedback</string>
+    <string name="contracts">Contracts</string>
+    <string name="notifications">Notifications</string>
+    <string name="title_activity_login">Login</string>
     <string name="welcome_cash_loan">Cash loan</string>
+    <string name="welcome_sign_up">Sign up</string>
+    <string name="welcome_login">Log in</string>
 </resources>

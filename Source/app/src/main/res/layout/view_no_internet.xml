@@ -11,7 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/stContainer"
         android:visibility="gone"
         tools:visibility="visible"
@@ -23,40 +23,31 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="149dp"
-                android:layout_height="63dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/logo_welcome" />
-        </RelativeLayout>
-
         <ProgressBar
+            android:layout_gravity="center"
+            tools:visibility="visible"
             android:visibility="gone"
+            android:layout_centerInParent="true"
             android:id="@+id/stProgress"
             style="@style/stfProgress"
             />
 
         <ImageView
             android:id="@+id/stImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/no_wifi" />
+            android:layout_width="76dp"
+            android:layout_height="94dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/stMessage"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:src="@drawable/no_server" />
 
         <TextView
             android:id="@+id/stMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="90dp"
-            android:layout_marginTop="10dp"
-            android:text="No Internet connection"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:text="@string/unable_to_connect_message"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:fontFamily="@font/myriadpro_light" />
 
@@ -65,9 +56,8 @@
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="30dp"
-            android:height="60dp"
-            android:text="Retry" />
-    </LinearLayout>
+            android:text="@string/retry" />
+    </RelativeLayout>
 </merge>

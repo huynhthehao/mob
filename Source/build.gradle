@@ -70,4 +70,6 @@ ext {
     appCenterSdkVersion = '1.5.1'
 
     statefulLayoutVersion = '1.2.1'
+
+    materialDialogVersion = '0.9.6.0'
 }
