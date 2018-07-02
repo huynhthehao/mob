@@ -11,6 +11,8 @@ package vn.homecredit.hcvn.di.builder;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
+import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivityModule;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
@@ -44,4 +46,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = LoginActivityModule.class)
     abstract LoginActivity bindLoginActivity();
+
+    @ContributesAndroidInjector(modules = AclValidationActivityModule.class)
+    abstract AclValidationActivity bindAclValidationActivity();
 }

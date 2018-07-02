@@ -32,6 +32,11 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
         this.getNavigator().openSignupActivity();
     }
 
+    public void onCashloanClick()
+    {
+        this.getNavigator().openIntroActivity();
+    }
+
     public void startIntro()
     {
         this.getNavigator().startIntro();

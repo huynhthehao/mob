@@ -9,6 +9,8 @@
 
 package vn.homecredit.hcvn.ui.acl.validation;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -23,6 +25,10 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
 
     @Inject
     AclValidationViewModel mAclValidationViewModel;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, AclValidationActivity.class);
+    }
 
     @Override
     public int getBindingVariable() {
