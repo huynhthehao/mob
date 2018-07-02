@@ -14,4 +14,9 @@ public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator
     public AclValidationViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
     }
+
+    public void onNextClick()
+    {
+
+    }
 }

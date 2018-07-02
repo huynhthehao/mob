@@ -52,4 +52,8 @@
     <string name="ok">Đồng ý</string>
     <string name="unable_to_connect_message">Không thể kết nối đến máy chủ, vui lòng thử lại</string>
     <string name="no_internet_connection">No internet connection</string>
+    <string name="title_activity_acl_validation">Đăng ký khoản vay</string>
+    <string name="acl_register_legal_note"><html><i><b>Ghi chú: </b>Vui lòng đảm bảo rằng bạn nhập thông tin chính xác vì thông tin này được sử dụng như là một phần của quá trình duyệt khoản vay</i></html></string>
+    <string name="action_next">Tiếp tục</string>
+    <string name="personal_detail">Thông tin cá nhân</string>
 </resources>
