@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/'}
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.10.1, 0.99.99]'
@@ -25,7 +25,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
-                onesignal_app_id: '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
+                onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
@@ -54,29 +54,29 @@ android {
 
     flavorDimensions "mode"
     productFlavors
-    {
-        beta {
-            dimension "mode"
-            applicationId "vn.homecredit.hcvn.beta"
-            versionCode 5
-            buildConfigField "String", "APPCENTER_SECRET",  '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
+            {
+                beta {
+                    dimension "mode"
+                    applicationId "vn.homecredit.hcvn.beta"
+                    versionCode 5
+                    buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
 //            buildConfigField "String", "BASE_URL",  '"https://mobileapp2-uat.homecredit.vn"'
-            buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
-        }
-        uat
-        {
-            dimension "mode"
-            versionCode 1
-            applicationId "vn.homecredit.hcvn.uat"
-            buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
-        }
-        product
-        {
-            dimension "mode"
-            versionCode 1
-            buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
-        }
-    }
+                    buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
+                }
+                uat
+                        {
+                            dimension "mode"
+                            versionCode 1
+                            applicationId "vn.homecredit.hcvn.uat"
+                            buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
+                        }
+                product
+                        {
+                            dimension "mode"
+                            versionCode 1
+                            buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
+                        }
+            }
 
     dataBinding {
         enabled = true
