@@ -9,12 +9,10 @@
 
 package vn.homecredit.hcvn.data;
 
-import io.reactivex.Single;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
-import vn.homecredit.hcvn.data.model.api.VersionResp;
-import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.remote.RestService;
 
+// TODO: Remove this
 public interface DataManager extends RestService, MemoryHelper {
 
 }
