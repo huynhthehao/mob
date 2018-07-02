@@ -13,19 +13,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import javax.inject.Inject;
-
-import io.reactivex.Single;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.VersionResp;
-import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.databinding.ActivityWelcomeBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
-import vn.homecredit.hcvn.ui.splash.SplashNavigator;
-import vn.homecredit.hcvn.ui.splash.SplashViewModel;
+
+import javax.inject.Inject;
 
 public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeNavigator {
 

@@ -10,10 +10,7 @@
 package vn.homecredit.hcvn.service;
 
 import com.onesignal.OneSignal;
-
 import javax.inject.Singleton;
-
-import vn.homecredit.hcvn.service.OneSignalService;
 
 @Singleton
 public class OneSignalServiceImpl implements OneSignalService {

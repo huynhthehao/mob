@@ -1,25 +1,18 @@
 /*
- * BaseViewModel.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/12/18 2:48 PM
+ * Last modified 6/20/18 3:06 PM  by hien.nguyenm
  */
 
 package vn.homecredit.hcvn.ui.base;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
-
-import android.arch.lifecycle.ViewModel;
-
-import java.lang.ref.WeakReference;
-
 import io.reactivex.disposables.CompositeDisposable;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
+
+import java.lang.ref.WeakReference;
 
 public abstract class BaseViewModel<N> extends ViewModel {
 

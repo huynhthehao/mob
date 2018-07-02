@@ -23,7 +23,6 @@ import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 
 
-
 @Singleton
 @Component(modules = {AndroidInjectionModule.class, AppModule.class, ActivityBuilder.class})
 public interface AppComponent {
