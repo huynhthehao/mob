@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ activity_acl_validation_page.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
   ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
   ~
-  ~ Last modified 7/2/18 3:08 PM
+  ~ Last modified 7/2/18 4:06 PM, by quan.p@homecredit.vn
   -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

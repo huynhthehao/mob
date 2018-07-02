@@ -12,11 +12,13 @@ package vn.homecredit.hcvn.ui.acl.validation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import vn.homecredit.hcvn.R;
+
 public class AclValidationPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acl_validation_page);
+        setContentView(R.layout.activity_acl_validation);
     }
 }

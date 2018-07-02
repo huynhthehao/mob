@@ -9,24 +9,14 @@
 
 package vn.homecredit.hcvn.validations;
 
-public class EmailRule implements ValidationRule<String> {
+import vn.homecredit.hcvn.validations.base.RegexRule;
 
-    private final String mErrorMessage;
-    private final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+public class EmailRule extends RegexRule<String> {
+
+    public static final String EMAIL_PATTERN = "([\\w\\.\\-_]+)?\\w+@[\\w-_]+(\\.\\w+){1,}";
 
     public EmailRule(String errorMessage) {
-        mErrorMessage = errorMessage;
+        super(errorMessage, EMAIL_PATTERN);
     }
 
-    @Override
-    public boolean Check(String value) {
-        if (value.isEmpty())
-            return false;
-        return value.matches(emailPattern);
-    }
-
-    @Override
-    public String getErrorMessage() {
-        return mErrorMessage;
-    }
 }
