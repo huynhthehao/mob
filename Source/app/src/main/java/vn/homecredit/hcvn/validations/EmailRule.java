@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.validations;
 public class EmailRule implements ValidationRule<String> {
 
     private final String mErrorMessage;
+    private final String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     public EmailRule(String errorMessage) {
         mErrorMessage = errorMessage;
@@ -19,7 +20,9 @@ public class EmailRule implements ValidationRule<String> {
 
     @Override
     public boolean Check(String value) {
-        return false;
+        if (value.isEmpty())
+            return false;
+        return value.matches(emailPattern);
     }
 
     @Override
