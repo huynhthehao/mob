@@ -25,6 +25,8 @@
         <item name="md_positive_color">?attr/colorPrimary</item>
         <!-- End Dialog -->
 
+        <item name="android:homeAsUpIndicator">@drawable/back_ico</item>
+
     </style>
 
     <style name="Separator_Horizontal">
