@@ -11,6 +11,9 @@
 
     <data>
 
+        <!--<import type="vn.homecredit.hcvn.utils.TextInputEditTextBindingUtil" />-->
+
+
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.acl.validation.AclValidationViewModel" />
@@ -69,29 +72,31 @@
                         style="@style/AppTheme.SectionLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="60dp"
                         android:layout_marginBottom="60dp"
+                        android:layout_marginTop="60dp"
                         android:text="@string/personal_detail"
                         android:textAlignment="center"
-                        android:textColor="@color/brownishGrey"/>
+                        android:textColor="@color/brownishGrey" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:theme="@style/AppTheme.TextLabel">
+                        android:theme="@style/AppTheme.TextLabel"
+                        app:validation="@{viewModel.getAclRuleFactory().getPrimaryPhoneRule()}">
 
-                        <EditText
+                        <android.support.design.widget.TextInputEditText
                             android:id="@+id/phoneNumberTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/phone_ico"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@drawable/phone_ico"
                             android:hint="@string/prompt_phone_number"
                             android:imeActionId="1"
-                            android:drawableLeft="@drawable/phone_ico"
-                            android:drawableStart="@drawable/phone_ico"
-                            android:drawablePadding="10dp"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -104,13 +109,13 @@
                             android:id="@+id/idNumberTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/id_loan_ico"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@drawable/id_loan_ico"
                             android:hint="@string/prompt_id_number"
                             android:imeActionId="2"
                             android:imeActionLabel="@string/action_next"
                             android:imeOptions="actionGo"
-                            android:drawableLeft="@drawable/id_loan_ico"
-                            android:drawableStart="@drawable/id_loan_ico"
-                            android:drawablePadding="10dp"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true" />
@@ -126,11 +131,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/AppTheme.DescriptionLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/text_margin"
                         android:text="@string/acl_register_legal_note"
-                        style="@style/AppTheme.DescriptionLabel"
                         android:textAlignment="center" />
 
                     <Button

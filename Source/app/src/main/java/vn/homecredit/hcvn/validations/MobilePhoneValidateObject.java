@@ -6,13 +6,13 @@
 
 package vn.homecredit.hcvn.validations;
 
-import vn.homecredit.hcvn.validations.base.RegexRule;
+import vn.homecredit.hcvn.validations.base.RegexValidateObject;
 
-public class MobilePhoneRule extends RegexRule<String> {
+public class MobilePhoneValidateObject extends RegexValidateObject {
 
     public static final String ID_NUMBER_PATTERN = "^0(([9,8](\\d){8})|([1](\\d){9}))$";
 
-    public MobilePhoneRule(String errorMessage) {
-        super(errorMessage, ID_NUMBER_PATTERN);
+    public MobilePhoneValidateObject() {
+        super(ID_NUMBER_PATTERN);
     }
 }

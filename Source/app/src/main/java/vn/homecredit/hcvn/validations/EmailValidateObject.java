@@ -9,14 +9,14 @@
 
 package vn.homecredit.hcvn.validations;
 
-import vn.homecredit.hcvn.validations.base.RegexRule;
+import vn.homecredit.hcvn.validations.base.RegexValidateObject;
 
-public class EmailRule extends RegexRule<String> {
+public class EmailValidateObject extends RegexValidateObject {
 
     public static final String EMAIL_PATTERN = "([\\w\\.\\-_]+)?\\w+@[\\w-_]+(\\.\\w+){1,}";
 
-    public EmailRule(String errorMessage) {
-        super(errorMessage, EMAIL_PATTERN);
+    public EmailValidateObject() {
+        super(EMAIL_PATTERN);
     }
 
 }

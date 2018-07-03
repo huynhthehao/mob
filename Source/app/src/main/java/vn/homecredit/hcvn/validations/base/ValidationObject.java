@@ -6,8 +6,6 @@
 
 package vn.homecredit.hcvn.validations.base;
 
-public interface ValidationRule<T> {
-    boolean Check(T value);
-
-    String getErrorMessage();
+public interface ValidationObject<T> {
+    boolean validate(T value);
 }

@@ -9,12 +9,13 @@ package vn.homecredit.hcvn.ui.acl.validation;
 import dagger.Module;
 import dagger.Provides;
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class AclValidationActivityModule {
     @Provides
-    AclValidationViewModel provideLoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        return new AclValidationViewModel(dataManager, schedulerProvider);
+    AclValidationViewModel provideLoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclRuleFactory aclRuleFactory) {
+        return new AclValidationViewModel(dataManager, schedulerProvider, aclRuleFactory);
     }
 }

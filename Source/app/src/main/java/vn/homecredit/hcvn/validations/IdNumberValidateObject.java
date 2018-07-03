@@ -6,14 +6,14 @@
 
 package vn.homecredit.hcvn.validations;
 
-import vn.homecredit.hcvn.validations.base.RegexRule;
+import vn.homecredit.hcvn.validations.base.RegexValidateObject;
 
-public class IdNumberRule extends RegexRule<String> {
+public class IdNumberValidateObject extends RegexValidateObject {
 
     public static final String ID_NUMBER_PATTERN = "^((\\d){9}|(\\d){12})$";
 
-    public IdNumberRule(String errorMessage) {
-        super(errorMessage, ID_NUMBER_PATTERN);
+    public IdNumberValidateObject() {
+        super(ID_NUMBER_PATTERN);
     }
 
 }

@@ -22,6 +22,8 @@ import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.RestServiceImpl;
 import vn.homecredit.hcvn.di.PreferenceInfo;
+import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
+import vn.homecredit.hcvn.rules.acl.AclRuleFactoryImpl;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.OneSignalServiceImpl;
 import vn.homecredit.hcvn.utils.AppConstants;
@@ -100,4 +102,9 @@ public class AppModule {
         return oneSignalService;
     }
 
+    @Provides
+    @Singleton
+    AclRuleFactory proAclRuleFactory(AclRuleFactoryImpl aclRuleFactory) {
+        return aclRuleFactory;
+    }
 }

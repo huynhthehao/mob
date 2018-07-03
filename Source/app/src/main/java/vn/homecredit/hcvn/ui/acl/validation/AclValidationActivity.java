@@ -51,7 +51,6 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acl_validation);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
