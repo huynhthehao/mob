@@ -119,17 +119,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         }
     }
 
-    @Override
-    public void showError(String errorMessage) {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                .title(R.string.notice)
-                .content(errorMessage)
-                .positiveText(R.string.ok);
-
-        MaterialDialog dialog = builder.build();
-        dialog.show();
-    }
-
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
     }

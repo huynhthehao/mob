@@ -28,6 +28,7 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
 
     @Inject
     AclValidationViewModel mAclValidationViewModel;
+    private ActivityAclValidationBinding mActivityLoginBinding;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, AclValidationActivity.class);
@@ -51,10 +52,11 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivityLoginBinding = getViewDataBinding();
+        mAclValidationViewModel.setNavigator(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -62,5 +64,22 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return  super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void next() {
+        String phoneNumber = mActivityLoginBinding.phoneNumberTextView.getText().toString();
+        String idNumber = mActivityLoginBinding.idNumberTextView.getText().toString();
+        if (isValid()) {
+            hideKeyboard();
+            getViewModel().verifyPersonal(phoneNumber, idNumber);
+        } else {
+            showError("Thông tin không hợp lệ");
+        }
+    }
+
+    protected boolean isValid()
+    {
+        return !mActivityLoginBinding.phoneNumberTIL.isErrorEnabled() && !mActivityLoginBinding.idNumberTIL.isErrorEnabled();
     }
 }

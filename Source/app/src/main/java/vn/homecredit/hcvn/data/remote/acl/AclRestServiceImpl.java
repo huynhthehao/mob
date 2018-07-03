@@ -10,22 +10,43 @@ import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import java.util.HashMap;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Single;
+import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.remote.ApiEndPoint;
+import vn.homecredit.hcvn.data.remote.ApiHeader;
 
+@Singleton
 public class AclRestServiceImpl implements AclRestService {
+
+    private final ApiHeader mApiHeader;
+    private final MemoryHelper mMemoryHelper;
+
+    @Inject
+    public AclRestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper) {
+        mApiHeader = apiHeader;
+        mMemoryHelper = memoryHelper;
+    }
+
     @Override
     public Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId) {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
-        requestHeader.put("PhoneNumber", phone);
-        requestHeader.put("IdNumber", idNumber);
-        requestHeader.put("DeviceId", playerId);
+        //TODO: ABC Token
+        requestHeader.put("X-DEVICE-ID", "ABC");
 
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_APP + "/api/clw/otp")
+        HashMap<String, String> requestBody = new HashMap<String, String>();
+        requestBody.put("PhoneNumber", phone);
+        requestBody.put("IdNumber", idNumber);
+        requestBody.put("DeviceId", playerId);
+
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_CLW + "/otp")
                 .addHeaders(requestHeader)
+                .addBodyParameter(requestBody)
                 .build().getObjectSingle(OtpTimerResp.class);
     }
 
@@ -39,7 +60,7 @@ public class AclRestServiceImpl implements AclRestService {
         requestHeader.put("Otp", otp);
         requestHeader.put("Source", otpPassParam.getOtpTimerResp().getData().getSource());
 
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_APP + "/api/clw/otp/Validation")
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_CLW + "/otp/Validation")
                 .addHeaders(requestHeader)
                 .build().getObjectSingle(TokenResp.class);
     }

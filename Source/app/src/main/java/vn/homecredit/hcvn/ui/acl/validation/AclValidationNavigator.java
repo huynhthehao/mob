@@ -7,4 +7,7 @@
 package vn.homecredit.hcvn.ui.acl.validation;
 
 public interface AclValidationNavigator {
+    void showError(String errorMessage);
+
+    void next();
 }

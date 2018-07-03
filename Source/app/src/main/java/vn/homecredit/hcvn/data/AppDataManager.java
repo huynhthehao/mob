@@ -19,9 +19,12 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.data.model.OtpPassParam;
+import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 
 @Singleton
 public class AppDataManager implements DataManager {
@@ -30,15 +33,17 @@ public class AppDataManager implements DataManager {
     private final RestService mRestService;
     private final Gson mGson;
     private MemoryHelper mMemoryHelper;
+    private AclRestService mAclRestService;
 
 
     @Inject
-    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper) {
+    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper, AclRestService aclRestService) {
         mContext = context;
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
         mGson = gson;
         mMemoryHelper = memoryHelper;
+        mAclRestService = aclRestService;
     }
 
     @Override
@@ -59,5 +64,15 @@ public class AppDataManager implements DataManager {
     @Override
     public void setVersionRespData(VersionResp.VersionRespData versionRespData) {
         mMemoryHelper.setVersionRespData(versionRespData);
+    }
+
+    @Override
+    public Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId) {
+        return mAclRestService.verifyPersonal(phone, idNumber, playerId);
+    }
+
+    @Override
+    public Single<TokenResp> verifyPersonalOtp(OtpPassParam otpPassParam, String otp) {
+        return mAclRestService.verifyPersonalOtp(otpPassParam, otp);
     }
 }

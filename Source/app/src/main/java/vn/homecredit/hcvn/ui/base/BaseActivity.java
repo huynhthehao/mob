@@ -26,6 +26,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.NetworkUtils;
@@ -154,5 +157,15 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 }
             }
         });
+    }
+
+    public void showError(String errorMessage) {
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+                .title(R.string.notice)
+                .content(errorMessage)
+                .positiveText(R.string.ok);
+
+        MaterialDialog dialog = builder.build();
+        dialog.show();
     }
 }

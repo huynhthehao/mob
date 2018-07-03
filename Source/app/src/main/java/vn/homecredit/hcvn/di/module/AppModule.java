@@ -21,6 +21,8 @@ import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.RestServiceImpl;
+import vn.homecredit.hcvn.data.remote.acl.AclRestService;
+import vn.homecredit.hcvn.data.remote.acl.AclRestServiceImpl;
 import vn.homecredit.hcvn.di.PreferenceInfo;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactoryImpl;
@@ -35,8 +37,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    RestService provideApiHelper(RestServiceImpl restService) {
+    RestService proviRestService(RestServiceImpl restService) {
         return restService;
+    }
+
+    @Provides
+    @Singleton
+    AclRestService provideAclRestService(AclRestServiceImpl aclRestService) {
+        return aclRestService;
     }
 
     @Provides
