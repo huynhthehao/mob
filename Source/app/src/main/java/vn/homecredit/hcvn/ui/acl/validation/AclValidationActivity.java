@@ -16,11 +16,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivityAclValidationBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 
@@ -63,7 +65,7 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
-        return  super.onSupportNavigateUp();
+        return super.onSupportNavigateUp();
     }
 
     @Override
@@ -78,8 +80,15 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
         }
     }
 
-    protected boolean isValid()
-    {
+    @Override
+    public void openOtpActivity(OtpPassParam otpPassParam) {
+        Toast.makeText(this, "TODO: Open OTP" + otpPassParam.toString(), Toast.LENGTH_SHORT).show();
+//        Intent intent = OtpActivity.newIntent(OtpActivity.this);
+//        startActivity(intent);
+//        finish();
+    }
+
+    protected boolean isValid() {
         return !mActivityLoginBinding.phoneNumberTIL.isErrorEnabled() && !mActivityLoginBinding.idNumberTIL.isErrorEnabled();
     }
 }

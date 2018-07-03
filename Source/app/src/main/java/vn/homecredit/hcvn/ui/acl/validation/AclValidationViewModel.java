@@ -13,6 +13,7 @@ import com.androidnetworking.error.ANError;
 import java.util.HashMap;
 
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
@@ -52,7 +53,7 @@ public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     setIsLoading(false);
-//                    getNavigator().openHomeActivity();
+                    getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpPassParam.OtpFlow.CashLoanWalkin));
 //                    System.out.print(response.getAccessToken());
                 }, throwable -> {
 //                    String t = (((ANError)throwable).getErrorAsObject(OtpTimerResp.class)).getErrorDescription();

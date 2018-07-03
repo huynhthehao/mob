@@ -9,9 +9,36 @@ package vn.homecredit.hcvn.data.model;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 
 public class OtpPassParam {
+
+    public OtpPassParam(OtpTimerResp otpTimerResp, String phoneNumber, String idNumber, OtpFlow otpFlow) {
+
+        mOtpTimerResp = otpTimerResp;
+        mPhoneNumber = phoneNumber;
+        mIdNumber = idNumber;
+        mOtpFlow = otpFlow;
+    }
+
+    public enum OtpFlow
+    {
+        SignUp(1),
+        ForgotPassword(2),
+        ChangePassword(4),
+        MasterContract(8),
+        MasterContractCreditCard(16),
+        CashLoanWalkin(32);
+
+
+        OtpFlow(int value) {
+
+        }
+    }
+
     private String phone;
     private String contract;
     private OtpTimerResp mOtpTimerResp;
+    private final String mPhoneNumber;
+    private final String mIdNumber;
+    private final OtpFlow mOtpFlow;
 
     public String getPhone() {
         return phone;
