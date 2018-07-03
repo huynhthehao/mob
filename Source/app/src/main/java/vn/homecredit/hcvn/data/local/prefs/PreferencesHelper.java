@@ -12,7 +12,8 @@ package vn.homecredit.hcvn.data.local.prefs;
 public interface PreferencesHelper {
 
     String getAccessToken();
-
     void setAccessToken(String accessToken);
 
+    String getAclAccessToken();
+    void setAclAccessToken(String aclAccessToken);
 }

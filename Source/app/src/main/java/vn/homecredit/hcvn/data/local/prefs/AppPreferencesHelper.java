@@ -18,6 +18,7 @@ import vn.homecredit.hcvn.di.PreferenceInfo;
 
 public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
+    private static final String PREF_KEY_ACL_ACCESS_TOKEN = "PREF_KEY_ACL_ACCESS_TOKEN";
 
     private final SharedPreferences mPrefs;
 
@@ -34,6 +35,16 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setAccessToken(String accessToken) {
         mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, accessToken).apply();
+    }
+
+    @Override
+    public String getAclAccessToken() {
+        return mPrefs.getString(PREF_KEY_ACL_ACCESS_TOKEN, null);
+    }
+
+    @Override
+    public void setAclAccessToken(String aclAccessToken) {
+        mPrefs.edit().putString(PREF_KEY_ACL_ACCESS_TOKEN, aclAccessToken).apply();
     }
 
 }

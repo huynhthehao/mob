@@ -44,6 +44,7 @@ public class RestServiceImpl implements RestService {
     public Single<VersionResp> CheckUpdate()
     {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
+        //TODO: change abc to real device id
         requestHeader.put("X-DEVICE-ID", "abc");
         requestHeader.put("X-PLAYER-ID", "abc");
         requestHeader.put("X-DEVICE-VERSION", "abc");
