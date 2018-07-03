@@ -103,7 +103,8 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:theme="@style/AppTheme.TextLabel">
+                        android:theme="@style/AppTheme.TextLabel"
+                        app:validation="@{viewModel.getAclRuleFactory().getIdNumberRule()}">
 
                         <EditText
                             android:id="@+id/idNumberTextView"
