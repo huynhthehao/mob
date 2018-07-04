@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityWelcomeBinding;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.home.DashBoardDialogFragment;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 
 public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeNavigator {
@@ -76,7 +78,14 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
 
     @Override
     public void openSignupActivity() {
-        animateLogo();
+//        animateLogo();
+        showDashboard();
+    }
+    private void showDashboard() {
+        if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
+            DialogFragment dashboardFragment = new DashBoardDialogFragment();
+            dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
+        }
     }
 
     @Override

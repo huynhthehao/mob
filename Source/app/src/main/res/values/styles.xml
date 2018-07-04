@@ -106,4 +106,16 @@
         <item name="fontFamily">@font/myriadpro_regular</item>
     </style>
 
+    <style name="DashBoardItem" parent="android:Widget.TextView">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">120dp</item>
+    </style>
+
+
+    <style name="DialogAnimation" >
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
 </resources>

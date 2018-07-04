@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="center"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:theme="@style/Theme.AppCompat">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white" />
+
+        </android.support.v7.widget.Toolbar>
+
+
+        <TextView
+            style="@style/AppTheme.DescriptionLabel"
+            android:id="@+id/tvGreeting"
+            tools:text="Hello"
+            android:text="Hello"
+            android:textSize="20sp"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
+            app:layout_constraintRight_toRightOf="@id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/AppTheme.DescriptionLabel"
+            android:id="@+id/tvUserName"
+            tools:text="Nguyễn Trường Sơn"
+            android:text="Nguyễn Trường Sơn"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvGreeting"
+            app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
+            app:layout_constraintRight_toRightOf="@id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View style="@style/Separator_Horizontal"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/divider"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+            />
+
+        <vn.homecredit.hcvn.custom.DashBoadItemView
+            android:id="@+id/dashboardContact"
+            style="@style/DashBoardItem"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
+            app:layout_constraintRight_toLeftOf="@id/dashboardSchedule"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:src="@drawable/cash_loan_no_circle"
+            app:text="@string/contracts" />
+
+        <vn.homecredit.hcvn.custom.DashBoadItemView
+            android:id="@+id/dashboardSchedule"
+            style="@style/DashBoardItem"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintLeft_toRightOf="@id/dashboardContact"
+            app:layout_constraintRight_toRightOf="@id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="@id/dashboardContact"
+            app:src="@drawable/cash_loan_no_circle"
+            app:text="@string/payment_shedule" />
+
+        <vn.homecredit.hcvn.custom.DashBoadItemView
+            android:id="@+id/dashboardOffer"
+            style="@style/DashBoardItem"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
+            app:layout_constraintRight_toLeftOf="@id/dashboardNotification"
+            app:layout_constraintTop_toBottomOf="@+id/dashboardContact"
+            app:src="@drawable/cash_loan_no_circle"
+            app:text="@string/offers" />
+
+        <vn.homecredit.hcvn.custom.DashBoadItemView
+            android:id="@+id/dashboardNotification"
+            style="@style/DashBoardItem"
+            app:layout_constraintLeft_toRightOf="@id/dashboardOffer"
+            app:layout_constraintRight_toRightOf="@id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="@id/dashboardOffer"
+            app:src="@drawable/cash_loan_no_circle"
+            app:text="@string/notifications" />
+
+        <vn.homecredit.hcvn.custom.DashBoadItemView
+            android:id="@+id/dashboardMomo"
+            style="@style/DashBoardItem"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
+            app:layout_constraintRight_toLeftOf="@id/dashboardMore"
+            app:layout_constraintTop_toBottomOf="@+id/dashboardOffer"
+            app:src="@drawable/cash_loan_no_circle"
+            app:text="@string/pay_momo" />
+
+        <vn.homecredit.hcvn.custom.DashBoadItemView
+            android:id="@+id/dashboardMore"
+            style="@style/DashBoardItem"
+            app:layout_constraintLeft_toRightOf="@id/dashboardMomo"
+            app:layout_constraintRight_toRightOf="@id/guidelineEnd"
+            app:layout_constraintTop_toTopOf="@id/dashboardMomo"
+            app:src="@drawable/cash_loan_no_circle"
+            app:text="@string/more" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineBegin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp" />
+    </android.support.constraint.ConstraintLayout>
+</RelativeLayout>
+

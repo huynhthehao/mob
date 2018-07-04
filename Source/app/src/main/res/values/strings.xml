@@ -57,4 +57,7 @@
     <string name="action_next">Tiếp tục</string>
     <string name="personal_detail">Thông tin cá nhân</string>
     <string name="prompt_id_number">Số chứng minh nhân dân</string>
+    <string name="payment_shedule">Payment Schedule</string>
+    <string name="offers">Offers</string>
+    <string name="pay_momo">Pay via MoMo</string>
 </resources>
