@@ -10,12 +10,19 @@
 package vn.homecredit.hcvn.service;
 
 import com.onesignal.OneSignal;
+
+import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import timber.log.Timber;
 
 @Singleton
 public class OneSignalServiceImpl implements OneSignalService {
-    public OneSignalServiceImpl() {
+    private final DeviceInfo mDeviceInfo;
 
+    @Inject
+    public OneSignalServiceImpl(DeviceInfo deviceInfo) {
+        mDeviceInfo = deviceInfo;
     }
 
     @Override
@@ -36,5 +43,16 @@ public class OneSignalServiceImpl implements OneSignalService {
     @Override
     public String JsonString(Object object) {
         return object.toString();
+    }
+
+    @Override
+    public void tryGetPlayerId() {
+        OneSignal.idsAvailable((id, token) -> {
+            mDeviceInfo.setPlayerId(id);
+            mDeviceInfo.setPushToken(token);
+
+            Timber.v(String.format("Push token: %s", token));
+            Timber.v(String.format("Push token: %s", token));
+        });
     }
 }

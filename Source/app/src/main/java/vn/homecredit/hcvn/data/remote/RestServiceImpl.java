@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.data.remote;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.Base64;
 
 import com.rx2androidnetworking.Rx2AndroidNetworking;
@@ -28,6 +29,7 @@ import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.service.DeviceInfo;
+import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
 
 @Singleton
@@ -39,16 +41,25 @@ public class RestServiceImpl implements RestService {
     private MemoryHelper mMemoryHelper;
     private DeviceInfo mDeviceInfo;
     private VersionService mVersionService;
+    private final OneSignalService mOneSignalService;
 
     @Inject
-    public RestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo, VersionService versionService) {
+    public RestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo, VersionService versionService, OneSignalService oneSignalService) {
         mApiHeader = apiHeader;
         mMemoryHelper = memoryHelper;
         mDeviceInfo = deviceInfo;
         mVersionService = versionService;
+        mOneSignalService = oneSignalService;
     }
 
     public Single<VersionResp> CheckUpdate() {
+
+
+        if (TextUtils.isEmpty(mDeviceInfo.getPlayerId()))
+        {
+            mOneSignalService.tryGetPlayerId();
+        }
+
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         //TODO: This code in Xamarin was commented. Consider to remove it later
 //        requestHeader.put("X-DEVICE-ID", "abc");

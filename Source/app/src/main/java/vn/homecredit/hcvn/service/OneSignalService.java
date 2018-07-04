@@ -14,4 +14,6 @@ public interface OneSignalService {
     void SetSubscription(boolean subscribe);
     void DeleteTag(String key);
     String JsonString(Object object);
+
+    void tryGetPlayerId();
 }
