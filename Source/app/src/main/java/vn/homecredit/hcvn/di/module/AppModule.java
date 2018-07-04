@@ -26,8 +26,12 @@ import vn.homecredit.hcvn.data.remote.acl.AclRestServiceImpl;
 import vn.homecredit.hcvn.di.PreferenceInfo;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactoryImpl;
+import vn.homecredit.hcvn.service.DeviceInfo;
+import vn.homecredit.hcvn.service.DeviceInfoImpl;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.OneSignalServiceImpl;
+import vn.homecredit.hcvn.service.VersionService;
+import vn.homecredit.hcvn.service.VersionServiceImpl;
 import vn.homecredit.hcvn.utils.AppConstants;
 import vn.homecredit.hcvn.utils.rx.AppSchedulerProvider;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
@@ -106,13 +110,25 @@ public class AppModule {
 
     @Provides
     @Singleton
-    OneSignalService provieOneSignalService(OneSignalServiceImpl oneSignalService) {
+    OneSignalService provideOneSignalService(OneSignalServiceImpl oneSignalService) {
         return oneSignalService;
     }
 
     @Provides
     @Singleton
-    AclRuleFactory proAclRuleFactory(AclRuleFactoryImpl aclRuleFactory) {
+    AclRuleFactory provideAclRuleFactory(AclRuleFactoryImpl aclRuleFactory) {
         return aclRuleFactory;
+    }
+
+    @Provides
+    @Singleton
+    DeviceInfo provideDeviceInfo(DeviceInfoImpl deviceInfo) {
+        return deviceInfo;
+    }
+
+    @Provides
+    @Singleton
+    VersionService provideVersionService(VersionServiceImpl versionService) {
+        return versionService;
     }
 }

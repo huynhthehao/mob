@@ -27,31 +27,37 @@ import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
+import vn.homecredit.hcvn.service.DeviceInfo;
+import vn.homecredit.hcvn.service.VersionService;
 
 @Singleton
 public class RestServiceImpl implements RestService {
 
+    public static final String RUNTIME_PLATFORM = "Android";
     private ApiHeader mApiHeader;
 
     private MemoryHelper mMemoryHelper;
+    private DeviceInfo mDeviceInfo;
+    private VersionService mVersionService;
 
     @Inject
-    public RestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper) {
+    public RestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo, VersionService versionService) {
         mApiHeader = apiHeader;
         mMemoryHelper = memoryHelper;
+        mDeviceInfo = deviceInfo;
+        mVersionService = versionService;
     }
 
-    public Single<VersionResp> CheckUpdate()
-    {
+    public Single<VersionResp> CheckUpdate() {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
-        //TODO: change abc to real device id
-        requestHeader.put("X-DEVICE-ID", "abc");
-        requestHeader.put("X-PLAYER-ID", "abc");
-        requestHeader.put("X-DEVICE-VERSION", "abc");
-        requestHeader.put("X-DEVICE-PLATFORM", "abc");
-        requestHeader.put("X-DEVICE-MODEL", "abc");
-        requestHeader.put("X-PUSH-TOKEN", "abc");
-        requestHeader.put("X-APP-VERSION", "a");
+        //TODO: This code in Xamarin was commented. Consider to remove it later
+//        requestHeader.put("X-DEVICE-ID", "abc");
+        requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPlayerId());
+        requestHeader.put("X-DEVICE-VERSION", mDeviceInfo.getVersion());
+        requestHeader.put("X-DEVICE-PLATFORM", RUNTIME_PLATFORM);
+        requestHeader.put("X-DEVICE-MODEL", mDeviceInfo.getBrandModel());
+        requestHeader.put("X-PUSH-TOKEN", mDeviceInfo.getPushToken());
+        requestHeader.put("X-APP-VERSION", mVersionService.getVersion());
 
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/version?platform=2")
                 .addHeaders(requestHeader)

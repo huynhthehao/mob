@@ -13,7 +13,6 @@ import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 
-// TODO: Remove this
 public interface DataManager extends RestService, MemoryHelper, AclRestService {
 
 }

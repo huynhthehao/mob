@@ -20,24 +20,26 @@ import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.remote.ApiEndPoint;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
+import vn.homecredit.hcvn.service.DeviceInfo;
 
 @Singleton
 public class AclRestServiceImpl implements AclRestService {
 
     private final ApiHeader mApiHeader;
     private final MemoryHelper mMemoryHelper;
+    private final DeviceInfo mDeviceInfo;
 
     @Inject
-    public AclRestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper) {
+    public AclRestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo) {
         mApiHeader = apiHeader;
         mMemoryHelper = memoryHelper;
+        mDeviceInfo = deviceInfo;
     }
 
     @Override
     public Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId) {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
-        //TODO: ABC Token
-        requestHeader.put("X-DEVICE-ID", "ABC");
+        requestHeader.put("X-DEVICE-ID", mDeviceInfo.getId());
 
         HashMap<String, String> requestBody = new HashMap<String, String>();
         requestBody.put("PhoneNumber", phone);
@@ -55,8 +57,7 @@ public class AclRestServiceImpl implements AclRestService {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         requestHeader.put("PhoneNumber", otpPassParam.getPhone());
         requestHeader.put("IdNumber", otpPassParam.getContract());
-        //TODO: change abc to real device id
-        requestHeader.put("DeviceId", "abc");
+        requestHeader.put("DeviceId", mDeviceInfo.getPlayerId());
         requestHeader.put("Otp", otp);
         requestHeader.put("Source", otpPassParam.getOtpTimerResp().getData().getSource());
 
