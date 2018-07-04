@@ -24,7 +24,7 @@ public abstract class BaseStringRule implements StringRule {
     }
 
     @Override
-    public boolean stringIsNotValid(Editable s) {
+    public boolean stringIsNotValid(String s) {
         return !this.stringIsValid(s);
     }
 }

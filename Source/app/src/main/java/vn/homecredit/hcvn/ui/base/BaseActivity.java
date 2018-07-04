@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -167,5 +168,16 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
         MaterialDialog dialog = builder.build();
         dialog.show();
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+            getCurrentFocus().clearFocus();
+        }
+        return super.dispatchTouchEvent(ev);
     }
 }

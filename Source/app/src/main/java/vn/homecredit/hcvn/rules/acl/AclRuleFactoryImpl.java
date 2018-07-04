@@ -28,7 +28,7 @@ public class AclRuleFactoryImpl implements AclRuleFactory {
 
         return new BaseStringRule("Số điện thoại trống hoặc không hợp lệ") {
             @Override
-            public boolean stringIsValid(Editable s) {
+            public boolean stringIsValid(String s) {
                 MobilePhoneValidateObject mobilePhoneRule = new MobilePhoneValidateObject();
                 return mobilePhoneRule.validate(s.toString());
             }
@@ -39,7 +39,7 @@ public class AclRuleFactoryImpl implements AclRuleFactory {
     public StringRule getIdNumberRule() {
         return new BaseStringRule("Số CMND trống hoặc không hợp lệ") {
             @Override
-            public boolean stringIsValid(Editable s) {
+            public boolean stringIsValid(String s) {
                 IdNumberValidateObject mobilePhoneRule = new IdNumberValidateObject();
                 return mobilePhoneRule.validate(s.toString());
             }

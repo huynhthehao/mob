@@ -9,9 +9,9 @@ package vn.homecredit.hcvn.rules.base;
 import android.text.Editable;
 
 public interface StringRule {
-    boolean stringIsValid(Editable s);
+    boolean stringIsValid(String s);
 
-    boolean stringIsNotValid(Editable s);
+    boolean stringIsNotValid(String s);
 
     String getErrorMessage();
 }
