@@ -11,6 +11,9 @@ package vn.homecredit.hcvn.di.builder;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionActivity;
+import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionActivityModule;
+import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragmentProvider;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
@@ -23,7 +26,7 @@ import vn.homecredit.hcvn.ui.welcome.WelcomeActivityModule;
 @Module
 public abstract class ActivityBuilder {
 
-//    @ContributesAndroidInjector(modules = {
+    //    @ContributesAndroidInjector(modules = {
 //            FeedActivityModule.class,
 //            BlogFragmentProvider.class,
 //            OpenSourceFragmentProvider.class})
@@ -47,6 +50,11 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = LoginActivityModule.class)
     abstract LoginActivity bindLoginActivity();
 
-    @ContributesAndroidInjector(modules = AclValidationActivityModule.class)
+    @ContributesAndroidInjector(modules = {
+            AclIntroductionActivityModule.class,
+            AclSelectLoanTypeFragmentProvider.class})
+    abstract AclIntroductionActivity bindAclIntroductionActivity();
+
+    @ContributesAndroidInjector(modules = { AclValidationActivityModule.class})
     abstract AclValidationActivity bindAclValidationActivity();
 }

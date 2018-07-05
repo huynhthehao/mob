@@ -50,10 +50,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.welcome.WelcomeActivity" />
         </activity>
-        <activity android:name=".ui.acl.introduction.AclIntroductionActivity" />
         <activity
             android:name=".ui.acl.validation.AclValidationActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.acl.introduction.AclIntroduction.AclIntroductionActivity"
+            android:label="@string/title_activity_acl_introduction"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

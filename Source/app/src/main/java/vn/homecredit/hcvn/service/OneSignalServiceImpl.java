@@ -51,8 +51,9 @@ public class OneSignalServiceImpl implements OneSignalService {
             mDeviceInfo.setPlayerId(id);
             mDeviceInfo.setPushToken(token);
 
+            Timber.v(String.format("PlayerId: %s", id));
             Timber.v(String.format("Push token: %s", token));
-            Timber.v(String.format("Push token: %s", token));
+
         });
     }
 }
