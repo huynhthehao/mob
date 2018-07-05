@@ -1,20 +1,23 @@
 /*
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 7/5/18 3:20 PM, by quan.p@homecredit.vn
+ * Last modified 7/5/18 5:13 PM, by quan.p@homecredit.vn
  */
 
-package vn.homecredit.hcvn.ui.acl.introduction;
+package vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
+import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.databinding.FragmentAclSelectLoanTypeBinding;
+import vn.homecredit.hcvn.ui.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,13 +27,13 @@ import vn.homecredit.hcvn.R;
  * Use the {@link AclSelectLoanTypeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AclSelectLoanTypeFragment extends Fragment {
+public class AclSelectLoanTypeFragment extends BaseFragment<FragmentAclSelectLoanTypeBinding, AclSelectLoanTypeViewModel> implements AclSelectLoanTypeNavigator {
+
+    public static final String TAG = AclSelectLoanTypeFragment.class.getSimpleName();
+    @Inject
+    AclSelectLoanTypeViewModel mAclSelectLoanTypeViewModel;
 
     private OnFragmentInteractionListener mListener;
-
-    public AclSelectLoanTypeFragment() {
-        // Required empty public constructor
-    }
 
     /**
      * Use this factory method to create a new instance of
@@ -45,10 +48,9 @@ public class AclSelectLoanTypeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_acl_select_loan_type_fragment, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAclSelectLoanTypeViewModel.setNavigator(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -56,6 +58,21 @@ public class AclSelectLoanTypeFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public int getBindingVariable() {
+        return BR.viewModel;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_acl_select_loan_type;
+    }
+
+    @Override
+    public AclSelectLoanTypeViewModel getViewModel() {
+        return mAclSelectLoanTypeViewModel;
     }
 
     @Override
@@ -75,6 +92,11 @@ public class AclSelectLoanTypeFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void goACLO() {
+        mListener.onSelectACLO();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -88,5 +110,8 @@ public class AclSelectLoanTypeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
+        void onSelectACLO();
+        void onSelectPOS();
     }
 }

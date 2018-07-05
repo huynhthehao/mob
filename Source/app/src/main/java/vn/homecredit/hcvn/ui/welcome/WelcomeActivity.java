@@ -19,15 +19,13 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityWelcomeBinding;
-import vn.homecredit.hcvn.ui.acl.introduction.AclIntroductionActivity;
-import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
+import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 

@@ -13,7 +13,6 @@
     tools:context=".ui.welcome.WelcomeActivity">
 
     <data>
-
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.login.LoginViewModel" />
