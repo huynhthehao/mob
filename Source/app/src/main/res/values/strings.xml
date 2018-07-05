@@ -67,4 +67,10 @@
     <string name="cash_loan_c_desc">Vui lòng mang theo những giấy tờ sau để làm hồ sơ vay:</string>
     <string name="cash_loan_c_desc_1">Chứng minh nhân dân</string>
     <string name="cash_loan_c_desc_2">Giấy phép lái xe hoặc Sổ hộ khẩu</string>
+    <string name="which_way_to_apply">Bạn muốn vay theo cách nào?</string>
+    <string name="or">hoặc</string>
+    <string name="apply_from_anywhere">Làm hồ sơ vay trực tuyến</string>
+    <string name="online">Trực tuyến</string>
+    <string name="apply_at_partner_stores">Làm hồ sơ vay tại điểm giao dịch</string>
+    <string name="point_of_sales">Điểm giao dịch</string>
 </resources>

@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
 
-public class AclIntroductionActivity extends AppCompatActivity {
+public class AclIntroductionActivity extends AppCompatActivity implements AclSelectLoanTypeFragment.OnFragmentInteractionListener {
 
     public static Intent newIntent(Context context) {
         return new Intent(context, AclIntroductionActivity.class);
@@ -62,6 +62,11 @@ public class AclIntroductionActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 
@@ -116,11 +121,13 @@ public class AclIntroductionActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch (position) {
                 case 0:
-                    return new AclIntroductionAFragment();
+                    return AclIntroductionAFragment.newInstance();
                 case 1:
-                    return new AclIntroductionBFragment();
+                    return AclIntroductionBFragment.newInstance();
                 case 2:
-                    return new AclIntroductionCFragment();
+                    return AclIntroductionCFragment.newInstance();
+                case 3:
+                    return AclSelectLoanTypeFragment.newInstance();
             };
             return PlaceholderFragment.newInstance(position + 1);
         }
@@ -128,7 +135,7 @@ public class AclIntroductionActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
     }
 }
