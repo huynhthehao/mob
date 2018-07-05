@@ -8,6 +8,7 @@ package vn.homecredit.hcvn.ui.acl.introduction;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,7 @@ public class AclIntroductionActivity extends AppCompatActivity {
 
 
     }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -112,6 +114,14 @@ public class AclIntroductionActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position) {
+                case 0:
+                    return new AclIntroductionAFragment();
+                case 1:
+                    return new AclIntroductionBFragment();
+                case 2:
+                    return new AclIntroductionCFragment();
+            };
             return PlaceholderFragment.newInstance(position + 1);
         }
 
