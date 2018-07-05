@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.ui.base;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -158,6 +159,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 }
             }
         });
+        enableModelErrorDialog();
     }
 
     public void showError(String errorMessage) {
@@ -180,4 +182,14 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         }
         return super.dispatchTouchEvent(ev);
     }
+
+
+    private void enableModelErrorDialog() {
+        getViewModel().getModelErrorMessage().observe(this, o -> {
+            if (o != null && o instanceof String) {
+                showError((String) o);
+            }
+        });
+    }
+
 }

@@ -79,11 +79,12 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     @Override
     public void openSignupActivity() {
 //        animateLogo();
-        showDashboard();
+        showDashboard("Xin chao", "Nguyen Truong Son 2");
     }
-    private void showDashboard() {
+
+    private void showDashboard(String greeting, String username) {
         if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
-            DialogFragment dashboardFragment = new DashBoardDialogFragment();
+            DialogFragment dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
             dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
         }
     }
@@ -113,12 +114,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
             mHasAnimationStarted = true;
 
             final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getViewModel().startIntro();
-                }
-            }, 1000);
+            handler.postDelayed(() -> getViewModel().startIntro(), 1000);
         }
     }
 
@@ -126,21 +122,13 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
         ImageView logoWelcomeImageViewFront = getViewDataBinding().logoWelcomeImageViewFront;
         ImageView logoWelcomeImageView = getViewDataBinding().logoWelcomeImageView;
         RelativeLayout root = getViewDataBinding().animateViewHolder;
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             logoWelcomeImageViewFront.animate()
                     .translationX(logoWelcomeImageView.getX() - root.getWidth() / 2 + logoWelcomeImageViewFront.getWidth() / 2)
                     .translationY(logoWelcomeImageView.getY() - root.getHeight() / 2 + logoWelcomeImageViewFront.getHeight() / 2)
-                    .setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
-                @Override
-                public void run() {
-                    root.setVisibility(View.GONE);
-                }
-            }).setDuration(1000);
-        }
-        else
-        {
+                    .setInterpolator(new AccelerateInterpolator()).withEndAction(() -> root.setVisibility(View.GONE))
+                    .setDuration(1000);
+        } else {
             root.setVisibility(View.GONE);
         }
     }

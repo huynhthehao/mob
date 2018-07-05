@@ -23,6 +23,10 @@ public final class AppUtils {
 
     public static void openPlayStoreForApp(Context context) {
         final String appPackageName = context.getPackageName();
+        openPlayStoreForApp(context, appPackageName);
+    }
+
+    public static void openPlayStoreForApp(Context context, String appPackageName) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(context

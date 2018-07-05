@@ -6,6 +6,7 @@
 
 package vn.homecredit.hcvn.ui.base;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import io.reactivex.disposables.CompositeDisposable;
@@ -25,6 +26,8 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private CompositeDisposable mCompositeDisposable;
 
     private WeakReference<N> mNavigator;
+
+    private MutableLiveData<String> modelErrorMessage = new MutableLiveData<>();
 
     public BaseViewModel(DataManager dataManager,
                          SchedulerProvider schedulerProvider) {
@@ -65,5 +68,13 @@ public abstract class BaseViewModel<N> extends ViewModel {
 
     public SchedulerProvider getSchedulerProvider() {
         return mSchedulerProvider;
+    }
+
+    public MutableLiveData<String> getModelErrorMessage() {
+        return modelErrorMessage;
+    }
+
+    public void setModelErrorMessage(String errorMessage) {
+        this.modelErrorMessage.setValue(errorMessage);
     }
 }

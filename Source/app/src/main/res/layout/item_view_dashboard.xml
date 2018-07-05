@@ -6,17 +6,19 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:padding="8dp"
         android:id="@+id/ivIcon"
-        android:adjustViewBounds="true"
         android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_height="80dp"
+        android:padding="8dp"
+        android:adjustViewBounds="true"
+        />
 
     <TextView
-        style="@style/AppTheme.DescriptionLabel"
-        android:layout_marginTop="2dp"
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        style="@style/AppTheme.DescriptionLabel"
+        />
 
 </LinearLayout>
