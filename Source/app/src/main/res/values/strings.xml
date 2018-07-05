@@ -57,4 +57,5 @@
     <string name="action_next">Tiếp tục</string>
     <string name="personal_detail">Thông tin cá nhân</string>
     <string name="prompt_id_number">Số chứng minh nhân dân</string>
+    <string name="title_activity_acl_introduction">AclIntroductionActivity</string>
 </resources>

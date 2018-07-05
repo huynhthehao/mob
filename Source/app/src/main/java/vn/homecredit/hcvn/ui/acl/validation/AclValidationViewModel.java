@@ -35,8 +35,7 @@ public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator
         errorData = new HashMap<String, String>();
     }
 
-    public void onNextClick()
-    {
+    public void onNextClick() {
         getNavigator().next();
     }
 
@@ -55,7 +54,7 @@ public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     setIsLoading(false);
-                    if (response.getResponseCode() == 0 || response.getResponseCode() == 64)  {
+                    if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpPassParam.OtpFlow.CashLoanWalkin));
                     } else {
                         getNavigator().showError(response.getResponseMessage());
