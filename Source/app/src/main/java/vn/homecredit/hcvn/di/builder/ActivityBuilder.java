@@ -48,7 +48,8 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = WelcomeActivityModule.class)
     abstract WelcomeActivity bindWelcomeActivity();
 
-    @ContributesAndroidInjector(modules = LoginActivityModule.class)
+//    @ContributesAndroidInjector(modules = LoginActivityModule.class)
+    @ContributesAndroidInjector()
     abstract LoginActivity bindLoginActivity();
 
     @ContributesAndroidInjector()

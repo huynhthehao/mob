@@ -15,6 +15,7 @@ import android.text.TextUtils;
 
 import com.androidnetworking.error.ANError;
 
+import javax.inject.Inject;
 import timber.log.Timber;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
@@ -29,6 +30,7 @@ public class LoginViewModel extends BaseViewModel {
     private ObservableField<String> password = new ObservableField<>("");
     private MutableLiveData<Boolean> modelLoginSuccess = new MutableLiveData<>();
 
+    @Inject
     public LoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, ProfileService profileService) {
         super(dataManager, schedulerProvider);
         mProfileService = profileService;

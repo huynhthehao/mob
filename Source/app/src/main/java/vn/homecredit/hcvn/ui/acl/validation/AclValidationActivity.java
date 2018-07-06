@@ -28,13 +28,18 @@ import vn.homecredit.hcvn.ui.base.BaseActivity;
 
 public class AclValidationActivity extends BaseActivity<ActivityAclValidationBinding, AclValidationViewModel> implements AclValidationNavigator {
 
+    public static Intent newIntent(Context context) {
+        return new Intent(context, AclValidationActivity.class);
+    }
+    public static void start(Context context) {
+        Intent intent = new Intent(context, AclValidationActivity.class);
+        context.startActivity(intent);
+    }
+
     @Inject
     AclValidationViewModel mAclValidationViewModel;
     private ActivityAclValidationBinding mActivityLoginBinding;
 
-    public static Intent newIntent(Context context) {
-        return new Intent(context, AclValidationActivity.class);
-    }
 
     @Override
     public int getBindingVariable() {
