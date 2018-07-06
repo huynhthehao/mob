@@ -9,6 +9,8 @@
 
 package vn.homecredit.hcvn.data.local.prefs;
 
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
+
 public interface PreferencesHelper {
 
     String getAccessToken();
@@ -16,4 +18,7 @@ public interface PreferencesHelper {
 
     String getAclAccessToken();
     void setAclAccessToken(String aclAccessToken);
+
+    ProfileResp.ProfileRespData loadProfile();
+    void saveProfile(ProfileResp.ProfileRespData profileRespData);
 }

@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.ui.login;
 import dagger.Module;
 import dagger.Provides;
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.service.ProfileService;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module

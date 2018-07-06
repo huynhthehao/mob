@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HCVN</string>
+    <string name="app_name">Home Credit</string>
 
     <!--play store-->
     <string name="app_google_play_store_link" translatable="false">"https://play.google.com/store/apps/details?id="</string>
@@ -57,9 +57,9 @@
     <string name="action_next">Tiếp tục</string>
     <string name="personal_detail">Thông tin cá nhân</string>
     <string name="prompt_id_number">Số chứng minh nhân dân</string>
-    <string name="payment_shedule">Payment Schedule</string>
-    <string name="offers">Offers</string>
-    <string name="pay_momo">Pay via MoMo</string>
+    <string name="payment_shedule">Lịch thanh toán</string>
+    <string name="offers">Ưu đãi</string>
+    <string name="pay_momo">Trả bằng MoMo</string>
     <string name="momo_app_package">com.mservice.momotransfer</string>
     <string name="title_activity_acl_introduction">AclIntroductionActivity</string>
     <string name="cash_loan_a_header">Chào mừng bạn đến với Home Credit Việt Nam</string>
@@ -77,4 +77,5 @@
     <string name="online">Trực tuyến</string>
     <string name="apply_at_partner_stores">Làm hồ sơ vay tại điểm giao dịch</string>
     <string name="point_of_sales">Điểm giao dịch</string>
+    <string name="hello">Xin chào</string>
 </resources>

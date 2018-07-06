@@ -37,13 +37,29 @@ public class ApiHeader {
     }
 
     public static final class ProtectedApiHeader {
+        @Expose
+        @SerializedName("AccessToken")
+        private String mAccessToken;
 
         @Expose
         @SerializedName("Authorization")
         private String mAuthorization;
 
         public ProtectedApiHeader(String accessToken) {
-            this.mAuthorization = String.format("Bearer %s", accessToken);
+            mAccessToken = accessToken;
+        }
+
+        public String getAccessToken() {
+            return mAccessToken;
+        }
+
+        public void setAccessToken(String accessToken) {
+            mAccessToken = accessToken;
+            mAuthorization = String.format("Bearer %s", mAccessToken);
+        }
+
+        public String getAuthorization() {
+            return mAuthorization;
         }
     }
 

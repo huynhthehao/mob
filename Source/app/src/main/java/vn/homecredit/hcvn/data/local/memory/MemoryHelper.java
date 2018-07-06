@@ -9,10 +9,15 @@
 
 package vn.homecredit.hcvn.data.local.memory;
 
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 
 public interface MemoryHelper {
     VersionResp.VersionRespData getVersionRespData();
 
     void setVersionRespData(VersionResp.VersionRespData versionRespData);
+
+    ProfileResp.ProfileRespData getProfileRespData();
+
+    void setProfileRespData(ProfileResp.ProfileRespData profileRespData);
 }

@@ -21,10 +21,13 @@ import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
+import vn.homecredit.hcvn.service.OneSignalService;
 
 @Singleton
 public class AppDataManager implements DataManager {
@@ -34,26 +37,48 @@ public class AppDataManager implements DataManager {
     private final Gson mGson;
     private MemoryHelper mMemoryHelper;
     private AclRestService mAclRestService;
+    private final OneSignalService mOneSignalService;
 
 
     @Inject
-    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper, AclRestService aclRestService) {
+    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper, AclRestService aclRestService, OneSignalService oneSignalService) {
         mContext = context;
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
         mGson = gson;
         mMemoryHelper = memoryHelper;
         mAclRestService = aclRestService;
+        mOneSignalService = oneSignalService;
     }
 
     @Override
-    public Single<VersionResp> CheckUpdate() {
-        return mRestService.CheckUpdate();
+    public Single<VersionResp> checkUpdate() {
+        return mRestService.checkUpdate();
     }
 
     @Override
-    public Single<TokenResp> GetToken(String phoneNumber, String password) {
-        return mRestService.GetToken(phoneNumber, password);
+    public Single<TokenResp> getToken(String phoneNumber, String password) {
+        return mRestService.getToken(phoneNumber, password);
+    }
+
+    @Override
+    public Single<ProfileResp> getProfile() {
+        return mRestService.getProfile().doOnSuccess(response -> {
+            if (response.getResponseCode() == 0) {
+                mOneSignalService.SendTags("UserId", response.getData().getUserId());
+                mOneSignalService.SendTags("UserName", response.getData().getFullName());
+                //TODO: Notifcation Setting
+//                mOneSignalService.SendTags("Active", Settings.Notification.ToString());
+                mMemoryHelper.setProfileRespData(response.getData());
+                //TODO: Set Badge
+//                App.Current.SetBadge(resp.Data.NotificationCount);
+            }
+        });
+    }
+
+    @Override
+    public ApiHeader getApiHeader() {
+        return mRestService.getApiHeader();
     }
 
     @Override
@@ -67,6 +92,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public ProfileResp.ProfileRespData getProfileRespData() {
+        return mMemoryHelper.getProfileRespData();
+    }
+
+    @Override
+    public void setProfileRespData(ProfileResp.ProfileRespData profileRespData) {
+        mMemoryHelper.setProfileRespData(profileRespData);
+    }
+
+    @Override
     public Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId) {
         return mAclRestService.verifyPersonal(phone, idNumber, playerId);
     }
@@ -74,5 +109,36 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<TokenResp> verifyPersonalOtp(OtpPassParam otpPassParam, String otp) {
         return mAclRestService.verifyPersonalOtp(otpPassParam, otp);
+    }
+
+    @Override
+    public String getAccessToken() {
+        return mPreferencesHelper.getAccessToken();
+    }
+
+    @Override
+    public void setAccessToken(String accessToken) {
+        mPreferencesHelper.setAccessToken(accessToken);
+        mRestService.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
+    }
+
+    @Override
+    public String getAclAccessToken() {
+        return mPreferencesHelper.getAclAccessToken();
+    }
+
+    @Override
+    public void setAclAccessToken(String aclAccessToken) {
+        mPreferencesHelper.setAccessToken(aclAccessToken);
+    }
+
+    @Override
+    public ProfileResp.ProfileRespData loadProfile() {
+        return mPreferencesHelper.loadProfile();
+    }
+
+    @Override
+    public void saveProfile(ProfileResp.ProfileRespData profileRespData) {
+        mPreferencesHelper.saveProfile(profileRespData);
     }
 }

@@ -12,12 +12,14 @@ package vn.homecredit.hcvn.data.local.memory;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 
 @Singleton
 public class MemoryHelperImpl implements MemoryHelper {
 
     private VersionResp.VersionRespData mVersionRespData;
+    private ProfileResp.ProfileRespData mProfileRespData;
 
     @Inject
     public MemoryHelperImpl() {
@@ -31,5 +33,15 @@ public class MemoryHelperImpl implements MemoryHelper {
     @Override
     public void setVersionRespData(VersionResp.VersionRespData versionRespData) {
         mVersionRespData = versionRespData;
+    }
+
+    @Override
+    public ProfileResp.ProfileRespData getProfileRespData() {
+        return mProfileRespData;
+    }
+
+    @Override
+    public void setProfileRespData(ProfileResp.ProfileRespData profileRespData) {
+        mProfileRespData = profileRespData;
     }
 }

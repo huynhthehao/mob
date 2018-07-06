@@ -16,6 +16,7 @@ import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionAct
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragmentProvider;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
+import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivityModule;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
@@ -50,6 +51,9 @@ public abstract class ActivityBuilder {
 //    @ContributesAndroidInjector(modules = LoginActivityModule.class)
     @ContributesAndroidInjector()
     abstract LoginActivity bindLoginActivity();
+
+    @ContributesAndroidInjector()
+    abstract HomeActivity bindHomeActivity();
 
     @ContributesAndroidInjector(modules = {
             AclIntroductionActivityModule.class,
