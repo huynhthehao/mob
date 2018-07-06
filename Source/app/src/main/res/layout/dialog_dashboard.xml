@@ -78,7 +78,7 @@
             app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
             app:layout_constraintRight_toLeftOf="@id/dashboardSchedule"
             app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:src="@drawable/cash_loan_no_circle"
+            app:src="@drawable/contract_sp"
             app:text="@string/contracts"
             style="@style/DashBoardItem"
             />
@@ -91,7 +91,7 @@
             app:layout_constraintLeft_toRightOf="@id/dashboardContact"
             app:layout_constraintRight_toRightOf="@id/guidelineEnd"
             app:layout_constraintTop_toTopOf="@id/dashboardContact"
-            app:src="@drawable/cash_loan_no_circle"
+            app:src="@drawable/payment_schedule_sp"
             app:text="@string/payment_shedule"
             style="@style/DashBoardItem"
             />
@@ -102,7 +102,7 @@
             app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
             app:layout_constraintRight_toLeftOf="@id/dashboardNotification"
             app:layout_constraintTop_toBottomOf="@+id/dashboardContact"
-            app:src="@drawable/cash_loan_no_circle"
+            app:src="@drawable/offer_sp"
             app:text="@string/offers"
             style="@style/DashBoardItem"
             />
@@ -112,7 +112,7 @@
             app:layout_constraintLeft_toRightOf="@id/dashboardOffer"
             app:layout_constraintRight_toRightOf="@id/guidelineEnd"
             app:layout_constraintTop_toTopOf="@id/dashboardOffer"
-            app:src="@drawable/cash_loan_no_circle"
+            app:src="@drawable/notification_sp"
             app:text="@string/notifications"
             style="@style/DashBoardItem"
             />
@@ -123,7 +123,7 @@
             app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
             app:layout_constraintRight_toLeftOf="@id/dashboardMore"
             app:layout_constraintTop_toBottomOf="@+id/dashboardOffer"
-            app:src="@drawable/cash_loan_no_circle"
+            app:src="@drawable/momo_larger"
             app:text="@string/pay_momo"
             style="@style/DashBoardItem"
             />
@@ -133,7 +133,7 @@
             app:layout_constraintLeft_toRightOf="@id/dashboardMomo"
             app:layout_constraintRight_toRightOf="@id/guidelineEnd"
             app:layout_constraintTop_toTopOf="@id/dashboardMomo"
-            app:src="@drawable/cash_loan_no_circle"
+            app:src="@drawable/more_sp"
             app:text="@string/more"
             style="@style/DashBoardItem"
             />

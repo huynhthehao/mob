@@ -32,12 +32,15 @@ import vn.homecredit.hcvn.utils.AppUtils;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked {
 
+    @Inject
+    HomeViewModel mHomeViewModel;
+
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeActivity.class);
     }
 
-    @Inject
-    ViewModelProvider.Factory viewModelProviderFactory;
+//    @Inject
+//    ViewModelProvider.Factory viewModelProviderFactory;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -54,7 +57,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public HomeViewModel getViewModel() {
-        return ViewModelProviders.of(this, viewModelProviderFactory).get(HomeViewModel.class);
+        return mHomeViewModel;
     }
 
     @Override
@@ -86,7 +89,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_dashboard) {
-            showDashboard("greeting", "nguyen van a");
+            showDashboard(getString(R.string.hello), "nguyen van a");
             return true;
         }
         return super.onOptionsItemSelected(item);

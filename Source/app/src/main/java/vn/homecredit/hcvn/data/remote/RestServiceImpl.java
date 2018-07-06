@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
@@ -36,6 +37,7 @@ import vn.homecredit.hcvn.service.VersionService;
 public class RestServiceImpl implements RestService {
 
     public static final String RUNTIME_PLATFORM = "Android";
+    private final boolean useMock;
     private ApiHeader mApiHeader;
 
     private MemoryHelper mMemoryHelper;
@@ -50,6 +52,11 @@ public class RestServiceImpl implements RestService {
         mDeviceInfo = deviceInfo;
         mVersionService = versionService;
         mOneSignalService = oneSignalService;
+
+        if (BuildConfig.DEBUG)
+            useMock = true;
+        else
+            useMock = false;
     }
 
     public Single<VersionResp> CheckUpdate() {
@@ -90,6 +97,9 @@ public class RestServiceImpl implements RestService {
         requestBody.put("password", password);
         requestBody.put("login_type", "direct");
         requestBody.put("lang", "vi");
+
+        if (useMock)
+            requestBody.put("isMock", "true");
 
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_TOKEN)
                 .addHeaders(requestHeader)
