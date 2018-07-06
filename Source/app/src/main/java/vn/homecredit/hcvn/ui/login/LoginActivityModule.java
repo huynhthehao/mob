@@ -12,12 +12,13 @@ package vn.homecredit.hcvn.ui.login;
 import dagger.Module;
 import dagger.Provides;
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.service.ProfileService;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class LoginActivityModule {
     @Provides
-    LoginViewModel provideLoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        return new LoginViewModel(dataManager, schedulerProvider);
+    LoginViewModel provideLoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, ProfileService profileService) {
+        return new LoginViewModel(dataManager, schedulerProvider, profileService);
     }
 }

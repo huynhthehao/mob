@@ -9,12 +9,8 @@
 
 package vn.homecredit.hcvn.ui.splash;
 
-import org.reactivestreams.Publisher;
-
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Flowable;
-import io.reactivex.functions.Function;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
@@ -31,7 +27,7 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
     public void CheckUpdate() {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
-                .CheckUpdate().delay(250, TimeUnit.MILLISECONDS)
+                .checkUpdate().delay(250, TimeUnit.MILLISECONDS)
                 .doOnSuccess(response -> getDataManager().setVersionRespData(response.getData()))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())

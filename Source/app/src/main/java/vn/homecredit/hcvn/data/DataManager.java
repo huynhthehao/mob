@@ -10,9 +10,10 @@
 package vn.homecredit.hcvn.data;
 
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
+import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 
-public interface DataManager extends RestService, MemoryHelper, AclRestService {
+public interface DataManager extends RestService, MemoryHelper, AclRestService, PreferencesHelper {
 
 }

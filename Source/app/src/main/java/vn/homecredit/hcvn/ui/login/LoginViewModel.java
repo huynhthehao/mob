@@ -10,28 +10,28 @@
 package vn.homecredit.hcvn.ui.login;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.androidnetworking.error.ANError;
 
+import timber.log.Timber;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
+import vn.homecredit.hcvn.service.ProfileService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
-import vn.homecredit.hcvn.utils.AppLogger;
-import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class LoginViewModel extends BaseViewModel {
 
+    private final ProfileService mProfileService;
     private ObservableField<String> username = new ObservableField<>("");
     private ObservableField<String> password = new ObservableField<>("");
     private MutableLiveData<Boolean> modelLoginSuccess = new MutableLiveData<>();
 
-    public LoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+    public LoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, ProfileService profileService) {
         super(dataManager, schedulerProvider);
+        mProfileService = profileService;
     }
 
     public ObservableField<String> getUsername() {
@@ -67,9 +67,13 @@ public class LoginViewModel extends BaseViewModel {
     public void login(String phoneNumber, String password) {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
-                .GetToken(phoneNumber, password)
+                .getToken(phoneNumber, password)
                 .doOnSuccess(response -> {
-                    System.out.print(response.toString());
+                    Timber.v(String.format("AccessToken: %s", response.getAccessToken()));
+                })
+                .flatMap(tokenResp -> {
+                    getDataManager().setAccessToken(tokenResp.getAccessToken());
+                    return mProfileService.SyncProfile();
                 })
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
@@ -77,9 +81,9 @@ public class LoginViewModel extends BaseViewModel {
                     setIsLoading(false);
                     modelLoginSuccess.setValue(true);
                 }, throwable -> {
+                    setIsLoading(false);
                     String t = (((ANError) throwable).getErrorAsObject(TokenResp.class)).getErrorDescription();
                     setModelErrorMessage(t);
-                    setIsLoading(false);
                 }));
     }
 }

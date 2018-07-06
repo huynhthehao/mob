@@ -89,7 +89,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_dashboard) {
-            showDashboard(getString(R.string.hello), "nguyen van a");
+            showDashboard(getString(R.string.hello), mHomeViewModel.getUserName());
             return true;
         }
         return super.onOptionsItemSelected(item);

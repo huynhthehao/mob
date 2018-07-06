@@ -26,6 +26,7 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
@@ -54,12 +55,12 @@ public class RestServiceImpl implements RestService {
         mOneSignalService = oneSignalService;
 
         if (BuildConfig.DEBUG)
-            useMock = true;
+            useMock = false;
         else
             useMock = false;
     }
 
-    public Single<VersionResp> CheckUpdate() {
+    public Single<VersionResp> checkUpdate() {
 
 
         if (TextUtils.isEmpty(mDeviceInfo.getPlayerId()))
@@ -83,7 +84,7 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
-    public Single<TokenResp> GetToken(String phoneNumber, String password) {
+    public Single<TokenResp> getToken(String phoneNumber, String password) {
         String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
         byte[] b = s.getBytes(Charset.forName("UTF-8"));
         String authCode = Base64.encodeToString(b, android.util.Base64.DEFAULT);
@@ -106,4 +107,18 @@ public class RestServiceImpl implements RestService {
                 .addBodyParameter(requestBody)
                 .build().getObjectSingle(TokenResp.class);
     }
+
+    @Override
+    public Single<ProfileResp> getProfile() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?")
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build().getObjectSingle(ProfileResp.class);
+    }
+
+    @Override
+    public ApiHeader getApiHeader() {
+        return mApiHeader;
+    }
+
+
 }
