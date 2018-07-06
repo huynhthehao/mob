@@ -9,23 +9,44 @@
 
 package vn.homecredit.hcvn.ui.login;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.databinding.Bindable;
+import android.databinding.ObservableField;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.androidnetworking.error.ANError;
 
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.AppLogger;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
-public class LoginViewModel extends BaseViewModel<LoginNavigator> {
+public class LoginViewModel extends BaseViewModel {
+
+    private ObservableField<String> username = new ObservableField<>("");
+    private ObservableField<String> password = new ObservableField<>("");
+    private MutableLiveData<Boolean> modelLoginSuccess = new MutableLiveData<>();
+
     public LoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
     }
 
-    public boolean Validate(String phoneNumber, String password)
-    {
+    public ObservableField<String> getUsername() {
+        return username;
+    }
+
+    public ObservableField<String> getPassword() {
+        return password;
+    }
+
+    public MutableLiveData<Boolean> getModelLoginSuccess() {
+        return modelLoginSuccess;
+    }
+
+    public boolean validate(String phoneNumber, String password) {
         if (TextUtils.isEmpty(phoneNumber)) {
             return false;
         }
@@ -35,9 +56,12 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         return true;
     }
 
-    public void onLoginClick()
-    {
-        getNavigator().login();
+    public void onLoginClick() {
+        if (validate(username.get(), password.get())) {
+           login(username.get(),password.get());
+        }else {
+            setModelErrorMessage("Số điện thoại hoặc mật khẩu không hợp lệ");
+        }
     }
 
     public void login(String phoneNumber, String password) {
@@ -51,10 +75,10 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     setIsLoading(false);
-                    getNavigator().openHomeActivity();
+                    modelLoginSuccess.setValue(true);
                 }, throwable -> {
-                    String t = (((ANError)throwable).getErrorAsObject(TokenResp.class)).getErrorDescription();
-                    getNavigator().showError(t);
+                    String t = (((ANError) throwable).getErrorAsObject(TokenResp.class)).getErrorDescription();
+                    setModelErrorMessage(t);
                     setIsLoading(false);
                 }));
     }

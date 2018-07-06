@@ -57,6 +57,10 @@
     <string name="action_next">Tiếp tục</string>
     <string name="personal_detail">Thông tin cá nhân</string>
     <string name="prompt_id_number">Số chứng minh nhân dân</string>
+    <string name="payment_shedule">Payment Schedule</string>
+    <string name="offers">Offers</string>
+    <string name="pay_momo">Pay via MoMo</string>
+    <string name="momo_app_package">com.mservice.momotransfer</string>
     <string name="title_activity_acl_introduction">AclIntroductionActivity</string>
     <string name="cash_loan_a_header">Chào mừng bạn đến với Home Credit Việt Nam</string>
     <string name="cash_loan_b_header">Vay tiêu dùng</string>

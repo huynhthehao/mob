@@ -11,4 +11,12 @@
     <declare-styleable name="stfStatefulLayout">
         <attr name="stfLayoutRes" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="DashboardView">
+        <attr name="text" format="string"/>
+        <attr name="size" format="dimension"/>
+        <attr name="color" format="color"/>
+
+        <attr name="src" format="integer"/>
+    </declare-styleable>
 </resources>
