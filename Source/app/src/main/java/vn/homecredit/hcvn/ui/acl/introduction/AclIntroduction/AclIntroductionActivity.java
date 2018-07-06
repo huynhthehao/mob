@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.View;
 
 import javax.inject.Inject;
 
@@ -29,7 +30,7 @@ import vn.homecredit.hcvn.ui.acl.introduction.SectionsPagerAdapter;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 
-public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductionBinding, AclIntroductionViewModel> implements AclSelectLoanTypeNavigator, HasSupportFragmentInjector, AclSelectLoanTypeFragment.OnFragmentInteractionListener {
+public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductionBinding, AclIntroductionViewModel> implements AclSelectLoanTypeNavigator, HasSupportFragmentInjector, AclSelectLoanTypeFragment.OnFragmentInteractionListener, View.OnClickListener, ViewPager.OnPageChangeListener {
 
     @Inject
     AclIntroductionViewModel mAclIntroductionViewModel;
@@ -42,19 +43,8 @@ public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductio
         return new Intent(context, AclIntroductionActivity.class);
     }
 
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
     @Override
@@ -75,27 +65,32 @@ public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = getViewDataBinding().container;
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(this);
+        getViewDataBinding().tabLayoutDots.setupWithViewPager(mViewPager, true);
+        getViewDataBinding().tvActionBack.setOnClickListener(this);
+        getViewDataBinding().tvActionNext.setOnClickListener(this);
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (mViewPager.getCurrentItem() == 0) {
+            super.onBackPressed();
+        } else {
+            previous();
+        }
     }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override
     public void onSelectACLO() {
-        Intent intent = AclValidationActivity.newIntent(AclIntroductionActivity.this);
-        startActivity(intent);
-        finish();
+        AclValidationActivity.start(this);
     }
 
     @Override
@@ -111,5 +106,60 @@ public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductio
     @Override
     public AndroidInjector<Fragment> supportFragmentInjector() {
         return fragmentDispatchingAndroidInjector;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvActionBack:
+                previous();
+                break;
+            case R.id.tvActionNext:
+                next();
+                break;
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        //Do nothing
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (position == mSectionsPagerAdapter.getCount() - 1) {
+            hideNextButton();
+        } else {
+            showNextButton();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        //Do nothing
+    }
+
+    private void next() {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+    }
+
+    private void previous() {
+        if (mViewPager.getCurrentItem() == 0) {
+            onBackPressed();
+        } else {
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+        }
+    }
+
+    private void hideNextButton() {
+        if (getViewDataBinding().tvActionNext.getVisibility() != View.GONE) {
+            getViewDataBinding().tvActionNext.setVisibility(View.GONE);
+        }
+    }
+
+    private void showNextButton() {
+        if (getViewDataBinding().tvActionNext.getVisibility() != View.VISIBLE) {
+            getViewDataBinding().tvActionNext.setVisibility(View.VISIBLE);
+        }
     }
 }

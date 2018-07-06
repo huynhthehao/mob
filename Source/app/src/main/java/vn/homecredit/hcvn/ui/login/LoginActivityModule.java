@@ -16,8 +16,8 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class LoginActivityModule {
-    @Provides
-    LoginViewModel provideLoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        return new LoginViewModel(dataManager, schedulerProvider);
-    }
+//    @Provides
+//    LoginViewModel provideLoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+//        return new LoginViewModel(dataManager, schedulerProvider);
+//    }
 }
