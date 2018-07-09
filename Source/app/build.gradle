@@ -53,32 +53,28 @@ android {
     }
 
     flavorDimensions "mode"
-    productFlavors
-            {
-                beta {
-                    dimension "mode"
-                    applicationId "vn.homecredit.hcvn.beta"
-                    versionCode 7
-                    buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
-//                    buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
-                    buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
-                }
-                uat
-                        {
-                            dimension "mode"
-                            versionCode 1
-                            applicationId "vn.homecredit.hcvn.uat"
-                            buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
-                            buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
-                        }
-                product
-                        {
-                            dimension "mode"
-                            versionCode 1
-                            buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
-                            buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
-                        }
-            }
+    productFlavors {
+        beta {
+            dimension "mode"
+            applicationId "vn.homecredit.hcvn.beta"
+            versionCode 8
+            buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
+            buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
+        }
+        uat {
+            dimension "mode"
+            versionCode 1
+            applicationId "vn.homecredit.hcvn.uat"
+            buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
+            buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
+        }
+        product {
+            dimension "mode"
+            versionCode 1
+            buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
+            buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
+        }
+    }
 
     dataBinding {
         enabled = true
