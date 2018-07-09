@@ -1,14 +1,11 @@
 <!--
-  ~ rounded_button.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
   ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
   ~
-  ~ Last modified 6/19/18 4:08 PM
+  ~ Last modified 7/9/18 4:40 PM, by Ann
   -->
 
 <shape android:shape="rectangle"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="30dp"/>
-    <solid android:color="?android:colorPrimary"/>
+    <solid android:color="?android:colorPrimaryDark"/>
 </shape>
