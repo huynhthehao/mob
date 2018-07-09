@@ -1,160 +1,148 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
-  ~
-  ~ Last modified 7/2/18 4:06 PM, by quan.p@homecredit.vn
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".AclValidationActivity">
 
     <data>
-
-        <!--<import type="vn.homecredit.hcvn.utils.TextInputEditTextBindingUtil" />-->
-
-
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.acl.validation.AclValidationViewModel" />
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <ScrollView
+        android:fillViewport="true"
         android:id="@+id/main_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/appbar_padding_top"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_weight="1"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="enterAlways"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/title_activity_acl_validation">
-
-            </android.support.v7.widget.Toolbar>
-
-
-        </android.support.design.widget.AppBarLayout>
-        <!-- Login progress -->
-        <ScrollView
-            android:id="@+id/scrollView"
+        android:layout_height="match_parent">
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="false"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            >
 
-            <LinearLayout
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:layout_marginVertical="@dimen/activity_vertical_margin"
-                android:orientation="vertical">
+                android:paddingTop="@dimen/appbar_padding_top"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
-                <LinearLayout
-                    android:id="@+id/topGroupView"
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_weight="1"
+                    android:background="?attr/colorPrimary"
+                    app:layout_scrollFlags="enterAlways"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:title="@string/title_activity_acl_validation"></android.support.v7.widget.Toolbar>
+            </android.support.design.widget.AppBarLayout>
+
+            <TextView
+                android:id="@+id/tvPersonalDetail"
+                style="@style/AppTheme.SectionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appbar"
+                app:layout_constraintBottom_toTopOf="@id/phoneNumberTIL"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:text="@string/personal_detail"
+                android:textAlignment="center"
+                android:textColor="@color/brownishGrey" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/phoneNumberTIL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPersonalDetail"
+                app:layout_constraintBottom_toTopOf="@id/idNumberTIL"
+                android:theme="@style/AppTheme.TextLabel"
+                app:validation="@{viewModel.getAclRuleFactory().getPrimaryPhoneRule()}">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/phoneNumberTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
+                    android:drawableLeft="@drawable/phone_ico"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/phone_ico"
+                    android:hint="@string/prompt_phone_number"
+                    android:imeActionId="1"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true" />
 
-                    <TextView
-                        style="@style/AppTheme.SectionLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="60dp"
-                        android:layout_marginTop="60dp"
-                        android:text="@string/personal_detail"
-                        android:textAlignment="center"
-                        android:textColor="@color/brownishGrey" />
+            </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/phoneNumberTIL"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/AppTheme.TextLabel"
-                        app:validation="@{viewModel.getAclRuleFactory().getPrimaryPhoneRule()}">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/idNumberTIL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneNumberTIL"
+                app:layout_constraintBottom_toTopOf="@+id/tvRegisterLegalNote"
+                android:theme="@style/AppTheme.TextLabel"
+                app:validation="@{viewModel.getAclRuleFactory().getIdNumberRule()}">
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/phoneNumberTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/phone_ico"
-                            android:drawablePadding="10dp"
-                            android:drawableStart="@drawable/phone_ico"
-                            android:hint="@string/prompt_phone_number"
-                            android:imeActionId="1"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/idNumberTIL"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:theme="@style/AppTheme.TextLabel"
-                        app:validation="@{viewModel.getAclRuleFactory().getIdNumberRule()}">
-
-                        <EditText
-                            android:id="@+id/idNumberTextView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/id_loan_ico"
-                            android:drawablePadding="10dp"
-                            android:drawableStart="@drawable/id_loan_ico"
-                            android:hint="@string/prompt_id_number"
-                            android:imeActionId="2"
-                            android:imeActionLabel="@string/action_next"
-                            android:imeOptions="actionGo"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/bottomGroupView"
+                <EditText
+                    android:id="@+id/idNumberTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="90dp"
-                    android:orientation="vertical">
+                    android:drawableLeft="@drawable/id_loan_ico"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/id_loan_ico"
+                    android:hint="@string/prompt_id_number"
+                    android:imeActionId="2"
+                    android:imeActionLabel="@string/action_next"
+                    android:imeOptions="actionGo"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:singleLine="true" />
 
-                    <TextView
-                        style="@style/AppTheme.DescriptionLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/text_margin"
-                        android:text="@string/acl_register_legal_note"
-                        android:textAlignment="center" />
+            </android.support.design.widget.TextInputLayout>
 
-                    <Button
-                        android:id="@+id/email_sign_in_button"
-                        style="@style/PrimaryButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginHorizontal="30dp"
-                        android:height="60dp"
-                        android:onClick="@{() -> viewModel.onNextClick()}"
-                        android:text="@string/action_next" />
+            <TextView
+                android:id="@+id/tvRegisterLegalNote"
+                style="@style/AppTheme.DescriptionLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/idNumberTIL"
+                app:layout_constraintBottom_toTopOf="@+id/email_sign_in_button"
+                android:text="@string/acl_register_legal_note"
+                android:gravity="center"
+                />
 
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+            <Button
+                android:id="@+id/email_sign_in_button"
+                style="@style/PrimaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRegisterLegalNote"
+                android:onClick="@{() -> viewModel.onNextClick()}"
+                android:gravity="center"
+                android:text="@string/action_next" />
+        </android.support.constraint.ConstraintLayout>
 
+
+    </ScrollView>
 </layout>

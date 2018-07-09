@@ -1,14 +1,10 @@
-<!--
-  ~ rounded_button.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
-  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
-  ~
-  ~ Last modified 6/19/18 4:05 PM
-  -->
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/abc_list_selector_disabled_holo_light" android:state_enabled="false" android:state_focused="true" android:state_pressed="true"/>
+    <item android:drawable="@drawable/abc_list_selector_disabled_holo_light" android:state_enabled="false" android:state_focused="true"/>
+    <item android:drawable="@drawable/rounded_button_focus" android:state_focused="true" android:state_pressed="true"/>
+    <item android:drawable="@drawable/rounded_button_focus" android:state_focused="false" android:state_pressed="true"/>
+    <item android:drawable="@drawable/rounded_button_focus" android:state_selected="true" />
+    <item android:drawable="@drawable/rounded_button_normal"/>
+</selector>
 
-<shape android:shape="rectangle"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="30dp"/>
-    <solid android:color="@color/colorPrimary"/>
-</shape>
