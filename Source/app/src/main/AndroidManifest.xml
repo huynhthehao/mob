@@ -55,8 +55,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.acl.introduction.AclIntroduction.AclIntroductionActivity"
-            android:label="@string/title_activity_acl_introduction"
-            ></activity>
+            android:label="@string/title_activity_acl_introduction" />
+        <activity android:name=".ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity"></activity>
     </application>
 
 </manifest>
