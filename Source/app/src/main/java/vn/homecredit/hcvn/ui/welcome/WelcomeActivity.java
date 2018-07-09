@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityWelcomeBinding;
+import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.home.DashBoardDialogFragment;
@@ -92,6 +93,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     public void openIntroActivity() {
 //        Intent intent = AclValidationActivity.newIntent(WelcomeActivity.this);
         Intent intent = AclIntroductionActivity.newIntent(WelcomeActivity.this);
+//        Intent intent = AclApplicationFormActivity.newIntent(WelcomeActivity.this);
         startActivity(intent);
     }
 
