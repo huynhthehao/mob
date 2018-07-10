@@ -11,20 +11,24 @@ package vn.homecredit.hcvn.ui.splash;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SplashViewModel extends BaseViewModel<SplashNavigator> {
+
+    @Inject
     public SplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
     }
 
-    public void Init() {
-        CheckUpdate();
+    public void init() {
+        checkUpdate();
     }
 
-    public void CheckUpdate() {
+    public void checkUpdate() {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
                 .checkUpdate().delay(250, TimeUnit.MILLISECONDS)

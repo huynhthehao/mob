@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 //import com.androidnetworking.AndroidNetworking;
@@ -21,8 +22,10 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
 import vn.homecredit.hcvn.utils.AppLogger;
@@ -31,10 +34,12 @@ import vn.homecredit.hcvn.utils.AppLogger;
  * Created by QuanP on 11/06/18.
  */
 
-public class HCVNApp extends Application implements HasActivityInjector {
+public class HCVNApp extends Application implements HasActivityInjector, HasSupportFragmentInjector {
 
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
     @Inject
     CalligraphyConfig mCalligraphyConfig;
@@ -42,6 +47,11 @@ public class HCVNApp extends Application implements HasActivityInjector {
     @Override
     public DispatchingAndroidInjector<Activity> activityInjector() {
         return activityDispatchingAndroidInjector;
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
     }
 
     @Override
@@ -122,4 +132,5 @@ public class HCVNApp extends Application implements HasActivityInjector {
             }
         });
     }
+
 }

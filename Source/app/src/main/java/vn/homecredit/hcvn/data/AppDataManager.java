@@ -83,12 +83,14 @@ public class AppDataManager implements DataManager {
 
     @Override
     public VersionResp.VersionRespData getVersionRespData() {
-        return mMemoryHelper.getVersionRespData();
+//        return mMemoryHelper.getVersionRespData();
+        return mPreferencesHelper.getVersionRespData();
     }
 
     @Override
     public void setVersionRespData(VersionResp.VersionRespData versionRespData) {
         mMemoryHelper.setVersionRespData(versionRespData);
+        mPreferencesHelper.setVersionRespData(versionRespData);
     }
 
     @Override

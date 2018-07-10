@@ -10,66 +10,121 @@
 package vn.homecredit.hcvn.ui.more;
 
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import javax.inject.Inject;
+
+import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.databinding.FragmentMoreBinding;
+import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.utils.AppUtils;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MoreFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoreFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel> {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     public MoreFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MoreFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MoreFragment newInstance(String param1, String param2) {
+    public static MoreFragment newInstance() {
         MoreFragment fragment = new MoreFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public int getBindingVariable() {
+        return BR.moreviewmodel;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_more;
+    }
+
+    @Override
+    public MoreViewModel getViewModel() {
+        return ViewModelProviders.of(this, viewModelFactory).get(MoreViewModel.class);
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        getViewModel().init();
+        getViewModel().getModelProfile().observe(this, clickedProfile -> showProfile(clickedProfile, "clicked Profile"));
+        getViewModel().getModelPassword().observe(this, clickedPassword -> showPassword(clickedPassword, "clicked Password"));
+        getViewModel().getModelSetting().observe(this, clickedSetting -> showSetting(clickedSetting));
+        getViewModel().getModelLocation().observe(this, clickedLocation -> showLocation(clickedLocation));
+        getViewModel().getModelUrlTerm().observe(this, urlTerm -> showTerm(urlTerm));
+        getViewModel().getModelUrlUserGuide().observe(this, urlUserGuide -> showUserGuide(urlUserGuide));
+        getViewModel().getModelLogout().observe(this, clickedLogout -> showLogout(clickedLogout));
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    private void showLogout(Boolean clickedLogout) {
+        if (clickedLogout) {
+            showToast("clicked Logout");
+        }
+    }
+
+    private void showLocation(Boolean clickedLocation) {
+        if (clickedLocation) {
+            showToast("clicked Location");
+        }
+    }
+
+    private void showSetting(Boolean clickedSetting) {
+        if (clickedSetting) {
+            showToast("clicked Setting");
+        }
+    }
+
+    private void showPassword(Boolean clickedPassword, String s) {
+        if (clickedPassword) {
+            showToast(s);
+        }
+    }
+
+    private void showProfile(Boolean clickedProfile, String s) {
+        if (clickedProfile) {
+            showToast(s);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_more, container, false);
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
+    private void showTerm(String urlTerm) {
+        if (urlTerm != null) {
+            AppUtils.openExternalBrowser(getActivity(), urlTerm);
+        }
+    }
+
+    private void showUserGuide(String urlUserGuide) {
+        if (urlUserGuide != null) {
+            AppUtils.openExternalBrowser(getActivity(), urlUserGuide);
+        }
+    }
+
+    private void showToast(String ss) {
+        Toast.makeText(getActivity(), ss, Toast.LENGTH_SHORT).show();
+    }
 }
