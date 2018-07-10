@@ -7,11 +7,9 @@
 package vn.homecredit.hcvn.ui.acl.validation;
 
 import vn.homecredit.hcvn.data.model.OtpPassParam;
+import vn.homecredit.hcvn.ui.base.BaseNavigator;
 
-public interface AclValidationNavigator {
-    void showError(String errorMessage);
-
+public interface AclValidationNavigator extends BaseNavigator {
     void next();
-
     void openOtpActivity(OtpPassParam otpPassParam);
 }

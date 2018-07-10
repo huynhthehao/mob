@@ -57,6 +57,11 @@
     <string name="action_next">Tiếp tục</string>
     <string name="personal_detail">Thông tin cá nhân</string>
     <string name="prompt_id_number">Số chứng minh nhân dân</string>
+    <string name="otp_hint">Chúng tôi đã gửi mã xác thực đến số điện thoại %s. Mã sẽ hết hạn trong vòng</string>
+    <string name="otp_page_title">Xác Nhận</string>
+    <string name="otp_input_hint">Nhập mã xác thực</string>
+    <string name="otp_resend_message">Bạn chưa nhận được mã xác nhận?</string>
+    <string name="otp_resend_cmd_title">Nhấp vào đây để nhận lại mã xác nhận</string>
     <string name="payment_shedule">Lịch thanh toán</string>
     <string name="offers">Ưu đãi</string>
     <string name="pay_momo">Trả bằng MoMo</string>

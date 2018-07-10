@@ -39,7 +39,8 @@ public class AclRestServiceImpl implements AclRestService {
     @Override
     public Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId) {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
-        requestHeader.put("X-DEVICE-ID", mDeviceInfo.getId());
+        // TODO: mDeviceInfo.getId()
+        requestHeader.put("X-DEVICE-ID", mDeviceInfo.getPlayerId());
 
         HashMap<String, String> requestBody = new HashMap<String, String>();
         requestBody.put("PhoneNumber", phone);
@@ -54,15 +55,15 @@ public class AclRestServiceImpl implements AclRestService {
 
     @Override
     public Single<TokenResp> verifyPersonalOtp(OtpPassParam otpPassParam, String otp) {
-        HashMap<String, String> requestHeader = new HashMap<String, String>();
-        requestHeader.put("PhoneNumber", otpPassParam.getPhone());
-        requestHeader.put("IdNumber", otpPassParam.getContract());
-        requestHeader.put("DeviceId", mDeviceInfo.getPlayerId());
-        requestHeader.put("Otp", otp);
-        requestHeader.put("Source", otpPassParam.getOtpTimerResp().getData().getSource());
+        HashMap<String, String> requestBody = new HashMap<String, String>();
+        requestBody.put("PhoneNumber", otpPassParam.getPhoneNumber());
+        requestBody.put("IdNumber", otpPassParam.getContractId());
+        requestBody.put("DeviceId", mDeviceInfo.getPlayerId());
+        requestBody.put("Otp", otp);
+        requestBody.put("Source", otpPassParam.getOtpTimerResp().getData().getSource());
 
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_CLW + "/otp/Validation")
-                .addHeaders(requestHeader)
+                .addBodyParameter(requestBody)
                 .build().getObjectSingle(TokenResp.class);
     }
 }
