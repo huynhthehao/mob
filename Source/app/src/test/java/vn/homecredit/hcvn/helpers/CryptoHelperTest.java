@@ -6,7 +6,6 @@
 
 package vn.homecredit.hcvn.helpers;
 
-import org.junit.Before;
 import org.junit.Test;
 import vn.homecredit.hcvn.helpers.entities.TestObject;
 
@@ -50,12 +49,6 @@ public class CryptoHelperTest extends BaseTests {
             "hMtC" +
             "-----END RSA PRIVATE KEY-----";
 
-    private static CryptoHelper _cryptoHelper;
-
-    @Before
-    public void init(){
-        _cryptoHelper = new CryptoHelperImpl();
-    }
 
 
     @Test
@@ -64,8 +57,8 @@ public class CryptoHelperTest extends BaseTests {
         String originalString = "HomeCredit_MobileApp";
 
         // Action
-        String encryptString = _cryptoHelper.encrypt(originalString);
-        String decryptString = _cryptoHelper.decrypt(encryptString);
+        String encryptString = CryptoHelper.encrypt(originalString);
+        String decryptString = CryptoHelper.decrypt(encryptString);
 
         // Assert
         assertEquals(originalString, decryptString);
@@ -78,8 +71,8 @@ public class CryptoHelperTest extends BaseTests {
         TestObject originalObject = new TestObject("Test ID", "Test Name");
 
         // Action
-        String encryptString = _cryptoHelper.encryptObject(originalObject);
-        TestObject decryptObject = _cryptoHelper.decryptObject(encryptString, TestObject.class);
+        String encryptString = CryptoHelper.encryptObject(originalObject);
+        TestObject decryptObject = CryptoHelper.decryptObject(encryptString, TestObject.class);
 
         // Assert
         assertEquals(originalObject, decryptObject);
@@ -91,8 +84,8 @@ public class CryptoHelperTest extends BaseTests {
         String originalString = "HomeCredit_MobileApp";
 
         // Action
-        String signedString = _cryptoHelper.signWithRSAPem(PRIVATE_KEY, originalString);
-        boolean verifyResult = _cryptoHelper.verifyRSASignedString(PUBLIC_KEY, originalString, signedString);
+        String signedString = CryptoHelper.signWithRSAPem(PRIVATE_KEY, originalString);
+        boolean verifyResult = CryptoHelper.verifyRSASignedString(PUBLIC_KEY, originalString, signedString);
 
         // Assert
         assertTrue(verifyResult);

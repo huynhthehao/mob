@@ -30,6 +30,8 @@ import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.DeviceInfoImpl;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.OneSignalServiceImpl;
+import vn.homecredit.hcvn.service.ResourceService;
+import vn.homecredit.hcvn.service.ResourceServiceImpl;
 import vn.homecredit.hcvn.service.ProfileService;
 import vn.homecredit.hcvn.service.ProfileServiceImpl;
 import vn.homecredit.hcvn.service.VersionService;
@@ -136,9 +138,13 @@ public class AppModule {
 
     @Provides
     @Singleton
+    ResourceService provideResourceService(ResourceServiceImpl resourceService) {
+        return resourceService;
+    }
+
+    @Provides
+    @Singleton
     ProfileService provideProfileService(ProfileServiceImpl profileService) {
         return profileService;
     }
-
-
 }

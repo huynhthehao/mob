@@ -10,57 +10,34 @@ import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 
 public class OtpPassParam {
 
-    public OtpPassParam(OtpTimerResp otpTimerResp, String phoneNumber, String idNumber, OtpFlow otpFlow) {
+    private OtpTimerResp otpTimerResp;
+    private final String phoneNumber;
+    private final String contractId;
+    private OtpFlow otpFlow;
 
-        mOtpTimerResp = otpTimerResp;
-        mPhoneNumber = phoneNumber;
-        mIdNumber = idNumber;
-        mOtpFlow = otpFlow;
+    public OtpPassParam(OtpTimerResp otpTimerResp, String phoneNumber, String contractId, OtpFlow otpFlow) {
+        this.otpTimerResp = otpTimerResp;
+        this.phoneNumber = phoneNumber;
+        this.contractId = contractId;
+        this.otpFlow = otpFlow;
     }
 
-    public enum OtpFlow
-    {
-        SignUp(1),
-        ForgotPassword(2),
-        ChangePassword(4),
-        MasterContract(8),
-        MasterContractCreditCard(16),
-        CashLoanWalkin(32);
-
-
-        OtpFlow(int value) {
-
-        }
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    private String phone;
-    private String contract;
-    private OtpTimerResp mOtpTimerResp;
-    private final String mPhoneNumber;
-    private final String mIdNumber;
-    private final OtpFlow mOtpFlow;
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getContract() {
-        return contract;
-    }
-
-    public void setContract(String contract) {
-        this.contract = contract;
-    }
 
     public OtpTimerResp getOtpTimerResp() {
-        return mOtpTimerResp;
+        return otpTimerResp;
     }
 
-    public void setOtpTimerResp(OtpTimerResp otpTimerResp) {
-        mOtpTimerResp = otpTimerResp;
+
+    public OtpFlow getOtpFlow() {
+        return otpFlow;
+    }
+
+    public String getContractId() {
+        return contractId;
     }
 }
+

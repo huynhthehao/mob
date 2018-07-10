@@ -6,11 +6,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.Toast;
 
-//import com.androidnetworking.AndroidNetworking;
-//import com.androidnetworking.interceptors.HttpLoggingInterceptor;
-//import com.mindorks.framework.mvvm.di.component.DaggerAppComponent;
-//import com.mindorks.framework.mvvm.utils.AppLogger;
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
 import com.onesignal.OSNotification;

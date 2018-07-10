@@ -6,15 +6,11 @@
 
 package vn.homecredit.hcvn.ui.acl.validation;
 
-import android.widget.Toast;
-
-import com.androidnetworking.error.ANError;
-
 import java.util.HashMap;
 
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.data.model.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
-import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
@@ -31,11 +27,11 @@ public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator
         mAclRuleFactory = aclRuleFactory;
         mDeviceInfo = deviceInfo;
 
-
         errorData = new HashMap<String, String>();
     }
 
-    public void onNextClick() {
+    public void onNextClick()
+    {
         getNavigator().next();
     }
 
@@ -55,7 +51,7 @@ public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator
                 .subscribe(response -> {
                     setIsLoading(false);
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
-                        getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpPassParam.OtpFlow.CashLoanWalkin));
+                        getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CashLoanWalkin));
                     } else {
                         getNavigator().showError(response.getResponseMessage());
                     }

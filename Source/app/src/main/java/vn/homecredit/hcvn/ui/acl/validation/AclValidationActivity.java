@@ -25,6 +25,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivityAclValidationBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.otp.OtpActivity;
 
 public class AclValidationActivity extends BaseActivity<ActivityAclValidationBinding, AclValidationViewModel> implements AclValidationNavigator {
 
@@ -87,10 +88,13 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
 
     @Override
     public void openOtpActivity(OtpPassParam otpPassParam) {
-        Toast.makeText(this, "TODO: Open OTP" + otpPassParam.toString(), Toast.LENGTH_SHORT).show();
-//        Intent intent = OtpActivity.newIntent(OtpActivity.this);
-//        startActivity(intent);
-//        finish();
+        // TODO: Show as dialog
+        if(otpPassParam == null || otpPassParam.getOtpTimerResp() == null)
+            Toast.makeText(this, "Verify failed", Toast.LENGTH_SHORT).show();
+
+        Intent intent = OtpActivity.getNewIntent(this, otpPassParam);
+        startActivity(intent);
+        finish();
     }
 
     protected boolean isValid() {
