@@ -35,6 +35,9 @@ public class DeviceInfoImpl implements DeviceInfo {
         mVersion = Build.VERSION.RELEASE;
         mPlatform = 0;
         mBrand = Build.BRAND;
+
+        mPlayerId = "";
+        mPushToken = "";
     }
 
     @Override

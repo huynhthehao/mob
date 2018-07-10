@@ -13,12 +13,13 @@ import dagger.Module;
 import dagger.Provides;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class SplashActivityModule {
     @Provides
-    SplashViewModel provideSplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        return new SplashViewModel(dataManager, schedulerProvider);
+    SplashViewModel provideSplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, OneSignalService oneSignalService) {
+        return new SplashViewModel(dataManager, schedulerProvider, oneSignalService);
     }
 }
