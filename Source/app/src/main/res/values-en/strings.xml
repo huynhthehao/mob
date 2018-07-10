@@ -23,4 +23,7 @@
     <string name="otp_input_hint">Enter SMS code</string>
     <string name="otp_resend_message">Did you not receive the SMS code?</string>
     <string name="otp_resend_cmd_title">Tap here to resend SMS code</string>
+    <string name="offers">Offers</string>
+    <string name="pay_momo">Pay via Momo</string>
+    <string name="payment_shedule">Payment Schedule</string>
 </resources>
