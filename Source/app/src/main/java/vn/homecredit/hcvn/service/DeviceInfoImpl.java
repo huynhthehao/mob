@@ -6,32 +6,53 @@
 
 package vn.homecredit.hcvn.service;
 
+import android.content.Context;
+import android.os.Build;
+import android.provider.Settings;
+import android.text.TextUtils;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import timber.log.Timber;
 
 @Singleton
 public class DeviceInfoImpl implements DeviceInfo {
 
+    private final Context mContext;
     private String mId;
     private String mModel;
+    private int mPlatform;
     private String mVersion;
     private String mBrand;
     private String mPlayerId;
     private String mPushToken;
 
     @Inject
-    public DeviceInfoImpl() {
+    public DeviceInfoImpl(Context context) {
+        mContext = context;
+        mModel = Build.MODEL;
+        mVersion = Build.VERSION.RELEASE;
+        mPlatform = 0;
+        mBrand = Build.BRAND;
     }
 
     @Override
     public String getId() {
-        return mId;
+        if (!TextUtils.isEmpty(mId))
+            return mId;
+
+        try
+        {
+            mId = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+        }
+        catch(Exception ex)
+        {
+            Timber.w("DeviceInfo: Unable to get id: %s", ex.toString());
+        }
+        return "";
     }
 
-    @Override
-    public void setId(String id) {
-        mId = id;
-    }
 
     @Override
     public String getModel() {
@@ -39,8 +60,8 @@ public class DeviceInfoImpl implements DeviceInfo {
     }
 
     @Override
-    public void setModel(String model) {
-        mModel = model;
+    public int getPlatform() {
+        return mPlatform;
     }
 
     @Override
@@ -49,18 +70,8 @@ public class DeviceInfoImpl implements DeviceInfo {
     }
 
     @Override
-    public void setVersion(String version) {
-        mVersion = version;
-    }
-
-    @Override
     public String getBrand() {
         return mBrand;
-    }
-
-    @Override
-    public void setBrand(String brand) {
-        mBrand = brand;
     }
 
     @Override
