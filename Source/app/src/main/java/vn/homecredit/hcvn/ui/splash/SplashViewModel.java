@@ -14,18 +14,22 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     @Inject
-    public SplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+    private final OneSignalService mOneSignalService;
+    public SplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, OneSignalService oneSignalService) {
         super(dataManager, schedulerProvider);
+        mOneSignalService = oneSignalService;
     }
 
     public void init() {
         checkUpdate();
+            mOneSignalService.tryGetPlayerId();
     }
 
     public void checkUpdate() {

@@ -18,4 +18,9 @@
     <string name="welcome_cash_loan">Cash loan</string>
     <string name="welcome_sign_up">Sign up</string>
     <string name="welcome_login">Log in</string>
+    <string name="otp_hint">We have sent an SMS code to your phone no. %s. It will expire within</string>
+    <string name="otp_page_title">Comfirmation</string>
+    <string name="otp_input_hint">Enter SMS code</string>
+    <string name="otp_resend_message">Did you not receive the SMS code?</string>
+    <string name="otp_resend_cmd_title">Tap here to resend SMS code</string>
 </resources>

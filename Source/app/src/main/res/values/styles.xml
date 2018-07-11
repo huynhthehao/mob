@@ -83,7 +83,7 @@
     <style name="AppTheme.TextLabel" parent="Widget.Design.TextInputLayout">
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/greyish</item>
-        <item name="android:textSize">@dimen/large_text</item>
+        <item name="android:textSize">@dimen/medium_text</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
         <item name="colorAccent">@color/orange_500</item>
         <item name="colorControlNormal">@color/brownishGrey</item>
@@ -95,7 +95,7 @@
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
 
-    <style name="AppTheme.SectionLabel" parent="Base.TextAppearance.AppCompat.Headline">
+    <style name="AppTheme.SectionLabel" parent="Base.TextAppearance.AppCompat.Large">
         <item name="android:textColor">@color/brownishGrey</item>
         <item name="fontFamily">@font/myriadpro_regular</item>
         <item name="android:textStyle">bold</item>

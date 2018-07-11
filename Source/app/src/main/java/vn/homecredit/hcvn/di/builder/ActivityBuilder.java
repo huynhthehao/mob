@@ -19,6 +19,8 @@ import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivityModule;
+import vn.homecredit.hcvn.ui.otp.OtpActivity;
+import vn.homecredit.hcvn.ui.otp.OtpActivityModule;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
@@ -27,15 +29,6 @@ import vn.homecredit.hcvn.ui.welcome.WelcomeActivityModule;
 @Module
 public abstract class ActivityBuilder {
 
-    //    @ContributesAndroidInjector(modules = {
-//            FeedActivityModule.class,
-//            BlogFragmentProvider.class,
-//            OpenSourceFragmentProvider.class})
-//    abstract FeedActivity bindFeedActivity();
-//
-//    @ContributesAndroidInjector(modules = LoginActivityModule.class)
-//    abstract LoginActivity bindLoginActivity();
-//
 //    @ContributesAndroidInjector(modules = {
 //            MainActivityModule.class,
 //            AboutFragmentProvider.class,
@@ -48,9 +41,12 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = WelcomeActivityModule.class)
     abstract WelcomeActivity bindWelcomeActivity();
 
-//    @ContributesAndroidInjector(modules = LoginActivityModule.class)
+    //@ContributesAndroidInjector(modules = LoginActivityModule.class)
     @ContributesAndroidInjector()
     abstract LoginActivity bindLoginActivity();
+
+    @ContributesAndroidInjector(modules = OtpActivityModule.class)
+    abstract OtpActivity bindOtpActivity();
 
     @ContributesAndroidInjector()
     abstract HomeActivity bindHomeActivity();
@@ -60,6 +56,6 @@ public abstract class ActivityBuilder {
             AclSelectLoanTypeFragmentProvider.class})
     abstract AclIntroductionActivity bindAclIntroductionActivity();
 
-    @ContributesAndroidInjector(modules = { AclValidationActivityModule.class})
+    @ContributesAndroidInjector(modules = AclValidationActivityModule.class)
     abstract AclValidationActivity bindAclValidationActivity();
 }

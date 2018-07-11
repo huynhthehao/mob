@@ -21,7 +21,6 @@
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,6 +41,10 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.otp.OtpActivity"
+            android:label="@string/otp_page_title"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".ui.welcome.WelcomeActivity"
@@ -50,10 +53,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.welcome.WelcomeActivity" />
         </activity>
+
         <activity
             android:name=".ui.acl.validation.AclValidationActivity"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".ui.acl.introduction.AclIntroduction.AclIntroductionActivity"
             android:label="@string/title_activity_acl_introduction" />

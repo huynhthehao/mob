@@ -9,19 +9,13 @@ package vn.homecredit.hcvn.service;
 public interface DeviceInfo {
     String getId();
 
-    void setId(String id);
-
     String getModel();
 
-    void setModel(String model);
+    int getPlatform();
 
     String getVersion();
 
-    void setVersion(String version);
-
     String getBrand();
-
-    void setBrand(String brand);
 
     String getBrandModel();
 
