@@ -52,12 +52,13 @@
         </activity>
         <activity
             android:name=".ui.acl.validation.AclValidationActivity"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.acl.introduction.AclIntroduction.AclIntroductionActivity"
             android:label="@string/title_activity_acl_introduction" />
-        <activity android:name=".ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity"></activity>
+        <activity
+            android:name=".ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

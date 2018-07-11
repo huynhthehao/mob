@@ -10,9 +10,9 @@
     tools:context=".ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity">
 
     <data>
-        <!--<variable-->
-        <!--name="viewModel"-->
-        <!--type="vn.homecredit.hcvn.ui.login.LoginViewModel" />-->
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -47,7 +47,7 @@
             android:id="@+id/contentFrame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>
