@@ -75,7 +75,7 @@ public class LoginViewModel extends BaseViewModel {
                 })
                 .flatMap(tokenResp -> {
                     getDataManager().setAccessToken(tokenResp.getAccessToken());
-                    return mProfileService.SyncProfile();
+                    return mProfileService.syncProfile();
                 })
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())

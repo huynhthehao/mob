@@ -30,7 +30,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case TAB_SUPPORT:
                 return SupportFragment.newInstance("A", "B");
             case TAB_MORE:
-                return MoreFragment.newInstance("A", "B");
+                return MoreFragment.newInstance();
             default:
                 break;
         }

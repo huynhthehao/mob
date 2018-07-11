@@ -17,12 +17,14 @@ import com.google.gson.Gson;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
+import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.di.PreferenceInfo;
 
 public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
     private static final String PREF_KEY_ACL_ACCESS_TOKEN = "PREF_KEY_ACL_ACCESS_TOKEN";
     private static final String PREF_KEY_PROFILE = "PREF_KEY_PROFILE";
+    private static final String PREF_KEY_VERSIONRESP = "PREF_KEY_VERSIONRESP";
 
     private final SharedPreferences mPrefs;
 
@@ -64,6 +66,25 @@ public class AppPreferencesHelper implements PreferencesHelper {
         Gson gson = new Gson();
         String json = gson.toJson(profileRespData); // myObject - instance of MyObject
         prefsEditor.putString(PREF_KEY_PROFILE, json);
+        prefsEditor.commit();
+    }
+
+    @Override
+    public VersionResp.VersionRespData getVersionRespData() {
+        Gson gson = new Gson();
+        String json = mPrefs.getString(PREF_KEY_VERSIONRESP, null);
+        if (json == null) {
+            return null;
+        }
+        return gson.fromJson(json, VersionResp.VersionRespData.class);
+    }
+
+    @Override
+    public void setVersionRespData(VersionResp.VersionRespData versionRespData) {
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(versionRespData);
+        prefsEditor.putString(PREF_KEY_VERSIONRESP, json);
         prefsEditor.commit();
     }
 
