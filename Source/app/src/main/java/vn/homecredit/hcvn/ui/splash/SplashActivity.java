@@ -11,28 +11,23 @@ package vn.homecredit.hcvn.ui.splash;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.generated.callback.OnClickListener;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.gturedi.views.StatefulLayout;
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
 import com.microsoft.appcenter.crashes.Crashes;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.control.MyStatefulLayout;
-import vn.homecredit.hcvn.data.model.api.VersionResp;
-import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
-import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.base.BaseStatefulActivity;
+import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 
@@ -68,10 +63,8 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     @Override
     public void openWelcomeActivity() {
         Intent intent = WelcomeActivity.newIntent(SplashActivity.this);
-
         startActivity(intent);
         finish();
-        overridePendingTransition(0,0);
     }
 
     @Override
@@ -81,12 +74,7 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
 
     @Override
     public void retryCheckUpdate() {
-        this.showOffline(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getViewModel().CheckUpdate();
-            }
-        });
+        this.showOffline(view -> getViewModel().checkUpdate());
     }
 
     @Override
@@ -97,10 +85,9 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
                 Analytics.class, Crashes.class);
 
         this.mSplashViewModel.setNavigator(this);
-
         //check if not logged in
 //        this.mSplashViewModel.getNavigator().openWelcomeActivity();
-        getViewModel().Init();
+        getViewModel().init();
     }
 
     @Override

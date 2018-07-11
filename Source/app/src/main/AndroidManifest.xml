@@ -42,6 +42,10 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.otp.OtpActivity"
+            android:label="@string/otp_page_title"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".ui.welcome.WelcomeActivity"

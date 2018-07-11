@@ -19,4 +19,12 @@
 
         <attr name="src" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="StepIndicator">
+        <attr name="currentStep" format="integer" />
+        <attr name="numOfSteps" format="integer" />
+        <attr name="textSize" format="float" />
+        <attr name="lineWidth" format="float" />
+        <attr name="padding" format="integer" />
+    </declare-styleable>
 </resources>

@@ -35,6 +35,10 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     @Inject
     HomeViewModel mHomeViewModel;
 
+    public static void start(Context context) {
+        Intent intent =  new Intent(context, HomeActivity.class);
+        context.startActivity(intent);
+    }
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeActivity.class);
     }
@@ -72,6 +76,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         // Set up the ViewPager with the sections adapter.
         mViewPager = getViewDataBinding().container;
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(4);
         TabLayout tabLayout = getViewDataBinding().tabs;
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
