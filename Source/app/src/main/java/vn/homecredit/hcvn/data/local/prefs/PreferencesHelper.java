@@ -16,9 +16,6 @@ public interface PreferencesHelper {
     String getAccessToken();
     void setAccessToken(String accessToken);
 
-    String getAclAccessToken();
-    void setAclAccessToken(String aclAccessToken);
-
     ProfileResp.ProfileRespData loadProfile();
     void saveProfile(ProfileResp.ProfileRespData profileRespData);
 }

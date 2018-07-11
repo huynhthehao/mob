@@ -123,16 +123,6 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public String getAclAccessToken() {
-        return mPreferencesHelper.getAclAccessToken();
-    }
-
-    @Override
-    public void setAclAccessToken(String aclAccessToken) {
-        mPreferencesHelper.setAccessToken(aclAccessToken);
-    }
-
-    @Override
     public ProfileResp.ProfileRespData loadProfile() {
         return mPreferencesHelper.loadProfile();
     }
