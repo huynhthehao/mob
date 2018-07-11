@@ -20,8 +20,8 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
-    @Inject
     private final OneSignalService mOneSignalService;
+    @Inject
     public SplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, OneSignalService oneSignalService) {
         super(dataManager, schedulerProvider);
         mOneSignalService = oneSignalService;
