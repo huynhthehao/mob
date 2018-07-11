@@ -17,6 +17,14 @@ android {
                 onesignal_google_project_number: 'REMOTE'
         ]
     }
+    signingConfigs {
+        config {
+            keyAlias 'androiddebugkey'
+            keyPassword 'Onl!ne123'
+            storeFile file('../../KeyStore/debug.keystore')
+            storePassword '!T123456'
+        }
+    }
     buildTypes {
         debug {
             minifyEnabled false
@@ -27,6 +35,7 @@ android {
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 

@@ -11,7 +11,6 @@ package vn.homecredit.hcvn.ui.base;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
@@ -27,16 +26,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import dagger.android.AndroidInjection;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.NetworkUtils;
-
-import dagger.android.AndroidInjection;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity
         implements BaseFragment.Callback {

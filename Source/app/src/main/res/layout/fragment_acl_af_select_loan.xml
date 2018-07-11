@@ -35,50 +35,85 @@
             <TextView
                 android:id="@+id/pleaseSelectTextView"
                 style="@style/AppTheme.DescriptionLabel"
-                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
                 android:layout_marginBottom="0dp"
                 android:gravity="center_horizontal"
+                android:text="Please select the loan amount and tenor below"
                 android:textAlignment="center"
-                android:text="Please select the loan amount and tenor below" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/loanAmountTextView"
                 style="@style/AppTheme.SectionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:layout_marginBottom="0dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
                 android:background="@drawable/primary_rounded_corner"
                 android:text="50 mil"
                 android:textColor="@color/colorPrimary" />
 
             <SeekBar
                 android:id="@+id/loanAmountSeekBar"
+                style="@style/AppTheme.SeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    style="@style/AppTheme.DescriptionLabel"
+                    android:text="5 mil" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    style="@style/AppTheme.DescriptionLabel"
+                    android:text="50 mil" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/loanTenorTextView"
                 style="@style/AppTheme.SectionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:layout_marginBottom="0dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
                 android:background="@drawable/primary_rounded_corner"
                 android:text="36 months"
                 android:textColor="@color/colorPrimary" />
 
             <SeekBar
                 android:id="@+id/loanTenorSeekBar"
+                style="@style/AppTheme.SeekBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    style="@style/AppTheme.DescriptionLabel"
+                    android:text="12 months" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    style="@style/AppTheme.DescriptionLabel"
+                    android:text="48 months" />
+            </FrameLayout>
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -90,6 +125,7 @@
                     android:background="@drawable/rounded_corner"
                     android:gravity="center"
                     android:orientation="horizontal">
+
                     <TextView
                         style="@style/AppTheme.DescriptionLabel"
                         android:layout_width="wrap_content"
@@ -117,11 +153,11 @@
 
             <TextView
                 android:id="@+id/noteTextView"
+                style="@style/AppTheme.DescriptionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                style="@style/AppTheme.DescriptionLabel"
                 android:text="@string/legal_note" />
         </RelativeLayout>
 

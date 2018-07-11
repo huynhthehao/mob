@@ -10,6 +10,6 @@ import io.reactivex.Single;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 
 public interface ProfileService {
-    Single<ProfileResp>  SyncProfile();
-    ProfileResp.ProfileRespData GetProfile();
+    Single<ProfileResp> syncProfile();
+    ProfileResp.ProfileRespData getProfile();
 }

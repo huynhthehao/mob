@@ -49,6 +49,7 @@ public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
+
                     setIsLoading(false);
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CashLoanWalkin));

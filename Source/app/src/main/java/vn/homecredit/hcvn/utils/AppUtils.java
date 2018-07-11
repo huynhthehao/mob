@@ -9,6 +9,7 @@
 
 package vn.homecredit.hcvn.utils;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -39,4 +40,20 @@ public final class AppUtils {
                             .getString(R.string.app_google_play_store_link) + appPackageName)));
         }
     }
+
+    public static void openExternalBrowser(Context context, String uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(uri));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        safeStartActivity(context, intent);
+    }
+
+    private static void safeStartActivity(Context context, Intent intent) {
+        try {
+            context.startActivity(intent);
+        }catch (ActivityNotFoundException e) {
+            Log.printStackTrace(e);
+        }
+    }
+
 }

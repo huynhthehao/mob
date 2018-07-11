@@ -83,12 +83,14 @@ public class AppDataManager implements DataManager {
 
     @Override
     public VersionResp.VersionRespData getVersionRespData() {
-        return mMemoryHelper.getVersionRespData();
+//        return mMemoryHelper.getVersionRespData();
+        return mPreferencesHelper.getVersionRespData();
     }
 
     @Override
     public void setVersionRespData(VersionResp.VersionRespData versionRespData) {
         mMemoryHelper.setVersionRespData(versionRespData);
+        mPreferencesHelper.setVersionRespData(versionRespData);
     }
 
     @Override
@@ -120,16 +122,6 @@ public class AppDataManager implements DataManager {
     public void setAccessToken(String accessToken) {
         mPreferencesHelper.setAccessToken(accessToken);
         mRestService.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
-    }
-
-    @Override
-    public String getAclAccessToken() {
-        return mPreferencesHelper.getAclAccessToken();
-    }
-
-    @Override
-    public void setAclAccessToken(String aclAccessToken) {
-        mPreferencesHelper.setAccessToken(aclAccessToken);
     }
 
     @Override

@@ -14,6 +14,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.AppDataManager;
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.data.acl.AclDataManager;
+import vn.homecredit.hcvn.data.acl.AclDatabaseService;
+import vn.homecredit.hcvn.data.acl.AclDatabaseServiceImpl;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelperImpl;
 import vn.homecredit.hcvn.data.local.prefs.AppPreferencesHelper;
@@ -146,5 +149,17 @@ public class AppModule {
     @Singleton
     ProfileService provideProfileService(ProfileServiceImpl profileService) {
         return profileService;
+    }
+
+    @Provides
+    @Singleton
+    AclDatabaseService provideAclDatabaseService(AclDatabaseServiceImpl aclDatabaseService) {
+        return aclDatabaseService;
+    }
+
+    @Provides
+    @Singleton
+    AclDataManager provideAclDataManager(AclDataManager aclDataManager) {
+        return aclDataManager;
     }
 }

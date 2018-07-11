@@ -39,6 +39,10 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     WelcomeViewModel mWelcomeViewModel;
     ActivityWelcomeBinding mActivityWelcomeBinding;
 
+    public static void start(Context context) {
+        Intent intent =  new Intent(context, WelcomeActivity.class);
+        context.startActivity(intent);
+    }
     public static Intent newIntent(Context context) {
         return new Intent(context, WelcomeActivity.class);
     }

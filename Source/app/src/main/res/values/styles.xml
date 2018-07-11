@@ -118,4 +118,9 @@
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
 
+    <style name="AppTheme.SeekBar">
+        <item name="android:progressDrawable">@drawable/red_scrubber_progress</item>
+        <item name="android:thumb">@drawable/red_scrubber_control</item>
+    </style>
+
 </resources>
