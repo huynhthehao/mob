@@ -71,6 +71,7 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
         getViewModel().getModelPassword().observe(this, clickedPassword -> showPassword(clickedPassword, "clicked Password"));
         getViewModel().getModelSetting().observe(this, clickedSetting -> showSetting(clickedSetting));
         getViewModel().getModelLocation().observe(this, clickedLocation -> showLocation(clickedLocation));
+        getViewModel().getModelMomo().observe(this, clickedMomo -> showMomo(clickedMomo));
         getViewModel().getModelUrlTerm().observe(this, urlTerm -> showTerm(urlTerm));
         getViewModel().getModelUrlUserGuide().observe(this, urlUserGuide -> showUserGuide(urlUserGuide));
         getViewModel().getModelLogout().observe(this, clickedLogout -> showLogout(clickedLogout));
@@ -84,6 +85,11 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
         }
     }
 
+    private void showMomo(Boolean clickedMomo) {
+        if (clickedMomo) {
+            showToast("clicked Momo");
+        }
+    }
     private void showLocation(Boolean clickedLocation) {
         if (clickedLocation) {
             showToast("clicked Location");

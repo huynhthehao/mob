@@ -27,6 +27,7 @@ public class MoreViewModel extends BaseViewModel {
     private MutableLiveData<Boolean> modelSetting = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLogout = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelMomo = new MutableLiveData<>();
     private MutableLiveData<String> modelUrlTerm = new MutableLiveData<>();
     private MutableLiveData<String> modelUrlUserGuide = new MutableLiveData<>();
     private ObservableField<String> usernameField = new ObservableField<>("");
@@ -69,6 +70,10 @@ public class MoreViewModel extends BaseViewModel {
         return modelUrlTerm;
     }
 
+    public MutableLiveData<Boolean> getModelMomo() {
+        return modelMomo;
+    }
+
     public MutableLiveData<String> getModelUrlUserGuide() {
         return modelUrlUserGuide;
     }
@@ -85,6 +90,7 @@ public class MoreViewModel extends BaseViewModel {
         modelPassword.setValue(false);
         modelSetting.setValue(false);
         modelLocation.setValue(false);
+        modelMomo.setValue(false);
         modelUrlTerm.setValue(null);
         modelUrlUserGuide.setValue(null);
     }
@@ -123,6 +129,9 @@ public class MoreViewModel extends BaseViewModel {
     }
     public void clickedLocation() {
         modelLocation.setValue(true);
+    }
+    public void clickedMomo() {
+        modelMomo.setValue(true);
     }
     public void clickedTerm() {
         modelUrlTerm.setValue(getUrlTerm());
