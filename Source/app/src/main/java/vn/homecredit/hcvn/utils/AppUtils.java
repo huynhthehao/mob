@@ -14,7 +14,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import javax.inject.Inject;
+
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.ui.splash.SplashActivity;
+import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 public final class AppUtils {
 
@@ -27,6 +31,11 @@ public final class AppUtils {
         openPlayStoreForApp(context, appPackageName);
     }
 
+    public static void restartApp(Context context) {
+        Intent intent = new Intent(context, WelcomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
     public static void openPlayStoreForApp(Context context, String appPackageName) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
@@ -55,5 +64,7 @@ public final class AppUtils {
             Log.printStackTrace(e);
         }
     }
+
+
 
 }
