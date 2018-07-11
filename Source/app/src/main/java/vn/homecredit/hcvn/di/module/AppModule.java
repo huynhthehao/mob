@@ -15,6 +15,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.AppDataManager;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
+import vn.homecredit.hcvn.data.acl.AclDataManagerImpl;
 import vn.homecredit.hcvn.data.acl.AclDatabaseService;
 import vn.homecredit.hcvn.data.acl.AclDatabaseServiceImpl;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
@@ -159,7 +160,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    AclDataManager provideAclDataManager(AclDataManager aclDataManager) {
+    AclDataManager provideAclDataManager(AclDataManagerImpl aclDataManager) {
         return aclDataManager;
     }
 }

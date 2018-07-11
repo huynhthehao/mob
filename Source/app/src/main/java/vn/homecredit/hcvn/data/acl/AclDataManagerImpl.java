@@ -12,21 +12,23 @@ import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 @Singleton
 public class AclDataManagerImpl implements AclDataManager {
 
+    private final AclDatabaseService mAclDatabaseService;
     private final AclRestService mAclRestService;
 
     @Inject
-    public AclDataManagerImpl(AclRestService aclRestService) {
+    public AclDataManagerImpl(AclDatabaseService aclDatabaseService, AclRestService aclRestService) {
+        mAclDatabaseService = aclDatabaseService;
         mAclRestService = aclRestService;
     }
 
     @Override
     public String getAclAccessToken() {
-        return null;
+        return mAclDatabaseService.getAclAccessToken();
     }
 
     @Override
     public void setAclAccessToken(String aclAccessToken) {
-
+        mAclDatabaseService.setAclAccessToken(aclAccessToken);
     }
 
     @Override

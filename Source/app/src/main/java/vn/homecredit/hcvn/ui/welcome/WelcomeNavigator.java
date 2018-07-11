@@ -16,5 +16,6 @@ public interface WelcomeNavigator {
     void openLoginActivity();
     void openSignupActivity();
     void openIntroActivity();
+    void openAclApplicationForm();
     void startIntro();
 }

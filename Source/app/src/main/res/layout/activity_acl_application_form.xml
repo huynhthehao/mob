@@ -10,6 +10,7 @@
     tools:context=".ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity">
 
     <data>
+
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormViewModel" />
@@ -42,12 +43,30 @@
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
-
-        <FrameLayout
-            android:id="@+id/contentFrame"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <vn.homecredit.hcvn.ui.controls.StepIndicator
+                android:id="@+id/stepIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                app:currentStep="2"
+                app:lineWidth="5"
+                app:numOfSteps="7"
+                app:textSize="32" />
+
+            <FrameLayout
+                android:id="@+id/contentFrame"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@id/stepIndicator" />
+        </LinearLayout>
+
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>
