@@ -169,18 +169,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         dialog.show();
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (getCurrentFocus() != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-
-            getCurrentFocus().clearFocus();
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-
     private void enableModelErrorDialog() {
         getViewModel().getModelErrorMessage().observe(this, o -> {
             if (o != null && o instanceof String) {

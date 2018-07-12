@@ -8,6 +8,7 @@ package vn.homecredit.hcvn.ui.otp;
 
 import android.databinding.ObservableBoolean;
 import android.support.design.widget.TextInputEditText;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
@@ -95,19 +96,20 @@ public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
         }, 0, interval);
     }
 
-    public void onNextClick()
-    {
-        switch (otpFlow){
-            case SignUp:   break;
+    public void onNextClick() {
+        switch (otpFlow) {
+            case SignUp:
+                break;
             case CashLoanWalkin: {
                 verifyOtpForCLW();
             }
         }
     }
 
-    public void onResendOtp(){
-        switch (otpFlow){
-            case SignUp:   break;
+    public void onResendOtp() {
+        switch (otpFlow) {
+            case SignUp:
+                break;
             case CashLoanWalkin: {
                 resendOtpForCLW();
             }
@@ -132,6 +134,11 @@ public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
     private void verifyOtpForCLW() {
         setIsLoading(true);
         TextInputEditText otpInput = getNavigator().getControlById(R.id.otpInput);
+        String inputOtp = otpInput.getText().toString();
+        if (TextUtils.isEmpty(inputOtp)){
+            getNavigator().showError("You must input OTP");
+            return;
+        }
 
         OtpTimerResp otpTimerResp = new OtpTimerResp();
         otpTimerResp.setData(otpTimerInfo);
@@ -144,7 +151,7 @@ public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
                     setIsLoading(false);
 
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
-                        if(timer != null)
+                        if (timer != null)
                             timer.cancel();
                         getNavigator().next();
                     } else {
