@@ -9,16 +9,19 @@ import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.acl.ProposeOfferResp;
 import vn.homecredit.hcvn.data.model.api.acl.SuggestOfferResp;
+import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 
 @Singleton
 public class AclDataManagerImpl implements AclDataManager {
 
+    private final ApiHeader mApiHeader;
     private final AclDatabaseService mAclDatabaseService;
     private final AclRestService mAclRestService;
 
     @Inject
-    public AclDataManagerImpl(AclDatabaseService aclDatabaseService, AclRestService aclRestService) {
+    public AclDataManagerImpl(ApiHeader apiHeader, AclDatabaseService aclDatabaseService, AclRestService aclRestService) {
+        mApiHeader = apiHeader;
         mAclDatabaseService = aclDatabaseService;
         mAclRestService = aclRestService;
     }
@@ -31,6 +34,7 @@ public class AclDataManagerImpl implements AclDataManager {
     @Override
     public void setAclAccessToken(String aclAccessToken) {
         mAclDatabaseService.setAclAccessToken(aclAccessToken);
+        mAclRestService.getApiHeader().getProtectedApiHeader().setAccessToken(aclAccessToken);
     }
 
     @Override
@@ -44,12 +48,17 @@ public class AclDataManagerImpl implements AclDataManager {
     }
 
     @Override
-    public Single<SuggestOfferResp> GetSuggestOffer() {
-        return mAclRestService.GetSuggestOffer();
+    public Single<SuggestOfferResp> getSuggestOffer() {
+        return mAclRestService.getSuggestOffer();
     }
 
     @Override
-    public Single<ProposeOfferResp> GetMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode) {
-        return mAclRestService.GetMonthlyPaymentAsync(amount, tenor, boundScore, productCode);
+    public Single<ProposeOfferResp> getMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode) {
+        return mAclRestService.getMonthlyPaymentAsync(amount, tenor, boundScore, productCode);
+    }
+
+    @Override
+    public ApiHeader getApiHeader() {
+        return mApiHeader;
     }
 }

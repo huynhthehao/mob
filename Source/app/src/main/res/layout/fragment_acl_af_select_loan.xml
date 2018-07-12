@@ -9,12 +9,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="vn.homecredit.hcvn.ui.acl.applicationForm.AclAfSelectLoan.AclAfSelectLoanFragment">
 
-    <!--<data>-->
+    <data>
 
-    <!--&lt;!&ndash;<variable&ndash;&gt;-->
-    <!--&lt;!&ndash;name="viewModel"&ndash;&gt;-->
-    <!--&lt;!&ndash;type="vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeViewModel" />&ndash;&gt;-->
-    <!--</data>-->
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.acl.applicationForm.AclAfSelectLoan.AclAfSelectLoanViewModel" />
+    </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -50,8 +50,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/primary_rounded_corner"
                 android:text="50 mil"
                 android:textColor="@color/colorPrimary" />
@@ -60,23 +60,26 @@
                 android:id="@+id/loanAmountSeekBar"
                 style="@style/AppTheme.SeekBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:max="@{viewModel.MaxAmount}"
+                android:min="0" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    style="@style/AppTheme.DescriptionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    style="@style/AppTheme.DescriptionLabel"
                     android:text="5 mil" />
 
                 <TextView
+                    style="@style/AppTheme.DescriptionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    style="@style/AppTheme.DescriptionLabel"
                     android:text="50 mil" />
             </FrameLayout>
 
@@ -86,8 +89,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/primary_rounded_corner"
                 android:text="36 months"
                 android:textColor="@color/colorPrimary" />
@@ -96,24 +99,29 @@
                 android:id="@+id/loanTenorSeekBar"
                 style="@style/AppTheme.SeekBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:max="@{viewModel.MaxAmount}"
+                android:min="0"/>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
+                    style="@style/AppTheme.DescriptionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    style="@style/AppTheme.DescriptionLabel"
                     android:text="12 months" />
 
                 <TextView
+                    style="@style/AppTheme.DescriptionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    style="@style/AppTheme.DescriptionLabel"
                     android:text="48 months" />
             </FrameLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

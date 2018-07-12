@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.ui.base;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
@@ -28,9 +29,13 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.concurrent.Callable;
+
 import dagger.android.AndroidInjection;
+import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.NetworkUtils;
@@ -86,6 +91,14 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         performDependencyInjection();
         super.onCreate(savedInstanceState);
         performDataBinding();
+
+        this.init();
+    }
+
+    protected void init() {
+        getViewModel().setNavigator(this);
+        getViewModel().init();
+
     }
 
     public T getViewDataBinding() {
@@ -147,16 +160,23 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         mViewModel.getIsLoading().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                if (((ObservableBoolean) sender).get())
-                {
+                if (((ObservableBoolean) sender).get()) {
                     showLoading();
-                }
-                else {
+                } else {
                     hideLoading();
                 }
             }
         });
         enableModelErrorDialog();
+        performBindingMessage();
+    }
+
+    private void performBindingMessage() {
+        getViewModel().getModelBaseMessage().observe(this, o -> {
+            if (o != null && o instanceof BaseMessage) {
+                processMessage((BaseMessage) o);
+            }
+        });
     }
 
     public void showError(String errorMessage) {
@@ -187,6 +207,51 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 showError((String) o);
             }
         });
+    }
+
+    public void showConfirm(String title, String message, final Consumer<Boolean> onCompleted) {
+
+        new MaterialDialog.Builder(this)
+                .title(title)
+                .content(message)
+                .positiveText(R.string.ok)
+                .negativeText(R.string.cancel)
+                .canceledOnTouchOutside(false)
+                .showListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        try {
+                            onCompleted.accept(true);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .cancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        try {
+                            onCompleted.accept(false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        try {
+                            onCompleted.accept(false);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .show();
+    }
+
+    private void processMessage(BaseMessage message) {
+
     }
 
 }

@@ -12,10 +12,13 @@ import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.acl.ProposeOfferResp;
 import vn.homecredit.hcvn.data.model.api.acl.SuggestOfferResp;
+import vn.homecredit.hcvn.data.remote.ApiHeader;
 
 public interface AclRestService {
     Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId);
     Single<TokenResp> verifyPersonalOtp(OtpPassParam otpPassParam, String otp);
-    Single<SuggestOfferResp> GetSuggestOffer();
-    Single<ProposeOfferResp> GetMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode);
+    Single<SuggestOfferResp> getSuggestOffer();
+    Single<ProposeOfferResp> getMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode);
+
+    ApiHeader getApiHeader();
 }

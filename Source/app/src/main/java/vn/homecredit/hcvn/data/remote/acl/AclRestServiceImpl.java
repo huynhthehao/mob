@@ -70,12 +70,17 @@ public class AclRestServiceImpl implements AclRestService {
     }
 
     @Override
-    public Single<SuggestOfferResp> GetSuggestOffer() {
+    public Single<SuggestOfferResp> getSuggestOffer() {
         return null;
     }
 
     @Override
-    public Single<ProposeOfferResp> GetMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode) {
+    public Single<ProposeOfferResp> getMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode) {
         return null;
+    }
+
+    @Override
+    public ApiHeader getApiHeader() {
+        return mApiHeader;
     }
 }

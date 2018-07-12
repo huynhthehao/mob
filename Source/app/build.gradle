@@ -140,4 +140,6 @@ dependencies {
 
     // Dialogs
     implementation "com.afollestad.material-dialogs:core:$rootProject.materialDialogVersion"
+
+    implementation 'com.annimon:stream:1.2.0'
 }

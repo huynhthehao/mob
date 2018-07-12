@@ -13,8 +13,8 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class AclSelectLoanTypeFragmentModule {
-    @Provides
-    AclSelectLoanTypeViewModel provideAclSelectLoanTypeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        return new AclSelectLoanTypeViewModel(dataManager, schedulerProvider);
-    }
+//    @Provides
+//    AclSelectLoanTypeViewModel provideAclSelectLoanTypeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+//        return new AclSelectLoanTypeViewModel(dataManager, schedulerProvider);
+//    }
 }

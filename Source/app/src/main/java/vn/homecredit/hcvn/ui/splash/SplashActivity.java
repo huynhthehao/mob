@@ -78,16 +78,15 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    protected void init()  {
+        super.init();
         AppCenter.start(getApplication(), BuildConfig.APPCENTER_SECRET,
                 Analytics.class, Crashes.class);
 
-        this.mSplashViewModel.setNavigator(this);
+//        this.mSplashViewModel.setNavigator(this);
         //check if not logged in
 //        this.mSplashViewModel.getNavigator().openWelcomeActivity();
-        getViewModel().init();
+
     }
 
     @Override
@@ -102,4 +101,6 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
             mProgressDialog.cancel();
         }
     }
+
+
 }

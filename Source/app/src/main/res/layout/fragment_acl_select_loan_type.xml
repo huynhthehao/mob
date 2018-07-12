@@ -9,7 +9,6 @@
     tools:context="vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragment">
 
     <data>
-
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeViewModel" />

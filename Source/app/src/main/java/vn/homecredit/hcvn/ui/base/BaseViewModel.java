@@ -14,6 +14,8 @@ import java.lang.ref.WeakReference;
 
 import io.reactivex.disposables.CompositeDisposable;
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.data.model.message.MessageQuestion;
+import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -27,6 +29,10 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private WeakReference<N> mNavigator;
 
     private MutableLiveData<String> modelErrorMessage = new MutableLiveData<>();
+
+
+
+    private MutableLiveData<BaseMessage> mModelBaseMessage = new MutableLiveData<BaseMessage>();
 
     public BaseViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         this.mDataManager = dataManager;
@@ -79,4 +85,14 @@ public abstract class BaseViewModel<N> extends ViewModel {
     public void setModelErrorMessage(String errorMessage) {
         this.modelErrorMessage.setValue(errorMessage);
     }
+
+    public MutableLiveData<BaseMessage> getModelBaseMessage() {
+        return mModelBaseMessage;
+    }
+
+    public void sendMessage(BaseMessage message) {
+        mModelBaseMessage.setValue(message);
+    }
+
+    public void init() {}
 }

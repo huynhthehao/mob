@@ -8,13 +8,20 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 public abstract class AclBaseViewModel<T> extends BaseViewModel<T> {
 
     private AclDataManager mAclDataManager;
+    private int mCurrentStep;
 
-    public AclBaseViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclDataManager aclDataManager) {
+
+    public AclBaseViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclDataManager aclDataManager, int currentStep) {
         super(dataManager, schedulerProvider);
         mAclDataManager = aclDataManager;
+        mCurrentStep = currentStep;
     }
 
     public AclDataManager getAclDataManager() {
         return mAclDataManager;
+    }
+
+    public int getCurrentStep() {
+        return mCurrentStep;
     }
 }

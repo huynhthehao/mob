@@ -22,6 +22,7 @@ import vn.homecredit.hcvn.data.model.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;
 import vn.homecredit.hcvn.databinding.ActivityOtpBinding;
+import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 
 
@@ -124,7 +125,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
 
     private void openSelectLoan(){
         // TODO: Need to remove this
-        showError("Successful, but Cash Loan Selecting Page Not Implemented. Hehe");
+//        showError("Successful, but Cash Loan Selecting Page Not Implemented. Hehe");
+        Intent intent = AclApplicationFormActivity.newIntent(this);
+        startActivity(intent);
+        finish();
     }
 }
 

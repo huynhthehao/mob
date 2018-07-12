@@ -33,7 +33,7 @@ import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.SpanBuilder;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
-public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
+public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     public static final String PHONE_NUMBER_KEY = "PhoneNumber";
     public static final String CONTRACT_ID_KEY = "ContractId";
@@ -57,6 +57,7 @@ public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
     private int interval = 1000;
     private final ResourceService resourceService;
     private final DeviceInfo deviceInfo;
+    private final AclDataManager mAclDataManager;
 
     public ObservableBoolean resendVisibile = new ObservableBoolean(false);
     public ObservableBoolean agreementTermVisibile = new ObservableBoolean(false);
@@ -65,11 +66,14 @@ public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
     public OtpViewModel(DataManager dataManager,
                         SchedulerProvider schedulerProvider,
                         ResourceService resourceService, DeviceInfo deviceInfo, AclDataManager aclDataManager) {
-        super(dataManager, schedulerProvider, aclDataManager);
+        super(dataManager, schedulerProvider);
 
         this.resourceService = resourceService;
         this.deviceInfo = deviceInfo;
+        mAclDataManager = aclDataManager;
     }
+    
+    
 
     public void initData(String phoneNumber, String contractId, OtpFlow otpFlow, OtpTimerRespData otpTimerInfo) {
         this.phoneNumber = phoneNumber;
@@ -129,6 +133,10 @@ public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
                 }));
     }
 
+    private AclDataManager getAclDataManager() {
+        return mAclDataManager;
+    }
+
     private void verifyOtpForCLW() {
         setIsLoading(true);
         TextInputEditText otpInput = getNavigator().getControlById(R.id.otpInput);
@@ -138,6 +146,9 @@ public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
         OtpPassParam otpPassParam = new OtpPassParam(otpTimerResp, phoneNumber, contractId, otpFlow);
         getCompositeDisposable().add(getAclDataManager()
                 .verifyPersonalOtp(otpPassParam, otpInput.getText().toString())
+                .doOnSuccess((response) -> {
+                    getAclDataManager().setAclAccessToken(response.getAccessToken());
+                })
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {

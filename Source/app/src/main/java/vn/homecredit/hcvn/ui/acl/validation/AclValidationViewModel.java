@@ -17,7 +17,6 @@ import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.ui.acl.base.AclBaseViewModel;
-import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class AclValidationViewModel extends AclBaseViewModel<AclValidationNavigator> {
@@ -28,7 +27,7 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
 
     @Inject
     public AclValidationViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclRuleFactory aclRuleFactory, DeviceInfo deviceInfo, AclDataManager aclDataManager) {
-        super(dataManager, schedulerProvider, aclDataManager);
+        super(dataManager, schedulerProvider, aclDataManager, 1);
         mAclRuleFactory = aclRuleFactory;
         mDeviceInfo = deviceInfo;
 
