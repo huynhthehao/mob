@@ -81,6 +81,14 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (!isTaskRoot()
+                && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
+                && getIntent().getAction() != null
+                && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
+            finish();
+            return;
+        }
+
         AppCenter.start(getApplication(), BuildConfig.APPCENTER_SECRET,
                 Analytics.class, Crashes.class);
 
