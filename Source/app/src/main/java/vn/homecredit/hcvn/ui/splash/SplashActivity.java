@@ -83,10 +83,13 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
         AppCenter.start(getApplication(), BuildConfig.APPCENTER_SECRET,
                 Analytics.class, Crashes.class);
 
-//        this.mSplashViewModel.setNavigator(this);
-        //check if not logged in
-//        this.mSplashViewModel.getNavigator().openWelcomeActivity();
-
+        if (!isTaskRoot()
+                && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
+                && getIntent().getAction() != null
+                && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
+            finish();
+            return;
+        }
     }
 
     @Override
@@ -101,6 +104,4 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
             mProgressDialog.cancel();
         }
     }
-
-
 }
