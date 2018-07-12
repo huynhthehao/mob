@@ -132,14 +132,13 @@ public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
     }
 
     private void verifyOtpForCLW() {
-        setIsLoading(true);
         TextInputEditText otpInput = getNavigator().getControlById(R.id.otpInput);
         String inputOtp = otpInput.getText().toString();
         if (TextUtils.isEmpty(inputOtp)){
             getNavigator().showError("You must input OTP");
             return;
         }
-
+        setIsLoading(true);
         OtpTimerResp otpTimerResp = new OtpTimerResp();
         otpTimerResp.setData(otpTimerInfo);
         OtpPassParam otpPassParam = new OtpPassParam(otpTimerResp, phoneNumber, contractId, otpFlow);
