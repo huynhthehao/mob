@@ -22,6 +22,8 @@ public class ApiHeader {
 
     private PublicApiHeader mPublicApiHeader;
 
+    private ACLApiHeader mACLApiHeader;
+
     @Inject
     public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader) {
         mPublicApiHeader = publicApiHeader;
@@ -34,6 +36,10 @@ public class ApiHeader {
 
     public PublicApiHeader getPublicApiHeader() {
         return mPublicApiHeader;
+    }
+
+    public ACLApiHeader getACLApiHeader() {
+        return mACLApiHeader;
     }
 
     public static final class ProtectedApiHeader {
@@ -71,6 +77,31 @@ public class ApiHeader {
 
     public static final class ACLApiHeader {
 
+        @Expose
+        @SerializedName("AccessToken")
+        private String mAccessToken;
+
+        @Expose
+        @SerializedName("Authorization")
+        private String mAuthorization;
+
+        @Inject
+        public ACLApiHeader(String accessToken) {
+            mAccessToken = accessToken;
+        }
+
+        public String getAccessToken() {
+            return mAccessToken;
+        }
+
+        public void setAccessToken(String accessToken) {
+            mAccessToken = accessToken;
+            mAuthorization = String.format("Bearer %s", mAccessToken);
+        }
+
+        public String getAuthorization() {
+            return mAuthorization;
+        }
     }
 
 }

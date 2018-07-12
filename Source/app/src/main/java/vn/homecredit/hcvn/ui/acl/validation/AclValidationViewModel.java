@@ -8,30 +8,34 @@ package vn.homecredit.hcvn.ui.acl.validation;
 
 import java.util.HashMap;
 
+import javax.inject.Inject;
+
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.model.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.service.DeviceInfo;
+import vn.homecredit.hcvn.ui.acl.base.AclBaseViewModel;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
-public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator> {
+public class AclValidationViewModel extends AclBaseViewModel<AclValidationNavigator> {
 
     public HashMap<String, String> errorData;
     private AclRuleFactory mAclRuleFactory;
     private final DeviceInfo mDeviceInfo;
 
-    public AclValidationViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclRuleFactory aclRuleFactory, DeviceInfo deviceInfo) {
-        super(dataManager, schedulerProvider);
+    @Inject
+    public AclValidationViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclRuleFactory aclRuleFactory, DeviceInfo deviceInfo, AclDataManager aclDataManager) {
+        super(dataManager, schedulerProvider, aclDataManager);
         mAclRuleFactory = aclRuleFactory;
         mDeviceInfo = deviceInfo;
 
         errorData = new HashMap<String, String>();
     }
 
-    public void onNextClick()
-    {
+    public void onNextClick() {
         getNavigator().next();
     }
 
@@ -41,7 +45,7 @@ public class AclValidationViewModel extends BaseViewModel<AclValidationNavigator
 
     public void verifyPersonal(String phoneNumber, String idNumber) {
         setIsLoading(true);
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getAclDataManager()
                 .verifyPersonal(phoneNumber, idNumber, mDeviceInfo.getPlayerId())
                 .doOnSuccess(response -> {
                     System.out.print(response.toString());

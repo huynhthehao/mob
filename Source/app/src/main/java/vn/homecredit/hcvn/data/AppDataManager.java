@@ -104,16 +104,6 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId) {
-        return mAclRestService.verifyPersonal(phone, idNumber, playerId);
-    }
-
-    @Override
-    public Single<TokenResp> verifyPersonalOtp(OtpPassParam otpPassParam, String otp) {
-        return mAclRestService.verifyPersonalOtp(otpPassParam, otp);
-    }
-
-    @Override
     public String getAccessToken() {
         return mPreferencesHelper.getAccessToken();
     }

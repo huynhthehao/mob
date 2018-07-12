@@ -15,13 +15,13 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class OtpActivityModule {
-
-    @Provides
-    OtpViewModel provideOtpViewModel(DataManager dataManager,
-                                     SchedulerProvider schedulerProvider,
-                                     ResourceService resourceService,
-                                     DeviceInfo deviceInfo) {
-
-        return new OtpViewModel(dataManager, schedulerProvider, resourceService, deviceInfo);
-    }
+//
+//    @Provides
+//    OtpViewModel provideOtpViewModel(DataManager dataManager,
+//                                     SchedulerProvider schedulerProvider,
+//                                     ResourceService resourceService,
+//                                     DeviceInfo deviceInfo) {
+//
+//        return new OtpViewModel(dataManager, schedulerProvider, resourceService, deviceInfo);
+//    }
 }

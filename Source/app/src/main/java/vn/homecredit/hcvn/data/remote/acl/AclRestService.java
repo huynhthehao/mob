@@ -10,8 +10,12 @@ import io.reactivex.Single;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
+import vn.homecredit.hcvn.data.model.api.acl.ProposeOfferResp;
+import vn.homecredit.hcvn.data.model.api.acl.SuggestOfferResp;
 
 public interface AclRestService {
     Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId);
     Single<TokenResp> verifyPersonalOtp(OtpPassParam otpPassParam, String otp);
+    Single<SuggestOfferResp> GetSuggestOffer();
+    Single<ProposeOfferResp> GetMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode);
 }

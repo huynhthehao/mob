@@ -7,6 +7,8 @@ import io.reactivex.Single;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
+import vn.homecredit.hcvn.data.model.api.acl.ProposeOfferResp;
+import vn.homecredit.hcvn.data.model.api.acl.SuggestOfferResp;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 
 @Singleton
@@ -39,5 +41,15 @@ public class AclDataManagerImpl implements AclDataManager {
     @Override
     public Single<TokenResp> verifyPersonalOtp(OtpPassParam otpPassParam, String otp) {
         return mAclRestService.verifyPersonalOtp(otpPassParam, otp);
+    }
+
+    @Override
+    public Single<SuggestOfferResp> GetSuggestOffer() {
+        return mAclRestService.GetSuggestOffer();
+    }
+
+    @Override
+    public Single<ProposeOfferResp> GetMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode) {
+        return mAclRestService.GetMonthlyPaymentAsync(amount, tenor, boundScore, productCode);
     }
 }

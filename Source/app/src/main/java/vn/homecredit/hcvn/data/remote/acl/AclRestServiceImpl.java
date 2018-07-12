@@ -18,6 +18,8 @@ import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
+import vn.homecredit.hcvn.data.model.api.acl.ProposeOfferResp;
+import vn.homecredit.hcvn.data.model.api.acl.SuggestOfferResp;
 import vn.homecredit.hcvn.data.remote.ApiEndPoint;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.service.DeviceInfo;
@@ -65,5 +67,15 @@ public class AclRestServiceImpl implements AclRestService {
         return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_CLW + "/otp/Validation")
                 .addBodyParameter(requestBody)
                 .build().getObjectSingle(TokenResp.class);
+    }
+
+    @Override
+    public Single<SuggestOfferResp> GetSuggestOffer() {
+        return null;
+    }
+
+    @Override
+    public Single<ProposeOfferResp> GetMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode) {
+        return null;
     }
 }

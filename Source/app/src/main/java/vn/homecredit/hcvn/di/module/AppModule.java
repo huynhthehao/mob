@@ -112,6 +112,13 @@ public class AppModule {
     }
 
     @Provides
+    @Singleton
+    ApiHeader.ACLApiHeader provACLApiHeader(AclDatabaseService aclDatabaseService) {
+        return new ApiHeader.ACLApiHeader(
+                aclDatabaseService.getAclAccessToken());
+    }
+
+    @Provides
     SchedulerProvider provideSchedulerProvider() {
         return new AppSchedulerProvider();
     }

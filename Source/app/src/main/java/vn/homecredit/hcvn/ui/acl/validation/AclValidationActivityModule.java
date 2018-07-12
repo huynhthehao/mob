@@ -17,8 +17,8 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class AclValidationActivityModule {
-    @Provides
-    AclValidationViewModel provideLoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclRuleFactory aclRuleFactory, DeviceInfo deviceInfo) {
-        return new AclValidationViewModel(dataManager, schedulerProvider, aclRuleFactory, deviceInfo);
-    }
+//    @Provides
+//    AclValidationViewModel provideLoginViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclRuleFactory aclRuleFactory, DeviceInfo deviceInfo) {
+//        return new AclValidationViewModel(dataManager, schedulerProvider, aclRuleFactory, deviceInfo);
+//    }
 }

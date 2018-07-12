@@ -17,19 +17,23 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.inject.Inject;
+
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.model.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.ResourceService;
+import vn.homecredit.hcvn.ui.acl.base.AclBaseViewModel;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.SpanBuilder;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
-public class OtpViewModel extends BaseViewModel<OtpNavigator> {
+public class OtpViewModel extends AclBaseViewModel<OtpNavigator> {
 
     public static final String PHONE_NUMBER_KEY = "PhoneNumber";
     public static final String CONTRACT_ID_KEY = "ContractId";
@@ -57,10 +61,11 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     public ObservableBoolean resendVisibile = new ObservableBoolean(false);
     public ObservableBoolean agreementTermVisibile = new ObservableBoolean(false);
 
+    @Inject
     public OtpViewModel(DataManager dataManager,
                         SchedulerProvider schedulerProvider,
-                        ResourceService resourceService, DeviceInfo deviceInfo) {
-        super(dataManager, schedulerProvider);
+                        ResourceService resourceService, DeviceInfo deviceInfo, AclDataManager aclDataManager) {
+        super(dataManager, schedulerProvider, aclDataManager);
 
         this.resourceService = resourceService;
         this.deviceInfo = deviceInfo;
@@ -111,7 +116,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     private void resendOtpForCLW() {
         setIsLoading(true);
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getAclDataManager()
                 .verifyPersonal(phoneNumber, contractId, deviceInfo.getPlayerId())
                 .doOnSuccess(response -> System.out.print(response.toString()))
                 .subscribeOn(getSchedulerProvider().io())
@@ -131,7 +136,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         OtpTimerResp otpTimerResp = new OtpTimerResp();
         otpTimerResp.setData(otpTimerInfo);
         OtpPassParam otpPassParam = new OtpPassParam(otpTimerResp, phoneNumber, contractId, otpFlow);
-        getCompositeDisposable().add(getDataManager()
+        getCompositeDisposable().add(getAclDataManager()
                 .verifyPersonalOtp(otpPassParam, otpInput.getText().toString())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
