@@ -64,6 +64,7 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     public void openWelcomeActivity() {
         Intent intent = WelcomeActivity.newIntent(SplashActivity.this);
         startActivity(intent);
+        overridePendingTransition(0,0);
         finish();
     }
 
@@ -103,5 +104,11 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.cancel();
         }
+    }
+
+    @Override
+    public void finish(){
+        super.finish();
+        overridePendingTransition(0,0);
     }
 }

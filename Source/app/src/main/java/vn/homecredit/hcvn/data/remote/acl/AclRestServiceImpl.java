@@ -9,6 +9,7 @@ package vn.homecredit.hcvn.data.remote.acl;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -63,8 +64,12 @@ public class AclRestServiceImpl implements AclRestService {
         requestBody.put("DeviceId", mDeviceInfo.getPlayerId());
         requestBody.put("Otp", otp);
         requestBody.put("Source", otpPassParam.getOtpTimerResp().getData().getSource());
-
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_CLW + "/otp/Validation")
+        String langId = Locale.getDefault().getLanguage();
+        if (!langId.equals("vi") && !langId.equals("en")) {
+            langId = "vi";
+        }
+        String url = String.format("%s/otp/Validation?lang=%s",ApiEndPoint.ENDPOINT_CLW, langId);
+        return Rx2AndroidNetworking.post(url)
                 .addBodyParameter(requestBody)
                 .build().getObjectSingle(TokenResp.class);
     }
