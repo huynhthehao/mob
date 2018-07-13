@@ -26,18 +26,26 @@ import com.android.databinding.library.baseAdapters.BR;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked {
+    public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
 
     @Inject
     HomeViewModel mHomeViewModel;
+    @Inject
+    PreferencesHelper preferencesHelper;
 
-    public static void start(Context context) {
+    public static void start(Context context, boolean showDashboard) {
         Intent intent =  new Intent(context, HomeActivity.class);
+        intent.putExtra("BUNDLE_SHOW_DASHBOARD", showDashboard);
         context.startActivity(intent);
+    }
+    public static void start(Context context) {
+        start(context, false);
     }
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeActivity.class);
@@ -80,8 +88,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         TabLayout tabLayout = getViewDataBinding().tabs;
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        checkToShowDashboard();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -100,8 +108,16 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         return super.onOptionsItemSelected(item);
     }
 
+    private void checkToShowDashboard() {
+        if (getIntent().getBooleanExtra(BUNDLE_SHOW_DASHBOARD, false) &&
+                preferencesHelper.getIsShowDashboard()) {
+            showDashboard(getString(R.string.hello), mHomeViewModel.getUserName());
+        }
+    }
+
     private void showDashboard(String greeting, String username) {
         if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
+            preferencesHelper.setIsShowDashboard(false);
             DialogFragment dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
             ((DashBoardDialogFragment) dashboardFragment).setOnDashboardClicked(this);
             dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);

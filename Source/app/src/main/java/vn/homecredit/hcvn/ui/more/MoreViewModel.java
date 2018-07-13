@@ -117,6 +117,10 @@ public class MoreViewModel extends BaseViewModel {
         return serverSettings.getGuidanceForInternetBankingServiceUrl();
     }
 
+    public void logout() {
+        getDataManager().logout();
+    }
+
 
     public void clickedProfile() {
         modelProfile.setValue(true);

@@ -87,6 +87,11 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         super.onViewCreated(view, savedInstanceState);
         mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
         mViewDataBinding.executePendingBindings();
+        this.init();
+    }
+
+    protected void init() {
+        getViewModel().setNavigator(this);
         getViewModel().init();
     }
 

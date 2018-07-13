@@ -153,7 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/text_margin"
-                            android:text="Đăng nhập bằng vân tay"
+                            android:text="@string/login_by_touch_id"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                             android:textColor="?attr/colorPrimary"/>
                     </LinearLayout>

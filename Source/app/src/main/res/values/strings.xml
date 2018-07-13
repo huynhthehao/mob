@@ -12,7 +12,7 @@
     <string name="welcome_login">Đăng nhập</string>
     <string name="welcome_sign_up">Đăng kí</string>
     <string name="welcome_cash_loan">Vay tiền mặt</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">Trang chủ</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_text_3">Tab 3</string>
@@ -32,6 +32,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="login_by_touch_id">Đăng nhập bằng vân tay</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -71,7 +72,7 @@
     <string name="cash_loan_b_header">Vay tiêu dùng</string>
     <string name="cash_loan_c_header">Hồ sơ vay</string>
     <string name="cash_loan_a_desc">Với hơn 6 triệu khách hàng thân thiết, Home Credit tự hào là công ty tài chính tiêu dùng được lựa chọn hàng đầu tại Việt Nam</string>
-    <string name="cash_loan_b_desc">Với Home Credit bạn hoàn toàn có thể nhận khoản vay tiền mặt từ 10,000,000₫ - 80,000,000₫ với kỳ hạn vay từ 12 - 48 tháng. Bạn sẽ nhận kết quả duyệt hồ sơ trong vòng 15 - 20 phút và nhận tiền sau 2 giờ sau khi ký hợp đồng</string>
+    <string name="cash_loan_b_desc">Với Home Credit bạn hoàn toàn có thể nhận khoản vay tiền mặt từ 10,000,000₫ - 40,000,000₫ với kỳ hạn vay từ 12 - 48 tháng. Bạn sẽ nhận kết quả duyệt hồ sơ trong vòng 15 - 20 phút và nhận tiền sau 2 giờ sau khi ký hợp đồng</string>
     <string name="action_back">Quay lại</string>
     <string name="cash_loan_c_desc">Vui lòng mang theo những giấy tờ sau để làm hồ sơ vay:</string>
     <string name="cash_loan_c_desc_1">Chứng minh nhân dân</string>

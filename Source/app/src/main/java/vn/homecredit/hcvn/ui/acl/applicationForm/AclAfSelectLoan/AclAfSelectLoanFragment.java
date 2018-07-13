@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jakewharton.rxbinding2.widget.RxSeekBar;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.R;
@@ -59,11 +61,11 @@ public class AclAfSelectLoanFragment extends BaseFragment<FragmentAclAfSelectLoa
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
-        mAclAfSelectLoanViewModel.setNavigator(this);
+    protected void init() {
+        getViewModel().setNavigator(this);
+        getViewModel().AmountSliderChangedSubject = RxSeekBar.userChanges(getViewDataBinding().loanAmountSeekBar);
+        getViewModel().TenorSliderChangedSubject = RxSeekBar.userChanges(getViewDataBinding().loanTenorSeekBar);
+        getViewModel().init();
     }
 
     @Override

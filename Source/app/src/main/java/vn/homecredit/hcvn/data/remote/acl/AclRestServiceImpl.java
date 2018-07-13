@@ -20,6 +20,7 @@ import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.acl.ProposeOfferResp;
+import vn.homecredit.hcvn.data.model.api.acl.Request.ProposeOfferRequest;
 import vn.homecredit.hcvn.data.model.api.acl.SuggestOfferResp;
 import vn.homecredit.hcvn.data.remote.ApiEndPoint;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
@@ -84,7 +85,11 @@ public class AclRestServiceImpl implements AclRestService {
 
     @Override
     public Single<ProposeOfferResp> getMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode) {
-        return null;
+        ProposeOfferRequest proposeOfferRequest = new ProposeOfferRequest(amount, tenor, productCode, boundScore);
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_CLW + "/offer/detail")
+                .addHeaders(mApiHeader.getAclApiHeader())
+                .addBodyParameter(proposeOfferRequest)
+                .build().getObjectSingle(ProposeOfferResp.class);
     }
 
     @Override

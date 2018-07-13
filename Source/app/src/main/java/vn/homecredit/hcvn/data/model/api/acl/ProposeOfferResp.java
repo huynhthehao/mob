@@ -10,6 +10,14 @@ public class ProposeOfferResp extends BaseApiResponse {
     @Expose
     private ProposeOfferRespData data;
 
+    public ProposeOfferRespData getData() {
+        return data;
+    }
+
+    public void setData(ProposeOfferRespData data) {
+        this.data = data;
+    }
+
     public class ProposeOfferRespData {
         @SerializedName("MonthlyPayment")
         @Expose

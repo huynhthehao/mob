@@ -72,11 +72,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     }
 
     public void openHomeActivity() {
-        Intent intent = HomeActivity.newIntent(LoginActivity.this);
-        startActivity(intent);
+        HomeActivity.start(LoginActivity.this, true);
         finish();
     }
-
 
     private void adjustBottom() {
 

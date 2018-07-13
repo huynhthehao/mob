@@ -81,6 +81,7 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
     private void showLogout(Boolean clickedLogout) {
         if (clickedLogout) {
             showToast("clicked Logout");
+            getViewModel().logout();
             AppUtils.restartApp(getActivity());
         }
     }

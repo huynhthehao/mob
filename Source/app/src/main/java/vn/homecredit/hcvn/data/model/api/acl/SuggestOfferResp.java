@@ -51,16 +51,16 @@ public class SuggestOfferResp extends BaseApiResponse {
 
         @SerializedName("Amount")
         @Expose
-        private Integer amount;
+        private Double amount;
         @SerializedName("TenorProducts")
         @Expose
         private List<TenorProduct> tenorProducts = null;
 
-        public Integer getAmount() {
+        public Double getAmount() {
             return amount;
         }
 
-        public void setAmount(Integer amount) {
+        public void setAmount(Double amount) {
             this.amount = amount;
         }
 
