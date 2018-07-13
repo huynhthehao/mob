@@ -16,12 +16,12 @@ public class Log {
         e.printStackTrace();
     }
 
-    public static void d(String tag, String msg) {
+    public static void debug(String tag, String msg) {
         if (!DEBUG) return;
         android.util.Log.d(tag, msg);
     }
 
-    public static void d(String msg) {
-        Log.d(TAG, msg);
+    public static void debug(String msg) {
+        Log.debug(TAG, msg);
     }
 }

@@ -36,18 +36,16 @@ public class AppDataManager implements DataManager {
     private final RestService mRestService;
     private final Gson mGson;
     private MemoryHelper mMemoryHelper;
-    private AclRestService mAclRestService;
     private final OneSignalService mOneSignalService;
 
 
     @Inject
-    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper, AclRestService aclRestService, OneSignalService oneSignalService) {
+    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper, OneSignalService oneSignalService) {
         mContext = context;
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
         mGson = gson;
         mMemoryHelper = memoryHelper;
-        mAclRestService = aclRestService;
         mOneSignalService = oneSignalService;
     }
 

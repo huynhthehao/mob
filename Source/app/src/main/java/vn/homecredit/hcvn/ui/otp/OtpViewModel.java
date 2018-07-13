@@ -8,7 +8,6 @@ package vn.homecredit.hcvn.ui.otp;
 
 import android.databinding.ObservableBoolean;
 import android.support.design.widget.TextInputEditText;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
@@ -20,6 +19,8 @@ import java.util.TimerTask;
 
 import javax.inject.Inject;
 
+import dagger.Module;
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
@@ -29,11 +30,12 @@ import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.ResourceService;
-import vn.homecredit.hcvn.ui.acl.base.AclBaseViewModel;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.SpanBuilder;
+import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
+@Module
 public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     public static final String PHONE_NUMBER_KEY = "PhoneNumber";
@@ -58,10 +60,11 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private int interval = 1000;
     private final ResourceService resourceService;
     private final DeviceInfo deviceInfo;
-    private final AclDataManager mAclDataManager;
+    private final AclDataManager aclDataManager;
 
     public ObservableBoolean resendVisibile = new ObservableBoolean(false);
     public ObservableBoolean agreementTermVisibile = new ObservableBoolean(false);
+
 
     @Inject
     public OtpViewModel(DataManager dataManager,
@@ -71,9 +74,8 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
         this.resourceService = resourceService;
         this.deviceInfo = deviceInfo;
-        mAclDataManager = aclDataManager;
+        this.aclDataManager = aclDataManager;
     }
-    
     
 
     public void initData(String phoneNumber, String contractId, OtpFlow otpFlow, OtpTimerRespData otpTimerInfo) {
@@ -100,20 +102,22 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         }, 0, interval);
     }
 
-    public void onNextClick() {
-        switch (otpFlow) {
-            case SignUp:
-                break;
+    public void onNextClick()
+    {
+        switch (otpFlow){
+            case SignUp:   break;
             case CashLoanWalkin: {
                 verifyOtpForCLW();
             }
         }
     }
 
-    public void onResendOtp() {
-        switch (otpFlow) {
-            case SignUp:
-                break;
+    public void onResendOtp(){
+        if (timer != null)
+            timer.cancel();
+
+        switch (otpFlow){
+            case SignUp:   break;
             case CashLoanWalkin: {
                 resendOtpForCLW();
             }
@@ -122,54 +126,47 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     private void resendOtpForCLW() {
         setIsLoading(true);
-        getCompositeDisposable().add(getAclDataManager()
-                .verifyPersonal(phoneNumber, contractId, deviceInfo.getPlayerId())
-                .doOnSuccess(response -> System.out.print(response.toString()))
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
+        Disposable resendProcess =aclDataManager.verifyPersonal(phoneNumber, contractId, deviceInfo.getPlayerId())
                 .subscribe(response -> {
                     setIsLoading(false);
                     initData(phoneNumber, contractId, OtpFlow.CashLoanWalkin, response.getData());
                 }, throwable -> {
                     setIsLoading(false);
-                }));
+                });
+
+        startSafeProcess(resendProcess);
     }
 
-    private AclDataManager getAclDataManager() {
-        return mAclDataManager;
-    }
 
     private void verifyOtpForCLW() {
         TextInputEditText otpInput = getNavigator().getControlById(R.id.otpInput);
         String inputOtp = otpInput.getText().toString();
-        if (TextUtils.isEmpty(inputOtp)){
-            getNavigator().showError("You must input OTP");
+        if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
+            String warningMessage = resourceService.getStringById(R.string.otp_empty);
+            getNavigator().showError(warningMessage);
             return;
         }
+
         setIsLoading(true);
         OtpTimerResp otpTimerResp = new OtpTimerResp();
         otpTimerResp.setData(otpTimerInfo);
         OtpPassParam otpPassParam = new OtpPassParam(otpTimerResp, phoneNumber, contractId, otpFlow);
-        getCompositeDisposable().add(getAclDataManager()
-                .verifyPersonalOtp(otpPassParam, otpInput.getText().toString())
-                .doOnSuccess((response) -> {
-                    getAclDataManager().setAclAccessToken(response.getAccessToken());
-                })
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
+
+        Disposable verifyProcess = aclDataManager.verifyPersonalOtp(otpPassParam, inputOtp)
                 .subscribe(response -> {
                     setIsLoading(false);
 
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         if (timer != null)
                             timer.cancel();
+
+                        aclDataManager.setAclAccessToken(response.getAccessToken());
                         getNavigator().next();
                     } else {
                         getNavigator().showError(response.getResponseMessage());
                     }
-                }, throwable -> {
-                    setIsLoading(false);
-                }));
+                }, throwable -> setIsLoading(false));
+        startSafeProcess(verifyProcess);
     }
 
 
@@ -189,9 +186,6 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     private void resetDisplay() {
         try {
-            if (_remainingTime < 1)
-                return;
-
             _remainingTime -= interval;
 
             if (_remainingTime <= (otpTimerInfo.getOtpLiveTime() - otpTimerInfo.getOtpTimeResend())) {
@@ -200,10 +194,22 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                 resendVisibile.set(false);
             }
 
+            boolean isTimeout = false;
+            if (_remainingTime <= 0) {
+                isTimeout = true;
+                _remainingTime = 0;
+            }
+
             Date date = new Date(_remainingTime);
             DateFormat formatter = new SimpleDateFormat("mm:ss");
             remainingTimeText = formatter.format(date);
             setCountingDisplay();
+
+            if(isTimeout) {
+                if (timer != null)
+                    timer.cancel();
+                return;
+            }
         } catch (Exception ex) {
         }
     }

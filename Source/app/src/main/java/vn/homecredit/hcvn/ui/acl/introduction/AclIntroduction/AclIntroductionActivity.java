@@ -9,11 +9,9 @@ package vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import javax.inject.Inject;

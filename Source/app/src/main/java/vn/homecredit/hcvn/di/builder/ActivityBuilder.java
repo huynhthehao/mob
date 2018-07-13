@@ -21,9 +21,10 @@ import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
-import vn.homecredit.hcvn.ui.login.LoginActivityModule;
+//import vn.homecredit.hcvn.ui.login.LoginActivityModule;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
-import vn.homecredit.hcvn.ui.otp.OtpActivityModule;
+//import vn.homecredit.hcvn.ui.otp.OtpActivityModule;
+import vn.homecredit.hcvn.ui.otp.OtpViewModel;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
@@ -48,7 +49,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector()
     abstract LoginActivity bindLoginActivity();
 
-    @ContributesAndroidInjector(modules = OtpActivityModule.class)
+    @ContributesAndroidInjector(modules = OtpViewModel.class)
     abstract OtpActivity bindOtpActivity();
 
     @ContributesAndroidInjector()

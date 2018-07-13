@@ -57,7 +57,7 @@
                 app:currentStep="2"
                 app:lineWidth="5"
                 app:numOfSteps="7"
-                app:textSize="32" />
+                app:textSize="13dp" />
 
             <FrameLayout
                 android:id="@+id/contentFrame"

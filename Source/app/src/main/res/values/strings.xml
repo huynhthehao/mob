@@ -87,4 +87,5 @@
     <string name="title_activity_af">Chọn khoản vay</string>
     <string name="legal_note"><![CDATA[<htm><i><b>*Notes:</b> The monthly installment showed above includes insurance fee and may have a minor variance with the final contractual amount</i> </html>]]></string>
     <string name="cancel">Huỷ</string>
+    <string name="otp_empty">Bạn phải nhập mã xác thực</string>
 </resources>
