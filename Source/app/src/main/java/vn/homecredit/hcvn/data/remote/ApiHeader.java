@@ -19,15 +19,17 @@ import javax.inject.Singleton;
 public class ApiHeader {
 
     private ProtectedApiHeader mProtectedApiHeader;
+    private final ACLApiHeader mAclApiHeader;
 
     private PublicApiHeader mPublicApiHeader;
 
     private ACLApiHeader mACLApiHeader;
 
     @Inject
-    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader) {
+    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, ACLApiHeader aclApiHeader) {
         mPublicApiHeader = publicApiHeader;
         mProtectedApiHeader = protectedApiHeader;
+        mAclApiHeader = aclApiHeader;
     }
 
     public ProtectedApiHeader getProtectedApiHeader() {
