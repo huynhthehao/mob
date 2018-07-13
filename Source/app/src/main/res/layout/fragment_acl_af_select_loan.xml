@@ -53,7 +53,7 @@
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/primary_rounded_corner"
-                android:text="50 mil"
+                android:text="@{viewModel.FormattedLoanAmount}"
                 android:textColor="@color/colorPrimary" />
 
             <SeekBar
@@ -73,14 +73,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:text="5 mil" />
+                    android:text="@{viewModel.MinimumLoanAmountDisplayValue}" />
 
                 <TextView
                     style="@style/AppTheme.DescriptionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:text="50 mil" />
+                    android:text="@{viewModel.MaximumLoanAmountDisplayValue}" />
             </FrameLayout>
 
             <TextView
@@ -112,14 +112,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:text="12 months" />
+                    android:text="@{viewModel.MinimumLoanTenorDisplayValue}" />
 
                 <TextView
                     style="@style/AppTheme.DescriptionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:text="48 months" />
+                    android:text="@{viewModel.MaximumLoanTenorDisplayValue}" />
             </FrameLayout>
 
             <FrameLayout

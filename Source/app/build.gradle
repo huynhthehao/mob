@@ -142,4 +142,6 @@ dependencies {
     implementation "com.afollestad.material-dialogs:core:$rootProject.materialDialogVersion"
 
     implementation 'com.annimon:stream:1.2.0'
+
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
 }
