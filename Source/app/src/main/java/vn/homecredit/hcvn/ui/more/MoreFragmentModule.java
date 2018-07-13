@@ -21,4 +21,5 @@ public class MoreFragmentModule {
     ViewModelProvider.Factory moreViewModelFactory(MoreViewModel moreViewModel) {
         return new ViewModelProviderFactory<>(moreViewModel);
     }
+
 }

@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.model.OtpFlow;
@@ -44,13 +45,9 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
 
     public void verifyPersonal(String phoneNumber, String idNumber) {
         setIsLoading(true);
-        getCompositeDisposable().add(getAclDataManager()
+
+        Disposable newProcess = getAclDataManager()
                 .verifyPersonal(phoneNumber, idNumber, mDeviceInfo.getPlayerId())
-                .doOnSuccess(response -> {
-                    System.out.print(response.toString());
-                })
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
 
                     setIsLoading(false);
@@ -63,6 +60,8 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
                     String t = throwable.getMessage();
                     getNavigator().showError(t);
                     setIsLoading(false);
-                }));
+                });
+
+        startSafeProcess(newProcess);
     }
 }

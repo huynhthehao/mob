@@ -50,4 +50,5 @@
     <string name="offers">Ưu đãi</string>
     <string name="pay_momo">Trả bằng MoMo</string>
     <string name="payment_shedule">Lịch thanh toán</string>
+    <string name="otp_empty">Bạn phải nhập mã xác thực</string>
 </resources>

@@ -124,8 +124,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     }
 
     private void openSelectLoan(){
-        // TODO: Need to remove this
-//        showError("Successful, but Cash Loan Selecting Page Not Implemented. Hehe");
         Intent intent = AclApplicationFormActivity.newIntent(this);
         startActivity(intent);
         finish();

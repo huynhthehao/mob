@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 7/11/18 10:38 AM, by Admin
+ * Last modified 7/11/18 11:27 AM, by hien.nguyenm
  */
 
 package vn.homecredit.hcvn.ui.controls;
@@ -12,6 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -19,12 +20,9 @@ import vn.homecredit.hcvn.R;
 
 public class StepIndicator extends View {
 
-    private final int DEFAULT_WIDTH = 400;
-    private final int DEFAULT_HEIGHT = 30;
-
     private int currentStep = 1;
     private int numberOfStep = 5;
-    private float textSize = 15;
+    private int textSize = 15;
     private float lineWidth = 2;
     private final Context currentContext;
 
@@ -34,13 +32,13 @@ public class StepIndicator extends View {
     /* Using example
             <vn.homecredit.hcvn.ui.controls.StepIndicator
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 app:currentStep="3"
-                app:numOfSteps="7"
                 app:lineWidth="5"
-                app:textSize="32" />
+                app:numOfSteps="7"
+                app:textSize="13dp" />
     */
 
     //TODO: Will implement clickable stuff for steps
@@ -52,7 +50,7 @@ public class StepIndicator extends View {
             TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.StepIndicator, 0, 0);
             setCurrentStep(attributes.getInteger(R.styleable.StepIndicator_currentStep, 1));
             setNumberOfStep(attributes.getInteger(R.styleable.StepIndicator_numOfSteps, 5));
-            setTextSize(attributes.getFloat(R.styleable.StepIndicator_textSize, 15));
+            setTextSize(attributes.getDimensionPixelOffset(R.styleable.StepIndicator_textSize, 15));
             setLineWidth(attributes.getFloat(R.styleable.StepIndicator_lineWidth, 2));
 
             int [] defaultAttributeSet = new int [] {android.R.attr.paddingLeft, android.R.attr.paddingRight};
@@ -71,26 +69,37 @@ public class StepIndicator extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        int width = 0, height = 0;
+        int desiredWidth = getWidth();
+        int desiredHeight = textSize * 2 + 20;
 
-        switch (View.MeasureSpec.getMode(widthMeasureSpec)) {
-            case MeasureSpec.AT_MOST:
-            case MeasureSpec.EXACTLY:
-                width = View.MeasureSpec.getSize(widthMeasureSpec);
-                break;
-            case MeasureSpec.UNSPECIFIED:
-                width = DEFAULT_WIDTH;
-                break;
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        int width;
+        int height;
+
+        // Measure Width
+        if (widthMode == MeasureSpec.EXACTLY) {
+            width = widthSize;
+        } else if (widthMode == MeasureSpec.AT_MOST) {
+            // parent_match
+            width = Math.min(desiredWidth, widthSize);
+        } else {
+            // wrap_content
+            width = desiredWidth;
         }
 
-        switch (View.MeasureSpec.getMode(heightMeasureSpec)) {
-            case MeasureSpec.AT_MOST:
-            case MeasureSpec.EXACTLY:
-                height = View.MeasureSpec.getSize(heightMeasureSpec);
-                break;
-            case View.MeasureSpec.UNSPECIFIED:
-                height = DEFAULT_HEIGHT;
-                break;
+        // Measure Height
+        if (heightMode == MeasureSpec.EXACTLY) {
+            height = heightSize;
+        } else if (heightMode == MeasureSpec.AT_MOST) {
+            // parent_match
+            height = Math.min(desiredHeight, heightSize);
+        } else {
+            // wrap_content
+            height = desiredHeight;
         }
 
         setMeasuredDimension(width, height);
@@ -101,7 +110,6 @@ public class StepIndicator extends View {
         super.onDraw(canvas);
 
         int drawWidth = canvas.getWidth() - (leftPadding + rightPadding);
-        //int drawHeight = canvas.getHeight();
         int baseY = getHeight() / 2;
         int baseX = leftPadding;
         int segment = drawWidth / (numberOfStep -1);
@@ -160,6 +168,7 @@ public class StepIndicator extends View {
         Rect bounds = new Rect();
         // Support maximize step is 99
         textPaint.getTextBounds("00", 0, 2, bounds);
+        textPaint.setTypeface(Typeface.create("Arial", Typeface.NORMAL));
 
         circlePaint.setColor(backGroundColor);
         circlePaint.setAntiAlias(true);
@@ -168,9 +177,9 @@ public class StepIndicator extends View {
         circleStrokePaint.setColor(strokeColor);
         circleStrokePaint.setStrokeWidth(lineWidth);
 
-        canvas.drawCircle(x, y + textSize/2 - (bounds.height() / 2), bounds.width() - 7, circlePaint);
-        canvas.drawCircle(x, y + textSize/2 - (bounds.height() / 2), bounds.width() - 7, circleStrokePaint);
-        canvas.drawText(text, x, y + textSize/4, textPaint);
+        canvas.drawCircle(x, y , bounds.width() - 7, circlePaint);
+        canvas.drawCircle(x, y , bounds.width() - 7, circleStrokePaint);
+        canvas.drawText(text, x, y + textSize/3 , textPaint);
     }
 
     public int getCurrentStep() {
@@ -195,7 +204,7 @@ public class StepIndicator extends View {
         return textSize;
     }
 
-    public void setTextSize(float textSize) {
+    public void setTextSize(int textSize) {
         this.textSize = textSize;
         invalidate();
     }

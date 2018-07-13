@@ -12,11 +12,11 @@ import android.databinding.ObservableBoolean;
 
 import java.lang.ref.WeakReference;
 
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.model.message.MessageQuestion;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
-import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public abstract class BaseViewModel<N> extends ViewModel {
@@ -25,13 +25,8 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private final ObservableBoolean mIsLoading = new ObservableBoolean(false);
     private final SchedulerProvider mSchedulerProvider;
     private CompositeDisposable mCompositeDisposable;
-
     private WeakReference<N> mNavigator;
-
     private MutableLiveData<String> modelErrorMessage = new MutableLiveData<>();
-
-
-
     private MutableLiveData<BaseMessage> mModelBaseMessage = new MutableLiveData<BaseMessage>();
 
     public BaseViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
@@ -49,6 +44,10 @@ public abstract class BaseViewModel<N> extends ViewModel {
 
     public CompositeDisposable getCompositeDisposable() {
         return mCompositeDisposable;
+    }
+
+    public void startSafeProcess(@NonNull Disposable process){
+        mCompositeDisposable.add(process);
     }
 
     public DataManager getDataManager() {
