@@ -94,6 +94,21 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public boolean getIsShowDashboard() {
+        return mPreferencesHelper.getIsShowDashboard();
+    }
+
+    @Override
+    public void setIsShowDashboard(boolean value) {
+        mPreferencesHelper.setIsShowDashboard(value);
+    }
+
+    @Override
+    public void logout() {
+        mPreferencesHelper.logout();
+    }
+
+    @Override
     public ProfileResp.ProfileRespData getProfileRespData() {
         return mMemoryHelper.getProfileRespData();
     }
