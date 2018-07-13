@@ -23,5 +23,9 @@ public interface PreferencesHelper {
     VersionResp.VersionRespData getVersionRespData();
     void setVersionRespData(VersionResp.VersionRespData versionRespData);
 
+    boolean getIsShowDashboard();
+    void setIsShowDashboard(boolean value);
+
+    void logout();
 
 }
