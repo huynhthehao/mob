@@ -142,12 +142,12 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
                         android:text="Monthly Payment: " />
-
+                    <!--android:text="1,854,619d (*)"-->
                     <TextView
                         style="@style/AppTheme.DescriptionLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1,854,619d (*)"
+                        android:text="@{viewModel.FormattedMonthlyPayment}"
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
                 </LinearLayout>

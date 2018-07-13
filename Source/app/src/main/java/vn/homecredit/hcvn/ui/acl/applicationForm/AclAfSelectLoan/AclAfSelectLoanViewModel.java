@@ -1,6 +1,9 @@
 package vn.homecredit.hcvn.ui.acl.applicationForm.AclAfSelectLoan;
 
+import android.app.Application;
 import android.databinding.ObservableField;
+import android.text.Html;
+import android.widget.Toast;
 
 import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
@@ -54,6 +57,14 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
     public InitialValueObservable<Integer> AmountSliderChangedSubject;
     public InitialValueObservable<Integer> TenorSliderChangedSubject;
 
+    public ObservableField<Boolean> RetryGetMonthlyPayment = new ObservableField<>(false);
+    public ObservableField<Boolean> IsBusyLoadingMonthlyPayment = new ObservableField<>(false);
+    public ObservableField<Boolean> ShowButton = new ObservableField<>(false);
+
+//    public ObservableField<Integer> MonthlyPayment = new ObservableField<>(0);
+    private int mMonthlyPayment = 0;
+    public ObservableField<String> FormattedMonthlyPayment = new ObservableField<>("");
+
     @Inject
     public AclAfSelectLoanViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclDataManager aclDataManager) {
         super(dataManager, schedulerProvider, aclDataManager, CURRENT_STEP);
@@ -86,6 +97,9 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                     SegmentedElement segmentedElement = mAmountValues.get(value);
                     setLoanAmount((Double) segmentedElement.getValue());
                     FormattedLoanAmount.set(segmentedElement.getDisplayValue());
+
+                    setupInvalidAmounts();
+                    updateMonthlyPayment();
                 }, throwable -> {
                     setModelErrorMessage(throwable.getMessage());
                 }));
@@ -101,6 +115,9 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                     SegmentedElement segmentedElement = mTenorValues.get(value);
                     setTenor((Integer) segmentedElement.getValue());
                     FormattedTenor.set(segmentedElement.getDisplayValue());
+
+                    setupInvalidAmounts();
+                    updateMonthlyPayment();
                 }, throwable -> {
                     setModelErrorMessage(throwable.getMessage());
                 }));
@@ -159,6 +176,15 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
         mTenor = tenor;
     }
 
+    public int getMonthlyPayment() {
+        return mMonthlyPayment;
+    }
+
+    public void setMonthlyPayment(int monthlyPayment) {
+        mMonthlyPayment = monthlyPayment;
+        FormattedMonthlyPayment.set(String.format("%d ", monthlyPayment));
+    }
+
     public class SegmentedElement {
         public String getDisplayValue() {
             return mDisplayValue;
@@ -192,17 +218,61 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
 //
 //            //set default selection
 
-            setLoanAmount((Double)Stream.of(mAmountValues).findLast().get().getValue());
+            setLoanAmount((Double) Stream.of(mAmountValues).findLast().get().getValue());
             int selectedAmountIndex = Stream.of(mAmountValues).map(x -> x.getValue()).toList().indexOf(mLoanAmount);
             SelectedLoanAmountIndex.set(selectedAmountIndex);
             setupInvalidAmounts();
             //Get monthly payment
-            getMonthlyPayment();
+            updateMonthlyPayment();
         }
     }
 
-    private void getMonthlyPayment() {
+    private void updateMonthlyPayment() {
+        RetryGetMonthlyPayment.set(false);
+        if (mLoanAmount == null) return;
 
+        BusyLoading(true);
+
+        Double requestLoanAmount = mLoanAmount;
+        int requestLoanTenor = mTenor;
+
+        //TODO: Load From cache
+        ProposeOfferResp.ProposeOfferRespData propose = null;//Load cache instead of null
+
+        if (propose == null) {
+            String productCode = getCurrentProductCode();
+            getCompositeDisposable().add(getAclDataManager()
+                    .getMonthlyPaymentAsync(requestLoanAmount, requestLoanTenor, mSuggestOffer.getBoundScore(), productCode)
+                    .doOnSuccess(response -> {
+
+                    })
+                    .subscribeOn(getSchedulerProvider().io())
+                    .observeOn(getSchedulerProvider().ui())
+                    .subscribe(response -> {
+                        ProposeOfferResp.ProposeOfferRespData p = response.getData();
+                        updateWithProposeOffer(p, requestLoanAmount, requestLoanTenor);
+                    }, throwable -> {
+                        BusyLoading(false);
+                    }));
+        }
+        else {
+            updateWithProposeOffer(propose, requestLoanAmount, requestLoanTenor);
+            BusyLoading(false);
+        }
+    }
+
+    private void updateWithProposeOffer(ProposeOfferResp.ProposeOfferRespData propose, double requestLoanAmount, int requestLoanTenor) {
+        if (mTenor == requestLoanTenor && mLoanAmount == requestLoanAmount) {
+            mProposeOffer = propose;
+            setMonthlyPayment(propose.getMonthlyPayment());
+            setModelErrorMessage(String.format("Monthly payment: %s", propose.getMonthlyPayment()));
+        }
+        BusyLoading(false);
+    }
+
+    private void BusyLoading(boolean isBusy) {
+        IsBusyLoadingMonthlyPayment.set(isBusy);
+        ShowButton.set(!isBusy);
     }
 
     private void setupInvalidAmounts() {
@@ -222,14 +292,12 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                 setTenor(Stream.of(validTenor).findLast().get().getTenor());
             }
 
-            if (mProposeOffer != null)
-            {
+            if (mProposeOffer != null) {
                 if (Stream.of(validTenor).anyMatch(xx -> xx.getTenor() == mProposeOffer.getTenor()))
                     setTenor(mProposeOffer.getTenor());
                 else
                     setTenor(Stream.of(validTenor).findLast().get().getTenor());
-            }
-            else
+            } else
                 setTenor(Stream.of(validTenor).findLast().get().getTenor());
         }
 
@@ -241,6 +309,32 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
     }
 
     private void checkInvalidOfferCache() {
+        Boolean invalid = false;
 
+//        foreach (var propose in Data.Current.ProposeOffers)
+//        {
+//            invalid = !propose.BoundScore.Equals(SuggestOffer.BoundScore) ||
+//                    SuggestOffer.LoanTenors.All(x => x.Amount != propose.RequiredAmount) ||
+//            SuggestOffer.LoanTenors.All(x => x.TenorProducts.All(xx => xx.ProductCode != propose.ProductCode));
+//
+//            if (invalid)
+//            {
+//                break;
+//            }
+//        }
+
+//        if (invalid) Data.Current.ProposeOffers.Clear();
+    }
+
+    public String getCurrentProductCode()
+    {
+        Double requestLoanAmount = mLoanAmount;
+        int requestLoanTenor = mTenor;
+
+        String productCode = Stream.of(Stream.of(mSuggestOffer.getLoanTenors())
+                .filter(x -> x.getAmount() == requestLoanAmount).findFirst().get().getTenorProducts())
+                .filter(xxx -> xxx.getTenor() == requestLoanTenor).findFirst().get().getProductCode();
+
+        return productCode;
     }
 }
