@@ -24,6 +24,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
     private static final String PREF_KEY_PROFILE = "PREF_KEY_PROFILE";
     private static final String PREF_KEY_VERSIONRESP = "PREF_KEY_VERSIONRESP";
+    private static final String PREF_KEY_SHOW_DASHBOARD = "PREF_KEY_SHOW_DASHBOARD";
 
     private final SharedPreferences mPrefs;
 
@@ -75,6 +76,22 @@ public class AppPreferencesHelper implements PreferencesHelper {
         String json = gson.toJson(versionRespData);
         prefsEditor.putString(PREF_KEY_VERSIONRESP, json);
         prefsEditor.commit();
+    }
+
+    @Override
+    public boolean getIsShowDashboard() {
+        return mPrefs.getBoolean(PREF_KEY_SHOW_DASHBOARD, true);
+    }
+
+    @Override
+    public void setIsShowDashboard(boolean value) {
+        mPrefs.edit().putBoolean(PREF_KEY_SHOW_DASHBOARD, value).commit();
+    }
+
+    @Override
+    public void logout() {
+        mPrefs.edit().putBoolean(PREF_KEY_SHOW_DASHBOARD, true).commit();
+        mPrefs.edit().putString(PREF_KEY_PROFILE, null).commit();
     }
 
 }
