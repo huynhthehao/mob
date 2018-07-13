@@ -78,7 +78,7 @@ public class AclRestServiceImpl implements AclRestService {
     public Single<SuggestOfferResp> getSuggestOffer() {
 
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_CLW + "/offer/all")
-                .addHeaders(mApiHeader.getACLApiHeader())
+                .addHeaders(mApiHeader.getAclApiHeader())
                 .build().getObjectSingle(SuggestOfferResp.class);
     }
 

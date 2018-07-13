@@ -100,7 +100,7 @@
                 style="@style/AppTheme.SeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:max="@{viewModel.MaxAmount}"
+                android:max="@{viewModel.MaxTenor}"
                 android:min="0"/>
 
             <FrameLayout

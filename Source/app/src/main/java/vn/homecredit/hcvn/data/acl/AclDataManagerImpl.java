@@ -34,7 +34,7 @@ public class AclDataManagerImpl implements AclDataManager {
     @Override
     public void setAclAccessToken(String aclAccessToken) {
         mAclDatabaseService.setAclAccessToken(aclAccessToken);
-        mAclRestService.getApiHeader().getProtectedApiHeader().setAccessToken(aclAccessToken);
+        mAclRestService.getApiHeader().getAclApiHeader().setAccessToken(aclAccessToken);
     }
 
     @Override

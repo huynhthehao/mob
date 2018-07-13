@@ -19,14 +19,12 @@ import javax.inject.Singleton;
 public class ApiHeader {
 
     private ProtectedApiHeader mProtectedApiHeader;
-    private final ACLApiHeader mAclApiHeader;
+    private final AclApiHeader mAclApiHeader;
 
     private PublicApiHeader mPublicApiHeader;
 
-    private ACLApiHeader mACLApiHeader;
-
     @Inject
-    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, ACLApiHeader aclApiHeader) {
+    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, AclApiHeader aclApiHeader) {
         mPublicApiHeader = publicApiHeader;
         mProtectedApiHeader = protectedApiHeader;
         mAclApiHeader = aclApiHeader;
@@ -40,8 +38,8 @@ public class ApiHeader {
         return mPublicApiHeader;
     }
 
-    public ACLApiHeader getACLApiHeader() {
-        return mACLApiHeader;
+    public AclApiHeader getAclApiHeader() {
+        return mAclApiHeader;
     }
 
     public static final class ProtectedApiHeader {
@@ -77,7 +75,7 @@ public class ApiHeader {
         }
     }
 
-    public static final class ACLApiHeader {
+    public static final class AclApiHeader {
 
         @Expose
         @SerializedName("AccessToken")
@@ -88,7 +86,7 @@ public class ApiHeader {
         private String mAuthorization;
 
         @Inject
-        public ACLApiHeader(String accessToken) {
+        public AclApiHeader(String accessToken) {
             mAccessToken = accessToken;
         }
 

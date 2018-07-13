@@ -113,8 +113,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ApiHeader.ACLApiHeader provACLApiHeader(AclDatabaseService aclDatabaseService) {
-        return new ApiHeader.ACLApiHeader(
+    ApiHeader.AclApiHeader provACLApiHeader(AclDatabaseService aclDatabaseService) {
+        return new ApiHeader.AclApiHeader(
                 aclDatabaseService.getAclAccessToken());
     }
 
