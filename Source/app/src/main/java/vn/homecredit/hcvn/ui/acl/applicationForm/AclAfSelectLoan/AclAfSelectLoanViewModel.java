@@ -2,6 +2,7 @@ package vn.homecredit.hcvn.ui.acl.applicationForm.AclAfSelectLoan;
 
 import android.databinding.ObservableField;
 
+import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 import com.jakewharton.rxbinding2.InitialValueObservable;
 import com.jakewharton.rxbinding2.widget.RxSeekBar;
@@ -31,11 +32,16 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
     private SuggestOfferResp.SuggestOfferRespData mSuggestOffer;
 
     private Double mLoanAmount;
+    public ObservableField<Integer> SelectedLoanAmountIndex = new ObservableField<>(0);
     public ObservableField<String> FormattedLoanAmount = new ObservableField<>("");
+
     private int mTenor;
+    public ObservableField<Integer> SelectedTenorIndex = new ObservableField<>(0);
+    public ObservableField<String> FormattedTenor = new ObservableField<>("");
 
     private List<SegmentedElement> mAmountValues;
     private List<SegmentedElement> mTenorValues;
+
     public ObservableField<Integer> MaxAmount = new ObservableField<>(1);
     public ObservableField<Integer> MaxTenor = new ObservableField<>(1);
 
@@ -46,6 +52,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
     public ObservableField<String> MaximumLoanTenorDisplayValue = new ObservableField<>("");
 
     public InitialValueObservable<Integer> AmountSliderChangedSubject;
+    public InitialValueObservable<Integer> TenorSliderChangedSubject;
 
     @Inject
     public AclAfSelectLoanViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclDataManager aclDataManager) {
@@ -76,9 +83,26 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                 .toFlowable(BackpressureStrategy.LATEST)
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe((value) -> {
-                    setLoanAmount((Double) mAmountValues.get(value).getValue());
+                    SegmentedElement segmentedElement = mAmountValues.get(value);
+                    setLoanAmount((Double) segmentedElement.getValue());
+                    FormattedLoanAmount.set(segmentedElement.getDisplayValue());
                 }, throwable -> {
-//                    setIsLoading(false);
+                    setModelErrorMessage(throwable.getMessage());
+                }));
+
+        getCompositeDisposable().add(TenorSliderChangedSubject
+                .doOnNext((value) -> {
+
+                })
+                .debounce(SEEKBAR_THROTTLE_INTERVAL, TimeUnit.MILLISECONDS)
+                .toFlowable(BackpressureStrategy.LATEST)
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe((value) -> {
+                    SegmentedElement segmentedElement = mTenorValues.get(value);
+                    setTenor((Integer) segmentedElement.getValue());
+                    FormattedTenor.set(segmentedElement.getDisplayValue());
+                }, throwable -> {
+                    setModelErrorMessage(throwable.getMessage());
                 }));
     }
 
@@ -125,7 +149,6 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
 
     public void setLoanAmount(Double loanAmount) {
         mLoanAmount = loanAmount;
-        FormattedLoanAmount.set(String.format("%.0f d", mLoanAmount));
     }
 
     public int getTenor() {
@@ -158,38 +181,66 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
         if (mSuggestOffer.getLoanTenors() != null && mSuggestOffer.getLoanTenors().size() > 0) {
             List<Double> amount = Stream.of(mSuggestOffer.getLoanTenors()).map(x -> x.getAmount()).distinct().toList();
             Collections.sort(amount);
-            setAmountValues(Stream.of(amount).map(x -> new SegmentedElement(String.format("%.0f d", x), x)).toList());
+            setAmountValues(Stream.of(amount).map(x -> new SegmentedElement(String.format("%.0fd", x), x)).toList());
             List<Integer> tenors = Stream.of(mSuggestOffer.getLoanTenors()).flatMap(x -> Stream.of(x.getTenorProducts()))
                     .groupBy(xx -> xx.getTenor())
                     .map(xxx -> xxx.getKey())
                     .distinct().sorted().toList();
             setTenorValues(Stream.of(tenors).map(x -> new SegmentedElement(String.format("%s tháng", x), x)).toList());
-//            var amount =  mSuggestOffer.getLoanTenors.toList().Select(x => x.Amount).Distinct().ToList();
-//            amount.Sort();
-//            AmountValues = new ObservableCollection<SegmentedElement>(amount.Select(x => new SegmentedElement
-//            {
-//                DisplayValue = Helper.GetCurrencyFormatDisplay(x, currency: "₫"),
-//                Value = x
-//            }));
-//            var tenors = SuggestOffer.LoanTenors.SelectMany(x => x.TenorProducts)
-//                                         .GroupBy(xx => xx.Tenor)
-//                                         .Select(xxx => xxx.Key)
-//                                         .Distinct().OrderBy(x => x).ToList();
-//
-//            TenorValues = new ObservableCollection<SegmentedElement>(tenors.Select(x => new SegmentedElement
-//            {
-//                DisplayValue = $"{x.ToString()} {AppResources.CLWOCommon_Month}" + (App.EngLishLocale ? "s" : string.Empty),
-//                Value = x
-//            }));
-//
-//            CheckInvalidOfferCache();
+
+            checkInvalidOfferCache();
 //
 //            //set default selection
-//            LoanAmount = Data.Current.ApplicationInfo?.ProposeOffer?.RequiredAmount ?? Convert.ToDecimal(AmountValues.Last().Value);
-//            SelectedLoanAmountIndex = AmountValues.ToList().FindIndex(_ => _.Value.Equals(LoanAmount));
-//            SetupInvalidAmounts();
-//            //Get monthly payment
-//            GetMonthlyPayment();
+
+            setLoanAmount((Double)Stream.of(mAmountValues).findLast().get().getValue());
+            int selectedAmountIndex = Stream.of(mAmountValues).map(x -> x.getValue()).toList().indexOf(mLoanAmount);
+            SelectedLoanAmountIndex.set(selectedAmountIndex);
+            setupInvalidAmounts();
+            //Get monthly payment
+            getMonthlyPayment();
         }
+    }
+
+    private void getMonthlyPayment() {
+
+    }
+
+    private void setupInvalidAmounts() {
+        Optional<SuggestOfferResp.LoanTenor> loan = Stream.of(mSuggestOffer.getLoanTenors()).filter(x -> x.getAmount() == mLoanAmount).findFirst();
+
+        if (loan.equals(Optional.empty())) return;
+
+        List<SuggestOfferResp.TenorProduct> validTenor = loan.get().getTenorProducts();
+
+        if (mTenor == 0 && false /*&& Data.Current.ApplicationInfo?.ProposeOffer != null*/) {
+//            Tenor = Data.Current.ApplicationInfo.ProposeOffer.Tenor;
+        } else {
+
+            if (Stream.of(validTenor).anyMatch(x -> x.getTenor() == mTenor)) {
+
+            } else {
+                setTenor(Stream.of(validTenor).findLast().get().getTenor());
+            }
+
+            if (mProposeOffer != null)
+            {
+                if (Stream.of(validTenor).anyMatch(xx -> xx.getTenor() == mProposeOffer.getTenor()))
+                    setTenor(mProposeOffer.getTenor());
+                else
+                    setTenor(Stream.of(validTenor).findLast().get().getTenor());
+            }
+            else
+                setTenor(Stream.of(validTenor).findLast().get().getTenor());
+        }
+
+        SelectedTenorIndex.set(Stream.of(mTenorValues).map(x -> x.getValue()).toList().indexOf(mTenor));
+
+//        InvalidTenorValues = TenorValues
+//                .Select(x = > x.Value)
+//                .Where(t = > !validTenor.Any(xx = > xx.Tenor == Convert.ToInt32(t))).ToList();
+    }
+
+    private void checkInvalidOfferCache() {
+
     }
 }
