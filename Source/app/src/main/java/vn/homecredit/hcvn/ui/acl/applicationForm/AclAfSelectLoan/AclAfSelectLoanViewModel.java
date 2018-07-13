@@ -96,7 +96,6 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                 .subscribe((value) -> {
                     SegmentedElement segmentedElement = mAmountValues.get(value);
                     setLoanAmount((Double) segmentedElement.getValue());
-                    FormattedLoanAmount.set(segmentedElement.getDisplayValue());
 
                     setupInvalidAmounts();
                     updateMonthlyPayment();
@@ -114,7 +113,6 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                 .subscribe((value) -> {
                     SegmentedElement segmentedElement = mTenorValues.get(value);
                     setTenor((Integer) segmentedElement.getValue());
-                    FormattedTenor.set(segmentedElement.getDisplayValue());
 
                     setupInvalidAmounts();
                     updateMonthlyPayment();
@@ -166,6 +164,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
 
     public void setLoanAmount(Double loanAmount) {
         mLoanAmount = loanAmount;
+        FormattedLoanAmount.set(String.format("%,dđ", loanAmount.intValue()));
     }
 
     public int getTenor() {
@@ -174,6 +173,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
 
     public void setTenor(int tenor) {
         mTenor = tenor;
+        FormattedTenor.set(String.format("%d tháng", tenor));
     }
 
     public int getMonthlyPayment() {
@@ -182,7 +182,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
 
     public void setMonthlyPayment(int monthlyPayment) {
         mMonthlyPayment = monthlyPayment;
-        FormattedMonthlyPayment.set(String.format("%d ", monthlyPayment));
+        FormattedMonthlyPayment.set(String.format("%,dđ ", monthlyPayment));
     }
 
     public class SegmentedElement {
@@ -207,7 +207,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
         if (mSuggestOffer.getLoanTenors() != null && mSuggestOffer.getLoanTenors().size() > 0) {
             List<Double> amount = Stream.of(mSuggestOffer.getLoanTenors()).map(x -> x.getAmount()).distinct().toList();
             Collections.sort(amount);
-            setAmountValues(Stream.of(amount).map(x -> new SegmentedElement(String.format("%.0fd", x), x)).toList());
+            setAmountValues(Stream.of(amount).map(x -> new SegmentedElement(String.format("%,dđ", x.intValue()), x)).toList());
             List<Integer> tenors = Stream.of(mSuggestOffer.getLoanTenors()).flatMap(x -> Stream.of(x.getTenorProducts()))
                     .groupBy(xx -> xx.getTenor())
                     .map(xxx -> xxx.getKey())
@@ -265,7 +265,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
         if (mTenor == requestLoanTenor && mLoanAmount == requestLoanAmount) {
             mProposeOffer = propose;
             setMonthlyPayment(propose.getMonthlyPayment());
-            setModelErrorMessage(String.format("Monthly payment: %s", propose.getMonthlyPayment()));
+            setModelErrorMessage(String.format("Monthly payment: %,dđ", propose.getMonthlyPayment().intValue()));
         }
         BusyLoading(false);
     }
@@ -291,14 +291,14 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
             } else {
                 setTenor(Stream.of(validTenor).findLast().get().getTenor());
             }
-
-            if (mProposeOffer != null) {
-                if (Stream.of(validTenor).anyMatch(xx -> xx.getTenor() == mProposeOffer.getTenor()))
-                    setTenor(mProposeOffer.getTenor());
-                else
-                    setTenor(Stream.of(validTenor).findLast().get().getTenor());
-            } else
-                setTenor(Stream.of(validTenor).findLast().get().getTenor());
+//
+//            if (mProposeOffer != null) {
+//                if (Stream.of(validTenor).anyMatch(xx -> xx.getTenor() == mProposeOffer.getTenor()))
+//                    setTenor(mProposeOffer.getTenor());
+//                else
+//                    setTenor(Stream.of(validTenor).findLast().get().getTenor());
+//            } else
+//                setTenor(Stream.of(validTenor).findLast().get().getTenor());
         }
 
         SelectedTenorIndex.set(Stream.of(mTenorValues).map(x -> x.getValue()).toList().indexOf(mTenor));
