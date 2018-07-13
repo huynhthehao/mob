@@ -84,7 +84,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     @Override
     public void openSignupActivity() {
 //        animateLogo();
-        showDashboard("Xin chao", "Nguyen Truong Son 2");
+        showDashboard(getString(R.string.hello), "Nguyen Truong Son 2");
     }
 
     private void showDashboard(String greeting, String username) {
