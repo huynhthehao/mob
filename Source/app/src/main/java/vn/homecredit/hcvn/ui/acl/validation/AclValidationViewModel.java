@@ -54,11 +54,11 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CashLoanWalkin));
                     } else {
-                        getNavigator().showError(response.getResponseMessage());
+                        getNavigator().showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
                     String t = throwable.getMessage();
-                    getNavigator().showError(t);
+                    getNavigator().showMessage(t);
                     setIsLoading(false);
                 });
 

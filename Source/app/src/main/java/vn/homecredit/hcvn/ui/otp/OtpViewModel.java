@@ -129,7 +129,14 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         Disposable resendProcess =aclDataManager.verifyPersonal(phoneNumber, contractId, deviceInfo.getPlayerId())
                 .subscribe(response -> {
                     setIsLoading(false);
-                    initData(phoneNumber, contractId, OtpFlow.CashLoanWalkin, response.getData());
+                    if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
+                        String message = resourceService.getStringById(R.string.otp_resend_success);
+                        getNavigator().showMessage(message);
+
+                        initData(phoneNumber, contractId, OtpFlow.CashLoanWalkin, response.getData());
+                    } else {
+                        getNavigator().showMessage(response.getResponseMessage());
+                    }
                 }, throwable -> {
                     setIsLoading(false);
                 });
@@ -143,7 +150,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         String inputOtp = otpInput.getText().toString();
         if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
             String warningMessage = resourceService.getStringById(R.string.otp_empty);
-            getNavigator().showError(warningMessage);
+            getNavigator().showMessage(warningMessage);
             return;
         }
 
@@ -163,7 +170,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                         aclDataManager.setAclAccessToken(response.getAccessToken());
                         getNavigator().next();
                     } else {
-                        getNavigator().showError(response.getResponseMessage());
+                        getNavigator().showMessage(response.getResponseMessage());
                     }
                 }, throwable -> setIsLoading(false));
         startSafeProcess(verifyProcess);

@@ -23,13 +23,10 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-
-import java.util.concurrent.Callable;
 
 import dagger.android.AndroidInjection;
 import io.reactivex.functions.Consumer;
@@ -179,10 +176,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         });
     }
 
-    public void showError(String errorMessage) {
+    public void showMessage(String message) {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title(R.string.notice)
-                .content(errorMessage)
+                .content(message)
                 .positiveText(R.string.ok);
 
         MaterialDialog dialog = builder.build();
@@ -192,7 +189,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     private void enableModelErrorDialog() {
         getViewModel().getModelErrorMessage().observe(this, o -> {
             if (o != null && o instanceof String) {
-                showError((String) o);
+                showMessage((String) o);
             }
         });
     }

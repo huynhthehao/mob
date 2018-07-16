@@ -7,5 +7,5 @@
 package vn.homecredit.hcvn.ui.base;
 
 public interface BaseNavigator {
-    void showError(String errorMessage);
+    void showMessage(String message);
 }
