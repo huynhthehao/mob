@@ -27,6 +27,7 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentMoreBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
 
@@ -101,7 +102,7 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
 
     private void showSetting(Boolean clickedSetting) {
         if (clickedSetting) {
-            Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            Intent intent = SettingsActivity.newIntent(getContext());
             startActivity(intent);
         }
     }

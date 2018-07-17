@@ -17,7 +17,49 @@
         android:background="@color/setting_background"
         android:orientation="vertical">
 
-        <include layout="@layout/toolbar_settings" />
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary_red"
+            app:contentInsetEnd="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetStart="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/vBack"
+                    style="@style/ClickableView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:onClick="@{()->viewModel.onBackClicked()}">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:padding="@dimen/padding_back_button"
+                        android:src="@drawable/ic_arrow_back" />
+                </FrameLayout>
+
+                <TextView
+                    style="@style/AppTheme.TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/settings"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium_big"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+        </android.support.v7.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +102,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_normal"
                         android:foreground="?selectableItemBackground"
-                        android:text="@string/vietnamese"
+                        android:onClick="@{()-> viewModel.onChangeLanguageClicked()}"
+                        android:text="@{viewModel.languageValue}"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/text_size_medium" />
                 </LinearLayout>
@@ -95,7 +138,9 @@
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/swNotification"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:onCheckedChanged="@{(switch, checked) -> viewModel.onNotificationCheckedChanged(checked)}"
+                        android:theme="@style/SwitchCompatTheme" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -133,7 +178,9 @@
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/swFingerPrint"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:onCheckedChanged="@{(switch, checked) -> viewModel.onFingerPrintCheckedChanged(checked)}"
+                            android:theme="@style/SwitchCompatTheme" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -164,7 +211,7 @@
                     <LinearLayout
                         android:id="@+id/layVersion"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/setting_row_height"
+                        android:layout_height="53dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -187,7 +234,7 @@
                             style="@style/AppTheme.TextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1.0.2"
+                            android:text="@{viewModel.appVersion}"
                             android:textSize="@dimen/text_size_medium" />
                     </LinearLayout>
 
@@ -201,6 +248,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/setting_row_height"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->viewModel.onAppRatingClicked()}"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -226,6 +274,7 @@
                             android:tint="@color/brownishGrey" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"

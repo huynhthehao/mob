@@ -113,7 +113,7 @@
     </style>
 
 
-    <style name="DialogAnimation">
+    <style name="DialogAnimation" >
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
@@ -122,10 +122,12 @@
         <item name="android:progressDrawable">@drawable/red_scrubber_progress</item>
         <item name="android:thumb">@drawable/red_scrubber_control</item>
     </style>
-
     <style name="ClickableView">
         <item name="android:clickable">true</item>
         <item name="android:foreground">?selectableItemBackground</item>
+    </style>
+    <style name="SwitchCompatTheme" >
+        <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
 </resources>
