@@ -14,8 +14,219 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/setting_background"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar_settings" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layChangeLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_size_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/view_size_small"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_language" />
+
+                    <TextView
+                        style="@style/AppTheme.TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_normal"
+                        android:layout_weight="1"
+                        android:text="@string/change_language"
+                        android:textSize="@dimen/text_size_medium" />
+
+                    <TextView
+                        style="@style/AppTheme.TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_normal"
+                        android:foreground="?selectableItemBackground"
+                        android:text="@string/vietnamese"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_medium" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/grey_300" />
+
+                <LinearLayout
+                    android:id="@+id/layNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/view_size_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/view_size_small"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_notification" />
+
+                    <TextView
+                        style="@style/AppTheme.TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_normal"
+                        android:layout_weight="1"
+                        android:text="@string/notifications"
+                        android:textSize="@dimen/text_size_medium" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/swNotification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layFingerPrint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/grey_300" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_size_normal"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/view_size_small"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_fingerprint" />
+
+                        <TextView
+                            style="@style/AppTheme.TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_normal"
+                            android:layout_weight="1"
+                            android:text="@string/login_by_touch_id"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/swFingerPrint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey_200" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:background="@color/setting_background" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_normal"
+                    android:layout_marginRight="@dimen/margin_normal"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/layVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_size_normal"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/view_size_small"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_phone" />
+
+                        <TextView
+                            style="@style/AppTheme.TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_normal"
+                            android:layout_weight="1"
+                            android:text="@string/version"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <TextView
+                            style="@style/AppTheme.TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1.0.2"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/grey_300" />
+
+                    <LinearLayout
+                        android:id="@+id/layRating"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/view_size_normal"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/view_size_small"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_rate" />
+
+                        <TextView
+                            style="@style/AppTheme.TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_normal"
+                            android:layout_weight="1"
+                            android:text="@string/rate_our_app"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <ImageView
+                            android:layout_width="@dimen/view_size_small"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_arrow_right"
+                            android:tint="@color/brownishGrey" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </layout>

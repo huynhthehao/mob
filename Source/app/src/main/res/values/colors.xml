@@ -314,5 +314,7 @@
     <color name="colorAccent">@color/white</color>
     <color name="black_effective">#2a2a2a</color>
     <color name="image_tint">#bdc1c9</color>
+    <color name="setting_background">#f6f7f8</color>
+    <color name="colorTrasparent">#ffffffff</color>
 
 </resources>
