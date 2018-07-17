@@ -41,7 +41,7 @@ public final class AppUtils {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(context
                             .getResources()
-                            .getString(R.string.app_market_link) + appPackageName)));
+                            .getString(R.string.app_market_link) + "vn.homecredit.hcvn")));
         } catch (android.content.ActivityNotFoundException e) {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(context

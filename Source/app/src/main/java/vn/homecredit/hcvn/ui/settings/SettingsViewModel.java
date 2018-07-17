@@ -17,6 +17,7 @@ public class SettingsViewModel extends BaseViewModel {
     private ObservableField<String> appVersion = new ObservableField<>("");
     private ObservableField<Integer> languageValue = new ObservableField<>(R.string.vietnamese);
     private MutableLiveData<Boolean> modelBack = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelAppRating = new MutableLiveData<>();
 
     @Inject
     public SettingsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
@@ -37,12 +38,16 @@ public class SettingsViewModel extends BaseViewModel {
         return languageValue;
     }
 
-    public void onBackClicked(){
+    public void onBackClicked() {
         modelBack.setValue(true);
     }
 
     public void onChangeLanguageClicked() {
-
+        if (languageValue.get() == R.string.vietnamese) {
+            languageValue.set(R.string.english);
+        } else {
+            languageValue.set(R.string.vietnamese);
+        }
     }
 
     public void onNotificationCheckedChanged(boolean checked) {
@@ -53,11 +58,15 @@ public class SettingsViewModel extends BaseViewModel {
 
     }
 
-    public void onAppRatingClicked(){
-
+    public void onAppRatingClicked() {
+        modelAppRating.setValue(true);
     }
 
     public MutableLiveData<Boolean> getModelBack() {
         return modelBack;
+    }
+
+    public MutableLiveData<Boolean> getModelAppRating() {
+        return modelAppRating;
     }
 }

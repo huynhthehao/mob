@@ -12,6 +12,7 @@ import vn.homecredit.hcvn.databinding.ActivitySettingsBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.utils.AppUtils;
 
 public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, SettingsViewModel> {
     @Inject
@@ -43,6 +44,11 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, Sett
         settingsViewModel.getModelBack().observe(this, aBoolean -> {
             if (aBoolean != null && aBoolean == true) {
                 finish();
+            }
+        });
+        settingsViewModel.getModelAppRating().observe(this, aBoolean -> {
+            if (aBoolean != null && aBoolean == true) {
+                AppUtils.openPlayStoreForApp(this);
             }
         });
     }
