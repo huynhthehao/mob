@@ -25,4 +25,5 @@ public interface RestService {
     Single<OtpTimerResp> verifySignupOTP(String phone, String idNumber, String otp);
     ApiHeader getApiHeader();
     Single<OtpTimerResp> verified(String username, String contractsId);
+    Single<ProfileResp> signUp(String phone, String contracsId, String otp, String password);
 }

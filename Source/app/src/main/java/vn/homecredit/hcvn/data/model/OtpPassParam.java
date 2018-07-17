@@ -6,15 +6,28 @@
 
 package vn.homecredit.hcvn.data.model;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 
+@Parcel
 public class OtpPassParam {
 
     private OtpTimerResp otpTimerResp;
     private final String phoneNumber;
     private final String contractId;
+    private String otp;
     private OtpFlow otpFlow;
 
+    @ParcelConstructor
+    public OtpPassParam(OtpTimerResp otpTimerResp, String phoneNumber, String contractId, OtpFlow otpFlow, String otp) {
+        this.otpTimerResp = otpTimerResp;
+        this.phoneNumber = phoneNumber;
+        this.contractId = contractId;
+        this.otpFlow = otpFlow;
+        this.otp = otp;
+    }
     public OtpPassParam(OtpTimerResp otpTimerResp, String phoneNumber, String contractId, OtpFlow otpFlow) {
         this.otpTimerResp = otpTimerResp;
         this.phoneNumber = phoneNumber;
@@ -39,5 +52,22 @@ public class OtpPassParam {
     public String getContractId() {
         return contractId;
     }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtpTimerResp(OtpTimerResp otpTimerResp) {
+        this.otpTimerResp = otpTimerResp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public void setOtpFlow(OtpFlow otpFlow) {
+        this.otpFlow = otpFlow;
+    }
+
 }
 

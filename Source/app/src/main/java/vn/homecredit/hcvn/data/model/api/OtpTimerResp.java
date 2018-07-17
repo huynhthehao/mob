@@ -9,6 +9,9 @@ package vn.homecredit.hcvn.data.model.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class OtpTimerResp {
     public static final int RESPONSE_CODE_SUCCESS = 0;
     public static final int RESPONSE_CODE_IN_EFFECT = 64;
@@ -60,4 +63,5 @@ public class OtpTimerResp {
                 ", responseMessage='" + responseMessage + '\'' +
                 '}';
     }
+
 }

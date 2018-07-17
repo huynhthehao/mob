@@ -180,9 +180,8 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     }
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
-                        setModelErrorMessage("Success");
                         stopTimer();
-                        modelOtpParamSignUp.setValue(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SignUp));
+                        modelOtpParamSignUp.setValue(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SignUp, inputOtp ));
                     } else {
                         setModelErrorMessage(otpTimerResp.getResponseMessage());
                     }

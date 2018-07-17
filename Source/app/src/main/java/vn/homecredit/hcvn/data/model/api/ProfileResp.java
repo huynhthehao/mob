@@ -18,6 +18,9 @@ public class ProfileResp {
     @SerializedName("response_code")
     @Expose
     private Integer responseCode;
+    @SerializedName("response_message")
+    @Expose
+    private String responseMessage;
 
     public ProfileRespData getData() {
         return data;
@@ -33,6 +36,14 @@ public class ProfileResp {
 
     public void setResponseCode(Integer responseCode) {
         this.responseCode = responseCode;
+    }
+
+    public String getResponseMessage() {
+        return responseMessage;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 
     public class ProfileRespData {

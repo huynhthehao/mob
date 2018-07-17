@@ -54,4 +54,8 @@
     <string name="sign_up">Đăng ký</string>
     <string name="contracts_help">Số hợp đồng là gì?</string>
     <string name="hint_phone_contracts">Phone no. (as stated in contract)</string>
+    <string name="confirm_password">Xác nhận mật khẩu</string>
+    <string name="password_help">Đặt mật khẩu như thế nào?</string>
+    <string name="set_password">Đặt Mật Khẩu</string>
+    <string name="signup_now">Đăng ký ngay</string>
 </resources>

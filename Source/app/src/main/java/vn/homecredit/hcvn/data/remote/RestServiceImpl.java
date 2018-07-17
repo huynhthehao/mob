@@ -141,8 +141,23 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
+    public Single<ProfileResp> signUp(String phone, String contractsId, String otp, String password) {
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("phoneNumber", phone);
+        requestBody.put("contractNumber", contractsId);
+        requestBody.put("verificationCode", otp);
+        requestBody.put("password", password);
+        String langId = preferencesHelper.langId();
+        String url = String.format("%s/customer/signup?lang=%s",ApiEndPoint.ENDPOINT_APP, langId);
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(ProfileResp.class);
+    }
+
+    @Override
     public Single<OtpTimerResp> verifySignupOTP(String phone, String contractsId, String otp) {
-        HashMap<String, String> requestBody = new HashMap<String, String>();
+        HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("phoneNumber", phone);
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);

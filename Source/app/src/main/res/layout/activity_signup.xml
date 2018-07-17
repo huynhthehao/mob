@@ -31,7 +31,6 @@
             android:layout_height="?android:attr/actionBarSize"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:paddingTop="@dimen/appbar_padding_top"
             android:theme="@style/AppTheme.AppBarOverlay"
             app:layout_scrollFlags="enterAlways"
             app:navigationIcon="?android:attr/homeAsUpIndicator"

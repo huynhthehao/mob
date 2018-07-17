@@ -31,4 +31,8 @@
     <string name="sign_up">Sign up</string>
     <string name="contracts_help">What is contract number?</string>
     <string name="hint_phone_contracts">Số điện thoại trong hợp đồng</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="password_help">How to set the password?</string>
+    <string name="set_password">Set Your Password</string>
+    <string name="signup_now">Sign up now</string>
 </resources>

@@ -7,10 +7,12 @@
 
 package vn.homecredit.hcvn.ui.otp;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -24,6 +26,7 @@ import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;
 import vn.homecredit.hcvn.databinding.ActivityOtpBinding;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 
 
 public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> implements OtpNavigator {
@@ -102,8 +105,14 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getViewModel().getModelOtpParamSignUp().observe(this, otpPassParam -> {
+            if (otpPassParam != null) {
+                openSetPassword(otpPassParam);
+            }
+        });
 
     }
+
 
     @SuppressWarnings("TypeParameterUnusedInFormals")
     @Override
@@ -130,6 +139,9 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
         return super.onSupportNavigateUp();
     }
 
+    private void openSetPassword(OtpPassParam otpPassParam) {
+        SetPasswordActivity.start(this, otpPassParam);
+    }
     private void openSelectLoan(){
         Intent intent = AclApplicationFormActivity.newIntent(this);
         startActivity(intent);
