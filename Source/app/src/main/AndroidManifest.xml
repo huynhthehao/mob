@@ -63,6 +63,9 @@
         <activity
             android:name=".ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity"
             android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

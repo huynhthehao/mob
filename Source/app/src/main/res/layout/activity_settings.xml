@@ -35,12 +35,12 @@
                 <LinearLayout
                     android:id="@+id/layChangeLanguage"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/view_size_normal"
+                    android:layout_height="@dimen/setting_row_height"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/view_size_small"
+                        android:layout_width="@dimen/view_size_medium_small"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:src="@drawable/ic_language" />
@@ -73,12 +73,12 @@
                 <LinearLayout
                     android:id="@+id/layNotification"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/view_size_normal"
+                    android:layout_height="@dimen/setting_row_height"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/view_size_small"
+                        android:layout_width="@dimen/view_size_medium_small"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:src="@drawable/ic_notification" />
@@ -111,12 +111,12 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/view_size_normal"
+                        android:layout_height="@dimen/setting_row_height"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/view_size_small"
+                            android:layout_width="@dimen/view_size_medium_small"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
                             android:src="@drawable/ic_fingerprint" />
@@ -164,12 +164,12 @@
                     <LinearLayout
                         android:id="@+id/layVersion"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/view_size_normal"
+                        android:layout_height="@dimen/setting_row_height"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/view_size_small"
+                            android:layout_width="@dimen/view_size_medium_small"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
                             android:src="@drawable/ic_phone" />
@@ -199,12 +199,12 @@
                     <LinearLayout
                         android:id="@+id/layRating"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/view_size_normal"
+                        android:layout_height="@dimen/setting_row_height"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/view_size_small"
+                            android:layout_width="@dimen/view_size_medium_small"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
                             android:src="@drawable/ic_rate" />
@@ -219,13 +219,17 @@
                             android:textSize="@dimen/text_size_medium" />
 
                         <ImageView
-                            android:layout_width="@dimen/view_size_small"
+                            android:layout_width="@dimen/view_size_medium_small"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
                             android:src="@drawable/ic_arrow_right"
                             android:tint="@color/brownishGrey" />
                     </LinearLayout>
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/grey_300" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
