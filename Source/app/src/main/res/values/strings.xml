@@ -81,4 +81,12 @@
     <string name="cancel">Huỷ</string>
     <string name="otp_empty">Bạn phải nhập mã xác thực</string>
     <string name="otp_resend_success">Mã xác thực đã được gửi lại thành công, vui lòng chờ vài phút</string>
+
+    <!--Settings-->
+    <string name="change_language">Ngôn ngữ</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="push_notification">Thông báo</string>
+    <string name="version">Phiên bản</string>
+    <string name="rate_our_app">Đánh giá ứng dụng</string>
 </resources>
