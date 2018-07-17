@@ -16,6 +16,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
+import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
@@ -32,12 +33,14 @@ public class AclRestServiceImpl implements AclRestService {
     private final ApiHeader mApiHeader;
     private final MemoryHelper mMemoryHelper;
     private final DeviceInfo mDeviceInfo;
+    private PreferencesHelper preferencesHelper;
 
     @Inject
-    public AclRestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo) {
+    public AclRestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo, PreferencesHelper preferencesHelper) {
         mApiHeader = apiHeader;
         mMemoryHelper = memoryHelper;
         mDeviceInfo = deviceInfo;
+        this.preferencesHelper = preferencesHelper;
     }
 
     @Override
@@ -74,6 +77,7 @@ public class AclRestServiceImpl implements AclRestService {
                 .addBodyParameter(requestBody)
                 .build().getObjectSingle(TokenResp.class);
     }
+
 
     @Override
     public Single<SuggestOfferResp> getSuggestOffer() {

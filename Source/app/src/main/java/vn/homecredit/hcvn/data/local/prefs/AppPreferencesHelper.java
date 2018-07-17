@@ -14,6 +14,8 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
@@ -93,5 +95,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putBoolean(PREF_KEY_SHOW_DASHBOARD, true).commit();
         mPrefs.edit().putString(PREF_KEY_PROFILE, null).commit();
     }
+
+    @Override
+    public String langId() {
+        String langId = Locale.getDefault().getLanguage();
+        if (!langId.equals("vi") && !langId.equals("en")) {
+            langId = "vi";
+        }
+        return langId;
+    }
+
 
 }

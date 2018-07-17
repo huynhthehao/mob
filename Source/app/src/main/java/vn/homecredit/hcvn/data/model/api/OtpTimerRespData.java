@@ -66,4 +66,15 @@ public class OtpTimerRespData
     public void setSource(String source) {
         this.source = source;
     }
+
+    @Override
+    public String toString() {
+        return "OtpTimerRespData{" +
+                "status=" + status +
+                ", remainingTime=" + remainingTime +
+                ", otpLiveTime=" + otpLiveTime +
+                ", otpTimeResend=" + otpTimeResend +
+                ", source='" + source + '\'' +
+                '}';
+    }
 }

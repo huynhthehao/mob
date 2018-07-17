@@ -34,6 +34,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     private OtpFlow currentOtpFlow;
     private ActivityOtpBinding activityOtpBinding;
 
+    public static void start(Context context,OtpPassParam otpPassParam) {
+        Intent intent = getNewIntent(context, otpPassParam);
+        context.startActivity(intent);
+    }
+
     public static Intent getNewIntent(Context context, OtpPassParam otpPassParam) {
         Intent newInstance = new Intent(context, OtpActivity.class);
         try {
@@ -97,6 +102,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @SuppressWarnings("TypeParameterUnusedInFormals")
@@ -109,10 +115,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     @Override
     public void next() {
         switch (currentOtpFlow){
-            //case SignUp:   break;
+            case SignUp:
+
+                break;
             case CashLoanWalkin: {
                 openSelectLoan();
-                // await PushAsync<CLWOSelectLoanViewModel>();
             }
         }
     }

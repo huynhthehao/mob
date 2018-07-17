@@ -27,5 +27,6 @@ public interface PreferencesHelper {
     void setIsShowDashboard(boolean value);
 
     void logout();
+    String langId();
 
 }

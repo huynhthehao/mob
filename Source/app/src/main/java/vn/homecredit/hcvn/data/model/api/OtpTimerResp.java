@@ -10,6 +10,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class OtpTimerResp {
+    public static final int RESPONSE_CODE_SUCCESS = 0;
+    public static final int RESPONSE_CODE_IN_EFFECT = 64;
+
     @SerializedName("data")
     @Expose
     private OtpTimerRespData data;
@@ -42,5 +45,19 @@ public class OtpTimerResp {
 
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
+    }
+
+    public boolean isVerified() {
+        return responseCode == RESPONSE_CODE_SUCCESS
+                || responseCode == RESPONSE_CODE_IN_EFFECT;
+    }
+
+    @Override
+    public String toString() {
+        return "OtpTimerResp{" +
+                "data=" + data +
+                ", responseCode=" + responseCode +
+                ", responseMessage='" + responseMessage + '\'' +
+                '}';
     }
 }

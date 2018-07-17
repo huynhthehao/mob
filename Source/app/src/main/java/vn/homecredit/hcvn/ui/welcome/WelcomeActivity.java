@@ -31,6 +31,7 @@ import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionAct
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.home.DashBoardDialogFragment;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 
 public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeNavigator {
 
@@ -78,20 +79,11 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     public void openLoginActivity() {
         Intent intent = LoginActivity.newIntent(WelcomeActivity.this);
         startActivity(intent);
-//        finish();
     }
 
     @Override
     public void openSignupActivity() {
-//        animateLogo();
-        showDashboard(getString(R.string.hello), "Nguyen Truong Son 2");
-    }
-
-    private void showDashboard(String greeting, String username) {
-        if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
-            DialogFragment dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
-            dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
-        }
+        SignUpActivity.start(this);
     }
 
     @Override

@@ -11,7 +11,7 @@ import vn.homecredit.hcvn.BuildConfig;
 public class Log {
     public static final boolean DEBUG = BuildConfig.DEBUG;
     public static final String TAG = "HCVN";
-    public static void printStackTrace(Exception e) {
+    public static void printStackTrace(Throwable e) {
         if (!DEBUG) return;
         e.printStackTrace();
     }

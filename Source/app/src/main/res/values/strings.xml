@@ -24,6 +24,7 @@
     <string name="prompt_phone_number">Số điện thoại di động</string>
     <string name="prompt_password">Mật khẩu</string>
     <string name="action_sign_in">Đăng nhập</string>
+    <string name="sign_up">Đăng ký</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -88,4 +89,6 @@
     <string name="legal_note"><![CDATA[<htm><i><b>*Notes:</b> The monthly installment showed above includes insurance fee and may have a minor variance with the final contractual amount</i> </html>]]></string>
     <string name="cancel">Huỷ</string>
     <string name="otp_empty">Bạn phải nhập mã xác thực</string>
+    <string name="contracts_help">Số hợp đồng là gì?</string>
+    <string name="hint_phone_contracts">Số điện thoại trong hợp đồng</string>
 </resources>

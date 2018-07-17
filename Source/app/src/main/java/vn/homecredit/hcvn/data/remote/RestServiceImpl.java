@@ -9,15 +9,12 @@
 
 package vn.homecredit.hcvn.data.remote;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Base64;
 
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -26,10 +23,12 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
+import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.data.model.api.HcApiException;
+import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
-import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
@@ -45,6 +44,7 @@ public class RestServiceImpl implements RestService {
     private DeviceInfo mDeviceInfo;
     private VersionService mVersionService;
     private final OneSignalService mOneSignalService;
+    @Inject PreferencesHelper preferencesHelper;
 
     @Inject
     public RestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo, VersionService versionService, OneSignalService oneSignalService) {
@@ -106,18 +106,52 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(requestHeader)
                 .addBodyParameter(requestBody)
                 .build().getObjectSingle(TokenResp.class);
+        
     }
 
     @Override
     public Single<ProfileResp> getProfile() {
         return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?")
                 .addHeaders(mApiHeader.getProtectedApiHeader())
-                .build().getObjectSingle(ProfileResp.class);
+                .build()
+                .getObjectSingle(ProfileResp.class);
     }
 
     @Override
     public ApiHeader getApiHeader() {
         return mApiHeader;
+    }
+
+    @Override
+    public Single<OtpTimerResp> verified(String username, String contractsId) {
+        String url = ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify?v=2";
+        url += "&langid=" + preferencesHelper.langId();
+//        if (BuildConfig.DEBUG) {
+//            url += "&isMock=true";
+//        }
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("PhoneNumber", username);
+        requestBody.put("ContractNumber", contractsId);
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)))
+                ;
+    }
+
+    @Override
+    public Single<OtpTimerResp> verifySignupOTP(String phone, String contractsId, String otp) {
+        HashMap<String, String> requestBody = new HashMap<String, String>();
+        requestBody.put("phoneNumber", phone);
+        requestBody.put("contractNumber", contractsId);
+        requestBody.put("verificationCode", otp);
+        String langId = preferencesHelper.langId();
+        String url = String.format("%s/customer/signup/verify/otp?lang=%s",ApiEndPoint.ENDPOINT_APP, langId);
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class);
     }
 
 

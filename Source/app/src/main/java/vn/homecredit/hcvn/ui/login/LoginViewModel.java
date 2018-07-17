@@ -68,6 +68,7 @@ public class LoginViewModel extends BaseViewModel {
 
     public void login(String phoneNumber, String password) {
         setIsLoading(true);
+
         getCompositeDisposable().add(getDataManager()
                 .getToken(phoneNumber, password)
                 .doOnSuccess(response -> {

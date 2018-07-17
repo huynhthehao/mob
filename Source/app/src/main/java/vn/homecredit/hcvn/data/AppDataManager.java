@@ -22,6 +22,7 @@ import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
+import vn.homecredit.hcvn.data.model.api.SignupResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
@@ -74,6 +75,7 @@ public class AppDataManager implements DataManager {
         });
     }
 
+
     @Override
     public ApiHeader getApiHeader() {
         return mRestService.getApiHeader();
@@ -105,6 +107,7 @@ public class AppDataManager implements DataManager {
     public void logout() {
         mPreferencesHelper.logout();
     }
+
 
     @Override
     public ProfileResp.ProfileRespData getProfileRespData() {

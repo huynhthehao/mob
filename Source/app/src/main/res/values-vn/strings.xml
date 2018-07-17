@@ -51,4 +51,7 @@
     <string name="pay_momo">Trả bằng MoMo</string>
     <string name="payment_shedule">Lịch thanh toán</string>
     <string name="otp_empty">Bạn phải nhập mã xác thực</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="contracts_help">Số hợp đồng là gì?</string>
+    <string name="hint_phone_contracts">Phone no. (as stated in contract)</string>
 </resources>
