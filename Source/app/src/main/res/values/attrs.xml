@@ -8,6 +8,7 @@
   -->
 
 <resources>
+    <attr name="src" format="integer"/>
     <declare-styleable name="stfStatefulLayout">
         <attr name="stfLayoutRes" format="integer" />
     </declare-styleable>
@@ -16,8 +17,12 @@
         <attr name="text" format="string"/>
         <attr name="size" format="dimension"/>
         <attr name="color" format="color"/>
-
-        <attr name="src" format="integer"/>
+        <attr name="src"/>
+    </declare-styleable>
+    <declare-styleable name="ProfileItemView">
+        <attr name="text_title" format="string"/>
+        <attr name="text_value" format="string"/>
+        <attr name="src"/>
     </declare-styleable>
 
     <declare-styleable name="StepIndicator">

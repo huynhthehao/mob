@@ -111,4 +111,15 @@
     <string name="error_password_confirm">Please enter your Confirm password</string>
     <string name="error_password_unmatch">The passwords entered do not match, please retry</string>
 
+    <!--Profile Screen-->
+    <string name="profile">Profile</string>
+    <string name="full_name">Full name</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="gender">Gender</string>
+    <string name="id_number">ID number</string>
+    <string name="residential_address">Residential address</string>
+    <string name="email">Email</string>
+    <string name="phone_no">Phone no.</string>
+    <string name="update_profile_detail_message">If you want to update your details please contact our Customer Service</string>
+
 </resources>
