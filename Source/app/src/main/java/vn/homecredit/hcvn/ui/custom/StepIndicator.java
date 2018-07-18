@@ -4,7 +4,7 @@
  * Last modified 7/11/18 11:27 AM, by hien.nguyenm
  */
 
-package vn.homecredit.hcvn.ui.controls;
+package vn.homecredit.hcvn.ui.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;

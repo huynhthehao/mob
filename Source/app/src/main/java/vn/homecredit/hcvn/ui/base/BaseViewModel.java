@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/20/18 3:06 PM  by hien.nguyenm
+ * Last modified 7/17/18 12:51 PM, by Hien.NguyenM
  */
 
 package vn.homecredit.hcvn.ui.base;
@@ -15,22 +15,21 @@ import java.lang.ref.WeakReference;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import vn.homecredit.hcvn.data.DataManager;
+import io.reactivex.functions.Consumer;
+import vn.homecredit.hcvn.data.model.message.MessageQuestion;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public abstract class BaseViewModel<N> extends ViewModel {
 
-    private final DataManager mDataManager;
     private final ObservableBoolean mIsLoading = new ObservableBoolean(false);
     private final SchedulerProvider mSchedulerProvider;
     private CompositeDisposable mCompositeDisposable;
     private WeakReference<N> mNavigator;
-    private MutableLiveData<String> modelErrorMessage = new MutableLiveData<>();
-    private MutableLiveData<BaseMessage> mModelBaseMessage = new MutableLiveData<BaseMessage>();
+    private MutableLiveData<String> messageData = new MutableLiveData<>();
+    private MutableLiveData<BaseMessage> confirmMessageData = new MutableLiveData<>();
 
-    public BaseViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        this.mDataManager = dataManager;
+    public BaseViewModel(SchedulerProvider schedulerProvider) {
         this.mSchedulerProvider = schedulerProvider;
         this.mCompositeDisposable = new CompositeDisposable();
     }
@@ -50,10 +49,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
         mCompositeDisposable.add(process);
     }
 
-    public DataManager getDataManager() {
-        return mDataManager;
-    }
-
     public ObservableBoolean getIsLoading() {
         return mIsLoading;
     }
@@ -62,7 +57,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
     public void setIsLoading(boolean isLoading) {
         mIsLoading.set(isLoading);
     }
-
 
     public N getNavigator() {
         return mNavigator.get();
@@ -77,20 +71,20 @@ public abstract class BaseViewModel<N> extends ViewModel {
         return mSchedulerProvider;
     }
 
-    public MutableLiveData<String> getModelErrorMessage() {
-        return modelErrorMessage;
+    public MutableLiveData<String> getMessageData() {
+        return messageData;
     }
 
-    public void setModelErrorMessage(String errorMessage) {
-        this.modelErrorMessage.setValue(errorMessage);
+    public MutableLiveData<BaseMessage> getConfirmMessageData() {
+        return confirmMessageData;
     }
 
-    public MutableLiveData<BaseMessage> getModelBaseMessage() {
-        return mModelBaseMessage;
+    public void showMessage(String errorMessage) {
+        this.messageData.setValue(errorMessage);
     }
 
-    public void sendMessage(BaseMessage message) {
-        mModelBaseMessage.setValue(message);
+    public void showConfirmMessage(String title, String message, Consumer<Boolean> onCompleted) {
+        confirmMessageData.setValue(new MessageQuestion(title, message, onCompleted));
     }
 
     public void init() {}

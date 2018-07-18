@@ -22,8 +22,8 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
     private final AclDataManager mAclDataManager;
 
     @Inject
-    public WelcomeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclDataManager aclDataManager) {
-        super(dataManager, schedulerProvider);
+    public WelcomeViewModel(SchedulerProvider schedulerProvider, AclDataManager aclDataManager) {
+        super(schedulerProvider);
         mAclDataManager = aclDataManager;
     }
 

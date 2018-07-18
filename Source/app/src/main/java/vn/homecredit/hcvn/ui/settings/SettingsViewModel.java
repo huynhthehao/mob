@@ -22,6 +22,7 @@ import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SettingsViewModel extends BaseViewModel {
+    private final DataManager dataManager;
     private ObservableField<String> appVersion = new ObservableField<>("");
     private ObservableField<Integer> languageValue = new ObservableField<>(R.string.vietnamese);
     private ObservableField<Boolean> fingerPrintVisibility = new ObservableField<>(true);
@@ -33,7 +34,8 @@ public class SettingsViewModel extends BaseViewModel {
 
     @Inject
     public SettingsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        super(dataManager, schedulerProvider);
+        super(schedulerProvider);
+        this.dataManager = dataManager;
     }
 
     public void init() {
@@ -44,7 +46,7 @@ public class SettingsViewModel extends BaseViewModel {
     }
 
     private void checkToShowOrHideFingerPrintLayout() {
-        if (getDataManager().getFingerPrintAuthValue() == FingerPrintAuthValue.NOT_SUPPORT) {
+        if (dataManager.getFingerPrintAuthValue() == FingerPrintAuthValue.NOT_SUPPORT) {
             fingerPrintVisibility.set(false);
         } else {
             fingerPrintVisibility.set(true);
@@ -74,11 +76,11 @@ public class SettingsViewModel extends BaseViewModel {
     }
 
     public void onNotificationCheckedChanged(boolean isEnable) {
-        getDataManager().setNotificationSetting(isEnable);
+        dataManager.setNotificationSetting(isEnable);
     }
 
     public void onFingerPrintCheckedChanged(boolean isEnable) {
-        getDataManager().setFingerPrintSetting(isEnable);
+        dataManager.setFingerPrintSetting(isEnable);
         // TODO in case turn on this setting, check if user do not enable finger print feature, show message to user.
     }
 

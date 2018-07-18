@@ -6,7 +6,6 @@
 
 package vn.homecredit.hcvn.ui.more;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 
@@ -32,10 +31,12 @@ public class MoreViewModel extends BaseViewModel {
     private MutableLiveData<String> modelUrlUserGuide = new MutableLiveData<>();
     private ObservableField<String> usernameField = new ObservableField<>("");
     private ObservableField<String> phoneField = new ObservableField<>("");
+    private final DataManager dataManager;
 
     @Inject
     public MoreViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
-        super(dataManager, schedulerProvider);
+        super(schedulerProvider);
+        this.dataManager = dataManager;
     }
 
     public ObservableField<String> getPhoneField() {
@@ -79,8 +80,8 @@ public class MoreViewModel extends BaseViewModel {
     }
 
     public void init() {
-        versionRespData = getDataManager().getVersionRespData();
-        ProfileResp.ProfileRespData profileRespData = getDataManager().getProfileRespData();
+        versionRespData = dataManager.getVersionRespData();
+        ProfileResp.ProfileRespData profileRespData = dataManager.getProfileRespData();
         if (profileRespData != null) {
             usernameField.set(profileRespData.getFullName());
             phoneField.set(profileRespData.getPhoneNumber());
@@ -118,9 +119,8 @@ public class MoreViewModel extends BaseViewModel {
     }
 
     public void logout() {
-        getDataManager().logout();
+        dataManager.logout();
     }
-
 
     public void clickedProfile() {
         modelProfile.setValue(true);
@@ -147,6 +147,4 @@ public class MoreViewModel extends BaseViewModel {
     public void clickedLogout() {
         modelLogout.setValue(true);
     }
-
-
 }

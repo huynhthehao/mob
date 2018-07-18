@@ -73,7 +73,7 @@
             style="@style/Separator_Horizontal"
             />
 
-        <vn.homecredit.hcvn.custom.DashBoadItemView
+        <vn.homecredit.hcvn.ui.custom.DashBoadItemView
             android:id="@+id/dashboardContact"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
@@ -84,7 +84,7 @@
             style="@style/DashBoardItem"
             />
 
-        <vn.homecredit.hcvn.custom.DashBoadItemView
+        <vn.homecredit.hcvn.ui.custom.DashBoadItemView
             android:id="@+id/dashboardSchedule"
             android:layout_width="0dp"
             android:layout_height="120dp"
@@ -96,7 +96,7 @@
             style="@style/DashBoardItem"
             />
 
-        <vn.homecredit.hcvn.custom.DashBoadItemView
+        <vn.homecredit.hcvn.ui.custom.DashBoadItemView
             android:id="@+id/dashboardOffer"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
@@ -107,7 +107,7 @@
             style="@style/DashBoardItem"
             />
 
-        <vn.homecredit.hcvn.custom.DashBoadItemView
+        <vn.homecredit.hcvn.ui.custom.DashBoadItemView
             android:id="@+id/dashboardNotification"
             app:layout_constraintLeft_toRightOf="@id/dashboardOffer"
             app:layout_constraintRight_toRightOf="@id/guidelineEnd"
@@ -117,7 +117,7 @@
             style="@style/DashBoardItem"
             />
 
-        <vn.homecredit.hcvn.custom.DashBoadItemView
+        <vn.homecredit.hcvn.ui.custom.DashBoadItemView
             android:id="@+id/dashboardMomo"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
@@ -128,7 +128,7 @@
             style="@style/DashBoardItem"
             />
 
-        <vn.homecredit.hcvn.custom.DashBoadItemView
+        <vn.homecredit.hcvn.ui.custom.DashBoadItemView
             android:id="@+id/dashboardMore"
             app:layout_constraintLeft_toRightOf="@id/dashboardMomo"
             app:layout_constraintRight_toRightOf="@id/guidelineEnd"

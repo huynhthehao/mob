@@ -78,7 +78,6 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     public void openLoginActivity() {
         Intent intent = LoginActivity.newIntent(WelcomeActivity.this);
         startActivity(intent);
-//        finish();
     }
 
     @Override

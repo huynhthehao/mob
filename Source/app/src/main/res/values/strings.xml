@@ -89,4 +89,7 @@
     <string name="push_notification">Thông báo</string>
     <string name="version">Phiên bản</string>
     <string name="rate_our_app">Đánh giá ứng dụng</string>
+
+    <string name="login_invalid_input">Số điện thoại hoặc mật khẩu không hợp lệ</string>
+    <string name="section_format">Empty fragment</string>
 </resources>

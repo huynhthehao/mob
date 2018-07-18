@@ -86,4 +86,5 @@
     <string name="version">Version</string>
     <string name="rate_our_app">Rate our app</string>
 
+    <string name="login_invalid_input">Invalid phone number or password</string>
 </resources>

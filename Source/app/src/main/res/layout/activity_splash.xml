@@ -19,7 +19,7 @@
             type="vn.homecredit.hcvn.ui.splash.SplashViewModel" />
     </data>
 
-    <vn.homecredit.hcvn.control.MyStatefulLayout
+    <vn.homecredit.hcvn.ui.custom.MyStatefulLayout
         app:stfLayoutRes="@layout/view_no_internet"
         android:id="@+id/statefulLayout"
         android:layout_width="match_parent"
@@ -46,5 +46,5 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/logo_welcome" />
         </RelativeLayout>
-    </vn.homecredit.hcvn.control.MyStatefulLayout>
+    </vn.homecredit.hcvn.ui.custom.MyStatefulLayout>
 </layout>

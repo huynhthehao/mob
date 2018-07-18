@@ -40,7 +40,6 @@
                 app:layout_scrollFlags="enterAlways"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/title_activity_login">
-
             </android.support.v7.widget.Toolbar>
 
 
@@ -56,16 +55,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:layout_marginVertical="@dimen/activity_vertical_margin"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/topGroupView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="90dp"
+
                     android:orientation="vertical">
 
                     <ImageView
@@ -73,6 +74,7 @@
                         android:layout_height="73dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="60dp"
+                        android:layout_marginBottom="30dp"
                         android:src="@drawable/log_in" />
 
                     <android.support.design.widget.TextInputLayout
@@ -94,6 +96,7 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:theme="@style/AppTheme.TextLabel">
                         <EditText
                             android:text="@={viewModel.password}"
@@ -113,8 +116,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:layout_gravity="end"
                         android:text="@string/forgot_password"
+                        android:onClick="@{() -> viewModel.onForgotPasswordClick()}"
                         android:textColor="@color/colorPrimary" />
                 </LinearLayout>
 
@@ -122,43 +127,47 @@
                     android:id="@+id/bottomGroupView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="90dp"
+                    android:layout_marginTop="70dp"
                     android:orientation="vertical">
 
                     <Button
                         android:id="@+id/email_sign_in_button"
                         style="@style/PrimaryButton"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginHorizontal="30dp"
+                        android:layout_marginHorizontal="10dp"
                         android:height="60dp"
                         android:imeOptions="actionDone"
                         android:onClick="@{() -> viewModel.onLoginClick()}"
                         android:text="@string/action_sign_in" />
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/text_margin"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/text_margin"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:src="@drawable/touch_id" />
 
                         <TextView
-                            android:layout_margin="@dimen/text_margin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/text_margin"
                             android:layout_marginVertical="@dimen/text_margin"
                             android:text="@string/login_by_touch_id"
                             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                            android:textColor="?attr/colorPrimary"/>
+                            android:textColor="?attr/colorPrimary" />
                     </LinearLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
     </android.support.design.widget.CoordinatorLayout>

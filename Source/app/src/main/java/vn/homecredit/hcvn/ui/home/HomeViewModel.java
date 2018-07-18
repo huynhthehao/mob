@@ -13,8 +13,8 @@ public class HomeViewModel extends BaseViewModel {
     private String mUserName;
 
     @Inject
-    public HomeViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, ProfileService profileService) {
-        super(dataManager, schedulerProvider);
+    public HomeViewModel(SchedulerProvider schedulerProvider, ProfileService profileService) {
+        super(schedulerProvider);
         mProfileService = profileService;
         if (mProfileService != null
                 && mProfileService.getProfile() != null

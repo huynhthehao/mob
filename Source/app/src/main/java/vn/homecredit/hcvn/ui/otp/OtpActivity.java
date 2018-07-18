@@ -32,7 +32,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     OtpViewModel otpViewModel;
 
     private OtpFlow currentOtpFlow;
-    private ActivityOtpBinding activityOtpBinding;
 
     public static Intent getNewIntent(Context context, OtpPassParam otpPassParam) {
         Intent newInstance = new Intent(context, OtpActivity.class);
@@ -74,7 +73,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityOtpBinding = getViewDataBinding();
         otpViewModel.setNavigator(this);
 
         Bundle currentBundle = getIntent().getExtras();
