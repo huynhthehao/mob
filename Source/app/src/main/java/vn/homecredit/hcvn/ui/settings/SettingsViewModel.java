@@ -79,6 +79,7 @@ public class SettingsViewModel extends BaseViewModel {
 
     public void onFingerPrintCheckedChanged(boolean isEnable) {
         getDataManager().setFingerPrintSetting(isEnable);
+        // TODO in case turn on this setting, check if user do not enable finger print feature, show message to user.
     }
 
     public void onAppRatingClicked() {
