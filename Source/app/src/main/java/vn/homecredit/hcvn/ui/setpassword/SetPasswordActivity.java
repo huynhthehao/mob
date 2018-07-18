@@ -1,6 +1,5 @@
 package vn.homecredit.hcvn.ui.setpassword;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -18,6 +17,7 @@ import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivitySetpasswordBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
+import vn.homecredit.hcvn.ui.signup.DialogContractsHelp;
 
 public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding, SetPasswordViewModel> {
 
@@ -60,5 +60,21 @@ public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding
             }
         });
 
+        getViewModel().getModelDialogPasswordHelp().observe(this, phoneSupport -> {
+            if (phoneSupport != null) {
+                showDialogPasswordHelp(phoneSupport);
+            }
+        });
+        getViewModel().getModelErrorMessage().observe(this, resIdMessage -> {
+            if (resIdMessage != null && resIdMessage != 0) {
+                showError(getResources().getString(resIdMessage));
+            }
+        });
+
+    }
+    private void showDialogPasswordHelp(String phoneSupport) {
+        String title = getResources().getString(R.string.dialog_password_help_title);
+        String content = getResources().getString(R.string.dialog_password_help_content, phoneSupport);
+        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content);
     }
 }

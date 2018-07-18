@@ -110,6 +110,7 @@
             android:imeOptions="actionDone"
             android:text="@string/contracts_help"
             android:textColor="@color/colorPrimary"
+            android:onClick="@{() -> viewModel.onClickedContractsHelp()}"
             />
 
         <Button

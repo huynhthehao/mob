@@ -2,11 +2,13 @@ package vn.homecredit.hcvn.ui.setpassword;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.account.AccountRepository;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
@@ -24,11 +26,22 @@ public class SetPasswordViewModel extends BaseViewModel {
     private ObservableField<String> filedConfirmPass = new ObservableField<>();
     private OtpPassParam otpParam;
     private MutableLiveData<Boolean> modelSignIn = new MutableLiveData<>();
+    private MutableLiveData<String> modelDialogPasswordHelp = new MutableLiveData<>();
+    private MutableLiveData<Integer> modelErrorMessage = new MutableLiveData<>();
 
     @Inject
     public SetPasswordViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AccountRepository accountRepository) {
         super(dataManager, schedulerProvider);
         this.accountRepository = accountRepository;
+    }
+
+    @Override
+    public MutableLiveData<Integer> getModelErrorMessage() {
+        return modelErrorMessage;
+    }
+
+    public MutableLiveData<String> getModelDialogPasswordHelp() {
+        return modelDialogPasswordHelp;
     }
 
     public MutableLiveData<Boolean> getModelSignIn() {
@@ -48,7 +61,28 @@ public class SetPasswordViewModel extends BaseViewModel {
     }
 
     public void onClickedSignUp() {
-        signUp();
+        if (checkDataValid()) {
+            signUp();
+        }
+    }
+    public void onClickedPassowrdHelp() {
+        modelDialogPasswordHelp.setValue(getDataManager().getVersionRespData().getCustomerSupportPhone());
+    }
+
+    private boolean checkDataValid() {
+        if (TextUtils.isEmpty(filedPass.get())) {
+            modelErrorMessage.setValue(R.string.error_password);
+            return false;
+        }
+        if (TextUtils.isEmpty(filedConfirmPass.get())) {
+            modelErrorMessage.setValue(R.string.error_password_confirm);
+            return false;
+        }
+        if (!filedPass.get().equals(filedConfirmPass.get())) {
+            modelErrorMessage.setValue(R.string.error_password_unmatch);
+            return false;
+        }
+        return true;
     }
 
     private void signUp() {

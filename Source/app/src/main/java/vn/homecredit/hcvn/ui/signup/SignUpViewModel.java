@@ -21,11 +21,16 @@ public class SignUpViewModel extends BaseViewModel {
     ObservableField<String> username = new ObservableField<>("");
     ObservableField<String> contracts = new ObservableField<>("");
     private MutableLiveData<OtpPassParam> modelOtpPassParam = new MutableLiveData<>();
+    private MutableLiveData<String> modelDialogContractshelp = new MutableLiveData<>();
 
     @Inject
     public SignUpViewModel(AccountRepository accountRepository, DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         this.accountRepository = accountRepository;
+    }
+
+    public MutableLiveData<String> getModelDialogContractshelp() {
+        return modelDialogContractshelp;
     }
 
     public MutableLiveData<OtpPassParam> getModelOtpPassParam() {
@@ -42,6 +47,10 @@ public class SignUpViewModel extends BaseViewModel {
 
     public void onClickedSignUp() {
         verified();
+    }
+
+    public void onClickedContractsHelp() {
+        modelDialogContractshelp.setValue(getDataManager().getVersionRespData().getCustomerSupportPhone());
     }
 
     private void verified() {

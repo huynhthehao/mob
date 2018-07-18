@@ -35,4 +35,21 @@
     <string name="password_help">How to set the password?</string>
     <string name="set_password">Set Your Password</string>
     <string name="signup_now">Sign up now</string>
+    <string name="dialog_contact_help_title">Please enter your 10 digits contract number</string>
+    <string name="dialog_contact_help_content">Please call our Customer Suppor %s if you need any assistance </string>
+    <string name="dialog_password_help_title">"Passwords must be at least 8 characters long (including letters and numbers, uppercase and lowercase)
+
+        Passwords have better security value when there are special characters (@ # $% ^ "...)
+
+        Passwords must be changed periodically (at least once a year)
+
+        Do not use basic personal information (date of birth, telephone number, name of yourself, name of relatives like spouse / children, simple serial number such as 1234567 ...) to set the password"
+    </string>
+    <string name="dialog_password_help_content">Please call our Customer Suppor %s if you need any assistance </string>
+    <string name="dialog_fingersprint_announce">Your account has been successfully created. To log in faster next time, please go to settings and enable the Log in By Touch ID feature </string>
+    <string name="setting_goto">Go to setting</string>
+    <string name="error_password">Please enter your password</string>
+    <string name="error_password_confirm">Please enter your Confirm password</string>
+    <string name="error_password_unmatch">The passwords entered do not match, please retry</string>
+
 </resources>

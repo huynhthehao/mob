@@ -110,6 +110,16 @@
         <item name="fontFamily">@font/myriadpro_regular</item>
     </style>
 
+    <style name="AppTheme.Title" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/brownishGrey</item>
+        <item name="fontFamily">@font/myriadpro_regular</item>
+    </style>
+
+    <style name="AppTheme.Content" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/brownishGrey</item>
+        <item name="fontFamily">@font/myriadpro_regular</item>
+    </style>
+
     <style name="DashBoardItem" parent="android:Widget.TextView">
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:layout_width">0dp</item>

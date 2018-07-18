@@ -1,11 +1,21 @@
 package vn.homecredit.hcvn.ui.signup;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
+import android.widget.TextView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import javax.inject.Inject;
 
@@ -48,6 +58,12 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpVi
                 showOTPPage(otpPassParam);
             }
         });
+
+        getViewModel().getModelDialogContractshelp().observe(this, phoneSupport -> {
+            if (phoneSupport != null) {
+                showDialogContactHelp(phoneSupport);
+            }
+        });
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
 
     }
@@ -56,5 +72,10 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpVi
         OtpActivity.start(this, otpPassParam);
     }
 
+    private void showDialogContactHelp(String phoneSupport) {
+        String title = getResources().getString(R.string.dialog_contact_help_title);
+        String content = getResources().getString(R.string.dialog_contact_help_content, phoneSupport);
+        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content);
+    }
 
 }
