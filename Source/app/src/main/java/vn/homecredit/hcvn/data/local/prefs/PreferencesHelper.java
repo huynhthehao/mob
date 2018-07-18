@@ -28,4 +28,10 @@ public interface PreferencesHelper {
 
     void logout();
 
+    boolean getNotificationSetting();
+    void setNotificationSetting(boolean isEnable);
+
+    boolean getFingerPrintSetting();
+    void setFingerPrintSetting(boolean isEnable);
+
 }

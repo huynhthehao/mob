@@ -17,33 +17,38 @@ import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.AppUtils;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
+import vn.homecredit.hcvn.utils.LanguageValue;
+import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SettingsViewModel extends BaseViewModel {
-    private FingerPrintHelper fingerPrintHelper;
     private ObservableField<String> appVersion = new ObservableField<>("");
     private ObservableField<Integer> languageValue = new ObservableField<>(R.string.vietnamese);
     private ObservableField<Boolean> fingerPrintVisibility = new ObservableField<>(true);
 
     private MutableLiveData<Boolean> modelBack = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelAppRating = new MutableLiveData<>();
+    private MutableLiveData<String> modelLanguage = new MutableLiveData<>();
 
 
     @Inject
-    public SettingsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, FingerPrintHelper fingerPrintHelper) {
+    public SettingsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
-        this.fingerPrintHelper = fingerPrintHelper;
     }
 
     public void init() {
         appVersion.set(BuildConfig.VERSION_NAME);
-        languageValue.set(R.string.vietnamese);
-        if (fingerPrintHelper.getFingerPrintAuthValue() == FingerPrintAuthValue.NOT_SUPPORT) {
+        languageValue.set(LanguageValue.VIETNAMESE.getDisplayNameResId());
+        checkToShowOrHideFingerPrintLayout();
+        modelBack.setValue(false);
+    }
+
+    private void checkToShowOrHideFingerPrintLayout() {
+        if (getDataManager().getFingerPrintAuthValue() == FingerPrintAuthValue.NOT_SUPPORT) {
             fingerPrintVisibility.set(false);
         } else {
             fingerPrintVisibility.set(true);
         }
-        modelBack.setValue(false);
     }
 
     public ObservableField<String> getAppVersion() {
@@ -59,19 +64,21 @@ public class SettingsViewModel extends BaseViewModel {
     }
 
     public void onChangeLanguageClicked() {
-        if (languageValue.get() == R.string.vietnamese) {
-            languageValue.set(R.string.english);
+        if (languageValue.get() == LanguageValue.VIETNAMESE.getDisplayNameResId()) {
+            languageValue.set(LanguageValue.ENGLISH.getDisplayNameResId());
+            modelLanguage.setValue(LanguageValue.ENGLISH.getCode());
         } else {
-            languageValue.set(R.string.vietnamese);
+            languageValue.set(LanguageValue.VIETNAMESE.getDisplayNameResId());
+            modelLanguage.setValue(LanguageValue.VIETNAMESE.getCode());
         }
     }
 
-    public void onNotificationCheckedChanged(boolean checked) {
-
+    public void onNotificationCheckedChanged(boolean isEnable) {
+        getDataManager().setNotificationSetting(isEnable);
     }
 
-    public void onFingerPrintCheckedChanged(boolean checked) {
-
+    public void onFingerPrintCheckedChanged(boolean isEnable) {
+        getDataManager().setFingerPrintSetting(isEnable);
     }
 
     public void onAppRatingClicked() {
@@ -84,6 +91,10 @@ public class SettingsViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> getModelAppRating() {
         return modelAppRating;
+    }
+
+    public MutableLiveData<String> getModelLanguage() {
+        return modelLanguage;
     }
 
     public ObservableField<Boolean> getFingerPrintVisibility() {

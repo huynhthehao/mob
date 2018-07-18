@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
@@ -28,6 +29,7 @@ import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 import vn.homecredit.hcvn.service.OneSignalService;
+import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 
 @Singleton
 public class AppDataManager implements DataManager {
@@ -37,16 +39,18 @@ public class AppDataManager implements DataManager {
     private final Gson mGson;
     private MemoryHelper mMemoryHelper;
     private final OneSignalService mOneSignalService;
+    private final FingerPrintHelper fingerPrintHelper;
 
 
     @Inject
-    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper, OneSignalService oneSignalService) {
+    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper, OneSignalService oneSignalService, FingerPrintHelper fingerPrintHelper) {
         mContext = context;
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
         mGson = gson;
         mMemoryHelper = memoryHelper;
         mOneSignalService = oneSignalService;
+        this.fingerPrintHelper = fingerPrintHelper;
     }
 
     @Override
@@ -107,6 +111,26 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public boolean getNotificationSetting() {
+        return mPreferencesHelper.getNotificationSetting();
+    }
+
+    @Override
+    public void setNotificationSetting(boolean isEnable) {
+        mPreferencesHelper.setNotificationSetting(isEnable);
+    }
+
+    @Override
+    public boolean getFingerPrintSetting() {
+        return mPreferencesHelper.getFingerPrintSetting();
+    }
+
+    @Override
+    public void setFingerPrintSetting(boolean isEnable) {
+        mPreferencesHelper.setFingerPrintSetting(isEnable);
+    }
+
+    @Override
     public ProfileResp.ProfileRespData getProfileRespData() {
         return mMemoryHelper.getProfileRespData();
     }
@@ -135,5 +159,10 @@ public class AppDataManager implements DataManager {
     @Override
     public void saveProfile(ProfileResp.ProfileRespData profileRespData) {
         mPreferencesHelper.saveProfile(profileRespData);
+    }
+
+    @Override
+    public FingerPrintAuthValue getFingerPrintAuthValue() {
+        return fingerPrintHelper.getFingerPrintAuthValue();
     }
 }

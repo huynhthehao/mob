@@ -51,5 +51,10 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, Sett
                 AppUtils.openPlayStoreForApp(this);
             }
         });
+        settingsViewModel.getModelLanguage().observe(this, languageCode -> {
+            if (languageCode != null && !languageCode.equals("")) {
+                //TODO change language with this language code
+            }
+        });
     }
 }
