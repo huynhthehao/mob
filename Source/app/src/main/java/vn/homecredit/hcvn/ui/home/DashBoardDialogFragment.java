@@ -4,12 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.custom.FullscreenDialogFragment;
+import vn.homecredit.hcvn.ui.custom.FullscreenDialogFragment;
 
 
 public class DashBoardDialogFragment extends FullscreenDialogFragment implements View.OnClickListener {

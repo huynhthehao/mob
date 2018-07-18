@@ -22,6 +22,7 @@ import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 //import vn.homecredit.hcvn.ui.login.LoginActivityModule;
+import vn.homecredit.hcvn.ui.login.LoginViewModel;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
 //import vn.homecredit.hcvn.ui.otp.OtpActivityModule;
 import vn.homecredit.hcvn.ui.otp.OtpViewModel;
@@ -29,6 +30,7 @@ import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 import vn.homecredit.hcvn.ui.signup.SignUpActivityModule;
+import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
@@ -49,8 +51,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = WelcomeActivityModule.class)
     abstract WelcomeActivity bindWelcomeActivity();
 
-    //@ContributesAndroidInjector(modules = LoginActivityModule.class)
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = LoginViewModel.class)
     abstract LoginActivity bindLoginActivity();
 
     @ContributesAndroidInjector(modules = SignUpActivityModule.class)
@@ -77,4 +78,7 @@ public abstract class ActivityBuilder {
             AclApplicationFormModule.class,
             AclAfSelectLoanFragmentProvider.class})
     abstract AclApplicationFormActivity bindAclApplicationFormActivity();
+
+    @ContributesAndroidInjector()
+    abstract SettingsActivity bindSettingsActivity();
 }

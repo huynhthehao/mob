@@ -1,33 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ strings.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
-  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
-  ~
-  ~ Last modified 6/13/18 1:15 PM
-  -->
-
 <resources>
-    <string name="unable_to_connect_message">Unable connect to the server,  please try again</string>
-    <string name="more">More</string>
-    <string name="feedback">Feedback</string>
+    <!--empty state-->
+    <string name="empty_screen" translatable="false">We do not have anything\nhere right now.</string>
+    <string name="please_retry" translatable="false">Please Retry</string>
+    <string name="retry" translatable="false">Retry</string>
+    <string name="welcome_login">Log in</string>
+    <string name="welcome_sign_up">Sign up</string>
+    <string name="welcome_cash_loan">Cash loan</string>
+    <string name="title_activity_home">Home</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">Login</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_phone_number">Phone number</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Log in</string>
+    <string name="action_sign_in_short">Log in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="login_by_touch_id">Log in by Touch ID</string>
+
+    <string name="Support_FormTitle">If you have any questions or need support, please submit the form. We will respond to you within a few hours</string>
+    <string name="my_profile">Profile</string>
+    <string name="log_out">Logout</string>
+    <string name="change_password">Change password</string>
+    <string name="settings">Settings</string>
+    <string name="locations">Locations</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="user_manual">User manual</string>
     <string name="contracts">Contracts</string>
     <string name="notifications">Notifications</string>
-    <string name="title_activity_login">Login</string>
-    <string name="welcome_cash_loan">Cash loan</string>
-    <string name="welcome_sign_up">Sign up</string>
-    <string name="welcome_login">Log in</string>
+    <string name="feedback">Feedback</string>
+    <string name="more">More</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="notice">Notice</string>
+    <string name="ok">Ok</string>
+    <string name="unable_to_connect_message">Unable to connect to the server, please try again.</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="title_activity_acl_validation">Loan Application</string>
+    <string name="acl_register_legal_note"><html><i><b>Note: </b>Please make sure that you input correct information as this is used as a part of loan approval decision making</i></html></string>
+    <string name="personal_detail">Personal details</string>
+    <string name="prompt_id_number">ID number</string>
     <string name="otp_hint">We have sent an SMS code to your phone no. %s. It will expire within</string>
     <string name="otp_page_title">Comfirmation</string>
     <string name="otp_input_hint">Enter SMS code</string>
     <string name="otp_resend_message">Did you not receive the SMS code?</string>
     <string name="otp_resend_cmd_title">Tap here to resend SMS code</string>
-    <string name="offers">Offers</string>
-    <string name="pay_momo">Pay via Momo</string>
     <string name="payment_shedule">Payment Schedule</string>
+    <string name="offers">Offers</string>
+    <string name="pay_momo">Pay via MoMo</string>
     <string name="otp_empty">You must input OTP</string>
     <string name="action_next">Next</string>
+    <string name="momo_app_package">com.mservice.momotransfer</string>
+    <string name="title_activity_acl_introduction">Introduction</string>
+    <string name="cash_loan_a_header">Welcome to Home Credit Viet Nam</string>
+    <string name="cash_loan_b_header">Cash Loan</string>
+    <string name="cash_loan_c_header">Documents Needed</string>
+    <string name="cash_loan_a_desc">With more than 6 million happy customers, Home Credit is the preferred consumer finance company in Vietnam</string>
+    <string name="cash_loan_b_desc">With Home Credit you can receive a cash loan amount from 10,000,000₫ - 40,000,000₫ with tenor from 12 - 48 months. You will receive the loan application result within 15-20 minutes and disbursement after 2 hours after signing</string>
+    <string name="action_back">Back</string>
+    <string name="cash_loan_c_desc">Below documents are needed to process your loan application:</string>
+    <string name="cash_loan_c_desc_1">View ID card</string>
+    <string name="cash_loan_c_desc_2">Drivers license or Family registration book</string>
+    <string name="which_way_to_apply">Which way do you want to apply?</string>
+    <string name="or">or</string>
+    <string name="apply_from_anywhere">Apply from anywhere</string>
+    <string name="online">Online</string>
+    <string name="apply_at_partner_stores">Apply at partner stores</string>
+    <string name="point_of_sales">Payment locations</string>
+    <string name="hello">Hello</string>
+    <string name="title_activity_af">Select Loan</string>
+    <string name="legal_note"><![CDATA[<htm><i><b>*Notes:</b> The monthly installment showed above includes insurance fee and may have a minor variance with the final contractual amount</i> </html>]]></string>
+    <string name="cancel">Cancel</string>
+
+    <!--Settings-->
+    <string name="change_language">Change languages</string>
+    <string name="english">English</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="push_notification">Push notifications</string>
+    <string name="version">Version</string>
+    <string name="rate_our_app">Rate our app</string>
+
+    <string name="login_invalid_input">Invalid phone number or password</string>
     <string name="sign_up">Sign up</string>
     <string name="contracts_help">What is contract number?</string>
     <string name="hint_phone_contracts">Số điện thoại trong hợp đồng</string>

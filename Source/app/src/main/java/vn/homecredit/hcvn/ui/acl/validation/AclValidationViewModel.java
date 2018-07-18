@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 7/2/18 4:29 PM, by quan.p@homecredit.vn
+ * Last modified 7/17/18 3:22 PM, by Hien.NguyenM
  */
 
 package vn.homecredit.hcvn.ui.acl.validation;
@@ -11,7 +11,6 @@ import java.util.HashMap;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
-import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.model.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
@@ -27,8 +26,8 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
     private final DeviceInfo mDeviceInfo;
 
     @Inject
-    public AclValidationViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclRuleFactory aclRuleFactory, DeviceInfo deviceInfo, AclDataManager aclDataManager) {
-        super(dataManager, schedulerProvider, aclDataManager, 1);
+    public AclValidationViewModel(SchedulerProvider schedulerProvider, AclRuleFactory aclRuleFactory, DeviceInfo deviceInfo, AclDataManager aclDataManager) {
+        super(schedulerProvider, aclDataManager, 1);
         mAclRuleFactory = aclRuleFactory;
         mDeviceInfo = deviceInfo;
 
@@ -54,11 +53,11 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CashLoanWalkin));
                     } else {
-                        getNavigator().showError(response.getResponseMessage());
+                        getNavigator().showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
                     String t = throwable.getMessage();
-                    getNavigator().showError(t);
+                    getNavigator().showMessage(t);
                     setIsLoading(false);
                 });
 

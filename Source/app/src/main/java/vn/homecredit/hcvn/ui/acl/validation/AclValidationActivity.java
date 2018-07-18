@@ -11,9 +11,6 @@ package vn.homecredit.hcvn.ui.acl.validation;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
@@ -82,7 +79,7 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
             hideKeyboard();
             getViewModel().verifyPersonal(phoneNumber, idNumber);
         } else {
-            showError("Thông tin không hợp lệ");
+            showMessage("Thông tin không hợp lệ");
         }
     }
 

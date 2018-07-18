@@ -18,6 +18,8 @@ import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManagerImpl;
 import vn.homecredit.hcvn.data.acl.AclDatabaseService;
 import vn.homecredit.hcvn.data.acl.AclDatabaseServiceImpl;
+import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelper;
+import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelperImpl;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelperImpl;
 import vn.homecredit.hcvn.data.local.prefs.AppPreferencesHelper;
@@ -169,5 +171,11 @@ public class AppModule {
     @Singleton
     AclDataManager provideAclDataManager(AclDataManagerImpl aclDataManager) {
         return aclDataManager;
+    }
+
+    @Provides
+    @Singleton
+    FingerPrintHelper provideFingerPrintHelper(FingerPrintHelperImpl fingerPrintHelperImpl) {
+        return fingerPrintHelperImpl;
     }
 }

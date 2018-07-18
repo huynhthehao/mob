@@ -11,8 +11,8 @@ public abstract class AclBaseViewModel<T> extends BaseViewModel<T> {
     private int mCurrentStep;
 
 
-    public AclBaseViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclDataManager aclDataManager, int currentStep) {
-        super(dataManager, schedulerProvider);
+    public AclBaseViewModel(SchedulerProvider schedulerProvider, AclDataManager aclDataManager, int currentStep) {
+        super(schedulerProvider);
         mAclDataManager = aclDataManager;
         mCurrentStep = currentStep;
     }

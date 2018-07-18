@@ -27,6 +27,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_PROFILE = "PREF_KEY_PROFILE";
     private static final String PREF_KEY_VERSIONRESP = "PREF_KEY_VERSIONRESP";
     private static final String PREF_KEY_SHOW_DASHBOARD = "PREF_KEY_SHOW_DASHBOARD";
+    private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
+    private static final String PREF_KEY_FINGER_PRINT_SETTING = "PREF_KEY_FINGER_PRINT_SETTING";
 
     private final SharedPreferences mPrefs;
 
@@ -105,5 +107,25 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return langId;
     }
 
+
+    @Override
+    public boolean getNotificationSetting() {
+        return mPrefs.getBoolean(PREF_KEY_NOTIFICATION_SETTING, true);
+    }
+
+    @Override
+    public void setNotificationSetting(boolean isEnable) {
+        mPrefs.edit().putBoolean(PREF_KEY_NOTIFICATION_SETTING, isEnable).commit();
+    }
+
+    @Override
+    public boolean getFingerPrintSetting() {
+        return mPrefs.getBoolean(PREF_KEY_FINGER_PRINT_SETTING, false);
+    }
+
+    @Override
+    public void setFingerPrintSetting(boolean isEnable) {
+        mPrefs.edit().putBoolean(PREF_KEY_FINGER_PRINT_SETTING, isEnable).commit();
+    }
 
 }

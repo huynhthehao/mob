@@ -10,6 +10,7 @@
 package vn.homecredit.hcvn.data;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;

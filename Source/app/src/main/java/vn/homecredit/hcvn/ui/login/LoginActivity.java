@@ -1,23 +1,16 @@
 /*
- * LoginActivity.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/13/18 1:34 PM
+ * Last modified 7/16/18 4:56 PM, by Hien.NguyenM
  */
 
 package vn.homecredit.hcvn.ui.login;
 
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
-
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import javax.inject.Inject;
@@ -31,7 +24,7 @@ import vn.homecredit.hcvn.ui.home.HomeActivity;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> {
+public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> implements LoginNavigator {
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
@@ -58,11 +51,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mLoginViewModel.getModelLoginSuccess().observe(this, aBoolean -> {
-            if (aBoolean != null && aBoolean == true) {
-                openHomeActivity();
-            }
-        });
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -77,7 +69,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     }
 
     private void adjustBottom() {
-
         View bottomGroupView = getViewDataBinding().bottomGroupView;
         View scrollView = getViewDataBinding().scrollView;
         View topGroupView = getViewDataBinding().topGroupView;
@@ -88,6 +79,5 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         lp.setMargins(0, marginTop, 0, 0);
         bottomGroupView.setLayoutParams(lp);
     }
-
 }
 

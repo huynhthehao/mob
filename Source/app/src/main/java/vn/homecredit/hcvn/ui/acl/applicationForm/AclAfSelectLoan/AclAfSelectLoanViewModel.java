@@ -1,14 +1,16 @@
+/*
+ * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+ *
+ * Last modified 7/17/18 3:22 PM, by Hien.NguyenM
+ */
+
 package vn.homecredit.hcvn.ui.acl.applicationForm.AclAfSelectLoan;
 
-import android.app.Application;
 import android.databinding.ObservableField;
-import android.text.Html;
-import android.widget.Toast;
 
 import com.annimon.stream.Optional;
 import com.annimon.stream.Stream;
 import com.jakewharton.rxbinding2.InitialValueObservable;
-import com.jakewharton.rxbinding2.widget.RxSeekBar;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,12 +19,10 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.reactivex.BackpressureStrategy;
-import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.model.api.acl.CashLoanResponseCode;
 import vn.homecredit.hcvn.data.model.api.acl.ProposeOfferResp;
 import vn.homecredit.hcvn.data.model.api.acl.SuggestOfferResp;
-import vn.homecredit.hcvn.data.model.message.MessageQuestion;
 import vn.homecredit.hcvn.ui.acl.base.AclBaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -66,8 +66,8 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
     public ObservableField<String> FormattedMonthlyPayment = new ObservableField<>("");
 
     @Inject
-    public AclAfSelectLoanViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AclDataManager aclDataManager) {
-        super(dataManager, schedulerProvider, aclDataManager, CURRENT_STEP);
+    public AclAfSelectLoanViewModel(SchedulerProvider schedulerProvider, AclDataManager aclDataManager) {
+        super(schedulerProvider, aclDataManager, CURRENT_STEP);
     }
 
     public void init() {
@@ -100,7 +100,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                     setupInvalidAmounts();
                     updateMonthlyPayment();
                 }, throwable -> {
-                    setModelErrorMessage(throwable.getMessage());
+                    showMessage(throwable.getMessage());
                 }));
 
         getCompositeDisposable().add(TenorSliderChangedSubject
@@ -117,7 +117,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                     setupInvalidAmounts();
                     updateMonthlyPayment();
                 }, throwable -> {
-                    setModelErrorMessage(throwable.getMessage());
+                    showMessage(throwable.getMessage());
                 }));
     }
 
@@ -125,13 +125,14 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
         switch (CashLoanResponseCode.parseFromIntValue(resp.getResponseCode())) {
             case APPLICATION_NOT_FOUND:
                 String message = String.format("%s %s", resp.getResponseMessage(), "Bạn có chắc chắn muốn thoát?");
-                sendMessage(new MessageQuestion("Warning", message, (yes) -> {
+                showConfirmMessage("Warning", message, (yes) -> {
                     if (yes) {
                         getNavigator().popToRoot();
                     } else {
                         getNavigator().goToAclValidation();
                     }
-                }));
+                });
+
                 break;
             case SUCCESSFUL:
                 mSuggestOffer = resp.getData();
@@ -265,7 +266,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
         if (mTenor == requestLoanTenor && mLoanAmount == requestLoanAmount) {
             mProposeOffer = propose;
             setMonthlyPayment(propose.getMonthlyPayment());
-            setModelErrorMessage(String.format("Monthly payment: %,dđ", propose.getMonthlyPayment().intValue()));
+            showMessage(String.format("Monthly payment: %,dđ", propose.getMonthlyPayment().intValue()));
         }
         BusyLoading(false);
     }
@@ -296,9 +297,9 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
 //                if (Stream.of(validTenor).anyMatch(xx -> xx.getTenor() == mProposeOffer.getTenor()))
 //                    setTenor(mProposeOffer.getTenor());
 //                else
-//                    setTenor(Stream.of(validTenor).findLast().get().getTenor());
+//                    setTenor(Stream.of(validTenor).findLast().getValue().getTenor());
 //            } else
-//                setTenor(Stream.of(validTenor).findLast().get().getTenor());
+//                setTenor(Stream.of(validTenor).findLast().getValue().getTenor());
         }
 
         SelectedTenorIndex.set(Stream.of(mTenorValues).map(x -> x.getValue()).toList().indexOf(mTenor));

@@ -20,10 +20,12 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
+    private final DataManager dataManager;
     private final OneSignalService mOneSignalService;
     @Inject
     public SplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, OneSignalService oneSignalService) {
-        super(dataManager, schedulerProvider);
+        super(schedulerProvider);
+        this.dataManager = dataManager;
         mOneSignalService = oneSignalService;
     }
 
@@ -36,9 +38,8 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     public void checkUpdate() {
         setIsLoading(true);
-        getCompositeDisposable().add(getDataManager()
-                .checkUpdate().delay(250, TimeUnit.MILLISECONDS)
-                .doOnSuccess(response -> getDataManager().setVersionRespData(response.getData()))
+        getCompositeDisposable().add(dataManager.checkUpdate().delay(250, TimeUnit.MILLISECONDS)
+                .doOnSuccess(response -> dataManager.setVersionRespData(response.getData()))
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {

@@ -22,6 +22,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
+import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
@@ -62,7 +63,6 @@ public class RestServiceImpl implements RestService {
 
     public Single<VersionResp> checkUpdate() {
 
-
         if (TextUtils.isEmpty(mDeviceInfo.getPlayerId()))
         {
             mOneSignalService.tryGetPlayerId();
@@ -70,7 +70,6 @@ public class RestServiceImpl implements RestService {
 
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         //TODO: This code in Xamarin was commented. Consider to remove it later
-//        requestHeader.put("X-DEVICE-ID", "abc");
         requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPlayerId());
         requestHeader.put("X-DEVICE-VERSION", mDeviceInfo.getVersion());
         requestHeader.put("X-DEVICE-PLATFORM", RUNTIME_PLATFORM);
@@ -106,7 +105,7 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(requestHeader)
                 .addBodyParameter(requestBody)
                 .build().getObjectSingle(TokenResp.class);
-        
+
     }
 
     @Override
