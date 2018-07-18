@@ -119,7 +119,7 @@ public class RestServiceImpl implements RestService {
     @Override
     public Single<OtpTimerResp> verified(String username, String contractsId) {
         String url = ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify?v=2";
-        url += "&langid=" + preferencesHelper.langId();
+        url += "&langid=" + preferencesHelper.getLanguageCode();
 //        if (BuildConfig.DEBUG) {
 //            url += "&isMock=true";
 //        }
@@ -141,7 +141,7 @@ public class RestServiceImpl implements RestService {
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);
         requestBody.put("password", password);
-        String langId = preferencesHelper.langId();
+        String langId = preferencesHelper.getLanguageCode();
         String url = String.format("%s/customer/signup?lang=%s",ApiEndPoint.ENDPOINT_APP, langId);
         return Rx2AndroidNetworking.post(url)
                 .addBodyParameter(requestBody)
@@ -155,7 +155,7 @@ public class RestServiceImpl implements RestService {
         requestBody.put("phoneNumber", phone);
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);
-        String langId = preferencesHelper.langId();
+        String langId = preferencesHelper.getLanguageCode();
         String url = String.format("%s/customer/signup/verify/otp?lang=%s",ApiEndPoint.ENDPOINT_APP, langId);
         return Rx2AndroidNetworking.post(url)
                 .addBodyParameter(requestBody)

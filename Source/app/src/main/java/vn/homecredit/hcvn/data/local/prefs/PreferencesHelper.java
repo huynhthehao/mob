@@ -27,7 +27,9 @@ public interface PreferencesHelper {
     void setIsShowDashboard(boolean value);
 
     void logout();
-    String langId();
+
+    void setLanguageCode(String languageId);
+    String getLanguageCode();
 
     boolean getNotificationSetting();
     void setNotificationSetting(boolean isEnable);
