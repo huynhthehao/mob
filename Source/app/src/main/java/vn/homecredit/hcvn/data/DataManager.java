@@ -20,6 +20,7 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
+import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 
 public interface DataManager  {
     Single<VersionResp> checkUpdate();
@@ -46,4 +47,10 @@ public interface DataManager  {
     void setIsShowDashboard(boolean value);
 
     void logout();
+    FingerPrintAuthValue getFingerPrintAuthValue();
+    boolean getNotificationSetting();
+    void setNotificationSetting(boolean isEnable);
+
+    boolean getFingerPrintSetting();
+    void setFingerPrintSetting(boolean isEnable);
 }

@@ -155,7 +155,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     if (response.isVerified()) {
                         initData(phoneNumber, contractId, OtpFlow.SignUp, response.getData());
                     }else {
-                        setModelErrorMessage(response.getResponseMessage());
+                        showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
@@ -168,7 +168,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         String inputOtp = filedOtp.get();
         if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
             String warningMessage = resourceService.getStringById(R.string.otp_empty);
-            getNavigator().showError(warningMessage);
+            getNavigator().showMessage(warningMessage);
             return;
         }
         setIsLoading(true);
@@ -183,7 +183,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                         stopTimer();
                         modelOtpParamSignUp.setValue(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SignUp, inputOtp ));
                     } else {
-                        setModelErrorMessage(otpTimerResp.getResponseMessage());
+                        showMessage(otpTimerResp.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);

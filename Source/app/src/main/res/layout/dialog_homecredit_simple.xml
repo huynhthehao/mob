@@ -36,7 +36,7 @@
         android:id="@+id/btnOK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/margin_high"
         android:padding="@dimen/padding_small"
         android:text="@string/ok"
         android:textColor="@color/colorPrimary"

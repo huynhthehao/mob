@@ -21,6 +21,7 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SetPasswordViewModel extends BaseViewModel {
 
+    private final DataManager dataManager;
     private final AccountRepository accountRepository;
     private ObservableField<String> filedPass= new ObservableField<>();
     private ObservableField<String> filedConfirmPass = new ObservableField<>();
@@ -31,11 +32,11 @@ public class SetPasswordViewModel extends BaseViewModel {
 
     @Inject
     public SetPasswordViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AccountRepository accountRepository) {
-        super(dataManager, schedulerProvider);
+        super( schedulerProvider);
+        this.dataManager = dataManager;
         this.accountRepository = accountRepository;
     }
 
-    @Override
     public MutableLiveData<Integer> getModelErrorMessage() {
         return modelErrorMessage;
     }
@@ -66,7 +67,7 @@ public class SetPasswordViewModel extends BaseViewModel {
         }
     }
     public void onClickedPassowrdHelp() {
-        modelDialogPasswordHelp.setValue(getDataManager().getVersionRespData().getCustomerSupportPhone());
+        modelDialogPasswordHelp.setValue(dataManager.getVersionRespData().getCustomerSupportPhone());
     }
 
     private boolean checkDataValid() {
@@ -94,7 +95,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                         return;
                     }
                     if (profileResp.getResponseCode() != 0 ) {
-                        setModelErrorMessage(profileResp.getResponseMessage());
+                        showMessage(profileResp.getResponseMessage());
                     }else {
                         login();
                     }
@@ -102,7 +103,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                     setIsLoading(false);
                     Log.printStackTrace(throwable);
                     if (throwable instanceof HcApiException) {
-                        setModelErrorMessage(((HcApiException) throwable).getErrorResponseMessage());
+                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
                     }
 
                 });
@@ -114,7 +115,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                 .subscribe(profileResp -> {
                     if (profileResp == null) return;
                     if (profileResp.getResponseCode() != 0) {
-                        setModelErrorMessage(profileResp.getResponseMessage());
+                        showMessage(profileResp.getResponseMessage());
                     } else {
                         modelSignIn.setValue(true);
                     }

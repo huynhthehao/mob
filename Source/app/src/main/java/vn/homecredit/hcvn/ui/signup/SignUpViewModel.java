@@ -18,6 +18,7 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 public class SignUpViewModel extends BaseViewModel {
 
     private final AccountRepository accountRepository;
+    private final DataManager dataManager;
     ObservableField<String> username = new ObservableField<>("");
     ObservableField<String> contracts = new ObservableField<>("");
     private MutableLiveData<OtpPassParam> modelOtpPassParam = new MutableLiveData<>();
@@ -25,8 +26,9 @@ public class SignUpViewModel extends BaseViewModel {
 
     @Inject
     public SignUpViewModel(AccountRepository accountRepository, DataManager dataManager, SchedulerProvider schedulerProvider) {
-        super(dataManager, schedulerProvider);
+        super(schedulerProvider);
         this.accountRepository = accountRepository;
+        this.dataManager = dataManager;
     }
 
     public MutableLiveData<String> getModelDialogContractshelp() {
@@ -50,7 +52,7 @@ public class SignUpViewModel extends BaseViewModel {
     }
 
     public void onClickedContractsHelp() {
-        modelDialogContractshelp.setValue(getDataManager().getVersionRespData().getCustomerSupportPhone());
+        modelDialogContractshelp.setValue(dataManager.getVersionRespData().getCustomerSupportPhone());
     }
 
     private void verified() {
@@ -64,13 +66,13 @@ public class SignUpViewModel extends BaseViewModel {
                                 OtpPassParam otpPassParam = new OtpPassParam(otpTimer, username.get(), contracts.get(), OtpFlow.SignUp);
                                 modelOtpPassParam.setValue(otpPassParam);
                             }else {
-                               setModelErrorMessage(otpTimer.getResponseMessage());
+                                showMessage(otpTimer.getResponseMessage());
                             }
                         },
                         throwable -> {
                             setIsLoading(false);
                             if (throwable instanceof HcApiException) {
-                                setModelErrorMessage(((HcApiException) throwable).getErrorResponseMessage());
+                                showMessage(((HcApiException) throwable).getErrorResponseMessage());
                             }
                         });
         getCompositeDisposable().add(disposableSignup);

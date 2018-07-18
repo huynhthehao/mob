@@ -67,7 +67,7 @@ public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding
         });
         getViewModel().getModelErrorMessage().observe(this, resIdMessage -> {
             if (resIdMessage != null && resIdMessage != 0) {
-                showError(getResources().getString(resIdMessage));
+                showMessage(getResources().getString(resIdMessage));
             }
         });
 
