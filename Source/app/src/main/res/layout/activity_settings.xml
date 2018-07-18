@@ -141,6 +141,7 @@
                         android:id="@+id/swNotification"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:checked="@{viewModel.notificationChecked}"
                         android:onCheckedChanged="@{(switch, checked) -> viewModel.onNotificationCheckedChanged(checked)}"
                         android:theme="@style/SwitchCompatTheme" />
                 </LinearLayout>
@@ -182,6 +183,7 @@
                             android:id="@+id/swFingerPrint"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:checked="@{viewModel.fingerPrintChecked}"
                             android:onCheckedChanged="@{(switch, checked) -> viewModel.onFingerPrintCheckedChanged(checked)}"
                             android:theme="@style/SwitchCompatTheme" />
                     </LinearLayout>
