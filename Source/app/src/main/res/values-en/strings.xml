@@ -89,7 +89,7 @@
     <string name="login_invalid_input">Invalid phone number or password</string>
     <string name="sign_up">Sign up</string>
     <string name="contracts_help">What is contract number?</string>
-    <string name="hint_phone_contracts">Số điện thoại trong hợp đồng</string>
+    <string name="hint_phone_contracts">Phone no. (as stated in contract)</string>
     <string name="confirm_password">Confirm password</string>
     <string name="password_help">How to set the password?</string>
     <string name="set_password">Set Your Password</string>

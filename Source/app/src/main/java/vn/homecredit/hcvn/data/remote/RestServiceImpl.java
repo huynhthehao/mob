@@ -76,18 +76,19 @@ public class RestServiceImpl implements RestService {
         requestHeader.put("X-PUSH-TOKEN", mDeviceInfo.getPushToken());
         requestHeader.put("X-APP-VERSION", mVersionService.getVersion());
 
-        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/version?platform=2",
-                requestHeader,
-                VersionResp.class);
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/version?platform=2")
+                .addHeaders(requestHeader)
+                .build().getObjectSingle(VersionResp.class);
     }
 
     @Override
     public Single<TokenResp> getToken(String phoneNumber, String password) {
+
         String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
         byte[] b = s.getBytes(Charset.forName("UTF-8"));
         String authCode = Base64.encodeToString(b, android.util.Base64.DEFAULT);
 
-        HashMap<String, String> requestHeader = new HashMap<String, String>();
+        HashMap<String, String> requestHeader = new HashMap<>();
         requestHeader.put("Authorization", String.format("Basic %s", authCode.trim()));
 
         HashMap<String, String> requestBody = new HashMap<String, String>();
@@ -100,19 +101,14 @@ public class RestServiceImpl implements RestService {
         if (useMock)
             requestBody.put("isMock", "true");
 
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_TOKEN)
-                .addHeaders(requestHeader)
-                .addBodyParameter(requestBody)
-                .build().getObjectSingle(TokenResp.class);
-
+        return DefaultAndroidNetworking.post(ApiEndPoint.ENDPOINT_TOKEN, requestHeader, requestBody, TokenResp.class);
     }
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?")
-                .addHeaders(mApiHeader.getProtectedApiHeader())
-                .build()
-                .getObjectSingle(ProfileResp.class);
+        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
+                mApiHeader.getProtectedApiHeader(),
+                ProfileResp.class);
     }
 
     @Override
