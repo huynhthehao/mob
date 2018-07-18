@@ -1,13 +1,10 @@
 /*
- * MenuRowItem.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/20/18 11:00 AM
+ * Last modified 7/2/18 2:56 PM, by Hien.NguyenM
  */
 
-package vn.homecredit.hcvn.ui.widget;
+package vn.homecredit.hcvn.ui.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;

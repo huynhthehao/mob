@@ -10,13 +10,10 @@
 package vn.homecredit.hcvn.ui.base;
 
 import android.databinding.ViewDataBinding;
-import android.support.annotation.StringRes;
 import android.view.View;
 
-import com.gturedi.views.StatefulLayout;
-
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.control.MyStatefulLayout;
+import vn.homecredit.hcvn.ui.custom.MyStatefulLayout;
 
 public abstract class BaseStatefulActivity<T extends ViewDataBinding, V extends BaseViewModel> extends BaseActivity<T,V> {
     public abstract MyStatefulLayout getStatefulLayout();

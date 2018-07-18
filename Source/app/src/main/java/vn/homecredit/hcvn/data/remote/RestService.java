@@ -1,15 +1,10 @@
 /*
- * RestService.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/12/18 1:11 PM
+ * Last modified 7/6/18 4:57 PM, by Hien.NguyenM
  */
 
 package vn.homecredit.hcvn.data.remote;
-
-import javax.inject.Singleton;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;

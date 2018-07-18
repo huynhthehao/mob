@@ -9,42 +9,32 @@
 
 package vn.homecredit.hcvn.data;
 
-import android.content.Context;
-
-import com.google.gson.Gson;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.data.model.OtpPassParam;
-import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
-import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 import vn.homecredit.hcvn.service.OneSignalService;
 
 @Singleton
 public class AppDataManager implements DataManager {
-    private final Context mContext;
+
     private final PreferencesHelper mPreferencesHelper;
     private final RestService mRestService;
-    private final Gson mGson;
     private MemoryHelper mMemoryHelper;
     private final OneSignalService mOneSignalService;
 
 
     @Inject
-    public AppDataManager(Context context, PreferencesHelper preferencesHelper, RestService restService, Gson gson, MemoryHelper memoryHelper, OneSignalService oneSignalService) {
-        mContext = context;
+    public AppDataManager(PreferencesHelper preferencesHelper, RestService restService, MemoryHelper memoryHelper, OneSignalService oneSignalService) {
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
-        mGson = gson;
         mMemoryHelper = memoryHelper;
         mOneSignalService = oneSignalService;
     }

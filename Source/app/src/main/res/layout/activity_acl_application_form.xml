@@ -49,7 +49,7 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <vn.homecredit.hcvn.ui.controls.StepIndicator
+            <vn.homecredit.hcvn.ui.custom.StepIndicator
                 android:id="@+id/stepIndicator"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"

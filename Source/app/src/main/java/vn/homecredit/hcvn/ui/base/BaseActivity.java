@@ -164,17 +164,11 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 }
             }
         });
-        enableModelErrorDialog();
-        performBindingMessage();
+
+        bindModelMessageDialog();
+        bindModelConfirmDialog();
     }
 
-    private void performBindingMessage() {
-        getViewModel().getModelBaseMessage().observe(this, o -> {
-            if (o != null && o instanceof BaseMessage) {
-                processMessage((BaseMessage) o);
-            }
-        });
-    }
 
     public void showMessage(String message) {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
@@ -186,57 +180,52 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         dialog.show();
     }
 
-    private void enableModelErrorDialog() {
-        getViewModel().getModelErrorMessage().observe(this, o -> {
-            if (o != null && o instanceof String) {
-                showMessage((String) o);
-            }
-        });
-    }
 
-    public void showConfirm(String title, String message, final Consumer<Boolean> onCompleted) {
-
+    public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
         new MaterialDialog.Builder(this)
                 .title(title)
                 .content(message)
                 .positiveText(R.string.ok)
                 .negativeText(R.string.cancel)
                 .canceledOnTouchOutside(false)
-                .showListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        try {
-                            onCompleted.accept(true);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .showListener(dialog -> {
+                    try {
+                        onCompleted.accept(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 })
-                .cancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        try {
-                            onCompleted.accept(false);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .cancelListener(dialog -> {
+                    try {
+                        onCompleted.accept(false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 })
-                .dismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        try {
-                            onCompleted.accept(false);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                .dismissListener(dialog -> {
+                    try {
+                        onCompleted.accept(false);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 })
                 .show();
     }
 
-    private void processMessage(BaseMessage message) {
-
+    private void bindModelMessageDialog() {
+        getViewModel().getMessageData().observe(this, o -> {
+            if (o != null && o instanceof String) {
+                showMessage((String) o);
+            }
+        });
     }
 
+    private void bindModelConfirmDialog() {
+        getViewModel().getConfirmMessageData().observe(this, o -> {
+            if (o != null && o instanceof BaseMessage) {
+                BaseMessage messageData =  (BaseMessage) o;
+                showConfirmMessage(messageData.getTitle(),messageData.getContent(),messageData.getOnCompleted());
+            }
+        });
+    }
 }

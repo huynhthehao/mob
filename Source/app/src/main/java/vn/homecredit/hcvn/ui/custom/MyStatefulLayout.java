@@ -1,13 +1,10 @@
 /*
- * StatefulLayout.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/19/18 6:12 PM
+ * Last modified 7/2/18 2:56 PM, by Hien.NguyenM
  */
 
-package vn.homecredit.hcvn.control;
+package vn.homecredit.hcvn.ui.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;

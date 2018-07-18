@@ -9,15 +9,12 @@
 
 package vn.homecredit.hcvn.data.remote;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Base64;
 
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -25,11 +22,11 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
+import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
-import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
@@ -62,7 +59,6 @@ public class RestServiceImpl implements RestService {
 
     public Single<VersionResp> checkUpdate() {
 
-
         if (TextUtils.isEmpty(mDeviceInfo.getPlayerId()))
         {
             mOneSignalService.tryGetPlayerId();
@@ -70,7 +66,6 @@ public class RestServiceImpl implements RestService {
 
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         //TODO: This code in Xamarin was commented. Consider to remove it later
-//        requestHeader.put("X-DEVICE-ID", "abc");
         requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPlayerId());
         requestHeader.put("X-DEVICE-VERSION", mDeviceInfo.getVersion());
         requestHeader.put("X-DEVICE-PLATFORM", RUNTIME_PLATFORM);
@@ -85,11 +80,12 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<TokenResp> getToken(String phoneNumber, String password) {
+
         String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
         byte[] b = s.getBytes(Charset.forName("UTF-8"));
         String authCode = Base64.encodeToString(b, android.util.Base64.DEFAULT);
 
-        HashMap<String, String> requestHeader = new HashMap<String, String>();
+        HashMap<String, String> requestHeader = new HashMap<>();
         requestHeader.put("Authorization", String.format("Basic %s", authCode.trim()));
 
         HashMap<String, String> requestBody = new HashMap<String, String>();
@@ -102,10 +98,7 @@ public class RestServiceImpl implements RestService {
         if (useMock)
             requestBody.put("isMock", "true");
 
-        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_TOKEN)
-                .addHeaders(requestHeader)
-                .addBodyParameter(requestBody)
-                .build().getObjectSingle(TokenResp.class);
+        return DefaultAndroidNetworking.post(ApiEndPoint.ENDPOINT_TOKEN, requestHeader, requestBody, TokenResp.class);
     }
 
     @Override
@@ -119,6 +112,4 @@ public class RestServiceImpl implements RestService {
     public ApiHeader getApiHeader() {
         return mApiHeader;
     }
-
-
 }

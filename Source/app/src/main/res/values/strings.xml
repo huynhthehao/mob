@@ -81,4 +81,6 @@
     <string name="cancel">Huỷ</string>
     <string name="otp_empty">Bạn phải nhập mã xác thực</string>
     <string name="otp_resend_success">Mã xác thực đã được gửi lại thành công, vui lòng chờ vài phút</string>
+    <string name="login_invalid_input">Số điện thoại hoặc mật khẩu không hợp lệ</string>
+    <string name="section_format">Empty fragment</string>
 </resources>

@@ -1,4 +1,10 @@
-package vn.homecredit.hcvn.custom;
+/*
+ * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+ *
+ * Last modified 7/6/18 4:57 PM, by Hien.NguyenM
+ */
+
+package vn.homecredit.hcvn.ui.custom;
 
 import android.content.Context;
 import android.content.res.TypedArray;

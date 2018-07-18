@@ -67,10 +67,9 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
 
     @Inject
-    public OtpViewModel(DataManager dataManager,
-                        SchedulerProvider schedulerProvider,
+    public OtpViewModel(SchedulerProvider schedulerProvider,
                         ResourceService resourceService, DeviceInfo deviceInfo, AclDataManager aclDataManager) {
-        super(dataManager, schedulerProvider);
+        super(schedulerProvider);
 
         this.resourceService = resourceService;
         this.deviceInfo = deviceInfo;
