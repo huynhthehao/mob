@@ -96,6 +96,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void logout() {
         mPrefs.edit().putBoolean(PREF_KEY_SHOW_DASHBOARD, true).commit();
         mPrefs.edit().putString(PREF_KEY_PROFILE, null).commit();
+        mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, null).commit();
     }
 
     @Override

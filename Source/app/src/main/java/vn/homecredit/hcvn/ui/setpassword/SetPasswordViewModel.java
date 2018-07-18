@@ -23,7 +23,7 @@ public class SetPasswordViewModel extends BaseViewModel {
 
     private final DataManager dataManager;
     private final AccountRepository accountRepository;
-    private ObservableField<String> filedPass= new ObservableField<>();
+    private ObservableField<String> filedPass = new ObservableField<>();
     private ObservableField<String> filedConfirmPass = new ObservableField<>();
     private OtpPassParam otpParam;
     private MutableLiveData<Boolean> modelSignIn = new MutableLiveData<>();
@@ -32,7 +32,7 @@ public class SetPasswordViewModel extends BaseViewModel {
 
     @Inject
     public SetPasswordViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AccountRepository accountRepository) {
-        super( schedulerProvider);
+        super(schedulerProvider);
         this.dataManager = dataManager;
         this.accountRepository = accountRepository;
     }
@@ -66,6 +66,7 @@ public class SetPasswordViewModel extends BaseViewModel {
             signUp();
         }
     }
+
     public void onClickedPassowrdHelp() {
         modelDialogPasswordHelp.setValue(dataManager.getVersionRespData().getCustomerSupportPhone());
     }
@@ -94,9 +95,9 @@ public class SetPasswordViewModel extends BaseViewModel {
                     if (profileResp == null) {
                         return;
                     }
-                    if (profileResp.getResponseCode() != 0 ) {
+                    if (profileResp.getResponseCode() != 0) {
                         showMessage(profileResp.getResponseMessage());
-                    }else {
+                    } else {
                         login();
                     }
                 }, throwable -> {
@@ -111,15 +112,20 @@ public class SetPasswordViewModel extends BaseViewModel {
     }
 
     private void login() {
+        setIsLoading(true);
         Disposable subscribe = accountRepository.signIn(otpParam.getPhoneNumber(), filedPass.get())
                 .subscribe(profileResp -> {
+                    setIsLoading(false);
                     if (profileResp == null) return;
                     if (profileResp.getResponseCode() != 0) {
                         showMessage(profileResp.getResponseMessage());
                     } else {
                         modelSignIn.setValue(true);
                     }
-                }, throwable -> Log.printStackTrace(throwable));
+                }, throwable -> {
+                    setIsLoading(false);
+                    Log.printStackTrace(throwable);
+                });
 
         getCompositeDisposable().add(subscribe);
     }

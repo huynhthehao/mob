@@ -41,14 +41,17 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     public void checkUpdate() {
         setIsLoading(true);
-
         Disposable newProcess = dataManager.checkUpdate().delay(250, TimeUnit.MILLISECONDS)
                 .doOnSuccess(response -> dataManager.setVersionRespData(response.getData()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     setIsLoading(false);
-                    getNavigator().openWelcomeActivity();
+                    if (dataManager.getAccessToken() != null) {
+                        getNavigator().openHomeActivity();
+                    }else {
+                        getNavigator().openWelcomeActivity();
+                    }
                 }, throwable -> {
                     setIsLoading(false);
                     getNavigator().retryCheckUpdate();
