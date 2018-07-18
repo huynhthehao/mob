@@ -2,23 +2,15 @@ package vn.homecredit.hcvn.ui.settings;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
-import android.view.View;
 
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelper;
-import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.data.model.api.ProfileResp;
-import vn.homecredit.hcvn.di.PreferenceInfo;
-import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
-import vn.homecredit.hcvn.utils.AppUtils;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.LanguageValue;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SettingsViewModel extends BaseViewModel {
@@ -44,7 +36,7 @@ public class SettingsViewModel extends BaseViewModel {
     @Override
     public void init() {
         appVersion.set(BuildConfig.VERSION_NAME);
-        languageValue.set(LanguageValue.VIETNAMESE.getDisplayNameResId());
+        languageValue.set(LanguageValue.getDisplayNameResIdFromCode(dataManager.getLanguageCode()));
         checkToShowOrHideFingerPrintLayout();
         modelBack.setValue(false);
         fingerPrintChecked.set(dataManager.getFingerPrintSetting());
@@ -72,13 +64,17 @@ public class SettingsViewModel extends BaseViewModel {
     }
 
     public void onChangeLanguageClicked() {
+        String languageCode = "";
         if (languageValue.get() == LanguageValue.VIETNAMESE.getDisplayNameResId()) {
             languageValue.set(LanguageValue.ENGLISH.getDisplayNameResId());
-            modelLanguage.setValue(LanguageValue.ENGLISH.getCode());
+            languageCode = LanguageValue.ENGLISH.getCode();
+            modelLanguage.setValue(languageCode);
         } else {
             languageValue.set(LanguageValue.VIETNAMESE.getDisplayNameResId());
-            modelLanguage.setValue(LanguageValue.VIETNAMESE.getCode());
+            languageCode = LanguageValue.VIETNAMESE.getCode();
+            modelLanguage.setValue(languageCode);
         }
+        dataManager.setLanguageCode(languageCode);
     }
 
     public void onNotificationCheckedChanged(boolean isEnable) {

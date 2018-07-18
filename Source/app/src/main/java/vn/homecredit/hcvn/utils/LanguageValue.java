@@ -21,4 +21,13 @@ public enum LanguageValue {
     public int getDisplayNameResId() {
         return displayNameResId;
     }
+
+    public static int getDisplayNameResIdFromCode(String code) {
+        for (LanguageValue value : LanguageValue.values()) {
+            if(value.getCode().equals(code)){
+                return value.getDisplayNameResId();
+            }
+        }
+        return VIETNAMESE.getDisplayNameResId();
+    }
 }
