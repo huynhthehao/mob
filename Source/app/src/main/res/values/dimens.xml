@@ -22,4 +22,38 @@
     <dimen name="large_text">20dp</dimen>
     <dimen name="xlarge_text">28dp</dimen>
     <dimen name="xxlarge_text">40dp</dimen>
+
+    <dimen name="padding_smallest">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_average">24dp</dimen>
+    <dimen name="padding_high">32dp</dimen>
+    <dimen name="padding_highest">48dp</dimen>
+
+    <dimen name="margin_smallest">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">12dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_average">24dp</dimen>
+    <dimen name="margin_high">32dp</dimen>
+    <dimen name="margin_high_medium">48dp</dimen>
+    <dimen name="margin_highest">64dp</dimen>
+
+    <dimen name="view_size_normal">48dp</dimen>
+    <dimen name="view_size_medium">32dp</dimen>
+    <dimen name="view_size_small">24dp</dimen>
+    <dimen name="view_size_medium_small">20dp</dimen>
+    <dimen name="view_size_smallest">16dp</dimen>
+    <dimen name="view_size_big">64dp</dimen>
+
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_smallest">10sp</dimen>
+    <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_medium_big">17sp</dimen>
+    <dimen name="text_size_big">19sp</dimen>
+    <dimen name="text_size_extra">48sp</dimen>
+    <dimen name="padding_back_button">14dp</dimen>
+    <dimen name="setting_row_height">56dp</dimen>
 </resources>

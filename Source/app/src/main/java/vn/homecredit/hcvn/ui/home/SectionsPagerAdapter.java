@@ -34,7 +34,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             default:
                 break;
         }
-        return PlaceholderFragment.newInstance(position + 1);
+        return ContractFragment.newInstance(1);
     }
 
     @Override

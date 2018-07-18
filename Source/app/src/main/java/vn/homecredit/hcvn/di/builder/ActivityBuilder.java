@@ -26,6 +26,7 @@ import vn.homecredit.hcvn.ui.login.LoginViewModel;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
 //import vn.homecredit.hcvn.ui.otp.OtpActivityModule;
 import vn.homecredit.hcvn.ui.otp.OtpViewModel;
+import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
@@ -67,4 +68,7 @@ public abstract class ActivityBuilder {
             AclApplicationFormModule.class,
             AclAfSelectLoanFragmentProvider.class})
     abstract AclApplicationFormActivity bindAclApplicationFormActivity();
+
+    @ContributesAndroidInjector()
+    abstract SettingsActivity bindSettingsActivity();
 }

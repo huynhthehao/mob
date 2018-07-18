@@ -12,7 +12,9 @@ package vn.homecredit.hcvn.utils;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.fingerprint.FingerprintManager;
 import android.net.Uri;
+import android.os.Build;
 
 import javax.inject.Inject;
 
@@ -41,7 +43,7 @@ public final class AppUtils {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(context
                             .getResources()
-                            .getString(R.string.app_market_link) + appPackageName)));
+                            .getString(R.string.app_market_link) + "vn.homecredit.hcvn")));
         } catch (android.content.ActivityNotFoundException e) {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(context
@@ -64,7 +66,5 @@ public final class AppUtils {
             Log.printStackTrace(e);
         }
     }
-
-
 
 }

@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.ui.more;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,8 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentMoreBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
 
 /**
@@ -99,7 +102,8 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
 
     private void showSetting(Boolean clickedSetting) {
         if (clickedSetting) {
-            showToast("clicked Setting");
+            Intent intent = SettingsActivity.newIntent(getContext());
+            startActivity(intent);
         }
     }
 
