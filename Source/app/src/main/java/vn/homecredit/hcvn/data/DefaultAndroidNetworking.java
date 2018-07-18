@@ -19,11 +19,6 @@ public class DefaultAndroidNetworking {
     private DefaultAndroidNetworking() {
     }
 
-
-    public static Rx2ANRequest.GetRequestBuilder get(String url) {
-        return new Rx2ANRequest.GetRequestBuilder(url);
-    }
-
     public static Rx2ANRequest.HeadRequestBuilder head(String url) {
         return new Rx2ANRequest.HeadRequestBuilder(url);
     }
@@ -32,8 +27,14 @@ public class DefaultAndroidNetworking {
         return new Rx2ANRequest.OptionsRequestBuilder(url);
     }
 
-    public static <T> Single<T> post(String url, Object body, Class<T> dataType) {
-        return post(url, null, body, dataType);
+    public static <T> Single<T> get(String url, Object header, Class<T> dataType) {
+        Rx2ANRequest.GetRequestBuilder builder = new Rx2ANRequest.GetRequestBuilder(url);
+        if(header != null)
+            builder.addHeaders(header);
+
+        return builder.build().getObjectSingle(dataType)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static <T> Single<T> post(String url, Object header, Object body, Class<T> dataType) {
@@ -47,6 +48,10 @@ public class DefaultAndroidNetworking {
         return builder.build().getObjectSingle(dataType)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static <T> Single<T> post(String url, Object body, Class<T> dataType) {
+        return post(url, null, body, dataType);
     }
 
     public static Rx2ANRequest.PutRequestBuilder put(String url) {

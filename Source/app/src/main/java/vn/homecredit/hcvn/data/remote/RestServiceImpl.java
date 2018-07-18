@@ -103,9 +103,9 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?")
-                .addHeaders(mApiHeader.getProtectedApiHeader())
-                .build().getObjectSingle(ProfileResp.class);
+        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
+                mApiHeader.getProtectedApiHeader(),
+                ProfileResp.class);
     }
 
     @Override
