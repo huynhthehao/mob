@@ -9,6 +9,9 @@ package vn.homecredit.hcvn.data.model.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class OtpTimerRespData
 {
     @SerializedName("Status")
@@ -66,4 +69,16 @@ public class OtpTimerRespData
     public void setSource(String source) {
         this.source = source;
     }
+
+    @Override
+    public String toString() {
+        return "OtpTimerRespData{" +
+                "status=" + status +
+                ", remainingTime=" + remainingTime +
+                ", otpLiveTime=" + otpLiveTime +
+                ", otpTimeResend=" + otpTimeResend +
+                ", source='" + source + '\'' +
+                '}';
+    }
+
 }

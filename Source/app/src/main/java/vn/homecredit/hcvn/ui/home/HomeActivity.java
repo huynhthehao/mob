@@ -9,8 +9,6 @@
 
 package vn.homecredit.hcvn.ui.home;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -29,6 +27,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.setpassword.DialogAnnounceFingerprint;
 import vn.homecredit.hcvn.utils.AppUtils;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked {
@@ -42,6 +41,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     public static void start(Context context, boolean showDashboard) {
         Intent intent =  new Intent(context, HomeActivity.class);
         intent.putExtra("BUNDLE_SHOW_DASHBOARD", showDashboard);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
     public static void start(Context context) {
@@ -50,9 +50,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeActivity.class);
     }
-
-//    @Inject
-//    ViewModelProvider.Factory viewModelProviderFactory;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -88,7 +85,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         TabLayout tabLayout = getViewDataBinding().tabs;
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-        checkToShowDashboard();
+        checkToShowDialog();
     }
 
     @Override
@@ -108,10 +105,12 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         return super.onOptionsItemSelected(item);
     }
 
-    private void checkToShowDashboard() {
-        if (getIntent().getBooleanExtra(BUNDLE_SHOW_DASHBOARD, false) &&
+    private void checkToShowDialog() {
+        if (getIntent().getBooleanExtra(BUNDLE_SHOW_DASHBOARD, false) ||
                 preferencesHelper.getIsShowDashboard()) {
             showDashboard(getString(R.string.hello), mHomeViewModel.getUserName());
+            DialogAnnounceFingerprint.showDialog(getSupportFragmentManager());
+
         }
     }
 

@@ -26,6 +26,10 @@ import vn.homecredit.hcvn.ui.login.LoginViewModel;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
 //import vn.homecredit.hcvn.ui.otp.OtpActivityModule;
 import vn.homecredit.hcvn.ui.otp.OtpViewModel;
+import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
+import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivityModule;
+import vn.homecredit.hcvn.ui.signup.SignUpActivity;
+import vn.homecredit.hcvn.ui.signup.SignUpActivityModule;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
@@ -49,6 +53,12 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = LoginViewModel.class)
     abstract LoginActivity bindLoginActivity();
+
+    @ContributesAndroidInjector(modules = SignUpActivityModule.class)
+    abstract SignUpActivity bindSignupActivity();
+
+    @ContributesAndroidInjector(modules = SetPasswordActivityModule.class)
+    abstract SetPasswordActivity bindSetPasswordActivity();
 
     @ContributesAndroidInjector(modules = OtpViewModel.class)
     abstract OtpActivity bindOtpActivity();

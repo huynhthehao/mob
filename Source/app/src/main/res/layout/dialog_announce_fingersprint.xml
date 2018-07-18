@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/padding_small"
+        android:src="@drawable/touch_id"
+        style="@style/AppTheme.Title"
+        />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        android:gravity="center"
+        android:text="@string/dialog_fingersprint_announce"
+        style="@style/AppTheme.Content"
+        />
+    <View
+        android:id="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/tvContent"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        />
+
+    <TextView
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btnOK"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginBottom="@dimen/margin_high"
+        android:padding="@dimen/padding_small"
+        android:text="@string/cancel"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        style="@style/AppTheme.Title"
+        />
+    <TextView
+        android:id="@+id/btnOK"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@+id/btnCancel"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/margin_high"
+        android:padding="@dimen/padding_small"
+        android:text="@string/setting_goto"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        style="@style/AppTheme.Title"
+        />
+
+</android.support.constraint.ConstraintLayout>

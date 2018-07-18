@@ -24,6 +24,9 @@ import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
+import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.data.model.api.HcApiException;
+import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
@@ -42,6 +45,7 @@ public class RestServiceImpl implements RestService {
     private DeviceInfo mDeviceInfo;
     private VersionService mVersionService;
     private final OneSignalService mOneSignalService;
+    @Inject PreferencesHelper preferencesHelper;
 
     @Inject
     public RestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo, VersionService versionService, OneSignalService oneSignalService) {
@@ -79,12 +83,11 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<TokenResp> getToken(String phoneNumber, String password) {
-
         String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
         byte[] b = s.getBytes(Charset.forName("UTF-8"));
         String authCode = Base64.encodeToString(b, android.util.Base64.DEFAULT);
 
-        HashMap<String, String> requestHeader = new HashMap<>();
+        HashMap<String, String> requestHeader = new HashMap<String, String>();
         requestHeader.put("Authorization", String.format("Basic %s", authCode.trim()));
 
         HashMap<String, String> requestBody = new HashMap<String, String>();
@@ -97,18 +100,72 @@ public class RestServiceImpl implements RestService {
         if (useMock)
             requestBody.put("isMock", "true");
 
-        return DefaultAndroidNetworking.post(ApiEndPoint.ENDPOINT_TOKEN, requestHeader, requestBody, TokenResp.class);
+        return Rx2AndroidNetworking.post(ApiEndPoint.ENDPOINT_TOKEN)
+                .addHeaders(requestHeader)
+                .addBodyParameter(requestBody)
+                .build().getObjectSingle(TokenResp.class);
+
     }
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
-                mApiHeader.getProtectedApiHeader(),
-                ProfileResp.class);
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?")
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(ProfileResp.class);
     }
 
     @Override
     public ApiHeader getApiHeader() {
         return mApiHeader;
     }
+
+    @Override
+    public Single<OtpTimerResp> verified(String username, String contractsId) {
+        String url = ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify?v=2";
+        url += "&langid=" + preferencesHelper.langId();
+//        if (BuildConfig.DEBUG) {
+//            url += "&isMock=true";
+//        }
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("PhoneNumber", username);
+        requestBody.put("ContractNumber", contractsId);
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)))
+                ;
+    }
+
+    @Override
+    public Single<ProfileResp> signUp(String phone, String contractsId, String otp, String password) {
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("phoneNumber", phone);
+        requestBody.put("contractNumber", contractsId);
+        requestBody.put("verificationCode", otp);
+        requestBody.put("password", password);
+        String langId = preferencesHelper.langId();
+        String url = String.format("%s/customer/signup?lang=%s",ApiEndPoint.ENDPOINT_APP, langId);
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(ProfileResp.class);
+    }
+
+    @Override
+    public Single<OtpTimerResp> verifySignupOTP(String phone, String contractsId, String otp) {
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("phoneNumber", phone);
+        requestBody.put("contractNumber", contractsId);
+        requestBody.put("verificationCode", otp);
+        String langId = preferencesHelper.langId();
+        String url = String.format("%s/customer/signup/verify/otp?lang=%s",ApiEndPoint.ENDPOINT_APP, langId);
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class);
+    }
+
+
 }

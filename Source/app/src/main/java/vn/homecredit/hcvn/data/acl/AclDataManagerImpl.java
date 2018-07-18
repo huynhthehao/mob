@@ -57,6 +57,7 @@ public class AclDataManagerImpl implements AclDataManager {
                 .observeOn(schedulerProvider.ui());
     }
 
+
     @Override
     public Single<SuggestOfferResp> getSuggestOffer() {
         return mAclRestService.getSuggestOffer();
@@ -65,10 +66,5 @@ public class AclDataManagerImpl implements AclDataManager {
     @Override
     public Single<ProposeOfferResp> getMonthlyPaymentAsync(double amount, int tenor, float boundScore, String productCode) {
         return mAclRestService.getMonthlyPaymentAsync(amount, tenor, boundScore, productCode);
-    }
-
-    @Override
-    public ApiHeader getApiHeader() {
-        return mApiHeader;
     }
 }

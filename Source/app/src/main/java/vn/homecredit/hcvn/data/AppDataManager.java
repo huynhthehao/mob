@@ -17,6 +17,7 @@ import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
+import vn.homecredit.hcvn.data.model.api.SignupResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
@@ -68,6 +69,7 @@ public class AppDataManager implements DataManager {
         });
     }
 
+
     @Override
     public ApiHeader getApiHeader() {
         return mRestService.getApiHeader();
@@ -99,6 +101,7 @@ public class AppDataManager implements DataManager {
     public void logout() {
         mPreferencesHelper.logout();
     }
+
 
     @Override
     public boolean getNotificationSetting() {

@@ -28,9 +28,8 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Single<ProfileResp> syncProfile() {
-        return mDataManager.getProfile().doOnSuccess(response -> {
-            mPreferencesHelper.saveProfile(response.getData());
-        });
+        return mDataManager.getProfile()
+                .doOnSuccess(response -> mPreferencesHelper.saveProfile(response.getData()));
     }
 
     @Override
