@@ -25,6 +25,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_PROFILE = "PREF_KEY_PROFILE";
     private static final String PREF_KEY_VERSIONRESP = "PREF_KEY_VERSIONRESP";
     private static final String PREF_KEY_SHOW_DASHBOARD = "PREF_KEY_SHOW_DASHBOARD";
+    //private static final String FINGER_PRINT_ENABLE_KEY = "FingerPrintEnable";
+    //private static final String CURRENT_LANGUAGE_KEY = "CurrentLanguage";
 
     private final SharedPreferences mPrefs;
 

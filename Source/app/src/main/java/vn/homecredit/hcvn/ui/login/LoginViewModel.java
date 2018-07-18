@@ -82,8 +82,8 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                     getNavigator().openHomeActivity();
                 }, throwable -> {
                     setIsLoading(false);
-                    String t = (((ANError) throwable).getErrorAsObject(TokenResp.class)).getErrorDescription();
-                    showMessage(t);
+                    //String t = (((ANError) throwable).getErrorAsObject(TokenResp.class)).getErrorDescription();
+                    showMessage(throwable.getMessage());
                 }));
     }
 }
