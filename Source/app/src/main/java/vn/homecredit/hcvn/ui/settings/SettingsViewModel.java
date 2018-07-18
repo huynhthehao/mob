@@ -24,8 +24,11 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 public class SettingsViewModel extends BaseViewModel {
     private final DataManager dataManager;
     private ObservableField<String> appVersion = new ObservableField<>("");
-    private ObservableField<Integer> languageValue = new ObservableField<>(R.string.vietnamese);
+    private ObservableField<Integer> languageValue = new ObservableField<>(R.string.english);
     private ObservableField<Boolean> fingerPrintVisibility = new ObservableField<>(true);
+    private ObservableField<Boolean> notificationChecked = new ObservableField<>(false);
+    private ObservableField<Boolean> fingerPrintChecked = new ObservableField<>(false);
+
 
     private MutableLiveData<Boolean> modelBack = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelAppRating = new MutableLiveData<>();
@@ -38,11 +41,14 @@ public class SettingsViewModel extends BaseViewModel {
         this.dataManager = dataManager;
     }
 
+    @Override
     public void init() {
         appVersion.set(BuildConfig.VERSION_NAME);
         languageValue.set(LanguageValue.VIETNAMESE.getDisplayNameResId());
         checkToShowOrHideFingerPrintLayout();
         modelBack.setValue(false);
+        fingerPrintChecked.set(dataManager.getFingerPrintSetting());
+        notificationChecked.set(dataManager.getNotificationSetting());
     }
 
     private void checkToShowOrHideFingerPrintLayout() {
@@ -102,5 +108,13 @@ public class SettingsViewModel extends BaseViewModel {
 
     public ObservableField<Boolean> getFingerPrintVisibility() {
         return fingerPrintVisibility;
+    }
+
+    public ObservableField<Boolean> getNotificationChecked() {
+        return notificationChecked;
+    }
+
+    public ObservableField<Boolean> getFingerPrintChecked() {
+        return fingerPrintChecked;
     }
 }
