@@ -68,6 +68,8 @@
                 android:hint="@string/hint_phone_contracts"
                 android:inputType="number"
                 android:maxLines="1"
+                android:drawableLeft="@drawable/ic_phone"
+                android:drawablePadding="@dimen/padding_small"
                 android:singleLine="true"
                 android:text="@={viewModel.username}"
                 />
@@ -92,6 +94,8 @@
                 android:inputType="number"
                 android:maxLines="1"
                 android:singleLine="true"
+                android:drawableLeft="@drawable/ic_contract"
+                android:drawablePadding="@dimen/padding_small"
                 android:text="@={viewModel.contracts}"
                 />
         </android.support.design.widget.TextInputLayout>

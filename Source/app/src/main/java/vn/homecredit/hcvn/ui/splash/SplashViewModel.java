@@ -13,7 +13,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
@@ -42,6 +44,8 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
         Disposable newProcess = dataManager.checkUpdate().delay(250, TimeUnit.MILLISECONDS)
                 .doOnSuccess(response -> dataManager.setVersionRespData(response.getData()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
                     setIsLoading(false);
                     getNavigator().openWelcomeActivity();
