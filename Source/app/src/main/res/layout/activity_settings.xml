@@ -5,7 +5,7 @@
     tools:context=".ui.welcome.WelcomeActivity">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.settings.SettingsViewModel" />
@@ -55,7 +55,7 @@
                     android:gravity="center"
                     android:text="@string/settings"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_medium_big"
+                    android:textSize="@dimen/text_size_big"
                     android:textStyle="bold" />
             </FrameLayout>
 
@@ -100,6 +100,7 @@
                         style="@style/AppTheme.TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         android:layout_marginLeft="@dimen/margin_normal"
                         android:foreground="?selectableItemBackground"
                         android:onClick="@{()-> viewModel.onChangeLanguageClicked()}"
@@ -147,7 +148,8 @@
                     android:id="@+id/layFingerPrint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="@{viewModel.fingerPrintVisibility ? View.VISIBLE: View.GONE}">
 
                     <View
                         android:layout_width="match_parent"

@@ -12,7 +12,9 @@ package vn.homecredit.hcvn.utils;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.fingerprint.FingerprintManager;
 import android.net.Uri;
+import android.os.Build;
 
 import javax.inject.Inject;
 
@@ -64,7 +66,5 @@ public final class AppUtils {
             Log.printStackTrace(e);
         }
     }
-
-
 
 }
