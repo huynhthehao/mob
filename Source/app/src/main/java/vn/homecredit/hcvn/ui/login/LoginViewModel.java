@@ -1,23 +1,18 @@
 /*
- * SplashViewModel.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/13/18 11:19 AM
+ * Last modified 7/18/18 2:28 PM, by Hien.NguyenM
  */
 
 package vn.homecredit.hcvn.ui.login;
 
 import android.databinding.ObservableField;
-import com.androidnetworking.error.ANError;
+
 import javax.inject.Inject;
 
 import dagger.Module;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.ObservableString;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.service.ProfileService;
 import vn.homecredit.hcvn.service.ResourceService;

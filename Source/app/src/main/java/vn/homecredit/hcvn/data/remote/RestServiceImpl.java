@@ -58,7 +58,6 @@ public class RestServiceImpl implements RestService {
     }
 
     public Single<VersionResp> checkUpdate() {
-
         if (TextUtils.isEmpty(mDeviceInfo.getPlayerId()))
         {
             mOneSignalService.tryGetPlayerId();
@@ -73,9 +72,9 @@ public class RestServiceImpl implements RestService {
         requestHeader.put("X-PUSH-TOKEN", mDeviceInfo.getPushToken());
         requestHeader.put("X-APP-VERSION", mVersionService.getVersion());
 
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/version?platform=2")
-                .addHeaders(requestHeader)
-                .build().getObjectSingle(VersionResp.class);
+        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/version?platform=2",
+                requestHeader,
+                VersionResp.class);
     }
 
     @Override

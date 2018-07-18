@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
@@ -38,16 +39,17 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
 
     public void checkUpdate() {
         setIsLoading(true);
-        getCompositeDisposable().add(dataManager.checkUpdate().delay(250, TimeUnit.MILLISECONDS)
+
+        Disposable newProcess = dataManager.checkUpdate().delay(250, TimeUnit.MILLISECONDS)
                 .doOnSuccess(response -> dataManager.setVersionRespData(response.getData()))
-                .subscribeOn(getSchedulerProvider().io())
-                .observeOn(getSchedulerProvider().ui())
                 .subscribe(response -> {
                     setIsLoading(false);
                     getNavigator().openWelcomeActivity();
                 }, throwable -> {
                     setIsLoading(false);
                     getNavigator().retryCheckUpdate();
-                }));
+                });
+
+        startSafeProcess(newProcess);
     }
 }

@@ -29,7 +29,7 @@ public class AppDataManager implements DataManager {
 
     private final PreferencesHelper mPreferencesHelper;
     private final RestService mRestService;
-    private MemoryHelper mMemoryHelper;
+    private final MemoryHelper mMemoryHelper;
     private final OneSignalService mOneSignalService;
     private final FingerPrintHelper mfingerPrintHelper;
 
