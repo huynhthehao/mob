@@ -14,4 +14,8 @@ public interface AccountRepository {
 
     Single<ProfileResp> signIn(String phoneNumber, String password);
 
+    Single<ProfileResp> getProfile();
+
+    ProfileResp.ProfileRespData getCachedProfile();
+
 }

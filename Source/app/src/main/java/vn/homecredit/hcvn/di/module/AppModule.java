@@ -40,8 +40,6 @@ import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.OneSignalServiceImpl;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.service.ResourceServiceImpl;
-import vn.homecredit.hcvn.service.ProfileService;
-import vn.homecredit.hcvn.service.ProfileServiceImpl;
 import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.service.VersionServiceImpl;
 import vn.homecredit.hcvn.utils.AppConstants;
@@ -155,12 +153,6 @@ public class AppModule {
     @Singleton
     ResourceService provideResourceService(ResourceServiceImpl resourceService) {
         return resourceService;
-    }
-
-    @Provides
-    @Singleton
-    ProfileService provideProfileService(ProfileServiceImpl profileService) {
-        return profileService;
     }
 
     @Provides
