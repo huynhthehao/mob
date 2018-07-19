@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.data.local.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
@@ -108,6 +109,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public String getLanguageCode() {
         String langId = mPrefs.getString(PREF_KEY_LANGUAGE_CODE, "");
+
         if (langId != null && !langId.equals(""))
             return langId;
 
@@ -137,6 +139,11 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setFingerPrintSetting(boolean isEnable) {
         mPrefs.edit().putBoolean(PREF_KEY_FINGER_PRINT_SETTING, isEnable).commit();
+    }
+
+    @Override
+    public void updatePassword(String pass) {
+
     }
 
 }

@@ -15,26 +15,35 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 public interface PreferencesHelper {
 
     String getAccessToken();
+
     void setAccessToken(String accessToken);
 
     ProfileResp.ProfileRespData loadProfile();
+
     void saveProfile(ProfileResp.ProfileRespData profileRespData);
 
     VersionResp.VersionRespData getVersionRespData();
+
     void setVersionRespData(VersionResp.VersionRespData versionRespData);
 
     boolean getIsShowDashboard();
+
     void setIsShowDashboard(boolean value);
 
     void logout();
 
     void setLanguageCode(String languageId);
+
     String getLanguageCode();
 
     boolean getNotificationSetting();
+
     void setNotificationSetting(boolean isEnable);
 
     boolean getFingerPrintSetting();
+
     void setFingerPrintSetting(boolean isEnable);
+
+    void updatePassword(String pass);
 
 }

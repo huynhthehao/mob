@@ -38,6 +38,12 @@ public class AccountRepository {
                         .observeOn(AndroidSchedulers.mainThread()) ;
     }
 
+    public Single<OtpTimerResp> changePassword(String password, String newPassword) {
+        return restService.changePassword(password, newPassword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()) ;
+    }
+
     public Single<OtpTimerResp> verifyOtpSignUp(String phone, String contractsId, String otp) {
         return restService.verifySignupOTP(phone, contractsId, otp)
                 .subscribeOn(Schedulers.io())
@@ -49,7 +55,6 @@ public class AccountRepository {
         return restService.signUp(phone, contractsId, otp, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-
     }
 
     public Single<ProfileResp> signIn(String phoneNumber, String password) {
@@ -62,6 +67,10 @@ public class AccountRepository {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
+    }
+
+    public void updatePassword(String password) {
+        preferencesHelper.updatePassword(password);
     }
 
 

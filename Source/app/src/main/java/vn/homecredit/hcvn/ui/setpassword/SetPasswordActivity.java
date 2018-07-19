@@ -70,6 +70,7 @@ public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding
                 showMessage(getResources().getString(resIdMessage));
             }
         });
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
 
     }
     private void showDialogPasswordHelp(String phoneSupport) {

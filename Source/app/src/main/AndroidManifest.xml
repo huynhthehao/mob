@@ -76,6 +76,10 @@
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".ui.settings.changepass.ChangePassActivity"
+            android:windowSoftInputMode="adjustResize"
+            >
+        </activity>
     </application>
 
 </manifest>

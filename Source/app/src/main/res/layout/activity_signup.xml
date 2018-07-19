@@ -126,7 +126,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="30dp"
-            android:height="60dp"
             android:imeOptions="actionDone"
             android:onClick="@{() -> viewModel.onClickedSignUp()}"
             android:text="@string/action_next"
