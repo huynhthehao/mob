@@ -126,7 +126,7 @@
     <string name="residential_address">Địa chỉ</string>
     <string name="email">Email</string>
     <string name="phone_no">Điện thoại</string>
-    <string name="update_profile_detail_message">Nếu bạn muốn cập nhật thông tin vui lòng liên hệ dịch vụ khách hàng của chúng tôi</string>
+    <string name="update_profile_detail_message">*Nếu bạn muốn cập nhật thông tin vui lòng liên hệ dịch vụ khách hàng của chúng tôi</string>
     <string name="customer_service_phone" translatable="false">(028)38 999 666</string>
 
 </resources>

@@ -120,6 +120,6 @@
     <string name="residential_address">Residential address</string>
     <string name="email">Email</string>
     <string name="phone_no">Phone no.</string>
-    <string name="update_profile_detail_message">If you want to update your details please contact our Customer Service</string>
+    <string name="update_profile_detail_message">*If you want to update your details please contact our Customer Service</string>
 
 </resources>
