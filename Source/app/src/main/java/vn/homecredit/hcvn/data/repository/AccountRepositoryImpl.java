@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.data.account;
+package vn.homecredit.hcvn.data.repository;
 
 import javax.inject.Inject;
 
@@ -17,7 +17,7 @@ import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.service.ProfileService;
 
-public class AccountRepository {
+public class AccountRepositoryImpl implements AccountRepository{
 
     private final RestService restService;
     private final PreferencesHelper preferencesHelper;
@@ -25,7 +25,7 @@ public class AccountRepository {
     private final ApiHeader apiHeader;
 
     @Inject
-    public AccountRepository(RestService restService, PreferencesHelper preferencesHelper, ProfileService profileService, ApiHeader apiHeader) {
+    public AccountRepositoryImpl(RestService restService, PreferencesHelper preferencesHelper, ProfileService profileService, ApiHeader apiHeader) {
         this.restService = restService;
         this.preferencesHelper = preferencesHelper;
         this.profileService = profileService;
