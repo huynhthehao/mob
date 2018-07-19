@@ -53,7 +53,7 @@ public class ProfileViewModel extends BaseViewModel {
             super.updateDrawState(ds);
             ds.setColor(resourceService.getColorById(R.color.primary_red));
             ds.setUnderlineText(false);
-            ds.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
+            ds.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         }
     };
 
