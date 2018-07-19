@@ -57,14 +57,6 @@
                         app:text_value="Nguyen Van An" />
 
                     <vn.homecredit.hcvn.ui.custom.ProfileItemView
-                        android:id="@+id/layDateOfBirth"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:src="@drawable/ic_birthday"
-                        app:text_title="@string/date_of_birth"
-                        app:text_value="11/09/2014" />
-
-                    <vn.homecredit.hcvn.ui.custom.ProfileItemView
                         android:id="@+id/layGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -132,14 +124,6 @@
                             android:background="@color/grey_300" />
                     </LinearLayout>
 
-                    <vn.homecredit.hcvn.ui.custom.ProfileItemView
-                        android:id="@+id/layEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:src="@drawable/ic_email"
-                        app:text_title="@string/email"
-                        app:text_value="namenguyen@gmail.com" />
-
                     <LinearLayout
                         android:id="@+id/layPhoneNo"
                         android:layout_width="match_parent"
@@ -189,12 +173,17 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tvProfileUpdateMessage"
                         style="@style/AppTheme.TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_average"
+                        android:layout_marginLeft="@dimen/margin_average"
+                        android:layout_marginRight="@dimen/margin_average"
+                        android:layout_marginTop="@dimen/margin_high"
+                        android:layout_marginBottom="@dimen/margin_high"
                         android:gravity="center"
-                        android:text="@string/update_profile_detail_message"
+                        android:lineSpacingExtra="5dp"
+                        android:text="@{viewModel.profileUpdateMessage}"
                         android:textSize="@dimen/text_size_normal"
                         android:textStyle="italic" />
 
