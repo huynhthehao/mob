@@ -27,36 +27,31 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
         mAclDataManager = aclDataManager;
     }
 
-    public void hardCode()
-    {
+    public void hardCode() {
         getNavigator().openWelcomeActivity();
     }
 
-    public void onLoginClick()
-    {
+    public void onLoginClick() {
         this.getNavigator().openLoginActivity();
     }
-    public void onSignupClick()
-    {
+
+    public void onSignupClick() {
         this.getNavigator().openSignupActivity();
     }
 
-    public void onCashloanClick()
-    {
+    public void onCashloanClick() {
         //TODO: Fake Token
 //        mAclDataManager.setAclAccessToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJQaG9uZU51bWJlciI6IjA5ODk5OTk5OTkiLCJJZE51bWJlciI6IjEyMzEyMzEyMyIsIkRldmljZUlkIjoiY2M2YzQzYTEtYTQ5NC00ZTE1LWFkZjAtMDY3YjdiYTlkMDVjIiwiQXBwbGljYXRpb25Mb2FuSWQiOjQ0OSwiRXhwaXJlZERhdGUiOiIyMDE4LTA4LTEwVDE3OjM2OjA1LjA0NTg5NjgrMDc6MDAifQ.lnJbZ8rBBWrCnbKtGufDQfPXq2BUgof3tpMpxQO2PRQ");
 
         String aclAccessToken = mAclDataManager.getAclAccessToken();
         if (TextUtils.isEmpty(aclAccessToken)) {
             this.getNavigator().openIntroActivity();
-        }
-        else {
+        } else {
             this.getNavigator().openAclApplicationForm();
         }
     }
 
-    public void startIntro()
-    {
+    public void startIntro() {
         this.getNavigator().startIntro();
     }
 }

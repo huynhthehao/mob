@@ -11,6 +11,8 @@ import com.rx2androidnetworking.Rx2ANRequest;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import vn.homecredit.hcvn.data.model.api.HcApiException;
+import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 
 /*
     Wrapper Of Rx2AndroidNetworking Class
@@ -33,6 +35,7 @@ public class DefaultAndroidNetworking {
             builder.addHeaders(header);
 
         return builder.build().getObjectSingle(dataType)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -46,6 +49,7 @@ public class DefaultAndroidNetworking {
             builder.addBodyParameter(body);
 
         return builder.build().getObjectSingle(dataType)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

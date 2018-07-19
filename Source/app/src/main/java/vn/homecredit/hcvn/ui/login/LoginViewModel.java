@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import dagger.Module;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.service.ProfileService;
 import vn.homecredit.hcvn.service.ResourceService;
@@ -77,7 +78,9 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                     getNavigator().openHomeActivity();
                 }, throwable -> {
                     setIsLoading(false);
-                    showMessage(throwable.getMessage());
+                    if (throwable instanceof HcApiException) {
+                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
+                    }
                 }));
     }
 }

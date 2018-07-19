@@ -17,7 +17,6 @@ import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
-import vn.homecredit.hcvn.data.model.api.SignupResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
@@ -121,6 +120,16 @@ public class AppDataManager implements DataManager {
     @Override
     public void setFingerPrintSetting(boolean isEnable) {
         mPreferencesHelper.setFingerPrintSetting(isEnable);
+    }
+
+    @Override
+    public void setLanguageCode(String languageId) {
+        mPreferencesHelper.setLanguageCode(languageId);
+    }
+
+    @Override
+    public String getLanguageCode() {
+        return mPreferencesHelper.getLanguageCode();
     }
 
     @Override

@@ -56,7 +56,7 @@ public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding
 
         getViewModel().getModelSignIn().observe(this, aBoolean -> {
             if (aBoolean != null && aBoolean == true) {
-                HomeActivity.start(SetPasswordActivity.this, true );
+                HomeActivity.start(SetPasswordActivity.this, true, true );
             }
         });
 

@@ -14,9 +14,14 @@ import org.parceler.Parcel;
 @Parcel
 public class OtpTimerRespData
 {
+    @SerializedName("PrimaryPhone")
+    @Expose
+    private String primaryPhone;
+
     @SerializedName("Status")
     @Expose
     private Integer status;
+
     @SerializedName("RemainingTime")
     @Expose
     private Integer remainingTime;
@@ -68,6 +73,14 @@ public class OtpTimerRespData
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getPrimaryPhone() {
+        return primaryPhone;
+    }
+
+    public void setPrimaryPhone(String primaryPhone) {
+        this.primaryPhone = primaryPhone;
     }
 
     @Override
