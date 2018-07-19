@@ -10,6 +10,10 @@
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.profile.ProfileViewModel" />
+
+        <variable
+            name="profileModel"
+            type="vn.homecredit.hcvn.data.model.api.ProfileResp.ProfileRespData" />
     </data>
 
     <LinearLayout
@@ -53,24 +57,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:src="@drawable/ic_name"
-                        app:text_title="@string/full_name"
-                        app:text_value="Nguyen Van An" />
+                        app:textTitle="@string/full_name"
+                        app:textValue="@{profileModel.fullName}" />
 
                     <vn.homecredit.hcvn.ui.custom.ProfileItemView
                         android:id="@+id/layGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:src="@drawable/ic_gender"
-                        app:text_title="@string/gender"
-                        app:text_value="Male" />
+                        app:textTitle="@string/gender"
+                        app:textValue="@{profileModel.genderText}" />
 
                     <vn.homecredit.hcvn.ui.custom.ProfileItemView
                         android:id="@+id/layIDNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:src="@drawable/ic_id"
-                        app:text_title="@string/id_number"
-                        app:text_value="234235245346" />
+                        app:textTitle="@string/id_number"
+                        app:textValue="@{profileModel.idNumber}" />
 
                     <LinearLayout
                         android:id="@+id/layAddress"
@@ -113,7 +117,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/margin_smallest"
-                                    android:text="125/45 Nguyễn Văn Đậu, P. 11, Q. Bình Thạnh, TPHCM"
+                                    android:text="@{profileModel.address}"
                                     android:textSize="@dimen/text_size_normal" />
                             </LinearLayout>
                         </LinearLayout>
@@ -162,7 +166,7 @@
                                 style="@style/AppTheme.TextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="09891232546"
+                                android:text="@{profileModel.phoneNumber}"
                                 android:textSize="@dimen/text_size_normal" />
                         </LinearLayout>
 

@@ -12,24 +12,32 @@ import android.view.View;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class ProfileViewModel extends BaseViewModel {
+    private final AccountRepository accountRepository;
     private final ResourceService resourceService;
     private ObservableField<SpannableString> profileUpdateMessage = new ObservableField<>();
     private MutableLiveData<String> modelCustomerServiceCall = new MutableLiveData<>();
+    private MutableLiveData<ProfileResp.ProfileRespData> modelProfileData = new MutableLiveData<>();
     String customerServicePhone = "";
 
     @Inject
-    public ProfileViewModel(SchedulerProvider schedulerProvider, ResourceService resourceService) {
+    public ProfileViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider, ResourceService resourceService) {
         super(schedulerProvider);
+        this.accountRepository = accountRepository;
         this.resourceService = resourceService;
     }
 
     @Override
     public void init() {
+        // load cached profile data
+        modelProfileData.setValue(accountRepository.getCachedProfile());
+
         customerServicePhone = resourceService.getStringById(R.string.customer_service_phone);
         String profileMessage = resourceService.getStringById(R.string.update_profile_detail_message) + " " + customerServicePhone;
         final SpannableString spannableString = new SpannableString(profileMessage);
@@ -59,5 +67,9 @@ public class ProfileViewModel extends BaseViewModel {
 
     public MutableLiveData<String> getModelCustomerServiceCall() {
         return modelCustomerServiceCall;
+    }
+
+    public MutableLiveData<ProfileResp.ProfileRespData> getModelProfileData() {
+        return modelProfileData;
     }
 }
