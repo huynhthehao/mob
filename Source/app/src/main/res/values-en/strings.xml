@@ -95,7 +95,7 @@
     <string name="set_password">Set Your Password</string>
     <string name="signup_now">Sign up now</string>
     <string name="dialog_contact_help_title">Please enter your 10 digits contract number</string>
-    <string name="dialog_contact_help_content">Please call our Customer Suppor %s if you need any assistance </string>
+    <string name="dialog_contact_help_content">Please call our Customer Support %s if you need any assistance </string>
     <string name="dialog_password_help_title">"Passwords must be at least 8 characters long (including letters and numbers, uppercase and lowercase)
 
         Passwords have better security value when there are special characters (@ # $% ^ "...)

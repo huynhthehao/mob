@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 
 import javax.inject.Inject;
@@ -47,9 +48,12 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
             if (otpPassParam != null) {
                 Bundle currentBundle = new Bundle();
                 currentBundle.putInt(OtpViewModel.FLOW_TYPE_KEY, otpPassParam.getOtpFlow().getValue());
-                currentBundle.putString(OtpViewModel.PHONE_NUMBER_KEY, otpPassParam.getPhoneNumber());
+                if (!TextUtils.isEmpty(otpPassParam.getOtpTimerResp().getData().getPrimaryPhone())) {
+                    currentBundle.putString(OtpViewModel.PHONE_NUMBER_KEY, otpPassParam.getOtpTimerResp().getData().getPrimaryPhone());
+                }else {
+                    currentBundle.putString(OtpViewModel.PHONE_NUMBER_KEY, otpPassParam.getPhoneNumber());
+                }
                 currentBundle.putString(OtpViewModel.CONTRACT_ID_KEY, otpPassParam.getContractId());
-
                 currentBundle.putInt(OtpViewModel.OTP_LIVE_TIME_KEY, otpPassParam.getOtpTimerResp().getData().getOtpLiveTime());
                 currentBundle.putInt(OtpViewModel.OTP_TIME_REMAIN_KEY, otpPassParam.getOtpTimerResp().getData().getRemainingTime());
                 currentBundle.putInt(OtpViewModel.OTP_TIME_RESEND_KEY, otpPassParam.getOtpTimerResp().getData().getOtpTimeResend());
