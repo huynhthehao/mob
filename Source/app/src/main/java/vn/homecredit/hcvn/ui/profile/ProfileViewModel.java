@@ -11,17 +11,21 @@ import android.view.View;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class ProfileViewModel extends BaseViewModel {
     private final AccountRepository accountRepository;
     private final ResourceService resourceService;
     private ObservableField<SpannableString> profileUpdateMessage = new ObservableField<>();
+    private MutableLiveData<Boolean> refreshing = new MutableLiveData<>();
     private MutableLiveData<String> modelCustomerServiceCall = new MutableLiveData<>();
     private MutableLiveData<ProfileResp.ProfileRespData> modelProfileData = new MutableLiveData<>();
     String customerServicePhone = "";
@@ -44,6 +48,30 @@ public class ProfileViewModel extends BaseViewModel {
         spannableString.setSpan(clickableSpan, profileMessage.length() - customerServicePhone.length() - 1,
                 profileMessage.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         profileUpdateMessage.set(spannableString);
+
+        refreshing.setValue(true);
+        refreshProfileData();
+    }
+
+    private void refreshProfileData() {
+        accountRepository.getProfile()
+                .subscribe(profileResp -> {
+                    refreshing.setValue(false);
+                    if (profileResp == null) {
+                        return;
+                    }
+                    if (profileResp.getResponseCode() != 0) {
+                        showMessage(profileResp.getResponseMessage());
+                    } else {
+                        modelProfileData.setValue(accountRepository.getCachedProfile());
+                    }
+                }, throwable -> {
+                    refreshing.setValue(false);
+                    if (throwable instanceof HcApiException) {
+                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
+                    }
+
+                });
     }
 
     public ObservableField<SpannableString> getProfileUpdateMessage() {
@@ -71,5 +99,13 @@ public class ProfileViewModel extends BaseViewModel {
 
     public MutableLiveData<ProfileResp.ProfileRespData> getModelProfileData() {
         return modelProfileData;
+    }
+
+    public void onRefresh() {
+        refreshProfileData();
+    }
+
+    public MutableLiveData<Boolean> getRefreshing() {
+        return refreshing;
     }
 }

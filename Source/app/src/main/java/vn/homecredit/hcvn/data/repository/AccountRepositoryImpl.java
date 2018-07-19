@@ -15,7 +15,7 @@ import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.service.OneSignalService;
 
-public class AccountRepositoryImpl implements AccountRepository{
+public class AccountRepositoryImpl implements AccountRepository {
 
     private final RestService restService;
     private final PreferencesHelper preferencesHelper;
@@ -33,8 +33,8 @@ public class AccountRepositoryImpl implements AccountRepository{
     @Override
     public Single<OtpTimerResp> signupVerify(String username, String contractsId) {
         return restService.verified(username, contractsId)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread()) ;
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -58,30 +58,32 @@ public class AccountRepositoryImpl implements AccountRepository{
         return restService.getToken(phoneNumber, password)
                 .doOnSuccess(tokenResp -> {
                     preferencesHelper.setAccessToken(tokenResp.getAccessToken());
-                    apiHeader.getProtectedApiHeader().setAccessToken(tokenResp.getAccessToken());
                 })
                 .flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfile())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-
     }
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return restService.getProfile().doOnSuccess(response -> {
-            if (response.getResponseCode() == 0) {
-                // cache profile resp
-                preferencesHelper.saveProfile(response.getData());
+        apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
+        return restService.getProfile()
+                .doOnSuccess(response -> {
+                    if (response.getResponseCode() == 0) {
+                        // cache profile resp
+                        preferencesHelper.saveProfile(response.getData());
 
-                // push notification config
-                oneSignalService.SendTags("UserId", response.getData().getUserId());
-                oneSignalService.SendTags("UserName", response.getData().getFullName());
-                //TODO: Notifcation Setting
-//                mOneSignalService.SendTags("Active", Settings.Notification.ToString());
-                //TODO: Set Badge
-//                App.Current.SetBadge(resp.Data.NotificationCount);
-            }
-        });
+                        // push notification config
+                        oneSignalService.SendTags("UserId", response.getData().getUserId());
+                        oneSignalService.SendTags("UserName", response.getData().getFullName());
+                        //TODO: Notifcation Setting
+        //                mOneSignalService.SendTags("Active", Settings.Notification.ToString());
+                        //TODO: Set Badge
+        //                App.Current.SetBadge(resp.Data.NotificationCount);
+                    }
+                 })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
