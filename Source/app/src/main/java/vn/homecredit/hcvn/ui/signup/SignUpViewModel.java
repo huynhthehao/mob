@@ -71,9 +71,7 @@ public class SignUpViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             setIsLoading(false);
-                            if (throwable instanceof HcApiException) {
-                                showMessage(((HcApiException) throwable).getErrorResponseMessage());
-                            }
+                            handleError(throwable);
                         });
         getCompositeDisposable().add(disposableSignup);
     }

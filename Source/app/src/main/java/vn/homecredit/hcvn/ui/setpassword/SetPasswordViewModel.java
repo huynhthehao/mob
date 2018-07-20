@@ -99,11 +99,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                     }
                 }, throwable -> {
                     setIsLoading(false);
-                    Log.printStackTrace(throwable);
-                    if (throwable instanceof HcApiException) {
-                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
-                    }
-
+                    handleError(throwable);
                 });
         getCompositeDisposable().add(disposable);
     }
@@ -121,7 +117,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                     }
                 }, throwable -> {
                     setIsLoading(false);
-                    Log.printStackTrace(throwable);
+                    handleError(throwable);
                 });
 
         getCompositeDisposable().add(subscribe);

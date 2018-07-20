@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.custom.HcDialogFragment;
+import vn.homecredit.hcvn.ui.custom.HcDialogFragment;
 
 public class DialogAnnounceFingerprint extends HcDialogFragment {
 

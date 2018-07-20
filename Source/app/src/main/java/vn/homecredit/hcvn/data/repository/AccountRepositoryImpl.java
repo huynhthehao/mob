@@ -38,6 +38,13 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public Single<OtpTimerResp> changePassword(String password, String newPassword) {
+        return restService.changePassword(password, newPassword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()) ;
+    }
+
+    @Override
     public Single<OtpTimerResp> verifyOtpSignUp(String phone, String contractsId, String otp) {
         return restService.verifySignupOTP(phone, contractsId, otp)
                 .subscribeOn(Schedulers.io())
@@ -93,6 +100,11 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public ProfileResp.ProfileRespData getCachedProfile() {
         return preferencesHelper.loadProfile();
+    }
+
+    @Override
+    public void updatePassword(String password) {
+        preferencesHelper.updatePassword(password);
     }
 
 

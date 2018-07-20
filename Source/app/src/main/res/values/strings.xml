@@ -116,6 +116,14 @@
     <string name="error_password">Vui lòng nhập mật khẩu</string>
     <string name="error_password_confirm">Vui lòng nhập xác nhận mật khẩu</string>
     <string name="error_password_unmatch">Các mật khẩu đã nhập không trùng khớp, vui lòng thử lại</string>
+    <string name="error_changepass_current_pass">Vui lòng nhập mật khẩu hiện tại</string>
+    <string name="error_changepass_new_pass">Vui lòng nhập mật khẩu mới</string>
+    <string name="error_changepass_new_confirm_pass">Vui lòng nhập lại mật khẩu mới</string>
+    <string name="changepass_current_pass">Nhập mật khẩu hiện tại</string>
+    <string name="changepass_new_pass">Nhập mật khẩu mới</string>
+    <string name="changepass_new_confirm_pass">Nhập lại mật khẩu mới</string>
+    <string name="thankyou">Cảm ơn</string>
+    <string name="changepass_success">Mật khẩu của bạn đã được lưu thành công</string>
 
     <!--Profile Screen-->
     <string name="profile">Hồ sơ của tôi</string>
