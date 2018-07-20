@@ -18,4 +18,8 @@ public interface AccountRepository {
 
     ProfileResp.ProfileRespData getCachedProfile();
 
+    Single<OtpTimerResp> changePassword(String password, String newPassword) ;
+
+    void updatePassword(String password) ;
+
 }
