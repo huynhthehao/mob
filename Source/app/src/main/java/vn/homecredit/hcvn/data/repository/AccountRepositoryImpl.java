@@ -59,13 +59,19 @@ public class AccountRepositoryImpl implements AccountRepository {
                 .doOnSuccess(tokenResp -> {
                     preferencesHelper.setAccessToken(tokenResp.getAccessToken());
                 })
-                .flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfile())
+                .flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Single<ProfileResp> getProfile() {
+        return getProfileWithoutSubscribeOn()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private Single<ProfileResp> getProfileWithoutSubscribeOn() {
         apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
         return restService.getProfile()
                 .doOnSuccess(response -> {
@@ -77,13 +83,11 @@ public class AccountRepositoryImpl implements AccountRepository {
                         oneSignalService.SendTags("UserId", response.getData().getUserId());
                         oneSignalService.SendTags("UserName", response.getData().getFullName());
                         //TODO: Notifcation Setting
-        //                mOneSignalService.SendTags("Active", Settings.Notification.ToString());
+                        //                mOneSignalService.SendTags("Active", Settings.Notification.ToString());
                         //TODO: Set Badge
-        //                App.Current.SetBadge(resp.Data.NotificationCount);
+                        //                App.Current.SetBadge(resp.Data.NotificationCount);
                     }
-                 })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                });
     }
 
     @Override
