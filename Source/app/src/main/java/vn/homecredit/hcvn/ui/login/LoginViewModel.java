@@ -12,38 +12,30 @@ import android.databinding.ObservableField;
 import javax.inject.Inject;
 
 import dagger.Module;
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
-import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.service.ProfileService;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
-import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
-    private final RestService restService;
-    private final PreferencesHelper preferencesHelper;
-    private final ProfileService profileService;
-    private final ResourceService resourceService;
-    private final FingerPrintHelper fingerPrintHelper;
+
     public ObservableField<String> username = new ObservableField();
     public ObservableField<String> password = new ObservableField();
-    public ObservableBoolean showFingerPrint = new ObservableBoolean();
+    private final ResourceService resourceService;
 
     @Inject
-    public LoginViewModel(RestService restService, PreferencesHelper preferencesHelper,
-                          SchedulerProvider schedulerProvider, ProfileService profileService,
-                          ResourceService resourceService, FingerPrintHelper fingerPrintHelper) {
+    public LoginViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider, ProfileService profileService, ResourceService resourceService) {
         super(schedulerProvider);
-        this.restService = restService;
-        this.preferencesHelper = preferencesHelper;
-        this.profileService = profileService;
+        this.accountRepository = accountRepository;
         this.resourceService = resourceService;
         this.fingerPrintHelper = fingerPrintHelper;
 
@@ -97,5 +89,25 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                         showMessage(((HcApiException) throwable).getErrorResponseMessage());
                     }
                 }));
+    }
+
+    public void login2(String phoneNumber, String password) {
+        setIsLoading(true);
+        Disposable subscribe = accountRepository.signIn(phoneNumber, password)
+                .subscribe(profileResp -> {
+                    setIsLoading(false);
+                    if (profileResp == null) return;
+                    if (profileResp.getResponseCode() != 0) {
+                        showMessage(profileResp.getResponseMessage());
+                    } else {
+                        getNavigator().openHomeActivity();
+                    }
+                }, throwable -> {
+                    setIsLoading(false);
+                    if (throwable instanceof HcApiException) {
+                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
+                    }
+                });
+        getCompositeDisposable().add(subscribe);
     }
 }

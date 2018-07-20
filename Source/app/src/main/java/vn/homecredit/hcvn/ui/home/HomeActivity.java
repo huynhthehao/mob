@@ -32,21 +32,27 @@ import vn.homecredit.hcvn.utils.AppUtils;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked {
     public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
+    public static final String BUNDLE_SHOW_FINGERPRINT = "BUNDLE_SHOW_FINGERPRINT";
 
     @Inject
     HomeViewModel mHomeViewModel;
     @Inject
     PreferencesHelper preferencesHelper;
 
-    public static void start(Context context, boolean showDashboard) {
+    public static void start(Context context, boolean showDashboard ) {
+        start(context, showDashboard, false);
+    }
+    public static void start(Context context) {
+        start(context, false, false);
+    }
+    public static void start(Context context, boolean showDashboard, boolean isShowDialogFingersprint) {
         Intent intent =  new Intent(context, HomeActivity.class);
-        intent.putExtra("BUNDLE_SHOW_DASHBOARD", showDashboard);
+        intent.putExtra(BUNDLE_SHOW_DASHBOARD , showDashboard);
+        intent.putExtra(BUNDLE_SHOW_FINGERPRINT, isShowDialogFingersprint);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
-    public static void start(Context context) {
-        start(context, false);
-    }
+
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeActivity.class);
     }
@@ -74,7 +80,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         super.onCreate(savedInstanceState);
         setSupportActionBar(getViewDataBinding().toolbar);
         getViewModel().setNavigator(this);
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -109,8 +114,9 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         if (getIntent().getBooleanExtra(BUNDLE_SHOW_DASHBOARD, false) ||
                 preferencesHelper.getIsShowDashboard()) {
             showDashboard(getString(R.string.hello), mHomeViewModel.getUserName());
+        }
+        if (getIntent().getBooleanExtra(BUNDLE_SHOW_FINGERPRINT, false) ) {
             DialogAnnounceFingerprint.showDialog(getSupportFragmentManager());
-
         }
     }
 

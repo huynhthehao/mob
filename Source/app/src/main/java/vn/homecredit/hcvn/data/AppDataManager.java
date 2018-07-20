@@ -123,6 +123,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void setLanguageCode(String languageId) {
+        mPreferencesHelper.setLanguageCode(languageId);
+    }
+
+    @Override
+    public String getLanguageCode() {
+        return mPreferencesHelper.getLanguageCode();
+    }
+
+    @Override
     public ProfileResp.ProfileRespData getProfileRespData() {
         return mMemoryHelper.getProfileRespData();
     }

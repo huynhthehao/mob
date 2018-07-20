@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.helpers.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
@@ -29,6 +30,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_SHOW_DASHBOARD = "PREF_KEY_SHOW_DASHBOARD";
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
     private static final String PREF_KEY_FINGER_PRINT_SETTING = "PREF_KEY_FINGER_PRINT_SETTING";
+    private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
 
     private final SharedPreferences mPrefs;
 
@@ -96,11 +98,22 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void logout() {
         mPrefs.edit().putBoolean(PREF_KEY_SHOW_DASHBOARD, true).commit();
         mPrefs.edit().putString(PREF_KEY_PROFILE, null).commit();
+        mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, null).commit();
     }
 
     @Override
-    public String langId() {
-        String langId = Locale.getDefault().getLanguage();
+    public void setLanguageCode(String languageId) {
+        mPrefs.edit().putString(PREF_KEY_LANGUAGE_CODE, languageId).commit();
+    }
+
+    @Override
+    public String getLanguageCode() {
+        String langId = mPrefs.getString(PREF_KEY_LANGUAGE_CODE, "");
+
+        if (langId != null && !langId.equals(""))
+            return langId;
+
+        langId = Locale.getDefault().getLanguage();
         if (!langId.equals("vi") && !langId.equals("en")) {
             langId = "vi";
         }
@@ -126,6 +139,11 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void setFingerPrintSetting(boolean isEnable) {
         mPrefs.edit().putBoolean(PREF_KEY_FINGER_PRINT_SETTING, isEnable).commit();
+    }
+
+    @Override
+    public void updatePassword(String pass) {
+
     }
 
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:fitsSystemWindows="true"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/margin_highest"
+            android:layout_margin="@dimen/margin_highest"
+            android:src="@drawable/ic_smile"
+            />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/padding_small"
+            android:text="@string/thankyou"
+            app:layout_constraintTop_toBottomOf="@id/ivLogo"
+            style="@style/AppTheme.SectionLabel"
+            />
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_small"
+            android:layout_marginLeft="@dimen/margin_high"
+            android:layout_marginRight="@dimen/margin_high"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            android:gravity="center"
+            android:text="@string/changepass_success"
+            style="@style/AppTheme.DescriptionLabel"
+            />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="30dp"
+            android:imeOptions="actionDone"
+            android:text="@string/action_next"
+            style="@style/PrimaryButton"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</RelativeLayout>

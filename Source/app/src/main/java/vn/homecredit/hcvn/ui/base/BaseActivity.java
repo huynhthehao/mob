@@ -166,6 +166,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         });
 
         bindModelMessageDialog();
+        bindModelResourceMessageDialog();
         bindModelConfirmDialog();
     }
 
@@ -220,6 +221,13 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         });
     }
 
+    private void bindModelResourceMessageDialog() {
+        getViewModel().getMessageResourceData().observe(this, o -> {
+            if ( o instanceof Integer) {
+                showMessage(getString((Integer) o));
+            }
+        });
+    }
     private void bindModelConfirmDialog() {
         getViewModel().getConfirmMessageData().observe(this, o -> {
             if (o != null && o instanceof BaseMessage) {

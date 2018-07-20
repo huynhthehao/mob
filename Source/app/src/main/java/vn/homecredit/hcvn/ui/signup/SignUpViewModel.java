@@ -7,10 +7,10 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.account.AccountRepository;
 import vn.homecredit.hcvn.data.model.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
@@ -71,9 +71,7 @@ public class SignUpViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             setIsLoading(false);
-                            if (throwable instanceof HcApiException) {
-                                showMessage(((HcApiException) throwable).getErrorResponseMessage());
-                            }
+                            handleError(throwable);
                         });
         getCompositeDisposable().add(disposableSignup);
     }

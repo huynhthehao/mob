@@ -45,7 +45,8 @@ public class RestServiceImpl implements RestService {
     private DeviceInfo mDeviceInfo;
     private VersionService mVersionService;
     private final OneSignalService mOneSignalService;
-    @Inject PreferencesHelper preferencesHelper;
+    @Inject
+    PreferencesHelper preferencesHelper;
 
     @Inject
     public RestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo, VersionService versionService, OneSignalService oneSignalService) {
@@ -62,8 +63,7 @@ public class RestServiceImpl implements RestService {
     }
 
     public Single<VersionResp> checkUpdate() {
-        if (TextUtils.isEmpty(mDeviceInfo.getPlayerId()))
-        {
+        if (TextUtils.isEmpty(mDeviceInfo.getPlayerId())) {
             mOneSignalService.tryGetPlayerId();
         }
 
@@ -119,10 +119,7 @@ public class RestServiceImpl implements RestService {
     @Override
     public Single<OtpTimerResp> verified(String username, String contractsId) {
         String url = ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify?v=2";
-        url += "&langid=" + preferencesHelper.langId();
-//        if (BuildConfig.DEBUG) {
-//            url += "&isMock=true";
-//        }
+        url += "&lang=" + preferencesHelper.getLanguageCode();
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("PhoneNumber", username);
         requestBody.put("ContractNumber", contractsId);
@@ -135,14 +132,28 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
+    public Single<OtpTimerResp> changePassword(String oldPassword, String newPassword) {
+        String url = ApiEndPoint.ENDPOINT_APP + "/customer/changepassword";
+        url += "?lang=" + preferencesHelper.getLanguageCode();
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("oldPassword", oldPassword);
+        requestBody.put("password", newPassword);
+        return Rx2AndroidNetworking.post(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class);
+    }
+
+    @Override
     public Single<ProfileResp> signUp(String phone, String contractsId, String otp, String password) {
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("phoneNumber", phone);
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);
         requestBody.put("password", password);
-        String langId = preferencesHelper.langId();
-        String url = String.format("%s/customer/signup?lang=%s",ApiEndPoint.ENDPOINT_APP, langId);
+        String langId = preferencesHelper.getLanguageCode();
+        String url = String.format("%s/customer/signup?lang=%s", ApiEndPoint.ENDPOINT_APP, langId);
         return Rx2AndroidNetworking.post(url)
                 .addBodyParameter(requestBody)
                 .build()
@@ -155,8 +166,8 @@ public class RestServiceImpl implements RestService {
         requestBody.put("phoneNumber", phone);
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);
-        String langId = preferencesHelper.langId();
-        String url = String.format("%s/customer/signup/verify/otp?lang=%s",ApiEndPoint.ENDPOINT_APP, langId);
+        String langId = preferencesHelper.getLanguageCode();
+        String url = String.format("%s/customer/signup/verify/otp?lang=%s", ApiEndPoint.ENDPOINT_APP, langId);
         return Rx2AndroidNetworking.post(url)
                 .addBodyParameter(requestBody)
                 .build()

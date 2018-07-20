@@ -47,4 +47,7 @@ public interface DataManager  {
 
     boolean getFingerPrintSetting();
     void setFingerPrintSetting(boolean isEnable);
+
+    void setLanguageCode(String languageId);
+    String getLanguageCode();
 }

@@ -52,7 +52,7 @@ public class ApiHeader {
         private String mAuthorization;
 
         public ProtectedApiHeader(String accessToken) {
-            mAccessToken = accessToken;
+            setAccessToken(accessToken);
         }
 
         public String getAccessToken() {
@@ -87,7 +87,7 @@ public class ApiHeader {
 
         @Inject
         public AclApiHeader(String accessToken) {
-            mAccessToken = accessToken;
+            setAccessToken(accessToken);
         }
 
         public String getAccessToken() {

@@ -2,14 +2,12 @@ package vn.homecredit.hcvn.ui.signup;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.view.View;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.custom.HcDialogFragment;
+import vn.homecredit.hcvn.ui.custom.HcDialogFragment;
 
 public class DialogContractsHelp extends HcDialogFragment {
 

@@ -2,24 +2,22 @@ package vn.homecredit.hcvn.ui.home;
 
 import javax.inject.Inject;
 
-import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.service.ProfileService;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class HomeViewModel extends BaseViewModel {
-
-    private final ProfileService mProfileService;
+    private final AccountRepository accountRepository;
     private String mUserName;
 
     @Inject
-    public HomeViewModel(SchedulerProvider schedulerProvider, ProfileService profileService) {
+    public HomeViewModel(SchedulerProvider schedulerProvider, AccountRepository accountRepository) {
         super(schedulerProvider);
-        mProfileService = profileService;
-        if (mProfileService != null
-                && mProfileService.getProfile() != null
-                && mProfileService.getProfile().getFullName() != null) {
-            mUserName = mProfileService.getProfile().getFullName();
+        this.accountRepository = accountRepository;
+        if (accountRepository != null
+                && accountRepository.getCachedProfile() != null
+                && accountRepository.getCachedProfile().getFullName() != null) {
+            mUserName = accountRepository.getCachedProfile().getFullName();
         }else {
             mUserName = "";
         }

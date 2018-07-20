@@ -110,6 +110,25 @@
     <string name="error_password">Please enter your password</string>
     <string name="error_password_confirm">Please enter your Confirm password</string>
     <string name="error_password_unmatch">The passwords entered do not match, please retry</string>
+    <string name="error_changepass_current_pass">Please enter your current password</string>
+    <string name="error_changepass_new_pass">Please enter new password</string>
+    <string name="error_changepass_new_confirm_pass">Please enter confirm new password</string>
+    <string name="changepass_current_pass">Enter your current password</string>
+    <string name="changepass_new_pass">Enter new password</string>
+    <string name="changepass_new_confirm_pass">Enter confirm new password</string>
+    <string name="thankyou">Thank You</string>
+    <string name="changepass_success">Your password has been successfully saved</string>
+
+    <!--Profile Screen-->
+    <string name="profile">Profile</string>
+    <string name="full_name">Full name</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="gender">Gender</string>
+    <string name="id_number">ID number</string>
+    <string name="residential_address">Residential address</string>
+    <string name="email">Email</string>
+    <string name="phone_no">Phone no.</string>
+    <string name="update_profile_detail_message">*If you want to update your details please contact our Customer Service</string>
     <string name="fingerprint_system_not_available">Your phone is not currently using fingerprint to unlock</string>
     <string name="fingerprint_firstime">To log in faster next time, please go to settings and enable the \"</string>
     <string name="fingerprint_firstime_after_sigup">Your account has been successfully created. To log in faster next time, please go to settings and enable the \"</string>

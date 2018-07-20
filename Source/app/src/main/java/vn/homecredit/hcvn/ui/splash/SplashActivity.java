@@ -24,6 +24,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.ui.custom.MyStatefulLayout;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseStatefulActivity;
+import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 
@@ -66,7 +67,8 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
 
     @Override
     public void openHomeActivity() {
-
+        HomeActivity.start(this);
+        finish();
     }
 
     @Override
@@ -79,7 +81,6 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
         super.init();
         AppCenter.start(getApplication(), BuildConfig.APPCENTER_SECRET,
                 Analytics.class, Crashes.class);
-
         if (!isTaskRoot()
                 && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
                 && getIntent().getAction() != null

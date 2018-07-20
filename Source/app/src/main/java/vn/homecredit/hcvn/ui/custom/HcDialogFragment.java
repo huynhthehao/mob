@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.custom;
+package vn.homecredit.hcvn.ui.custom;
 
 
 import android.app.Dialog;

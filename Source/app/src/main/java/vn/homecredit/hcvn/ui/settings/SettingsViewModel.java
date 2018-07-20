@@ -36,7 +36,7 @@ public class SettingsViewModel extends BaseViewModel {
     @Override
     public void init() {
         appVersion.set(BuildConfig.VERSION_NAME);
-        languageValue.set(LanguageValue.VIETNAMESE.getDisplayNameResId());
+        languageValue.set(LanguageValue.getDisplayNameResIdFromCode(dataManager.getLanguageCode()));
         checkToShowOrHideFingerPrintLayout();
         modelBack.setValue(false);
         fingerPrintChecked.set(dataManager.getFingerPrintSetting());
@@ -64,13 +64,17 @@ public class SettingsViewModel extends BaseViewModel {
     }
 
     public void onChangeLanguageClicked() {
+        String languageCode = "";
         if (languageValue.get() == LanguageValue.VIETNAMESE.getDisplayNameResId()) {
             languageValue.set(LanguageValue.ENGLISH.getDisplayNameResId());
-            modelLanguage.setValue(LanguageValue.ENGLISH.getCode());
+            languageCode = LanguageValue.ENGLISH.getCode();
+            modelLanguage.setValue(languageCode);
         } else {
             languageValue.set(LanguageValue.VIETNAMESE.getDisplayNameResId());
-            modelLanguage.setValue(LanguageValue.VIETNAMESE.getCode());
+            languageCode = LanguageValue.VIETNAMESE.getCode();
+            modelLanguage.setValue(languageCode);
         }
+        dataManager.setLanguageCode(languageCode);
     }
 
     public void onNotificationCheckedChanged(boolean isEnable) {
