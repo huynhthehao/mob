@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/padding_small"
-        android:src="@drawable/touch_id"
+        android:src="@drawable/ic_finger_print_red"
         style="@style/AppTheme.Title"
         />
 

@@ -71,11 +71,12 @@
 
                     <ImageView
                         android:layout_width="66dp"
-                        android:layout_height="73dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="60dp"
                         android:layout_marginBottom="30dp"
-                        android:src="@drawable/log_in" />
+                        android:src="@drawable/ic_log_in_grey" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -152,8 +153,9 @@
 
                         <ImageView
                             android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/touch_id" />
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_finger_print_red" />
 
                         <TextView
                             android:layout_width="wrap_content"
