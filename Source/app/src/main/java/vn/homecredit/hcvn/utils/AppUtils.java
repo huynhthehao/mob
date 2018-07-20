@@ -67,4 +67,13 @@ public final class AppUtils {
         }
     }
 
+    public static void openDeviceCallDialog(Context context, String phoneNumber){
+        try {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:" + phoneNumber));
+            context.startActivity(callIntent);
+        } catch (ActivityNotFoundException activityException) {
+        }
+    }
+
 }

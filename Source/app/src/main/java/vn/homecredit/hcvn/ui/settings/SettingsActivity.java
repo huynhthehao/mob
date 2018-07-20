@@ -56,5 +56,7 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, Sett
                 //TODO change language with this language code
             }
         });
+
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v->finish());
     }
 }

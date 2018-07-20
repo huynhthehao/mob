@@ -9,7 +9,6 @@ package vn.homecredit.hcvn.ui.otp;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.support.design.widget.TextInputEditText;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
@@ -23,15 +22,14 @@ import javax.inject.Inject;
 
 import dagger.Module;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.account.AccountRepository;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.model.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
