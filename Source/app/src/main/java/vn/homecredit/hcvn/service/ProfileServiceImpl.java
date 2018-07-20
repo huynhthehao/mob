@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 
 @Singleton

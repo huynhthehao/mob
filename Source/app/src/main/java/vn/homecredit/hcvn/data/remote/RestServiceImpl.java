@@ -23,8 +23,8 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
-import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
-import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
@@ -162,6 +162,4 @@ public class RestServiceImpl implements RestService {
                 .build()
                 .getObjectSingle(OtpTimerResp.class);
     }
-
-
 }

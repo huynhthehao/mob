@@ -6,10 +6,8 @@
 
 package vn.homecredit.hcvn.ui.otp;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.support.design.widget.TextInputEditText;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
@@ -23,9 +21,7 @@ import javax.inject.Inject;
 
 import dagger.Module;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.account.AccountRepository;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.model.OtpFlow;
@@ -42,15 +38,6 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class OtpViewModel extends BaseViewModel<OtpNavigator> {
-
-    public static final String PHONE_NUMBER_KEY = "PhoneNumber";
-    public static final String CONTRACT_ID_KEY = "ContractId";
-    public static final String FLOW_TYPE_KEY = "FlowType";
-
-    public static final String OTP_LIVE_TIME_KEY = "OtpLiveTime";
-    public static final String OTP_TIME_RESEND_KEY = "OtpTimeResend";
-    public static final String OTP_TIME_REMAIN_KEY = "OtpRemainingTime";
-    public static final String OTP_SOURCE_KEY = "OtpSource";
 
     private String phoneNumber;
     private String contractId;
@@ -70,13 +57,11 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     public ObservableBoolean resendVisibile = new ObservableBoolean(false);
     public ObservableBoolean agreementTermVisibile = new ObservableBoolean(false);
-    private ObservableField<String> filedOtp = new ObservableField<>("");
-    private MutableLiveData<OtpPassParam> modelOtpParamSignUp = new MutableLiveData<>();
+    public ObservableField<String> otp = new ObservableField("");
 
 
     @Inject
-    public OtpViewModel(DataManager dataManager,
-                        SchedulerProvider schedulerProvider,
+    public OtpViewModel(SchedulerProvider schedulerProvider,
                         ResourceService resourceService,
                         DeviceInfo deviceInfo,
                         AccountRepository accountRepository,
@@ -89,13 +74,6 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         this.aclDataManager = aclDataManager;
     }
 
-    public MutableLiveData<OtpPassParam> getModelOtpParamSignUp() {
-        return modelOtpParamSignUp;
-    }
-
-    public ObservableField<String> getFiledOtp() {
-        return filedOtp;
-    }
 
     public void initData(String phoneNumber, String contractId, OtpFlow otpFlow, OtpTimerRespData otpTimerInfo) {
         this.phoneNumber = phoneNumber;
@@ -165,7 +143,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     }
 
     private void verifyOtpSignUp() {
-        String inputOtp = filedOtp.get();
+        String inputOtp = otp.get();
         if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
             String warningMessage = resourceService.getStringById(R.string.otp_empty);
             getNavigator().showMessage(warningMessage);
@@ -181,7 +159,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        modelOtpParamSignUp.setValue(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SignUp, inputOtp ));
+                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SignUp, inputOtp ));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
@@ -213,7 +191,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     }
 
     private void verifyOtpForCLW() {
-        String inputOtp = filedOtp.get();
+        String inputOtp = otp.get();
         if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
             String warningMessage = resourceService.getStringById(R.string.otp_empty);
             getNavigator().showMessage(warningMessage);
@@ -229,7 +207,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         stopTimer();
                         aclDataManager.setAclAccessToken(response.getAccessToken());
-                        getNavigator().next();
+                        getNavigator().next(null);
                     } else {
                         getNavigator().showMessage(response.getResponseMessage());
                     }

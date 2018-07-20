@@ -15,8 +15,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
-import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
-import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;

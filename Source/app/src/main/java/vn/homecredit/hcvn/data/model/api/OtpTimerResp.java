@@ -19,9 +19,11 @@ public class OtpTimerResp {
     @SerializedName("data")
     @Expose
     private OtpTimerRespData data;
+
     @SerializedName("response_code")
     @Expose
     private Integer responseCode;
+
     @SerializedName("response_message")
     @Expose
     private String responseMessage;
@@ -38,17 +40,10 @@ public class OtpTimerResp {
         return responseCode;
     }
 
-    public void setResponseCode(Integer responseCode) {
-        this.responseCode = responseCode;
-    }
-
     public String getResponseMessage() {
         return responseMessage;
     }
 
-    public void setResponseMessage(String responseMessage) {
-        this.responseMessage = responseMessage;
-    }
 
     public boolean isVerified() {
         return responseCode == RESPONSE_CODE_SUCCESS

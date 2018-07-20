@@ -1,13 +1,10 @@
 /*
- * MemoryHelperImpl.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/14/18 1:39 PM
+ * Last modified 7/6/18 4:57 PM, by Hien.NguyenM
  */
 
-package vn.homecredit.hcvn.data.local.memory;
+package vn.homecredit.hcvn.helpers.memory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

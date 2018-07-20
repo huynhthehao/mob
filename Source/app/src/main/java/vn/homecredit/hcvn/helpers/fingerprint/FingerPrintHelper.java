@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.data.local.fingerprint;
+package vn.homecredit.hcvn.helpers.fingerprint;
 
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 

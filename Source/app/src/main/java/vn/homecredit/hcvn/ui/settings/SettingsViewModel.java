@@ -2,23 +2,15 @@ package vn.homecredit.hcvn.ui.settings;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
-import android.view.View;
 
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelper;
-import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.data.model.api.ProfileResp;
-import vn.homecredit.hcvn.di.PreferenceInfo;
-import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
-import vn.homecredit.hcvn.utils.AppUtils;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.LanguageValue;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SettingsViewModel extends BaseViewModel {

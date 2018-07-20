@@ -110,5 +110,12 @@
     <string name="error_password">Please enter your password</string>
     <string name="error_password_confirm">Please enter your Confirm password</string>
     <string name="error_password_unmatch">The passwords entered do not match, please retry</string>
-
+    <string name="fingerprint_system_not_available">Your phone is not currently using fingerprint to unlock</string>
+    <string name="fingerprint_firstime">To log in faster next time, please go to settings and enable the \"</string>
+    <string name="fingerprint_firstime_after_sigup">Your account has been successfully created. To log in faster next time, please go to settings and enable the \"</string>
+    <string name="fingerprint_firstime_end">\" feature</string>
+    <string name="fingerprint_enable_warning">Any fingerprint setup with this device can log in to HomeCredit app. Do you want to continue?</string>
+    <string name="fingerprint_enable_warning_label">Note:  All fingerprints registered on the device can be used to sign into Home Credit\'s mobile app</string>
+    <string name="fingerprint_login_info_not_found">Cannot log in with current phone number</string>
+    <string name="fingerprint_not_enable">You have not enabled this feature, please log in and go to the settings to enable it</string>
 </resources>

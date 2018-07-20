@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.data.local.fingerprint;
+package vn.homecredit.hcvn.helpers.fingerprint;
 
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
@@ -6,7 +6,6 @@ import android.os.Build;
 
 import javax.inject.Inject;
 
-import vn.homecredit.hcvn.di.PreferenceInfo;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 
 public class FingerPrintHelperImpl implements FingerPrintHelper {

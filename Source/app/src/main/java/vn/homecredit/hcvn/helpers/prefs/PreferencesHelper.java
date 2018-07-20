@@ -7,7 +7,7 @@
  * Last modified 6/12/18 4:49 PM
  */
 
-package vn.homecredit.hcvn.data.local.prefs;
+package vn.homecredit.hcvn.helpers.prefs;
 
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;

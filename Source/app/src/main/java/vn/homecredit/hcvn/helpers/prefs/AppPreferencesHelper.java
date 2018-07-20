@@ -7,7 +7,7 @@
  * Last modified 6/12/18 4:50 PM
  */
 
-package vn.homecredit.hcvn.data.local.prefs;
+package vn.homecredit.hcvn.helpers.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;

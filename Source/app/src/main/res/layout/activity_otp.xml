@@ -85,7 +85,7 @@
                         android:theme="@style/AppTheme.TextLabel">
 
                         <android.support.design.widget.TextInputEditText
-                            android:text="@={viewModel.filedOtp}"
+                            android:text="@={viewModel.otp}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/sms_ico"

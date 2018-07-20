@@ -13,11 +13,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
-import vn.homecredit.hcvn.data.local.fingerprint.FingerPrintHelper;
-import vn.homecredit.hcvn.data.local.memory.MemoryHelper;
-import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
+import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
-import vn.homecredit.hcvn.data.model.api.SignupResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
