@@ -34,28 +34,23 @@
             app:title="@string/profile">
 
         </android.support.v7.widget.Toolbar>
-        <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:onRefreshListener="@{() -> viewModel.onRefresh()}">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/margin_normal"
                     android:layout_marginRight="@dimen/margin_normal"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                     <vn.homecredit.hcvn.ui.custom.ProfileItemView
@@ -150,12 +145,12 @@
                                 android:layout_width="@dimen/profile_icon_size"
                                 android:layout_height="wrap_content">
 
-                            <ImageView
-                                android:layout_width="11dp"
-                                android:layout_height="wrap_content"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_phone_profile"
-                                android:layout_gravity="center"/>
+                                <ImageView
+                                    android:layout_width="11dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/ic_phone_profile" />
                             </FrameLayout>
 
                             <TextView
@@ -187,10 +182,10 @@
                         style="@style/AppTheme.TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_high"
                         android:layout_marginLeft="@dimen/margin_average"
                         android:layout_marginRight="@dimen/margin_average"
                         android:layout_marginTop="@dimen/margin_high"
-                        android:layout_marginBottom="@dimen/margin_high"
                         android:gravity="center"
                         android:lineSpacingExtra="5dp"
                         android:text="@{viewModel.profileUpdateMessage}"
@@ -199,8 +194,7 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
-        </ScrollView>
+            </ScrollView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
