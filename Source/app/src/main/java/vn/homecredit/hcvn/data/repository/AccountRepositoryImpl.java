@@ -65,6 +65,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         return restService.getToken(phoneNumber, password)
                 .doOnSuccess(tokenResp -> {
                     preferencesHelper.setAccessToken(tokenResp.getAccessToken());
+                    apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
                 })
                 .flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
                 .subscribeOn(Schedulers.io())
@@ -79,7 +80,6 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     private Single<ProfileResp> getProfileWithoutSubscribeOn() {
-        apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
         return restService.getProfile()
                 .doOnSuccess(response -> {
                     if (response.getResponseCode() == 0) {
