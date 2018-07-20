@@ -42,6 +42,7 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     public static final String PHONE_NUMBER_KEY = "PhoneNumber";
+    public static final String PRIMARY_PHONE_KEY = "PrimaryPhone";
     public static final String CONTRACT_ID_KEY = "ContractId";
     public static final String FLOW_TYPE_KEY = "FlowType";
 
@@ -51,6 +52,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     public static final String OTP_SOURCE_KEY = "OtpSource";
 
     private String phoneNumber;
+    private String phonePrimary;
     private String contractId;
     private OtpTimerRespData otpTimerInfo;
     private OtpFlow otpFlow = OtpFlow.CashLoanWalkin;
@@ -95,6 +97,15 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         return filedOtp;
     }
 
+    public void initData(OtpPassParam otpPassParam) {
+        if (otpPassParam != null
+                && otpPassParam.getOtpTimerResp() != null
+                && otpPassParam.getOtpTimerResp().getData() != null) {
+            phonePrimary = otpPassParam.getOtpTimerResp().getData().getPrimaryPhone();
+        }
+        initData(otpPassParam.getPhoneNumber(), otpPassParam.getContractId(), otpPassParam.getOtpFlow(), otpPassParam.getOtpTimerResp().getData());
+    }
+
     public void initData(String phoneNumber, String contractId, OtpFlow otpFlow, OtpTimerRespData otpTimerInfo) {
         this.phoneNumber = phoneNumber;
         this.contractId = contractId;
@@ -121,6 +132,9 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     public void onNextClick() {
         switch (otpFlow) {
+            case ForgotPassword:
+                verifyOtpForgetPassword();
+                break;
             case SignUp:
                 verifyOtpSignUp();
                 break;
@@ -133,6 +147,9 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     public void onResendOtp() {
         stopTimer();
         switch (otpFlow) {
+            case ForgotPassword:
+                resendOtpForForgetPassword();
+                break;
             case SignUp:
                 resendOtpForSignUp();
                 break;
@@ -141,6 +158,53 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                 break;
         }
     }
+
+    private void resendOtpForForgetPassword() {
+        setIsLoading(true);
+        Disposable resendProcess = accountRepository.forgotPasswordVerify(phoneNumber, contractId)
+                .subscribe(response -> {
+                    setIsLoading(false);
+                    if (response == null) {
+                        return;
+                    }
+                    if (response.isVerified()) {
+                        initData(phoneNumber, contractId, OtpFlow.ForgotPassword, response.getData());
+                    }else {
+                        showMessage(response.getResponseMessage());
+                    }
+                }, throwable -> setIsLoading(false));
+
+        startSafeProcess(resendProcess);
+    }
+
+    private void verifyOtpForgetPassword() {
+        String inputOtp = filedOtp.get();
+        if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
+            String warningMessage = resourceService.getStringById(R.string.otp_empty);
+            getNavigator().showMessage(warningMessage);
+            return;
+        }
+        setIsLoading(true);
+        Disposable disposableVerityOTPSignUp = accountRepository.forgotPasswordOtp(phoneNumber, contractId, inputOtp)
+                .subscribe(otpTimerResp -> {
+                    setIsLoading(false);
+                    if (otpTimerResp == null) {
+                        return;
+                    }
+                    Log.debug(otpTimerResp.toString());
+                    if (otpTimerResp.isVerified()) {
+                        stopTimer();
+                        modelOtpParamSignUp.setValue(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.ForgotPassword, inputOtp ));
+                    } else {
+                        showMessage(otpTimerResp.getResponseMessage());
+                    }
+                }, throwable -> {
+                    setIsLoading(false);
+                    Log.printStackTrace(throwable);
+                });
+        startSafeProcess(disposableVerityOTPSignUp);
+    }
+
 
     private void resendOtpForSignUp() {
         setIsLoading(true);
@@ -240,7 +304,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         SpanBuilder spanBuilder = new SpanBuilder();
         String otpHintRes = resourceService.getStringById(R.string.otp_hint);
         int primaryColor = resourceService.getColorById(R.color.colorPrimary);
-        spanBuilder.appendWithSpace(String.format(otpHintRes, phoneNumber));
+        spanBuilder.appendWithSpace(String.format(otpHintRes, phonePrimary == null ? phoneNumber : phonePrimary));
         spanBuilder.append(remainingTimeText, new ForegroundColorSpan(primaryColor));
         countingView.setText(spanBuilder.build());
     }
@@ -274,4 +338,5 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         } catch (Exception ex) {
         }
     }
+
 }

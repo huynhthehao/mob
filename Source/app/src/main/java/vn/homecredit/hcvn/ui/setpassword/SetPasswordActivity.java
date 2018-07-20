@@ -17,7 +17,9 @@ import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivitySetpasswordBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
+import vn.homecredit.hcvn.ui.settings.changepass.DialogChangePassSuccess;
 import vn.homecredit.hcvn.ui.signup.DialogContractsHelp;
+import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding, SetPasswordViewModel> {
 
@@ -57,6 +59,16 @@ public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding
         getViewModel().getModelSignIn().observe(this, aBoolean -> {
             if (aBoolean != null && aBoolean == true) {
                 HomeActivity.start(SetPasswordActivity.this, true, true );
+            }
+        });
+
+        getViewModel().getModelForgetPasswordSuccess().observe(this, aBoolean -> {
+            if (aBoolean != null && aBoolean == true) {
+                DialogChangePassSuccess.showDialog(getSupportFragmentManager(), () -> {
+                    Intent intent = WelcomeActivity.newIntent(SetPasswordActivity.this);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                });
             }
         });
 

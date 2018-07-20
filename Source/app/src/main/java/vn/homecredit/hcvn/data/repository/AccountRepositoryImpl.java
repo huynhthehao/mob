@@ -45,6 +45,27 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public Single<OtpTimerResp> forgotPasswordVerify(String phone, String contractsId) {
+        return restService.forgetPasswordVerify(phone, contractsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<OtpTimerResp> forgotPasswordOtp(String phone, String contractsId, String otp) {
+        return restService.forgetPasswordOTP(phone, contractsId, otp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<ProfileResp> forgotPasswordSetNew(String phone, String contractsId, String otp, String password) {
+        return restService.forgetPasswordSetNew(phone, contractsId, otp, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public Single<OtpTimerResp> verifyOtpSignUp(String phone, String contractsId, String otp) {
         return restService.verifySignupOTP(phone, contractsId, otp)
                 .subscribeOn(Schedulers.io())
@@ -63,10 +84,18 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public Single<ProfileResp> signIn(String phoneNumber, String password) {
         return restService.getToken(phoneNumber, password)
-                .doOnSuccess(tokenResp -> {
-                    preferencesHelper.setAccessToken(tokenResp.getAccessToken());
-                })
+                .doOnSuccess(tokenResp -> preferencesHelper.setAccessToken(tokenResp.getAccessToken()))
                 .flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<ProfileResp> signUpThenLogin(String phone, String contractsId, String otp, String password) {
+        return restService.signUp(phone, contractsId, otp, password)
+                .flatMap(tokenResp -> restService.getToken(phone, password)
+                        .doOnSuccess(tokenResp1 -> preferencesHelper.setAccessToken(tokenResp1.getAccessToken()))
+                ).flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -11,4 +11,5 @@ package vn.homecredit.hcvn.ui.login;
 
 public interface LoginNavigator {
     void openHomeActivity();
+    void forgetPassword();
 }

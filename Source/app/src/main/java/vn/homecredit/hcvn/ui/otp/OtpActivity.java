@@ -11,11 +11,15 @@ import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+
+import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
@@ -32,37 +36,24 @@ import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 
 public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> implements OtpNavigator {
 
+    public static final String BUNDLE_OTPPARAM = "BUNDLE_OTPPARAM";
     @Inject
     OtpViewModel otpViewModel;
 
     private OtpFlow currentOtpFlow;
 
-    public static void start(Context context,OtpPassParam otpPassParam) {
+    public static void start(Context context, OtpPassParam otpPassParam) {
         Intent intent = getNewIntent(context, otpPassParam);
         context.startActivity(intent);
     }
 
     public static Intent getNewIntent(Context context, OtpPassParam otpPassParam) {
         Intent newInstance = new Intent(context, OtpActivity.class);
-        try {
-            if (otpPassParam != null) {
-                Bundle currentBundle = new Bundle();
-                currentBundle.putInt(OtpViewModel.FLOW_TYPE_KEY, otpPassParam.getOtpFlow().getValue());
-                if (!TextUtils.isEmpty(otpPassParam.getOtpTimerResp().getData().getPrimaryPhone())) {
-                    currentBundle.putString(OtpViewModel.PHONE_NUMBER_KEY, otpPassParam.getOtpTimerResp().getData().getPrimaryPhone());
-                }else {
-                    currentBundle.putString(OtpViewModel.PHONE_NUMBER_KEY, otpPassParam.getPhoneNumber());
-                }
-                currentBundle.putString(OtpViewModel.CONTRACT_ID_KEY, otpPassParam.getContractId());
-                currentBundle.putInt(OtpViewModel.OTP_LIVE_TIME_KEY, otpPassParam.getOtpTimerResp().getData().getOtpLiveTime());
-                currentBundle.putInt(OtpViewModel.OTP_TIME_REMAIN_KEY, otpPassParam.getOtpTimerResp().getData().getRemainingTime());
-                currentBundle.putInt(OtpViewModel.OTP_TIME_RESEND_KEY, otpPassParam.getOtpTimerResp().getData().getOtpTimeResend());
-                currentBundle.putString(OtpViewModel.OTP_SOURCE_KEY, otpPassParam.getOtpTimerResp().getData().getSource());
-
-                newInstance.putExtras(currentBundle);
-            }
-        }catch (Exception ex){}
-
+        if (otpPassParam != null) {
+            Bundle currentBundle = new Bundle();
+            currentBundle.putParcelable(BUNDLE_OTPPARAM, Parcels.wrap(otpPassParam));
+            newInstance.putExtras(currentBundle);
+        }
         return newInstance;
     }
 
@@ -87,23 +78,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
         super.onCreate(savedInstanceState);
         otpViewModel.setNavigator(this);
 
-        Bundle currentBundle = getIntent().getExtras();
-        if (currentBundle != null) {
-            OtpTimerRespData timerData = new OtpTimerRespData();
-
-            timerData.setOtpLiveTime(currentBundle.getInt(OtpViewModel.OTP_LIVE_TIME_KEY));
-            timerData.setRemainingTime(currentBundle.getInt(OtpViewModel.OTP_TIME_REMAIN_KEY));
-            timerData.setOtpTimeResend(currentBundle.getInt(OtpViewModel.OTP_TIME_RESEND_KEY));
-            timerData.setSource(currentBundle.getString(OtpViewModel.OTP_SOURCE_KEY));
-
-            currentOtpFlow = OtpFlow.parse(currentBundle.getInt(OtpViewModel.FLOW_TYPE_KEY));
-            otpViewModel.initData(
-                    currentBundle.getString(OtpViewModel.PHONE_NUMBER_KEY),
-                    currentBundle.getString(OtpViewModel.CONTRACT_ID_KEY),
-                    currentOtpFlow,
-                    timerData);
+        if (getIntent().hasExtra(BUNDLE_OTPPARAM)) {
+            OtpPassParam otpPassParam = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_OTPPARAM));
+            otpViewModel.initData(otpPassParam);
+            currentOtpFlow = otpPassParam.getOtpFlow();
         }
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -115,20 +94,15 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
 
     }
 
-
     @SuppressWarnings("TypeParameterUnusedInFormals")
     @Override
     public <T extends View> T getControlById(@IdRes int id) {
         return findViewById(id);
     }
 
-
     @Override
     public void next() {
-        switch (currentOtpFlow){
-            case SignUp:
-
-                break;
+        switch (currentOtpFlow) {
             case CashLoanWalkin: {
                 openSelectLoan();
             }
@@ -144,7 +118,8 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     private void openSetPassword(OtpPassParam otpPassParam) {
         SetPasswordActivity.start(this, otpPassParam);
     }
-    private void openSelectLoan(){
+
+    private void openSelectLoan() {
         Intent intent = AclApplicationFormActivity.newIntent(this);
         startActivity(intent);
         finish();

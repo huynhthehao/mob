@@ -21,5 +21,9 @@ public interface RestService {
     ApiHeader getApiHeader();
     Single<OtpTimerResp> verified(String username, String contractsId);
     Single<OtpTimerResp> changePassword(String oldPassword, String newPassword);
+    Single<OtpTimerResp> forgetPasswordVerify(String phone, String contractId);
+    Single<OtpTimerResp> forgetPasswordOTP(String phone, String contractId, String otp);
     Single<ProfileResp> signUp(String phone, String contracsId, String otp, String password);
+    Single<ProfileResp> forgetPasswordSetNew(String phone, String contracsId, String otp, String password);
+
 }
