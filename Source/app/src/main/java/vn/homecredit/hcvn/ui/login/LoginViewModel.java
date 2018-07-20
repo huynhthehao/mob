@@ -11,32 +11,29 @@ import android.databinding.ObservableField;
 import javax.inject.Inject;
 
 import dagger.Module;
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.remote.RestService;
-import vn.homecredit.hcvn.service.ProfileService;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
-
-    private final RestService restService;
-    private final PreferencesHelper preferencesHelper;
-    private final ProfileService profileService;
     public ObservableField<String> username = new ObservableField();
     public ObservableField<String> password = new ObservableField();
+    private final AccountRepository accountRepository;
     private final ResourceService resourceService;
 
     @Inject
-    public LoginViewModel(RestService restService, PreferencesHelper preferencesHelper, SchedulerProvider schedulerProvider, ProfileService profileService, ResourceService resourceService) {
+    public LoginViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider,  ResourceService resourceService) {
         super(schedulerProvider);
-        this.restService = restService;
-        this.preferencesHelper = preferencesHelper;
-        this.profileService = profileService;
+        this.accountRepository = accountRepository;
         this.resourceService = resourceService;
     }
 
@@ -65,22 +62,21 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
     public void login(String phoneNumber, String password) {
         setIsLoading(true);
-        startSafeProcess(restService
-                .getToken(phoneNumber, password)
-                .flatMap(tokenResp -> {
-                    String token = tokenResp.getAccessToken();
-                    preferencesHelper.setAccessToken(token);
-                    restService.getApiHeader().getProtectedApiHeader().setAccessToken(token);
-                    return profileService.syncProfile();
-                })
-                .subscribe(tokenResp -> {
+        Disposable subscribe = accountRepository.signIn(phoneNumber, password)
+                .subscribe(profileResp -> {
                     setIsLoading(false);
-                    getNavigator().openHomeActivity();
+                    if (profileResp == null) return;
+                    if (profileResp.getResponseCode() != 0) {
+                        showMessage(profileResp.getResponseMessage());
+                    } else {
+                        getNavigator().openHomeActivity();
+                    }
                 }, throwable -> {
                     setIsLoading(false);
                     if (throwable instanceof HcApiException) {
                         showMessage(((HcApiException) throwable).getErrorResponseMessage());
                     }
-                }));
+                });
+        getCompositeDisposable().add(subscribe);
     }
 }

@@ -25,7 +25,7 @@
         <item name="md_positive_color">?attr/colorPrimary</item>
         <!-- End Dialog -->
 
-        <item name="android:homeAsUpIndicator">@drawable/back_ico</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
 
     </style>
 

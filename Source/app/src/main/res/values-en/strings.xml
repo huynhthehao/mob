@@ -119,4 +119,15 @@
     <string name="thankyou">Thank You</string>
     <string name="changepass_success">Your password has been successfully saved</string>
 
+    <!--Profile Screen-->
+    <string name="profile">Profile</string>
+    <string name="full_name">Full name</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="gender">Gender</string>
+    <string name="id_number">ID number</string>
+    <string name="residential_address">Residential address</string>
+    <string name="email">Email</string>
+    <string name="phone_no">Phone no.</string>
+    <string name="update_profile_detail_message">*If you want to update your details please contact our Customer Service</string>
+
 </resources>

@@ -28,6 +28,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentMoreBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.ChangePassActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
@@ -116,7 +117,8 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
 
     private void showProfile(Boolean clickedProfile, String s) {
         if (clickedProfile) {
-            showToast(s);
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            startActivity(intent);
         }
     }
 

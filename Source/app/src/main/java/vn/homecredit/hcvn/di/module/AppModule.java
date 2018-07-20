@@ -29,6 +29,8 @@ import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.RestServiceImpl;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 import vn.homecredit.hcvn.data.remote.acl.AclRestServiceImpl;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
+import vn.homecredit.hcvn.data.repository.AccountRepositoryImpl;
 import vn.homecredit.hcvn.di.PreferenceInfo;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactoryImpl;
@@ -38,8 +40,6 @@ import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.OneSignalServiceImpl;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.service.ResourceServiceImpl;
-import vn.homecredit.hcvn.service.ProfileService;
-import vn.homecredit.hcvn.service.ProfileServiceImpl;
 import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.service.VersionServiceImpl;
 import vn.homecredit.hcvn.utils.AppConstants;
@@ -157,12 +157,6 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ProfileService provideProfileService(ProfileServiceImpl profileService) {
-        return profileService;
-    }
-
-    @Provides
-    @Singleton
     AclDatabaseService provideAclDatabaseService(AclDatabaseServiceImpl aclDatabaseService) {
         return aclDatabaseService;
     }
@@ -177,5 +171,11 @@ public class AppModule {
     @Singleton
     FingerPrintHelper provideFingerPrintHelper(FingerPrintHelperImpl fingerPrintHelperImpl) {
         return fingerPrintHelperImpl;
+    }
+
+    @Provides
+    @Singleton
+    AccountRepository provideAccountRepository(AccountRepositoryImpl profileService) {
+        return profileService;
     }
 }
