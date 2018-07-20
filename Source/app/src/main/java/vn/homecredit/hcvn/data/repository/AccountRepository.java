@@ -14,11 +14,19 @@ public interface AccountRepository {
 
     Single<ProfileResp> signIn(String phoneNumber, String password);
 
+    Single<ProfileResp> signUpThenLogin(String phone, String contractsId, String otp, String password);
+
     Single<ProfileResp> getProfile();
 
     ProfileResp.ProfileRespData getCachedProfile();
 
     Single<OtpTimerResp> changePassword(String password, String newPassword) ;
+
+    Single<OtpTimerResp> forgotPasswordVerify(String phone, String contractsId) ;
+
+    Single<OtpTimerResp> forgotPasswordOtp(String phone, String contractsId, String otp) ;
+
+    Single<ProfileResp> forgotPasswordSetNew(String phone, String contractsId, String otp, String password);
 
     void updatePassword(String password) ;
 

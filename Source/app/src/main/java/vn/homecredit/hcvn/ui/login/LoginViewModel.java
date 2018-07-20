@@ -6,6 +6,7 @@
 
 package vn.homecredit.hcvn.ui.login;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 
 import javax.inject.Inject;
@@ -37,6 +38,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         this.resourceService = resourceService;
     }
 
+
     public boolean validate() {
         if (StringUtils.isNullOrWhiteSpace(username.get()))
             return false;
@@ -57,7 +59,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     }
 
     public void onForgotPasswordClick(){
-        showMessage("Go to Forgot Password");
+        getNavigator().forgetPassword();
     }
 
     public void login(String phoneNumber, String password) {

@@ -73,6 +73,20 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public Single<ProfileResp> signUpThenLogin(String phone, String contractsId, String otp, String password) {
+        return restService.signUp(phone, contractsId, otp, password)
+                .flatMap(tokenResp -> restService.getToken(phone, password)
+                        .doOnSuccess(tokenResp1 -> {
+                            preferencesHelper.setAccessToken(tokenResp1.getAccessToken());
+                            apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
+
+                        })
+                ).flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public Single<ProfileResp> getProfile() {
         return getProfileWithoutSubscribeOn()
                 .subscribeOn(Schedulers.io())

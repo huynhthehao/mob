@@ -67,7 +67,6 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
 
     @Override
     public void openWelcomeActivity() {
-
     }
 
     @Override
