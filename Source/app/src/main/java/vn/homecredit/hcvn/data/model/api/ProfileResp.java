@@ -12,6 +12,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class ProfileResp {
+    public static final int RESPONSE_CODE_SUCCESS = 0;
+
     @SerializedName("data")
     @Expose
     private ProfileRespData data;

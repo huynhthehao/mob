@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ activity_splash.xml
   ~
   ~ Created by quan.p@homecredit.vn
@@ -14,37 +13,38 @@
     tools:context=".ui.splash.SplashActivity">
 
     <data>
+
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.splash.SplashViewModel" />
     </data>
 
     <vn.homecredit.hcvn.ui.custom.MyStatefulLayout
-        app:stfLayoutRes="@layout/view_no_internet"
         android:id="@+id/statefulLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:stfAnimationEnabled="true"
         app:stfInAnimation="@android:anim/fade_in"
-        app:stfOutAnimation="@android:anim/fade_out"
-        >
+        app:stfLayoutRes="@layout/view_no_internet"
+        app:stfOutAnimation="@android:anim/fade_out">
 
         <!-- your content here  -->
         <RelativeLayout
             android:id="@+id/activity_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:background="@color/white">
+            android:paddingTop="@dimen/activity_vertical_margin">
 
             <ImageView
                 android:layout_width="149dp"
-                android:layout_height="63dp"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/logo_welcome" />
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_logo_welcome" />
         </RelativeLayout>
     </vn.homecredit.hcvn.ui.custom.MyStatefulLayout>
 </layout>

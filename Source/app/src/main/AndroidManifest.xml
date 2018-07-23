@@ -67,10 +67,10 @@
             android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".ui.signup.SignUpActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".ui.setpassword.SetPasswordActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
         <activity
@@ -80,7 +80,11 @@
             android:name=".ui.profile.ProfileActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".ui.settings.changepass.ChangePassActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustPan"
+            >
+        </activity>
+        <activity android:name=".ui.forgetpassword.ForgetPasswordActivity"
+            android:windowSoftInputMode="adjustPan"
             >
         </activity>
     </application>

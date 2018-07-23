@@ -19,6 +19,7 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityLoginBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 
 /**
@@ -66,6 +67,11 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     public void openHomeActivity() {
         HomeActivity.start(LoginActivity.this, true);
         finish();
+    }
+
+    @Override
+    public void forgetPassword() {
+        ForgetPasswordActivity.start(this);
     }
 
     private void adjustBottom() {

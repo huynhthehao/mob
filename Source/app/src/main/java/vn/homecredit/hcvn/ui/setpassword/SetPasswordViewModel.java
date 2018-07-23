@@ -10,10 +10,9 @@ import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
-import vn.homecredit.hcvn.data.model.api.HcApiException;
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SetPasswordViewModel extends BaseViewModel {
@@ -24,6 +23,7 @@ public class SetPasswordViewModel extends BaseViewModel {
     private ObservableField<String> filedConfirmPass = new ObservableField<>();
     private OtpPassParam otpParam;
     private MutableLiveData<Boolean> modelSignIn = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelForgetPasswordSuccess = new MutableLiveData<>();
     private MutableLiveData<String> modelDialogPasswordHelp = new MutableLiveData<>();
     private MutableLiveData<Integer> modelErrorMessage = new MutableLiveData<>();
 
@@ -54,13 +54,24 @@ public class SetPasswordViewModel extends BaseViewModel {
         return filedConfirmPass;
     }
 
+    public MutableLiveData<Boolean> getModelForgetPasswordSuccess() {
+        return modelForgetPasswordSuccess;
+    }
+
     public void setOtpParam(OtpPassParam otpParam) {
         this.otpParam = otpParam;
     }
 
     public void onClickedSignUp() {
-        if (checkDataValid()) {
-            signUp();
+        if (isDataValid()) {
+            switch (otpParam.getOtpFlow()) {
+                case SignUp:
+                    signUpThenLogin();
+                    break;
+                case ForgotPassword:
+                    forgetPasswordSetNew();
+                    break;
+            }
         }
     }
 
@@ -68,7 +79,7 @@ public class SetPasswordViewModel extends BaseViewModel {
         modelDialogPasswordHelp.setValue(dataManager.getVersionRespData().getCustomerSupportPhone());
     }
 
-    private boolean checkDataValid() {
+    private boolean isDataValid() {
         if (TextUtils.isEmpty(filedPass.get())) {
             modelErrorMessage.setValue(R.string.error_password);
             return false;
@@ -84,18 +95,18 @@ public class SetPasswordViewModel extends BaseViewModel {
         return true;
     }
 
-    private void signUp() {
+    private void forgetPasswordSetNew() {
         setIsLoading(true);
-        Disposable disposable = accountRepository.signUp(otpParam.getPhoneNumber(), otpParam.getContractId(), otpParam.getOtp(), filedPass.get())
+        Disposable disposable = accountRepository.forgotPasswordSetNew(otpParam.getPhoneNumber(), otpParam.getContractId(), otpParam.getOtp(), filedPass.get())
                 .subscribe(profileResp -> {
                     setIsLoading(false);
                     if (profileResp == null) {
                         return;
                     }
-                    if (profileResp.getResponseCode() != 0) {
+                    if (profileResp.getResponseCode() != ProfileResp.RESPONSE_CODE_SUCCESS) {
                         showMessage(profileResp.getResponseMessage());
                     } else {
-                        login();
+                        modelForgetPasswordSuccess.setValue(true);
                     }
                 }, throwable -> {
                     setIsLoading(false);
@@ -104,13 +115,15 @@ public class SetPasswordViewModel extends BaseViewModel {
         getCompositeDisposable().add(disposable);
     }
 
-    private void login() {
+    private void signUpThenLogin() {
         setIsLoading(true);
-        Disposable subscribe = accountRepository.signIn(otpParam.getPhoneNumber(), filedPass.get())
+        Disposable disposable = accountRepository.signUpThenLogin(otpParam.getPhoneNumber(), otpParam.getContractId(), otpParam.getOtp(), filedPass.get())
                 .subscribe(profileResp -> {
                     setIsLoading(false);
-                    if (profileResp == null) return;
-                    if (profileResp.getResponseCode() != 0) {
+                    if (profileResp == null) {
+                        return;
+                    }
+                    if (profileResp.getResponseCode() != ProfileResp.RESPONSE_CODE_SUCCESS) {
                         showMessage(profileResp.getResponseMessage());
                     } else {
                         modelSignIn.setValue(true);
@@ -119,8 +132,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                     setIsLoading(false);
                     handleError(throwable);
                 });
-
-        getCompositeDisposable().add(subscribe);
+        getCompositeDisposable().add(disposable);
     }
 
 }

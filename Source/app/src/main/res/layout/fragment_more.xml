@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> moreviewmodel.clickedProfile()}"
-                        android:src="@drawable/ic_profileico"
+                        android:src="@drawable/ic_profile"
                         android:text="@string/my_profile" />
 
                 </LinearLayout>
@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> moreviewmodel.clickedPassword()}"
-                        android:src="@drawable/change_pass_ico"
+                        android:src="@drawable/ic_change_pass"
                         android:text="@string/change_password" />
 
                     <View
@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> moreviewmodel.clickedSetting()}"
-                        android:src="@drawable/ic_settingsico"
+                        android:src="@drawable/ic_settings"
                         android:text="@string/settings" />
 
                     <View
@@ -108,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> moreviewmodel.clickedLocation()}"
-                        android:src="@drawable/payment_location_ico"
+                        android:src="@drawable/ic_location"
                         android:text="@string/locations"></vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
                     <View
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> moreviewmodel.clickedTerm()}"
                         android:background="?android:attr/selectableItemBackground"
-                        android:src="@drawable/tc"
+                        android:src="@drawable/ic_t_c"
                         android:text="@string/terms_and_conditions"></vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
                     <View
@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> moreviewmodel.clickedUserGuide()}"
                         android:background="?android:attr/selectableItemBackground"
-                        android:src="@drawable/user_manual_ico"
+                        android:src="@drawable/ic_user_manual"
                         android:text="@string/user_manual"></vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
                 </LinearLayout>
@@ -169,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> moreviewmodel.clickedLogout()}"
-                        android:src="@drawable/logout_ico"
+                        android:src="@drawable/ic_logout"
                         android:text="@string/log_out"></vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
                 </LinearLayout>

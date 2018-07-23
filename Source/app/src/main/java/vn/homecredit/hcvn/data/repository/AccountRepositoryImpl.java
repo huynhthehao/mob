@@ -7,12 +7,12 @@ import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.OneSignalService;
 
 public class AccountRepositoryImpl implements AccountRepository {
@@ -68,6 +68,20 @@ public class AccountRepositoryImpl implements AccountRepository {
                     apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
                 })
                 .flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<ProfileResp> signUpThenLogin(String phone, String contractsId, String otp, String password) {
+        return restService.signUp(phone, contractsId, otp, password)
+                .flatMap(tokenResp -> restService.getToken(phone, password)
+                        .doOnSuccess(tokenResp1 -> {
+                            preferencesHelper.setAccessToken(tokenResp1.getAccessToken());
+                            apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
+
+                        })
+                ).flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

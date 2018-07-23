@@ -118,8 +118,7 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<OtpTimerResp> verified(String username, String contractsId) {
-        String url = ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify?v=2";
-        url += "&lang=" + preferencesHelper.getLanguageCode();
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify?v=2");
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("PhoneNumber", username);
         requestBody.put("ContractNumber", contractsId);
@@ -133,8 +132,7 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<OtpTimerResp> changePassword(String oldPassword, String newPassword) {
-        String url = ApiEndPoint.ENDPOINT_APP + "/customer/changepassword";
-        url += "?lang=" + preferencesHelper.getLanguageCode();
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/changepassword");
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("oldPassword", oldPassword);
         requestBody.put("password", newPassword);
@@ -146,14 +144,56 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
+    public Single<OtpTimerResp> forgetPasswordVerify(String phone, String contractId) {
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("phoneNumber", phone);
+        requestBody.put("contractNumber", contractId);
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/forgotpassword/verify");
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)))
+                ;
+    }
+
+    @Override
+    public Single<OtpTimerResp> forgetPasswordOTP(String phone, String contractId, String otp) {
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("phoneNumber", phone);
+        requestBody.put("contractNumber", contractId);
+        requestBody.put("VerificationCode", otp);
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/forgotpassword/verify/otp");
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)));
+    }
+
+    @Override
     public Single<ProfileResp> signUp(String phone, String contractsId, String otp, String password) {
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("phoneNumber", phone);
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);
         requestBody.put("password", password);
-        String langId = preferencesHelper.getLanguageCode();
-        String url = String.format("%s/customer/signup?lang=%s", ApiEndPoint.ENDPOINT_APP, langId);
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/signup");
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(ProfileResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ProfileResp.class)));
+    }
+
+    @Override
+    public Single<ProfileResp> forgetPasswordSetNew(String phone, String contractsId, String otp, String password) {
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("phoneNumber", phone);
+        requestBody.put("contractNumber", contractsId);
+        requestBody.put("verificationCode", otp);
+        requestBody.put("password", password);
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/forgotpassword");
         return Rx2AndroidNetworking.post(url)
                 .addBodyParameter(requestBody)
                 .build()
@@ -166,11 +206,22 @@ public class RestServiceImpl implements RestService {
         requestBody.put("phoneNumber", phone);
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);
-        String langId = preferencesHelper.getLanguageCode();
-        String url = String.format("%s/customer/signup/verify/otp?lang=%s", ApiEndPoint.ENDPOINT_APP, langId);
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify/otp");
         return Rx2AndroidNetworking.post(url)
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(OtpTimerResp.class);
     }
+
+    private String buildUrl(String url) {
+        if (url == null) return url;
+        if (url.contains("?")) {
+            url += "&lang=" + preferencesHelper.getLanguageCode();
+        }else {
+            url += "?lang=" + preferencesHelper.getLanguageCode();
+        }
+        return url;
+    }
+
+
 }

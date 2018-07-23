@@ -17,9 +17,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/signup_circle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_sign_up"
+        android:scaleType="centerInside"
         />
 
     <TextView

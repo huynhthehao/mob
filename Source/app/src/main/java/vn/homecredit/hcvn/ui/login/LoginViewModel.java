@@ -14,33 +14,36 @@ import javax.inject.Inject;
 import dagger.Module;
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.local.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
-import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
-import vn.homecredit.hcvn.service.ProfileService;
+import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
-
-
     public ObservableField<String> username = new ObservableField();
     public ObservableField<String> password = new ObservableField();
+    public ObservableBoolean  showFingerPrint = new ObservableBoolean();
+
+    private final AccountRepository accountRepository;
+    private final FingerPrintHelper fingerPrintHelper;
     private final ResourceService resourceService;
 
     @Inject
-    public LoginViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider, ProfileService profileService, ResourceService resourceService) {
+    public LoginViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider, FingerPrintHelper fingerPrintHelper, ResourceService resourceService) {
         super(schedulerProvider);
         this.accountRepository = accountRepository;
-        this.resourceService = resourceService;
         this.fingerPrintHelper = fingerPrintHelper;
+        this.resourceService = resourceService;
 
-        showFingerPrint.set(fingerPrintHelper.getFingerPrintAuthValue() != FingerPrintAuthValue.NOT_SUPPORT);
+        FingerPrintAuthValue fingerSupportStatus = fingerPrintHelper.getFingerPrintAuthValue();
+        showFingerPrint.set(fingerSupportStatus != FingerPrintAuthValue.NOT_SUPPORT);
     }
+
 
     public boolean validate() {
         if (StringUtils.isNullOrWhiteSpace(username.get()))
@@ -67,10 +70,10 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     }
 
     public void onForgotPasswordClick(){
-        showMessage("Go to Forgot Password");
+        getNavigator().forgetPassword();
     }
 
-    public void login(String phoneNumber, String password) {
+    /*public void login(String phoneNumber, String password) {
         setIsLoading(true);
         startSafeProcess(restService
                 .getToken(phoneNumber, password)
@@ -89,9 +92,9 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                         showMessage(((HcApiException) throwable).getErrorResponseMessage());
                     }
                 }));
-    }
+    }*/
 
-    public void login2(String phoneNumber, String password) {
+    public void login(String phoneNumber, String password) {
         setIsLoading(true);
         Disposable subscribe = accountRepository.signIn(phoneNumber, password)
                 .subscribe(profileResp -> {
