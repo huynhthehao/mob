@@ -45,6 +45,27 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public Single<OtpTimerResp> forgotPasswordVerify(String phone, String contractsId) {
+        return restService.forgetPasswordVerify(phone, contractsId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<OtpTimerResp> forgotPasswordOtp(String phone, String contractsId, String otp) {
+        return restService.forgetPasswordOTP(phone, contractsId, otp)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<ProfileResp> forgotPasswordSetNew(String phone, String contractsId, String otp, String password) {
+        return restService.forgetPasswordSetNew(phone, contractsId, otp, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public Single<OtpTimerResp> verifyOtpSignUp(String phone, String contractsId, String otp) {
         return restService.verifySignupOTP(phone, contractsId, otp)
                 .subscribeOn(Schedulers.io())
