@@ -36,16 +36,14 @@ import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeNavigator {
 
     boolean mHasAnimationStarted = false;
-
     @Inject
     WelcomeViewModel mWelcomeViewModel;
     ActivityWelcomeBinding mActivityWelcomeBinding;
-
     public static void start(Context context) {
         Intent intent =  new Intent(context, WelcomeActivity.class);
         context.startActivity(intent);
-
     }
+
     public static Intent newIntent(Context context) {
         return new Intent(context, WelcomeActivity.class);
     }

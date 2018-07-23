@@ -30,7 +30,7 @@ import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.setpassword.DialogAnnounceFingerprint;
 import vn.homecredit.hcvn.utils.AppUtils;
 
-public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked {
+public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked, ViewPager.OnPageChangeListener {
     public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
     public static final String BUNDLE_SHOW_FINGERPRINT = "BUNDLE_SHOW_FINGERPRINT";
 
@@ -90,6 +90,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         TabLayout tabLayout = getViewDataBinding().tabs;
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        mViewPager.addOnPageChangeListener(this);
         checkToShowDialog();
     }
 
@@ -157,4 +158,36 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         mViewPager.setCurrentItem(SectionsPagerAdapter.TAB_MORE);
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case SectionsPagerAdapter.TAB_CONTRACTS:
+                setTitle(R.string.contracts);
+                break;
+            case SectionsPagerAdapter.TAB_NOTIFICATION:
+                setTitle(R.string.notifications);
+                break;
+            case SectionsPagerAdapter.TAB_SUPPORT:
+                setTitle(R.string.offers);
+                break;
+            case SectionsPagerAdapter.TAB_MORE:
+                setTitle(R.string.more);
+                break;
+        }
+    }
+
+    @Override
+    public void setTitle(int titleId) {
+        getViewDataBinding().toolbar.setTitle(titleId);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }

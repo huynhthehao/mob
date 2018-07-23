@@ -198,7 +198,6 @@ public class RestServiceImpl implements RestService {
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(ProfileResp.class);
-
     }
 
     @Override

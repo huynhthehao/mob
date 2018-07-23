@@ -24,7 +24,6 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityAclIntroductionBinding;
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragment;
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeNavigator;
-import vn.homecredit.hcvn.ui.acl.introduction.SectionsPagerAdapter;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 

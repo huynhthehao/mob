@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vn.homecredit.hcvn.ui.acl.introduction.AclIntroductionCFragment">
+    tools:context="vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionCFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:layout_margin="16dp"
-            android:src="@drawable/cash_loan_c_ico" />
+            android:src="@drawable/ic_cashloan_intro_3" />
 
         <TextView
             style="@style/AppTheme.SectionLabel"

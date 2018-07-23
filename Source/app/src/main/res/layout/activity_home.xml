@@ -36,12 +36,12 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="?android:attr/actionBarSize"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimary"
+                android:background="@color/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/app_name">
+                app:title="@string/contracts">
 
             </android.support.v7.widget.Toolbar>
 
@@ -54,25 +54,29 @@
                     android:id="@+id/tabContract"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/contract_list_ico" android:text="@string/contracts" />
+                    android:icon="@drawable/contract_list_ico"
+                    />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabNotification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/notification_ico" android:text="@string/notifications" />
+                    android:icon="@drawable/notification_ico"
+                    />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabSupport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/support_ico" android:text="@string/feedback" />
+                    android:icon="@drawable/support_ico"
+                    />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabMore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/more_ico" android:text="@string/more" />
+                    android:icon="@drawable/more_ico"
+                    />
 
             </android.support.design.widget.TabLayout>
         </android.support.design.widget.AppBarLayout>

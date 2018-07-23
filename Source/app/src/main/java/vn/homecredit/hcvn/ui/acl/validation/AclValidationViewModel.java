@@ -6,6 +6,8 @@
 
 package vn.homecredit.hcvn.ui.acl.validation;
 
+import android.arch.lifecycle.MutableLiveData;
+
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -21,7 +23,6 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class AclValidationViewModel extends AclBaseViewModel<AclValidationNavigator> {
 
-    public HashMap<String, String> errorData;
     private AclRuleFactory mAclRuleFactory;
     private final DeviceInfo mDeviceInfo;
 
@@ -30,9 +31,8 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
         super(schedulerProvider, aclDataManager, 1);
         mAclRuleFactory = aclRuleFactory;
         mDeviceInfo = deviceInfo;
-
-        errorData = new HashMap<String, String>();
     }
+
 
     public void onNextClick() {
         getNavigator().next();
@@ -44,20 +44,17 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
 
     public void verifyPersonal(String phoneNumber, String idNumber) {
         setIsLoading(true);
-
         Disposable newProcess = getAclDataManager()
                 .verifyPersonal(phoneNumber, idNumber, mDeviceInfo.getPlayerId())
                 .subscribe(response -> {
-
                     setIsLoading(false);
-                    if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
+                    if (response.isVerified()) {
                         getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CashLoanWalkin));
                     } else {
                         getNavigator().showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
-                    String t = throwable.getMessage();
-                    getNavigator().showMessage(t);
+                    handleError(throwable);
                     setIsLoading(false);
                 });
 
