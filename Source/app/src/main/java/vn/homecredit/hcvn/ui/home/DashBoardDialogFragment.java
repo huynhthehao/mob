@@ -29,6 +29,7 @@ public class DashBoardDialogFragment extends FullscreenDialogFragment implements
         return R.layout.dialog_dashboard;
     }
 
+
     @Override
     protected void initView(View view) {
         super.initView(view);
@@ -44,6 +45,7 @@ public class DashBoardDialogFragment extends FullscreenDialogFragment implements
             tvGreeting.setText(getArguments().getString(BUNDLE_GREETING));
             tvUsername.setText(getArguments().getString(BUNDLE_USERNAME));
         }
+        setStyleAnimation(R.style.DialogAnimation_LeftRight);
     }
 
     @Override
