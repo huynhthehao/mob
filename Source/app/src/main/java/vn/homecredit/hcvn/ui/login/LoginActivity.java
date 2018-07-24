@@ -80,11 +80,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         viewModel.setNavigator(this);
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
         initKeyInfo();
     }
 

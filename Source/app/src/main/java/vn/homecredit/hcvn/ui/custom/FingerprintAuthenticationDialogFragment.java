@@ -21,18 +21,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintUiHelper;
+import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintUIHelper;
 
 @SuppressLint("ValidFragment")
 public class FingerprintAuthenticationDialogFragment extends DialogFragment
-        implements TextView.OnEditorActionListener, FingerPrintUiHelper.Callback {
+        implements TextView.OnEditorActionListener, FingerPrintUIHelper.Callback {
 
     private Button mCancelButton;
     private View mFingerprintContent;
     private View mBackupContent;
 
     private FingerprintManager.CryptoObject mCryptoObject;
-    private FingerPrintUiHelper fingerPrintUiHelper;
+    private FingerPrintUIHelper fingerPrintUiHelper;
     private FingerprintManager fingerprintManager;
 
     private Runnable onValidateSuccessRunner = () -> System.out.print("Validated successfully");
@@ -66,7 +66,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         mFingerprintContent = dialog.findViewById(R.id.fingerprint_container);
         mBackupContent = dialog.findViewById(R.id.backup_container);
 
-        fingerPrintUiHelper = new FingerPrintUiHelper(fingerprintManager,
+        fingerPrintUiHelper = new FingerPrintUIHelper(fingerprintManager,
                 dialog.findViewById(R.id.fingerprint_icon),
                 dialog.findViewById(R.id.fingerprint_status), this);
 
