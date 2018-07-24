@@ -121,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:background="?android:attr/selectableItemBackground"
                         android:onClick="@{() -> moreviewmodel.clickedMomo()}"
-                        android:src="@drawable/ic_momosmall"
+                        android:src="@drawable/ic_momo_small"
                         android:text="@string/pay_momo"></vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
                     <View
