@@ -60,7 +60,7 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
         mActivityLoginBinding = getViewDataBinding();
         mAclValidationViewModel.setNavigator(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

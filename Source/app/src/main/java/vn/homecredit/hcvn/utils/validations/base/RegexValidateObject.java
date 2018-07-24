@@ -4,7 +4,7 @@
  * Last modified 7/2/18 4:00 PM, by quan.p@homecredit.vn
  */
 
-package vn.homecredit.hcvn.validations.base;
+package vn.homecredit.hcvn.utils.validations.base;
 
 import android.text.Editable;
 

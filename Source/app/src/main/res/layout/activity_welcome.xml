@@ -1,19 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ activity_welcome.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
-  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
-  ~
-  ~ Last modified 6/12/18 3:09 PM
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.welcome.WelcomeActivity">
-
     <data>
-
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.welcome.WelcomeViewModel" />
@@ -22,7 +12,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- Logo Zone -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,10 +39,6 @@
                 android:layout_marginRight="15dp"/>
         </RelativeLayout>
 
-        <!-- End of Logo Zone -->
-
-
-        <!-- Button Zone -->
         <LinearLayout
             android:id="@+id/buttonStackView"
             android:layout_width="match_parent"
@@ -171,7 +156,6 @@
             </LinearLayout>
 
         </LinearLayout>
-        <!-- End of Button Zone -->
 
         <RelativeLayout
             android:id="@+id/animateViewHolder"

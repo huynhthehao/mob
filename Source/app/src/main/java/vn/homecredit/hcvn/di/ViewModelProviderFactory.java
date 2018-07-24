@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn;
+package vn.homecredit.hcvn.di;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
