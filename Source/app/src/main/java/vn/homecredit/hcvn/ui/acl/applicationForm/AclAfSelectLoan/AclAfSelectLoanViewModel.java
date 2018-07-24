@@ -61,7 +61,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
     public ObservableField<Boolean> IsBusyLoadingMonthlyPayment = new ObservableField<>(false);
     public ObservableField<Boolean> ShowButton = new ObservableField<>(false);
 
-//    public ObservableField<Integer> MonthlyPayment = new ObservableField<>(0);
+    //    public ObservableField<Integer> MonthlyPayment = new ObservableField<>(0);
     private int mMonthlyPayment = 0;
     public ObservableField<String> FormattedMonthlyPayment = new ObservableField<>("");
 
@@ -209,7 +209,8 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
             List<Double> amount = Stream.of(mSuggestOffer.getLoanTenors()).map(x -> x.getAmount()).distinct().toList();
             Collections.sort(amount);
             setAmountValues(Stream.of(amount).map(x -> new SegmentedElement(String.format("%,dđ", x.intValue()), x)).toList());
-            List<Integer> tenors = Stream.of(mSuggestOffer.getLoanTenors()).flatMap(x -> Stream.of(x.getTenorProducts()))
+            List<Integer> tenors = Stream.of(mSuggestOffer.getLoanTenors())
+                    .flatMap(x -> Stream.of(x.getTenorProducts()))
                     .groupBy(xx -> xx.getTenor())
                     .map(xxx -> xxx.getKey())
                     .distinct().sorted().toList();
@@ -255,8 +256,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                     }, throwable -> {
                         BusyLoading(false);
                     }));
-        }
-        else {
+        } else {
             updateWithProposeOffer(propose, requestLoanAmount, requestLoanTenor);
             BusyLoading(false);
         }
@@ -327,8 +327,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
 //        if (invalid) Data.Current.ProposeOffers.Clear();
     }
 
-    public String getCurrentProductCode()
-    {
+    public String getCurrentProductCode() {
         Double requestLoanAmount = mLoanAmount;
         int requestLoanTenor = mTenor;
 

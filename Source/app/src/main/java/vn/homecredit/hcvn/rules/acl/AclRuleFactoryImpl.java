@@ -6,15 +6,13 @@
 
 package vn.homecredit.hcvn.rules.acl;
 
-import android.text.Editable;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import vn.homecredit.hcvn.rules.base.BaseStringRule;
 import vn.homecredit.hcvn.rules.base.StringRule;
-import vn.homecredit.hcvn.validations.IdNumberValidateObject;
-import vn.homecredit.hcvn.validations.MobilePhoneValidateObject;
+import vn.homecredit.hcvn.utils.validations.IdNumberValidateObject;
+import vn.homecredit.hcvn.utils.validations.MobilePhoneValidateObject;
 
 @Singleton
 public class AclRuleFactoryImpl implements AclRuleFactory {

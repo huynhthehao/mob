@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> moreviewmodel.clickedTerm()}"
                         android:background="?android:attr/selectableItemBackground"
-                        android:src="@drawable/ic_t_c"
+                        android:src="@drawable/ic_term"
                         android:text="@string/terms_and_conditions"></vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
                     <View

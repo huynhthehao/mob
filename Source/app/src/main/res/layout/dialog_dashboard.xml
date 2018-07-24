@@ -79,7 +79,7 @@
             app:layout_constraintLeft_toLeftOf="@id/guidelineBegin"
             app:layout_constraintRight_toLeftOf="@id/dashboardSchedule"
             app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:src="@drawable/contract_sp"
+            app:src="@drawable/ic_dashboard_contract"
             app:text="@string/contracts"
             style="@style/DashBoardItem"
             />

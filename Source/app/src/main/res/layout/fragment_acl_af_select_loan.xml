@@ -54,6 +54,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/primary_rounded_corner"
                 android:text="@{viewModel.FormattedLoanAmount}"
+                tools:text="40"
                 android:textColor="@color/colorPrimary" />
 
             <SeekBar
@@ -94,6 +95,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/primary_rounded_corner"
                 android:text="@{viewModel.FormattedTenor}"
+                tools:text="40"
                 android:textColor="@color/colorPrimary" />
 
             <SeekBar

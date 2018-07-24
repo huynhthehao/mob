@@ -88,7 +88,7 @@
                             android:text="@={viewModel.otp}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/sms_ico"
+                            android:drawableLeft="@drawable/ic_sms_small"
                             android:drawablePadding="10dp"
                             android:hint="@string/otp_input_hint"
                             android:imeActionId="1"

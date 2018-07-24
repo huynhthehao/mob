@@ -7,9 +7,9 @@
  * Last modified 7/2/18 3:21 PM
  */
 
-package vn.homecredit.hcvn.validations;
+package vn.homecredit.hcvn.utils.validations;
 
-import vn.homecredit.hcvn.validations.base.RegexValidateObject;
+import vn.homecredit.hcvn.utils.validations.base.RegexValidateObject;
 
 public class EmailValidateObject extends RegexValidateObject {
 

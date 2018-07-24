@@ -27,14 +27,6 @@ import vn.homecredit.hcvn.BR;
 import  vn.homecredit.hcvn.databinding.FragmentAclAfSelectLoanBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AclAfSelectLoanFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AclAfSelectLoanFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AclAfSelectLoanFragment extends BaseFragment<FragmentAclAfSelectLoanBinding, AclAfSelectLoanViewModel> implements AclAfSelectLoanNavigator {
 
     @Inject
@@ -45,14 +37,6 @@ public class AclAfSelectLoanFragment extends BaseFragment<FragmentAclAfSelectLoa
     public AclAfSelectLoanFragment() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment AclAfSelectLoanFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AclAfSelectLoanFragment newInstance() {
         AclAfSelectLoanFragment fragment = new AclAfSelectLoanFragment();
         Bundle args = new Bundle();
