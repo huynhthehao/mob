@@ -18,7 +18,7 @@ public interface PreferencesHelper {
 
     void setAccessToken(String accessToken);
 
-    ProfileResp.ProfileRespData loadProfile();
+    ProfileResp.ProfileRespData getProfile();
 
     void saveProfile(ProfileResp.ProfileRespData profileRespData);
 
@@ -41,9 +41,10 @@ public interface PreferencesHelper {
     void setNotificationSetting(boolean isEnable);
 
     boolean getFingerPrintSetting();
-
     void setFingerPrintSetting(boolean isEnable);
 
     void updatePassword(String pass);
 
+    void saveObject(String key, Object obj);
+    <T> T getObject(String key, Class<T> classType);
 }

@@ -8,16 +8,22 @@ package vn.homecredit.hcvn.ui.login;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import javax.inject.Inject;
 
 import dagger.Module;
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.LoginInformation;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
+import vn.homecredit.hcvn.helpers.CryptoHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
-import vn.homecredit.hcvn.service.ResourceService;
+import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.StringUtils;
@@ -31,17 +37,21 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
     private final AccountRepository accountRepository;
     private final FingerPrintHelper fingerPrintHelper;
-    private final ResourceService resourceService;
+    private final PreferencesHelper preferencesHelper;
 
     @Inject
-    public LoginViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider, FingerPrintHelper fingerPrintHelper, ResourceService resourceService) {
+    public LoginViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider,
+                          FingerPrintHelper fingerPrintHelper, PreferencesHelper preferencesHelper) {
         super(schedulerProvider);
         this.accountRepository = accountRepository;
         this.fingerPrintHelper = fingerPrintHelper;
-        this.resourceService = resourceService;
+        this.preferencesHelper = preferencesHelper;
 
         FingerPrintAuthValue fingerSupportStatus = fingerPrintHelper.getFingerPrintAuthValue();
         showFingerPrint.set(fingerSupportStatus != FingerPrintAuthValue.NOT_SUPPORT);
+        String currentUser = preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        if(!StringUtils.isNullOrWhiteSpace(currentUser));
+            username.set(currentUser);
     }
 
 
@@ -54,55 +64,79 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         return true;
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onLoginClick() {
         if (!validate()) {
-            String message = resourceService.getStringById(R.string.login_invalid_input);
-            showMessage(message);
+            showMessage(R.string.login_invalid_input);
             return;
         }
 
         login(username.get(),password.get());
     }
 
-    public void onFingerPrintClick(){
+    public boolean fingerPrintEnable(){
         FingerPrintAuthValue fingerSupportStatus = fingerPrintHelper.getFingerPrintAuthValue();
-        //if()
+        if(fingerSupportStatus != FingerPrintAuthValue.SUPPORT_AND_ENABLED) {
+            return false;
+        }
+
+        return preferencesHelper.getFingerPrintSetting();
     }
 
     public void onForgotPasswordClick(){
         getNavigator().forgetPassword();
     }
 
-    /*public void login(String phoneNumber, String password) {
-        setIsLoading(true);
-        startSafeProcess(restService
-                .getToken(phoneNumber, password)
-                .flatMap(tokenResp -> {
-                    String token = tokenResp.getAccessToken();
-                    preferencesHelper.setAccessToken(token);
-                    restService.getApiHeader().getProtectedApiHeader().setAccessToken(token);
-                    return profileService.syncProfile();
-                })
-                .subscribe(tokenResp -> {
-                    setIsLoading(false);
-                    getNavigator().openHomeActivity();
-                }, throwable -> {
-                    setIsLoading(false);
-                    if (throwable instanceof HcApiException) {
-                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
-                    }
-                }));
-    }*/
+    public void onFingerPrintClick(){
+        FingerPrintAuthValue fingerSupportStatus = fingerPrintHelper.getFingerPrintAuthValue();
+        if(fingerSupportStatus == FingerPrintAuthValue.SUPPORT_BUT_NOT_ENABLE) {
+            showMessage(R.string.fingerprint_system_not_available);
+            return;
+        }
 
+        boolean fingerPrintEnable = preferencesHelper.getFingerPrintSetting();
+
+        if(!fingerPrintEnable) {
+            showMessage(R.string.fingerprint_not_enable);
+            return;
+        }
+
+        getNavigator().showFingerPrintAuthDialog();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void autoLogin(){
+        String currentUser = preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = AppPreferencesHelper.PREF_KEY_LOGGED_ON_INFO + currentUser;
+        String savedLoginInfo = preferencesHelper.getObject(key, String.class);
+        LoginInformation loginInformation = CryptoHelper.decryptObject(savedLoginInfo, LoginInformation.class);
+
+        if(loginInformation == null || StringUtils.isNullOrWhiteSpace(loginInformation.phoneNumber)
+                || StringUtils.isNullOrWhiteSpace(loginInformation.password)){
+            showMessage(R.string.fingerprint_login_info_not_found);
+            return;
+        }
+
+        password.set(loginInformation.password);
+        login(loginInformation.phoneNumber, loginInformation.password);
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void login(String phoneNumber, String password) {
         setIsLoading(true);
         Disposable subscribe = accountRepository.signIn(phoneNumber, password)
                 .subscribe(profileResp -> {
                     setIsLoading(false);
-                    if (profileResp == null) return;
+
+                    if (profileResp == null)
+                        return;
+
                     if (profileResp.getResponseCode() != 0) {
                         showMessage(profileResp.getResponseMessage());
                     } else {
+                        saveLoginInfo(phoneNumber, password);
                         getNavigator().openHomeActivity();
                     }
                 }, throwable -> {
@@ -111,6 +145,17 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                         showMessage(((HcApiException) throwable).getErrorResponseMessage());
                     }
                 });
-        getCompositeDisposable().add(subscribe);
+
+        startSafeProcess(subscribe);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void saveLoginInfo(String phoneNumber, String password){
+        String key = AppPreferencesHelper.PREF_KEY_LOGGED_ON_INFO + phoneNumber;
+        LoginInformation loginInformation = new LoginInformation(phoneNumber, password);
+        String encryptData = CryptoHelper.encryptObject(loginInformation);
+
+        preferencesHelper.saveObject(key, encryptData);
+        preferencesHelper.saveObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, phoneNumber);
     }
 }

@@ -159,8 +159,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private void verifyOtpForgetPassword() {
         String inputOtp = otp.get();
         if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
-            String warningMessage = resourceService.getStringById(R.string.otp_empty);
-            getNavigator().showMessage(warningMessage);
+            showMessage(R.string.otp_empty);
             return;
         }
         setIsLoading(true);
@@ -208,8 +207,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private void verifyOtpSignUp() {
         String inputOtp = otp.get();
         if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
-            String warningMessage = resourceService.getStringById(R.string.otp_empty);
-            getNavigator().showMessage(warningMessage);
+            showMessage(R.string.otp_empty);
             return;
         }
         setIsLoading(true);
@@ -239,8 +237,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                 .subscribe(response -> {
                     setIsLoading(false);
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
-                        String message = resourceService.getStringById(R.string.otp_resend_success);
-                        getNavigator().showMessage(message);
+                        showMessage(R.string.otp_resend_success);
 
                         initData(phoneNumber, contractId, OtpFlow.CashLoanWalkin, response.getData());
                     } else {
@@ -256,10 +253,10 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private void verifyOtpForCLW() {
         String inputOtp = otp.get();
         if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
-            String warningMessage = resourceService.getStringById(R.string.otp_empty);
-            getNavigator().showMessage(warningMessage);
+            showMessage(R.string.otp_empty);
             return;
         }
+
         setIsLoading(true);
         OtpTimerResp otpTimerResp = new OtpTimerResp();
         otpTimerResp.setData(otpTimerInfo);

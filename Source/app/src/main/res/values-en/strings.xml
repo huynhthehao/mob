@@ -137,4 +137,19 @@
     <string name="fingerprint_enable_warning_label">Note:  All fingerprints registered on the device can be used to sign into Home Credit\'s mobile app</string>
     <string name="fingerprint_login_info_not_found">Cannot log in with current phone number</string>
     <string name="fingerprint_not_enable">You have not enabled this feature, please log in and go to the settings to enable it</string>
+
+    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again</string>
+    <string name="fingerprint_success">Fingerprint recognized</string>
+    <string name="fingerprint_description">Scan your fingerprint to login</string>
+    <string name="fingerprint_hint">Touch sensor</string>
+    <string name="fingerprint_title">Login By Fingerprint</string>
+
+    <string name="fingerprint_use_in_future">Use fingerprint in the future</string>
+    <string name="fingerprint_use_to_authenticate_title">Use fingerprint to authenticate</string>
+    <string name="fingerprint_use_to_authenticate_key" >use_fingerprint_to_authenticate_key</string>
+    <string name="fingerprint_description_bugdroid_icon">Android bugdroid image</string>
+    <string name="fingerprint_description_icon">Fingerprint icon</string>
+
+    <string name="password">Password</string>
+    <string name="use_password">use password</string>
 </resources>

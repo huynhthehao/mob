@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 7/23/18 1:09 PM, by Hien.NguyenM
+  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fingerprint_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/fingerprint_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/fingerprint_description"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_finger_print_red"
+        android:contentDescription="@string/fingerprint_description_icon"
+        />
+
+    <TextView
+        android:id="@+id/fingerprint_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/fingerprint_description"
+        android:textColor="?android:attr/textColorSecondary" />
+
+
+
+    <TextView
+        android:id="@+id/fingerprint_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/fingerprint_icon"
+        android:layout_alignTop="@+id/fingerprint_icon"
+        android:gravity="center_vertical"
+        android:text="@string/fingerprint_hint"
+        android:textColor="@color/hint_color"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@+id/fingerprint_icon"
+        android:visibility="gone"/>
+
+</LinearLayout>

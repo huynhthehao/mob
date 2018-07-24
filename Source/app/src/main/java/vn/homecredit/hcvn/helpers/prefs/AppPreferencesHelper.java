@@ -11,25 +11,30 @@ package vn.homecredit.hcvn.helpers.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
 import java.util.Locale;
-
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.di.PreferenceInfo;
+import vn.homecredit.hcvn.utils.StringUtils;
 
 public class AppPreferencesHelper implements PreferencesHelper {
+
+    // Do not edit these keys
+    public static final String PREF_KEY_LOGGED_ON_INFO = "logged_on_user_key_";
+    public static final String PREF_KEY_LOGGED_ON_User = "logged_on_user";
+
+
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
     private static final String PREF_KEY_PROFILE = "PREF_KEY_PROFILE";
     private static final String PREF_KEY_VERSIONRESP = "PREF_KEY_VERSIONRESP";
     private static final String PREF_KEY_SHOW_DASHBOARD = "PREF_KEY_SHOW_DASHBOARD";
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
-    private static final String PREF_KEY_FINGER_PRINT_SETTING = "PREF_KEY_FINGER_PRINT_SETTING";
+    private static final String PREF_KEY_FINGER_PRINT_ENABLE = "PREF_KEY_FINGER_PRINT_ENABLE";
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
 
     private final SharedPreferences mPrefs;
@@ -50,38 +55,23 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     @Override
-    public ProfileResp.ProfileRespData loadProfile() {
-        Gson gson = new Gson();
-        String json = mPrefs.getString(PREF_KEY_PROFILE, "");
-        return gson.fromJson(json, ProfileResp.ProfileRespData.class);
+    public ProfileResp.ProfileRespData getProfile() {
+        return getObject(PREF_KEY_PROFILE, ProfileResp.ProfileRespData.class);
     }
 
     @Override
     public void saveProfile(ProfileResp.ProfileRespData profileRespData) {
-        SharedPreferences.Editor prefsEditor = mPrefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(profileRespData); // myObject - instance of MyObject
-        prefsEditor.putString(PREF_KEY_PROFILE, json);
-        prefsEditor.commit();
+        saveObject(PREF_KEY_PROFILE, profileRespData);
     }
 
     @Override
     public VersionResp.VersionRespData getVersionRespData() {
-        Gson gson = new Gson();
-        String json = mPrefs.getString(PREF_KEY_VERSIONRESP, null);
-        if (json == null) {
-            return null;
-        }
-        return gson.fromJson(json, VersionResp.VersionRespData.class);
+        return getObject(PREF_KEY_VERSIONRESP, VersionResp.VersionRespData.class);
     }
 
     @Override
     public void setVersionRespData(VersionResp.VersionRespData versionRespData) {
-        SharedPreferences.Editor prefsEditor = mPrefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(versionRespData);
-        prefsEditor.putString(PREF_KEY_VERSIONRESP, json);
-        prefsEditor.commit();
+        saveObject(PREF_KEY_VERSIONRESP, versionRespData);
     }
 
     @Override
@@ -133,12 +123,12 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public boolean getFingerPrintSetting() {
-        return mPrefs.getBoolean(PREF_KEY_FINGER_PRINT_SETTING, false);
+        return mPrefs.getBoolean(PREF_KEY_FINGER_PRINT_ENABLE, false);
     }
 
     @Override
     public void setFingerPrintSetting(boolean isEnable) {
-        mPrefs.edit().putBoolean(PREF_KEY_FINGER_PRINT_SETTING, isEnable).commit();
+        mPrefs.edit().putBoolean(PREF_KEY_FINGER_PRINT_ENABLE, isEnable).commit();
     }
 
     @Override
@@ -146,4 +136,27 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     }
 
+    @Override
+    public void saveObject(String key, Object obj) {
+        SharedPreferences.Editor prefsEditor = mPrefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(obj);
+        prefsEditor.putString(key, json);
+        prefsEditor.commit();
+    }
+
+    @Override
+    public <T> T getObject(String key, Class<T> classType) {
+        Gson gson = new Gson();
+        String json = mPrefs.getString(key, null);
+        if (StringUtils.isNullOrWhiteSpace(json)) {
+            return null;
+        }
+
+        try {
+            return gson.fromJson(json, classType);
+        }catch(Exception ex) {
+            return null;
+        }
+    }
 }

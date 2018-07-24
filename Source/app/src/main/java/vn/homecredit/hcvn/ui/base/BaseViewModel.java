@@ -28,6 +28,7 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private CompositeDisposable mCompositeDisposable;
     private WeakReference<N> mNavigator;
     private MutableLiveData<String> messageData = new MutableLiveData<>();
+    private MutableLiveData<Integer> messageIdData = new MutableLiveData<>();
     private MutableLiveData<Integer> messageResourceData = new MutableLiveData<>();
     private MutableLiveData<BaseMessage> confirmMessageData = new MutableLiveData<>();
 
@@ -77,6 +78,10 @@ public abstract class BaseViewModel<N> extends ViewModel {
         return messageData;
     }
 
+    public MutableLiveData<Integer> getMessageIdData() {
+        return messageIdData;
+    }
+
     public MutableLiveData<Integer> getMessageResourceData() {
         return messageResourceData;
     }
@@ -85,9 +90,14 @@ public abstract class BaseViewModel<N> extends ViewModel {
         return confirmMessageData;
     }
 
-    public void showMessage(String errorMessage) {
-        this.messageData.setValue(errorMessage);
+    public void showMessage(String message) {
+        this.messageData.setValue(message);
     }
+
+    public void showMessage(Integer messageId) {
+        this.messageIdData.setValue(messageId);
+    }
+
     public void showMessage(int resId) {
         this.messageResourceData.setValue(resId);
     }

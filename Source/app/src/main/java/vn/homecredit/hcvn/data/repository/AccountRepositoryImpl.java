@@ -134,7 +134,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public ProfileResp.ProfileRespData getCachedProfile() {
-        return preferencesHelper.loadProfile();
+        return preferencesHelper.getProfile();
     }
 
     @Override

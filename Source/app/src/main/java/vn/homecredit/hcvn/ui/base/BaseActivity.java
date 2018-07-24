@@ -12,7 +12,6 @@ package vn.homecredit.hcvn.ui.base;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
@@ -166,6 +165,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         });
 
         bindModelMessageDialog();
+        bindModelMessageByIdDialog();
         bindModelResourceMessageDialog();
         bindModelConfirmDialog();
     }
@@ -179,6 +179,11 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
         MaterialDialog dialog = builder.build();
         dialog.show();
+    }
+
+    public void showMessage(Integer messageId) {
+        String message = getResources().getString(messageId);
+        showMessage(message);
     }
 
 
@@ -217,6 +222,14 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         getViewModel().getMessageData().observe(this, o -> {
             if (o != null && o instanceof String) {
                 showMessage((String) o);
+            }
+        });
+    }
+
+    private void bindModelMessageByIdDialog() {
+        getViewModel().getMessageIdData().observe(this, o -> {
+            if (o != null && o instanceof Integer) {
+                showMessage((Integer) o);
             }
         });
     }
