@@ -15,6 +15,6 @@
         android:id="@+id/action_dashboard"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_home_ico"
+        android:icon="@drawable/ic_home_menu"
         app:showAsAction="always" />
 </menu>
