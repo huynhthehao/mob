@@ -21,18 +21,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintUIHelper;
+import vn.homecredit.hcvn.helpers.fingerprint.FingerprintUiHelper;
 
 @SuppressLint("ValidFragment")
 public class FingerprintAuthenticationDialogFragment extends DialogFragment
-        implements TextView.OnEditorActionListener, FingerPrintUIHelper.Callback {
+        implements TextView.OnEditorActionListener, FingerprintUiHelper.Callback {
 
     private Button mCancelButton;
     private View mFingerprintContent;
     private View mBackupContent;
 
     private FingerprintManager.CryptoObject mCryptoObject;
-    private FingerPrintUIHelper fingerPrintUiHelper;
+    private FingerprintUiHelper fingerprintUiHelper;
     private FingerprintManager fingerprintManager;
 
     private Runnable onValidateSuccessRunner = () -> System.out.print("Validated successfully");
@@ -66,7 +66,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         mFingerprintContent = dialog.findViewById(R.id.fingerprint_container);
         mBackupContent = dialog.findViewById(R.id.backup_container);
 
-        fingerPrintUiHelper = new FingerPrintUIHelper(fingerprintManager,
+        fingerprintUiHelper = new FingerprintUiHelper(fingerprintManager,
                 dialog.findViewById(R.id.fingerprint_icon),
                 dialog.findViewById(R.id.fingerprint_status), this);
 
@@ -79,7 +79,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     @Override
     public void onResume() {
         super.onResume();
-        fingerPrintUiHelper.startListening(mCryptoObject);
+        fingerprintUiHelper.startListening(mCryptoObject);
     }
 
 
@@ -87,7 +87,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     @Override
     public void onPause() {
         super.onPause();
-        fingerPrintUiHelper.stopListening();
+        fingerprintUiHelper.stopListening();
     }
 
 

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import vn.homecredit.hcvn.R;
 
 @TargetApi(Build.VERSION_CODES.M)
-public class FingerPrintUIHelper extends FingerprintManager.AuthenticationCallback {
+public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallback {
 
     private static final long ERROR_TIMEOUT_MILLIS = 1600;
     private static final long SUCCESS_DELAY_MILLIS = 1300;
@@ -30,7 +30,7 @@ public class FingerPrintUIHelper extends FingerprintManager.AuthenticationCallba
 
     private boolean mSelfCancelled;
 
-    public FingerPrintUIHelper(FingerprintManager fingerprintManager,
+    public FingerprintUiHelper(FingerprintManager fingerprintManager,
                                ImageView icon, TextView errorTextView, Callback callback) {
         mFingerprintManager = fingerprintManager;
         mIcon = icon;
