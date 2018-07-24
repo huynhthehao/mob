@@ -14,9 +14,6 @@ import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -33,15 +30,11 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.LoginInformation;
 import vn.homecredit.hcvn.databinding.ActivityLoginBinding;
-import vn.homecredit.hcvn.helpers.CryptoHelper;
-import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.FingerprintAuthenticationDialogFragment;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
-import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -51,6 +44,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     private static final String DEFAULT_KEY_NAME = "default_key";
     private KeyStore keyStore;
     private KeyGenerator keyGenerator;
+    private boolean keyValid = false;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
@@ -91,12 +85,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         try {
             keyStore = KeyStore.getInstance("AndroidKeyStore");
         } catch (KeyStoreException e) {
-            throw new RuntimeException("Failed to get an instance of KeyStore", e);
+            keyValid = false;
+            return;
+            //throw new RuntimeException("Failed to get an instance of KeyStore", e);
         }
         try {
             keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
         } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-            throw new RuntimeException("Failed to get an instance of KeyGenerator", e);
+            keyValid = false;
+            return;
+            //throw new RuntimeException("Failed to get an instance of KeyGenerator", e);
         }
 
         createKey(DEFAULT_KEY_NAME);
@@ -115,7 +113,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     @Override
     protected void onResume() {
         super.onResume();
-        adjustBottom();
     }
 
     public void openHomeActivity() {
@@ -133,6 +130,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     @Override
     public void showFingerPrintAuthDialog() {
         try {
+            if(!keyValid)
+                initKeyInfo();
+
             Cipher mCipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/"
                     + KeyProperties.BLOCK_MODE_CBC + "/"
                     + KeyProperties.ENCRYPTION_PADDING_PKCS7);
@@ -170,9 +170,11 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
             keyGenerator.init(builder.build());
             keyGenerator.generateKey();
+            keyValid = true;
         } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
                 | CertificateException | IOException e) {
-            throw new RuntimeException(e);
+            keyValid = false;
+            System.out.println(e.getMessage());
         }
     }
 
@@ -186,18 +188,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
             showMessage("Failed to init Cipher");
             return false;
         }
-    }
-
-    private void adjustBottom() {
-        View bottomGroupView = getViewDataBinding().bottomGroupView;
-        View scrollView = getViewDataBinding().scrollView;
-        View topGroupView = getViewDataBinding().topGroupView;
-
-        int marginTop = scrollView.getHeight() - topGroupView.getHeight() - bottomGroupView.getHeight();
-
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(0, marginTop, 0, 0);
-        bottomGroupView.setLayoutParams(lp);
     }
 }
 

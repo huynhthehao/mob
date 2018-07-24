@@ -17,6 +17,7 @@
         android:id="@+id/fingerprint_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/fingerprint_description"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/ic_finger_print_red"

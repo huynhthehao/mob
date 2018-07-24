@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 7/24/18 6:24 PM, by Hien.NguyenM
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#ffffff" />
+
+    <padding
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="7dp" />
+
+    <corners android:radius="8dp" />
+</shape>

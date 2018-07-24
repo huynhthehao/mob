@@ -2,8 +2,9 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_dialog">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -27,14 +28,14 @@
         <Button
             android:id="@+id/cancel_button"
             style="?android:attr/borderlessButtonStyle"
+            android:textAllCaps="false"
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:paddingBottom="2dp"
             android:paddingLeft="7dp"
             android:paddingRight="5dp"
             android:paddingTop="2dp"
-            android:layout_marginBottom="7dp"
+            android:paddingBottom="2dp"
             android:text="@string/cancel"
             android:textColor="@color/primary_red"
             android:textSize="@dimen/small_text" />

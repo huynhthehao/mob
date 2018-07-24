@@ -11,9 +11,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import dagger.Module;
 import dagger.Provides;
 import vn.homecredit.hcvn.ViewModelProviderFactory;
-import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.ui.splash.SplashViewModel;
-import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class MoreFragmentModule {
@@ -21,5 +18,4 @@ public class MoreFragmentModule {
     ViewModelProvider.Factory moreViewModelFactory(MoreViewModel moreViewModel) {
         return new ViewModelProviderFactory<>(moreViewModel);
     }
-
 }

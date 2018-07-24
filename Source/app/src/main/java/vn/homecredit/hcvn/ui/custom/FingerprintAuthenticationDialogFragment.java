@@ -12,10 +12,14 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
@@ -54,25 +58,29 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         this.onValidateSuccessRunner = onValidateSuccess;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        setPadding();
+    }
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        getDialog().setTitle("");
-        //getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        View dialog = inflater.inflate(R.layout.fragment_fingerprint_dialog_container, container, false);
-        mCancelButton = dialog.findViewById(R.id.cancel_button);
+        View dialogView = inflater.inflate(R.layout.fragment_fingerprint_dialog_container, container, false);
+        mCancelButton = dialogView.findViewById(R.id.cancel_button);
         mCancelButton.setOnClickListener(view -> dismiss());
-        mFingerprintContent = dialog.findViewById(R.id.fingerprint_container);
-        mBackupContent = dialog.findViewById(R.id.backup_container);
+        mFingerprintContent = dialogView.findViewById(R.id.fingerprint_container);
+        mBackupContent = dialogView.findViewById(R.id.backup_container);
 
-        fingerPrintUiHelper = new FingerPrintUIHelper(fingerprintManager,
-                dialog.findViewById(R.id.fingerprint_icon),
-                dialog.findViewById(R.id.fingerprint_status), this);
+        fingerPrintUiHelper = new FingerPrintUIHelper(fingerprintManager,this.getContext(),
+                dialogView.findViewById(R.id.fingerprint_icon),
+                dialogView.findViewById(R.id.fingerprint_status), this);
 
         updateStage();
-
-        return dialog;
+        return dialogView;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -123,4 +131,16 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         //goToBackup();
     }
 
+    private void setPadding() {
+        Window window = getDialog().getWindow();
+        WindowManager.LayoutParams params = window.getAttributes();
+        int padding = dpToPx(10);
+        params.y = dpToPx(params.y - padding);
+        window.setAttributes(params);
+    }
+
+    private int dpToPx(int dp) {
+        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
+    }
 }

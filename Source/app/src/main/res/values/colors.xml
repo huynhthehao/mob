@@ -4,6 +4,7 @@
     <color name="warning_color">#f4511e</color>
     <color name="hint_color">#42000000</color>
     <color name="success_color">#009688</color>
+    <color name="success">#56bc3e</color>
 
     <color name="red">#FF0000</color>
     <color name="red_50">#FFEBEE</color>

@@ -116,7 +116,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
             mHasAnimationStarted = true;
 
             final Handler handler = new Handler();
-            handler.postDelayed(() -> getViewModel().startIntro(), 1000);
+            handler.postDelayed(() -> getViewModel().startIntro(), 600);
         }
     }
 
@@ -129,7 +129,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
                     .translationX(logoWelcomeImageView.getX() - root.getWidth() / 2 + logoWelcomeImageViewFront.getWidth() / 2)
                     .translationY(logoWelcomeImageView.getY() - root.getHeight() / 2 + logoWelcomeImageViewFront.getHeight() / 2)
                     .setInterpolator(new AccelerateInterpolator()).withEndAction(() -> root.setVisibility(View.GONE))
-                    .setDuration(1000);
+                    .setDuration(600);
         } else {
             root.setVisibility(View.GONE);
         }
