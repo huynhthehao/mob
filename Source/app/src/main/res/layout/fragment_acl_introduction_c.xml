@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:drawableLeft="@drawable/check_doc_ico"
+            android:drawableLeft="@drawable/ic_check"
             android:drawablePadding="@dimen/text_margin"
             android:text="@string/cash_loan_c_desc_1"
             android:textAlignment="center" />
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:drawableLeft="@drawable/check_doc_ico"
+            android:drawableLeft="@drawable/ic_check"
             android:drawablePadding="@dimen/text_margin"
             android:text="@string/cash_loan_c_desc_2"
             android:textAlignment="center" />

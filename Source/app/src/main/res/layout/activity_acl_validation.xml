@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="10dp"
-                    android:drawableLeft="@drawable/id_loan_ico"
+                    android:drawableLeft="@drawable/ic_cashloan_id"
                     android:hint="@string/prompt_id_number"
                     android:imeActionId="2"
                     android:imeActionLabel="@string/action_next"

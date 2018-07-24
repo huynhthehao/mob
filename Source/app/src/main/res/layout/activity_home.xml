@@ -54,21 +54,21 @@
                     android:id="@+id/tabContract"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/contract_list_ico"
+                    android:icon="@drawable/ic_tab_contract"
                     />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabNotification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_notification_ico"
+                    android:icon="@drawable/ic_tab_notification"
                     />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabSupport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_support_ico"
+                    android:icon="@drawable/ic_tab_support"
                     />
 
                 <android.support.design.widget.TabItem
