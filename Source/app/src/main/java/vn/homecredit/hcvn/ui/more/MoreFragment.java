@@ -27,7 +27,6 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentMoreBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
-import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.ChangePassActivity;
@@ -83,11 +82,15 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+
     private void showLogout(Boolean clickedLogout) {
         if (clickedLogout) {
-            showToast("clicked Logout");
-            getViewModel().logout();
-            AppUtils.restartApp(getActivity());
+            showConfirmMessage(R.string.log_out, R.string.logout_question, (yes) -> {
+                if (yes) {
+                    getViewModel().logout();
+                    AppUtils.restartApp(getActivity());
+                }
+            });
         }
     }
 

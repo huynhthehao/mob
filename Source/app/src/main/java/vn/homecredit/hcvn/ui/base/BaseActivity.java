@@ -9,6 +9,7 @@
 
 package vn.homecredit.hcvn.ui.base;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -94,7 +95,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected void init() {
         getViewModel().setNavigator(this);
         getViewModel().init();
-
     }
 
     public T getViewDataBinding() {
@@ -187,20 +187,15 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     }
 
 
+    @SuppressLint("ResourceAsColor")
     public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
         new MaterialDialog.Builder(this)
                 .title(title)
                 .content(message)
                 .positiveText(R.string.ok)
                 .negativeText(R.string.cancel)
+                .negativeColor(R.color.brownishGrey)
                 .canceledOnTouchOutside(false)
-                .showListener(dialog -> {
-                    try {
-                        onCompleted.accept(true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                })
                 .cancelListener(dialog -> {
                     try {
                         onCompleted.accept(false);
@@ -208,9 +203,9 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                         e.printStackTrace();
                     }
                 })
-                .dismissListener(dialog -> {
+                .onPositive((dialog, which) -> {
                     try {
-                        onCompleted.accept(false);
+                        onCompleted.accept(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
