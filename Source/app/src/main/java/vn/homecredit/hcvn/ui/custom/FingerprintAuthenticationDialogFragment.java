@@ -108,6 +108,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     @Override
     public void onResume() {
         super.onResume();
+        fingerPrintUiHelper.refreshMessage();
         fingerPrintUiHelper.startListening(mCryptoObject);
     }
 

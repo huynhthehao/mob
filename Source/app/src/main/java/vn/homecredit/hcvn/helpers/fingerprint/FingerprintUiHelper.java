@@ -24,7 +24,6 @@ import vn.homecredit.hcvn.ui.custom.BouncingInterpolator;
 @TargetApi(Build.VERSION_CODES.M)
 public class FingerPrintUiHelper extends FingerprintManager.AuthenticationCallback {
 
-    private static final long ERROR_TIMEOUT_MILLIS = 500;
     private static final long SUCCESS_DELAY_MILLIS = 700;
 
     private final FingerprintManager mFingerprintManager;
@@ -47,8 +46,6 @@ public class FingerPrintUiHelper extends FingerprintManager.AuthenticationCallba
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean isFingerprintAuthAvailable() {
-        // The line below prevents the false positive inspection from Android Studio
-        // noinspection ResourceType
         return mFingerprintManager.isHardwareDetected()
                 && mFingerprintManager.hasEnrolledFingerprints();
     }
@@ -79,7 +76,6 @@ public class FingerPrintUiHelper extends FingerprintManager.AuthenticationCallba
     public void onAuthenticationError(int errMsgId, CharSequence errString) {
         if (!mSelfCancelled) {
             showError(errString);
-            //mIcon.postDelayed(() -> mCallback.onError(), ERROR_TIMEOUT_MILLIS);
         }
     }
 
@@ -94,7 +90,6 @@ public class FingerPrintUiHelper extends FingerprintManager.AuthenticationCallba
     public void onAuthenticationFailed() {
         Animation shake = AnimationUtils.loadAnimation(this.context, R.anim.shake);
         mIcon.startAnimation(shake);
-        //showError(mIcon.getResources().getString(R.string.fingerprint_not_recognized));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -122,7 +117,11 @@ public class FingerPrintUiHelper extends FingerprintManager.AuthenticationCallba
         messageTextView.setText(context.getResources().getString(R.string.fingerprint_validation_error));
         messageTextView.setTextColor(context.getResources().getColor(R.color.warning_color, null));
         messageTextView.removeCallbacks(mResetErrorTextRunnable);
-        messageTextView.postDelayed(mResetErrorTextRunnable, ERROR_TIMEOUT_MILLIS);
+    }
+
+    public void refreshMessage(){
+        messageTextView.setText(context.getResources().getString(R.string.fingerprint_description));
+        messageTextView.setTextColor(context.getResources().getColor(R.color.brownishGrey, null));
     }
 
     private Runnable mResetErrorTextRunnable = new Runnable() {

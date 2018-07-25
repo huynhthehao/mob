@@ -157,13 +157,13 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         showConfirmMessage(title, message, onCompleted);
     }
 
-    @SuppressLint("ResourceAsColor")
+
     public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
         new MaterialDialog.Builder(this.getActivity())
                 .title(title)
                 .content(message)
                 .positiveText(R.string.ok)
-                .negativeColor(R.color.brownishGrey)
+                .negativeColor(getResources().getColor(R.color.my_secondary_text))
                 .negativeText(R.string.cancel)
                 .canceledOnTouchOutside(false)
                 .cancelListener(dialog -> {
