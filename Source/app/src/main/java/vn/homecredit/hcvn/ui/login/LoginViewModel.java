@@ -10,7 +10,6 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 import javax.inject.Inject;
 
@@ -20,9 +19,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.LoginInformation;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
-import vn.homecredit.hcvn.helpers.CryptoHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
-import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
@@ -31,9 +28,9 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
-    public ObservableField<String> username = new ObservableField();
-    public ObservableField<String> password = new ObservableField();
-    public ObservableBoolean  showFingerPrint = new ObservableBoolean();
+    public ObservableField<String> username = new ObservableField("");
+    public ObservableField<String> password = new ObservableField("");
+    public ObservableBoolean  showFingerPrint = new ObservableBoolean(false);
 
     private final AccountRepository accountRepository;
     private final FingerPrintHelper fingerPrintHelper;
@@ -145,14 +142,4 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
         startSafeProcess(subscribe);
     }
-
-    /*@RequiresApi(api = Build.VERSION_CODES.O)
-    private void saveLoginInfo(String phoneNumber, String password){
-        String key = AppPreferencesHelper.PREF_KEY_LOGGED_ON_INFO + phoneNumber;
-        LoginInformation loginInformation = new LoginInformation(phoneNumber, password);
-        String encryptData = CryptoHelper.encryptObject(loginInformation);
-
-        preferencesHelper.saveObject(key, encryptData);
-        preferencesHelper.saveObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, phoneNumber);
-    }*/
 }

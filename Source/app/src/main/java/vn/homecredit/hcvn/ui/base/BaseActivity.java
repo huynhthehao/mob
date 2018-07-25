@@ -47,6 +47,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     private T mViewDataBinding;
     private V mViewModel;
 
+    protected boolean getLoadingEnable(){
+        return true;
+    }
+
     /**
      * Override for set binding variable
      *
@@ -157,8 +161,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (((ObservableBoolean) sender).get()) {
-                    showLoading();
+                    if(getLoadingEnable())
+                        showLoading();
                 } else {
+
                     hideLoading();
                 }
             }
