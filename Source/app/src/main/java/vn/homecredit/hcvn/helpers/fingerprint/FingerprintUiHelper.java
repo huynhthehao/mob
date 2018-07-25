@@ -22,7 +22,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.ui.custom.BouncingInterpolator;
 
 @TargetApi(Build.VERSION_CODES.M)
-public class FingerPrintUiHelper extends FingerprintManager.AuthenticationCallback {
+public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallback {
 
     private static final long SUCCESS_DELAY_MILLIS = 700;
 
@@ -35,7 +35,7 @@ public class FingerPrintUiHelper extends FingerprintManager.AuthenticationCallba
 
     private boolean mSelfCancelled;
 
-    public FingerPrintUiHelper(FingerprintManager fingerprintManager, Context context,
+    public FingerprintUiHelper(FingerprintManager fingerprintManager, Context context,
                                ImageView icon, TextView messageTextView, Callback callback) {
         this.context = context;
         mFingerprintManager = fingerprintManager;

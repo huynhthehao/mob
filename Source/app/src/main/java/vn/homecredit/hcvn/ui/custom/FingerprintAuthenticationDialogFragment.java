@@ -26,17 +26,18 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintUiHelper;
+import vn.homecredit.hcvn.helpers.fingerprint.FingerprintUiHelper;
+
 
 @SuppressLint("ValidFragment")
 public class FingerprintAuthenticationDialogFragment extends DialogFragment
-        implements TextView.OnEditorActionListener, FingerPrintUiHelper.Callback {
+        implements TextView.OnEditorActionListener, FingerprintUiHelper.Callback {
 
     private Button mCancelButton;
     private View mFingerprintContent;
 
     private FingerprintManager.CryptoObject mCryptoObject;
-    private FingerPrintUiHelper fingerPrintUiHelper;
+    private FingerprintUiHelper fingerPrintUiHelper;
     private FingerprintManager fingerprintManager;
     private boolean isSetPadding = false;
 
@@ -86,7 +87,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
 
         mFingerprintContent = dialogView.findViewById(R.id.fingerprint_container);
 
-        fingerPrintUiHelper = new FingerPrintUiHelper(fingerprintManager,this.getContext(),
+        fingerPrintUiHelper = new FingerprintUiHelper(fingerprintManager,this.getContext(),
                 dialogView.findViewById(R.id.fingerprint_icon),
                 dialogView.findViewById(R.id.fingerprint_description), this);
 
