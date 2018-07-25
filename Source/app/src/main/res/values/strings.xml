@@ -157,6 +157,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="fingerprint_use_to_authenticate_key">use_fingerprint_to_authenticate_key</string>
     <string name="fingerprint_description_bugdroid_icon">Android bugdroid image</string>
     <string name="fingerprint_description_icon">Fingerprint icon</string>
+    <string name="fingerprint_validation_error">Chức năng quét vân tay bị tạm khóa. Vui lòng thử lại sau</string>
 
     <string name="password">Mật khẩu</string>
     <string name="use_password">Sử dụng mật khẩu</string>

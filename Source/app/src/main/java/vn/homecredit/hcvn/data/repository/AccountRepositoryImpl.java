@@ -1,5 +1,8 @@
 package vn.homecredit.hcvn.data.repository;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import javax.inject.Inject;
 
 import io.reactivex.Single;
@@ -7,11 +10,14 @@ import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import vn.homecredit.hcvn.data.model.LoginInformation;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.helpers.CryptoHelper;
+import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.OneSignalService;
 
@@ -137,10 +143,32 @@ public class AccountRepositoryImpl implements AccountRepository {
         return preferencesHelper.getProfile();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void updatePassword(String password) {
-        preferencesHelper.updatePassword(password);
+        String currentUser = preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = AppPreferencesHelper.PREF_KEY_LOGGED_ON_INFO + currentUser;
+        LoginInformation loginInformation = new LoginInformation(currentUser, password);
+        String encryptData = CryptoHelper.encryptObject(loginInformation);
+        preferencesHelper.saveObject(key, encryptData);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void saveLoginInfo(String phoneNumber, String password) {
+        preferencesHelper.saveObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, phoneNumber);
+        updatePassword(password);
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public LoginInformation getCurrentLoginInfo() {
+        String currentUser = preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = AppPreferencesHelper.PREF_KEY_LOGGED_ON_INFO + currentUser;
+        String savedLoginInfo = preferencesHelper.getObject(key, String.class);
+        return CryptoHelper.decryptObject(savedLoginInfo, LoginInformation.class);
+    }
+
+    public String getCurrentUser(){
+        return preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+    }
 }

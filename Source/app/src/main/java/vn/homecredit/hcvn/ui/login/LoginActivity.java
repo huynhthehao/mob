@@ -45,6 +45,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     private KeyStore keyStore;
     private KeyGenerator keyGenerator;
     private boolean keyValid = false;
+    private boolean isShowingFingerprintDialog = false;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
@@ -129,6 +130,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void showFingerPrintAuthDialog() {
+        if(isShowingFingerprintDialog)
+            return;
+        isShowingFingerprintDialog = true;
         try {
             if(!keyValid)
                 initKeyInfo();
@@ -142,8 +146,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
             FingerprintManager fingerprintManager = getSystemService(FingerprintManager.class);
             FingerprintAuthenticationDialogFragment fragment = new FingerprintAuthenticationDialogFragment(fingerprintManager);
-
             fragment.setOnValidateSuccess(this::onValidatedSuccess);
+            fragment.setOnDismiss(this::onFingerprintDialogDismissed);
             fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
             fragment.show(getFragmentManager(), "FingerPrintDialog");
         }catch(Exception ex){
@@ -155,6 +159,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     private void onValidatedSuccess(){
         //showMessage("success");
         viewModel.autoLogin();
+    }
+
+    private void onFingerprintDialogDismissed(){
+        this.isShowingFingerprintDialog = false;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

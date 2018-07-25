@@ -47,6 +47,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     private T mViewDataBinding;
     private V mViewModel;
 
+    protected boolean getLoadingEnable(){
+        return true;
+    }
+
     /**
      * Override for set binding variable
      *
@@ -157,8 +161,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (((ObservableBoolean) sender).get()) {
-                    showLoading();
+                    if(getLoadingEnable())
+                        showLoading();
                 } else {
+
                     hideLoading();
                 }
             }
@@ -187,14 +193,13 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     }
 
 
-    @SuppressLint("ResourceAsColor")
     public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
         new MaterialDialog.Builder(this)
                 .title(title)
                 .content(message)
                 .positiveText(R.string.ok)
                 .negativeText(R.string.cancel)
-                .negativeColor(R.color.brownishGrey)
+                .negativeColor(getResources().getColor(R.color.my_secondary_text))
                 .canceledOnTouchOutside(false)
                 .cancelListener(dialog -> {
                     try {
