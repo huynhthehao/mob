@@ -22,26 +22,26 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.ui.custom.BouncingInterpolator;
 
 @TargetApi(Build.VERSION_CODES.M)
-public class FingerPrintUIHelper extends FingerprintManager.AuthenticationCallback {
+public class FingerPrintUiHelper extends FingerprintManager.AuthenticationCallback {
 
-    private static final long ERROR_TIMEOUT_MILLIS = 1600;
+    private static final long ERROR_TIMEOUT_MILLIS = 500;
     private static final long SUCCESS_DELAY_MILLIS = 700;
 
     private final FingerprintManager mFingerprintManager;
     private final ImageView mIcon;
-    private final TextView mErrorTextView;
+    private final TextView messageTextView;
     private final Callback mCallback;
     private CancellationSignal mCancellationSignal;
     private Context context;
 
     private boolean mSelfCancelled;
 
-    public FingerPrintUIHelper(FingerprintManager fingerprintManager, Context context,
-                               ImageView icon, TextView errorTextView, Callback callback) {
+    public FingerPrintUiHelper(FingerprintManager fingerprintManager, Context context,
+                               ImageView icon, TextView messageTextView, Callback callback) {
         this.context = context;
         mFingerprintManager = fingerprintManager;
         mIcon = icon;
-        mErrorTextView = errorTextView;
+        this.messageTextView = messageTextView;
         mCallback = callback;
     }
 
@@ -79,14 +79,14 @@ public class FingerPrintUIHelper extends FingerprintManager.AuthenticationCallba
     public void onAuthenticationError(int errMsgId, CharSequence errString) {
         if (!mSelfCancelled) {
             showError(errString);
-            mIcon.postDelayed(() -> mCallback.onError(), ERROR_TIMEOUT_MILLIS);
+            //mIcon.postDelayed(() -> mCallback.onError(), ERROR_TIMEOUT_MILLIS);
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-        showError(helpString);
+        //showError(helpString);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -94,42 +94,43 @@ public class FingerPrintUIHelper extends FingerprintManager.AuthenticationCallba
     public void onAuthenticationFailed() {
         Animation shake = AnimationUtils.loadAnimation(this.context, R.anim.shake);
         mIcon.startAnimation(shake);
-
-        showError(mIcon.getResources().getString(R.string.fingerprint_not_recognized));
+        //showError(mIcon.getResources().getString(R.string.fingerprint_not_recognized));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
-        mErrorTextView.removeCallbacks(mResetErrorTextRunnable);
+        messageTextView.removeCallbacks(mResetErrorTextRunnable);
         mIcon.setColorFilter(context.getResources().getColor(R.color.success), PorterDuff.Mode.SRC_IN);
-        mErrorTextView.setTextColor(mErrorTextView.getResources().getColor(R.color.success_color, null));
-        mErrorTextView.setText(mErrorTextView.getResources().getString(R.string.fingerprint_success));
 
+        startBouncing();
+        mIcon.postDelayed(() -> mCallback.onAuthenticated(), SUCCESS_DELAY_MILLIS);
+    }
+
+
+    public void startBouncing(){
         Animation bouncingAni = AnimationUtils.loadAnimation(this.context, R.anim.bounce);
         BouncingInterpolator interpolator = new BouncingInterpolator(0.2, 20);
         bouncingAni.setInterpolator(interpolator);
         mIcon.startAnimation(bouncingAni);
-        mIcon.postDelayed(() -> mCallback.onAuthenticated(), SUCCESS_DELAY_MILLIS);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void showError(CharSequence error) {
-        mErrorTextView.setText(error);
-        mErrorTextView.setTextColor(
-                mErrorTextView.getResources().getColor(R.color.warning_color, null));
-        mErrorTextView.removeCallbacks(mResetErrorTextRunnable);
-        mErrorTextView.postDelayed(mResetErrorTextRunnable, ERROR_TIMEOUT_MILLIS);
+        System.out.println(error);
+
+        messageTextView.setText(context.getResources().getString(R.string.fingerprint_validation_error));
+        messageTextView.setTextColor(context.getResources().getColor(R.color.warning_color, null));
+        messageTextView.removeCallbacks(mResetErrorTextRunnable);
+        messageTextView.postDelayed(mResetErrorTextRunnable, ERROR_TIMEOUT_MILLIS);
     }
 
     private Runnable mResetErrorTextRunnable = new Runnable() {
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void run() {
-            mErrorTextView.setTextColor(
-                    mErrorTextView.getResources().getColor(R.color.hint_color, null));
-            mErrorTextView.setText(
-                    mErrorTextView.getResources().getString(R.string.fingerprint_hint));
+            messageTextView.setTextColor(context.getResources().getColor(R.color.hint_color, null));
+            messageTextView.setText(context.getResources().getString(R.string.fingerprint_hint));
             mIcon.setImageResource(R.drawable.ic_finger_print_red);
         }
     };

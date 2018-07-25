@@ -10,7 +10,7 @@ import android.arch.lifecycle.ViewModelProvider;
 
 import dagger.Module;
 import dagger.Provides;
-import vn.homecredit.hcvn.ViewModelProviderFactory;
+import vn.homecredit.hcvn.di.ViewModelProviderFactory;
 
 @Module
 public class MoreFragmentModule {

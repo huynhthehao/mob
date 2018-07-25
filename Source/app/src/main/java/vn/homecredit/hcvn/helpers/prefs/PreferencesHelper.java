@@ -43,8 +43,6 @@ public interface PreferencesHelper {
     boolean getFingerPrintSetting();
     void setFingerPrintSetting(boolean isEnable);
 
-    void updatePassword(String pass);
-
     void saveObject(String key, Object obj);
     <T> T getObject(String key, Class<T> classType);
 }

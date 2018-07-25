@@ -1,6 +1,7 @@
 package vn.homecredit.hcvn.data.repository;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.data.model.LoginInformation;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 
@@ -29,5 +30,7 @@ public interface AccountRepository {
     Single<ProfileResp> forgotPasswordSetNew(String phone, String contractsId, String otp, String password);
 
     void updatePassword(String password) ;
-
+    void saveLoginInfo(String phoneNumber, String password);
+    LoginInformation getCurrentLoginInfo();
+    String getCurrentUser();
 }

@@ -49,7 +49,8 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
         FingerPrintAuthValue fingerSupportStatus = fingerPrintHelper.getFingerPrintAuthValue();
         showFingerPrint.set(fingerSupportStatus != FingerPrintAuthValue.NOT_SUPPORT);
-        String currentUser = preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+
+        String currentUser = accountRepository.getCurrentUser();
         if(!StringUtils.isNullOrWhiteSpace(currentUser));
             username.set(currentUser);
     }
@@ -107,11 +108,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void autoLogin(){
-        String currentUser = preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
-        String key = AppPreferencesHelper.PREF_KEY_LOGGED_ON_INFO + currentUser;
-        String savedLoginInfo = preferencesHelper.getObject(key, String.class);
-        LoginInformation loginInformation = CryptoHelper.decryptObject(savedLoginInfo, LoginInformation.class);
-
+        LoginInformation loginInformation = accountRepository.getCurrentLoginInfo();
         if(loginInformation == null || StringUtils.isNullOrWhiteSpace(loginInformation.phoneNumber)
                 || StringUtils.isNullOrWhiteSpace(loginInformation.password)){
             showMessage(R.string.fingerprint_login_info_not_found);
@@ -136,7 +133,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                     if (profileResp.getResponseCode() != 0) {
                         showMessage(profileResp.getResponseMessage());
                     } else {
-                        saveLoginInfo(phoneNumber, password);
+                        accountRepository.saveLoginInfo(phoneNumber, password);
                         getNavigator().openHomeActivity();
                     }
                 }, throwable -> {
@@ -149,7 +146,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         startSafeProcess(subscribe);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+    /*@RequiresApi(api = Build.VERSION_CODES.O)
     private void saveLoginInfo(String phoneNumber, String password){
         String key = AppPreferencesHelper.PREF_KEY_LOGGED_ON_INFO + phoneNumber;
         LoginInformation loginInformation = new LoginInformation(phoneNumber, password);
@@ -157,5 +154,5 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
         preferencesHelper.saveObject(key, encryptData);
         preferencesHelper.saveObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, phoneNumber);
-    }
+    }*/
 }

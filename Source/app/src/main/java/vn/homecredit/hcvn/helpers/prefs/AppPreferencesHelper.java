@@ -131,10 +131,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putBoolean(PREF_KEY_FINGER_PRINT_ENABLE, isEnable).commit();
     }
 
-    @Override
-    public void updatePassword(String pass) {
-
-    }
 
     @Override
     public void saveObject(String key, Object obj) {

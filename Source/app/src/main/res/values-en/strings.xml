@@ -149,6 +149,7 @@
     <string name="fingerprint_use_to_authenticate_key" >use_fingerprint_to_authenticate_key</string>
     <string name="fingerprint_description_bugdroid_icon">Android bugdroid image</string>
     <string name="fingerprint_description_icon">Fingerprint icon</string>
+    <string name="fingerprint_validation_error">Fingerprint is temporarily blocked. Please try again later</string>
 
     <string name="password">Password</string>
     <string name="use_password">use password</string>
