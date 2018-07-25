@@ -6,10 +6,6 @@
 
 package vn.homecredit.hcvn.ui.acl.validation;
 
-import android.arch.lifecycle.MutableLiveData;
-
-import java.util.HashMap;
-
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
@@ -49,7 +45,7 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
                 .subscribe(response -> {
                     setIsLoading(false);
                     if (response.isVerified()) {
-                        getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CashLoanWalkin));
+                        getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CASH_LOAN_WALKIN));
                     } else {
                         getNavigator().showMessage(response.getResponseMessage());
                     }

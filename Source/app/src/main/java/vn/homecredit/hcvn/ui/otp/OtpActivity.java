@@ -95,11 +95,11 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     @Override
     public void next(OtpPassParam data) {
         switch (currentOtpFlow){
-            case SignUp:
-            case ForgotPassword:
+            case SIGN_UP:
+            case FORGOT_PASSWORD:
                 openSetPassword(data);
                 break;
-            case CashLoanWalkin: {
+            case CASH_LOAN_WALKIN: {
                 openSelectLoan();
             }
         }
