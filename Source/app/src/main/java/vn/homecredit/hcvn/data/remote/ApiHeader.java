@@ -43,7 +43,7 @@ public class ApiHeader {
     }
 
     public static final class ProtectedApiHeader {
-        @Expose
+
         @SerializedName("AccessToken")
         private String mAccessToken;
 

@@ -16,72 +16,87 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.ui.contract.ContractFragment.OnListFragmentInteractionListener;
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.databinding.ItemContractCloseBinding;
 import vn.homecredit.hcvn.ui.contract.dummy.DummyContent.DummyItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
-public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<ContractRecyclerViewAdapter.ViewHolder> {
+public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private List<HcContract> items = new ArrayList<>();
 
-    public ContractRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    public ContractRecyclerViewAdapter() {
+    }
+
+    public void setNewData(List<HcContract> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
+    public HcContract getItem(int position) {
+        return items.get(position);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_contract, parent, false);
-        return new ViewHolder(view);
+    public int getItemViewType(int position) {
+        return items.get(position).getTypeContract();
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        if (viewType == HcContract.TYPE_CLOSED) {
+            ItemContractCloseBinding itemContractCloseBinding = ItemContractCloseBinding.inflate(layoutInflater,parent, false);
+            return new CloseViewHolder(itemContractCloseBinding);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        }else {
+            ItemContractCloseBinding itemContractCloseBinding = ItemContractCloseBinding.inflate(layoutInflater,parent, false);
+            return new PendingViewHolder(itemContractCloseBinding);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        HcContract hcContract = items.get(position);
+        if (hcContract.getTypeContract() == HcContract.TYPE_CLOSED) {
+            ((CloseViewHolder) holder).bind(hcContract);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+    public class PendingViewHolder extends RecyclerView.ViewHolder {
+        private final ItemContractCloseBinding binding;
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+        public PendingViewHolder(ItemContractCloseBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
+        public void bind(HcContract hcContract) {
+            binding.setContract(hcContract);
+            binding.executePendingBindings();
+        }
+    }
+    public class CloseViewHolder extends RecyclerView.ViewHolder {
+        private final ItemContractCloseBinding binding;
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+        public CloseViewHolder(ItemContractCloseBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+        public void bind(HcContract hcContract) {
+            binding.setContract(hcContract);
+            if (getLayoutPosition() != 0) {
+                binding.tvSection.setVisibility(View.GONE);
+            }else {
+                binding.tvSection.setVisibility(View.VISIBLE);
+            }
+            binding.executePendingBindings();
         }
     }
 }

@@ -9,8 +9,12 @@
 
 package vn.homecredit.hcvn.ui.contract;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,94 +23,53 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
+import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.contract.dummy.DummyContent;
 import vn.homecredit.hcvn.ui.contract.dummy.DummyContent.DummyItem;
 
 import java.util.List;
-public class ContractFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+import javax.inject.Inject;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public ContractFragment() {
-    }
+public class ContractFragment extends BaseFragment<FragmentContractListBinding, ContractViewModel> {
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static ContractFragment newInstance(int columnCount) {
-        ContractFragment fragment = new ContractFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+    ContractRecyclerViewAdapter contractRecyclerViewAdapter;
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
+    @Override
+    public int getBindingVariable() {
+        return BR.viewModel;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+    public int getLayoutId() {
+        return R.layout.fragment_contract_list;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_contract_list, container, false);
+    public ContractViewModel getViewModel() {
+        return ViewModelProviders.of(this, viewModelFactory).get(ContractViewModel.class);
+    }
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+    @Override
+    protected void init() {
+        super.init();
+        contractRecyclerViewAdapter = new ContractRecyclerViewAdapter();
+        RecyclerView rvContract = getViewDataBinding().getRoot().findViewById(R.id.rvContract);
+        rvContract.setAdapter(contractRecyclerViewAdapter);
+
+        getViewModel().getListMutableLiveData().observe(this, new Observer<List<HcContract>>() {
+            @Override
+            public void onChanged(@Nullable List<HcContract> hcContracts) {
+                if (hcContracts != null) {
+                    contractRecyclerViewAdapter.setNewData(hcContracts);
+                }
             }
-            recyclerView.setAdapter(new ContractRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
-        return view;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        });
     }
 }

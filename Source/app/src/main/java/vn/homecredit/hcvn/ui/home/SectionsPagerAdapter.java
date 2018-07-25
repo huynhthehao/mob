@@ -24,7 +24,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case TAB_CONTRACTS:
-                return ContractFragment.newInstance(1);
+                return new ContractFragment();
             case TAB_NOTIFICATION:
                 return NotificationFragment.newInstance(1);
             case TAB_SUPPORT:
@@ -34,7 +34,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             default:
                 break;
         }
-        return ContractFragment.newInstance(1);
+        return new ContractFragment();
     }
 
     @Override
