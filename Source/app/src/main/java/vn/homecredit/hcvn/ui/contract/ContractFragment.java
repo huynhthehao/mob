@@ -24,13 +24,6 @@ import vn.homecredit.hcvn.ui.contract.dummy.DummyContent;
 import vn.homecredit.hcvn.ui.contract.dummy.DummyContent.DummyItem;
 
 import java.util.List;
-
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class ContractFragment extends Fragment {
 
     // TODO: Customize parameter argument names

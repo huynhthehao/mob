@@ -26,4 +26,5 @@ public interface RestService {
     Single<ProfileResp> signUp(String phone, String contracsId, String otp, String password);
     Single<ProfileResp> forgetPasswordSetNew(String phone, String contracsId, String otp, String password);
 
+
 }
