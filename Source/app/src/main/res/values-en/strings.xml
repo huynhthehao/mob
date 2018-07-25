@@ -154,4 +154,5 @@
     <string name="password">Password</string>
     <string name="use_password">use password</string>
     <string name="logout_question">Bạn có muốn đăng xuất?</string>
+    <string name="contract_number">Contract number</string>
 </resources>

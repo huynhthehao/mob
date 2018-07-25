@@ -9,7 +9,6 @@ import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.model.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
-import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.Log;
@@ -63,7 +62,7 @@ public class SignUpViewModel extends BaseViewModel {
                             if (otpTimer == null) return;
                             Log.debug(otpTimer.toString());
                             if (otpTimer.isVerified()) {
-                                OtpPassParam otpPassParam = new OtpPassParam(otpTimer, username.get(), contracts.get(), OtpFlow.SignUp);
+                                OtpPassParam otpPassParam = new OtpPassParam(otpTimer, username.get(), contracts.get(), OtpFlow.SIGN_UP);
                                 modelOtpPassParam.setValue(otpPassParam);
                             }else {
                                 showMessage(otpTimer.getResponseMessage());

@@ -43,7 +43,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private String phonePrimary;
     private String contractId;
     private OtpTimerRespData otpTimerInfo;
-    private OtpFlow otpFlow = OtpFlow.CashLoanWalkin;
+    private OtpFlow otpFlow = OtpFlow.CASH_LOAN_WALKIN;
 
     private static String remainingTimeText;
     private static long _remainingTime;
@@ -89,7 +89,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         this.phoneNumber = phoneNumber;
         this.contractId = contractId;
         this.otpFlow = otpFlow;
-        agreementTermVisibile.set(otpFlow == OtpFlow.CashLoanWalkin);
+        agreementTermVisibile.set(otpFlow == OtpFlow.CASH_LOAN_WALKIN);
         this.otpTimerInfo = otpTimerInfo;
 
         if (inffected)
@@ -111,13 +111,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     public void onNextClick() {
         switch (otpFlow) {
-            case ForgotPassword:
+            case FORGOT_PASSWORD:
                 verifyOtpForgetPassword();
                 break;
-            case SignUp:
+            case SIGN_UP:
                 verifyOtpSignUp();
                 break;
-            case CashLoanWalkin: {
+            case CASH_LOAN_WALKIN: {
                 verifyOtpForCLW();
             }
         }
@@ -126,13 +126,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     public void onResendOtp() {
         stopTimer();
         switch (otpFlow) {
-            case ForgotPassword:
+            case FORGOT_PASSWORD:
                 resendOtpForForgetPassword();
                 break;
-            case SignUp:
+            case SIGN_UP:
                 resendOtpForSignUp();
                 break;
-            case CashLoanWalkin:
+            case CASH_LOAN_WALKIN:
                 resendOtpForCLW();
                 break;
         }
@@ -147,7 +147,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                         return;
                     }
                     if (response.isVerified()) {
-                        initData(phoneNumber, contractId, OtpFlow.ForgotPassword, response.getData());
+                        initData(phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, response.getData());
                     }else {
                         showMessage(response.getResponseMessage());
                     }
@@ -172,7 +172,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.ForgotPassword, inputOtp ));
+                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, inputOtp ));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
@@ -193,7 +193,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                         return;
                     }
                     if (response.isVerified()) {
-                        initData(phoneNumber, contractId, OtpFlow.SignUp, response.getData());
+                        initData(phoneNumber, contractId, OtpFlow.SIGN_UP, response.getData());
                     }else {
                         showMessage(response.getResponseMessage());
                     }
@@ -220,7 +220,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SignUp, inputOtp ));
+                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SIGN_UP, inputOtp ));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
@@ -239,7 +239,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         showMessage(R.string.otp_resend_success);
 
-                        initData(phoneNumber, contractId, OtpFlow.CashLoanWalkin, response.getData());
+                        initData(phoneNumber, contractId, OtpFlow.CASH_LOAN_WALKIN, response.getData());
                     } else {
                         getNavigator().showMessage(response.getResponseMessage());
                     }

@@ -7,12 +7,12 @@
 package vn.homecredit.hcvn.data.model;
 
 public enum OtpFlow {
-    SignUp(1),
-    ForgotPassword(2),
-    ChangePassword(4),
-    MasterContract(8),
-    MasterContractCreditCard(16),
-    CashLoanWalkin(32);
+    SIGN_UP(1),
+    FORGOT_PASSWORD(2),
+    CHANGE_PASSWORD(4),
+    MASTER_CONTRACT(8),
+    MASTER_CONTRACT_CREDIT_CARD(16),
+    CASH_LOAN_WALKIN(32);
 
     private int value;
 
@@ -31,6 +31,6 @@ public enum OtpFlow {
             }
         }
 
-        return OtpFlow.SignUp;
+        return OtpFlow.SIGN_UP;
     }
 }

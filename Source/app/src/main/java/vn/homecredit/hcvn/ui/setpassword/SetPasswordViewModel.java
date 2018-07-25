@@ -65,10 +65,10 @@ public class SetPasswordViewModel extends BaseViewModel {
     public void onClickedSignUp() {
         if (isDataValid()) {
             switch (otpParam.getOtpFlow()) {
-                case SignUp:
+                case SIGN_UP:
                     signUpThenLogin();
                     break;
-                case ForgotPassword:
+                case FORGOT_PASSWORD:
                     forgetPasswordSetNew();
                     break;
             }
