@@ -23,8 +23,6 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.ui.notification.dummy.DummyContent;
 import vn.homecredit.hcvn.ui.notification.dummy.DummyContent.DummyItem;
 
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -68,7 +66,7 @@ public class NotificationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notification_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
