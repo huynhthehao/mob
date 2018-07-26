@@ -18,11 +18,16 @@ public class ContractViewModel extends BaseViewModel {
     private final ContractRepository contractRepository;
 
     private MutableLiveData<List<HcContract>> listMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> refreshing = new MutableLiveData<>();
 
     @Inject
     public ContractViewModel(ContractRepository contractRepository, SchedulerProvider schedulerProvider) {
         super(schedulerProvider);
         this.contractRepository = contractRepository;
+    }
+
+    public MutableLiveData<Boolean> getRefreshing() {
+        return refreshing;
     }
 
     public MutableLiveData<List<HcContract>> getListMutableLiveData() {
@@ -37,14 +42,21 @@ public class ContractViewModel extends BaseViewModel {
 
     private void getContracṭ̣() {
         setIsLoading(true);
+        refreshing.setValue(true);
         contractRepository.contracts().subscribe(s -> {
             setIsLoading(false);
+            refreshing.setValue(false);
             Log.debug(s.getData().getContracts().size() + "");
             listMutableLiveData.setValue(s.getData().getContracts());
 
         }, throwable -> {
             setIsLoading(false);
+            refreshing.setValue(false);
             handleError(throwable);
         });
+    }
+
+    public void onRefresh() {
+        getContracṭ̣();
     }
 }

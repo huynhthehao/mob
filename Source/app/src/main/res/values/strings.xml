@@ -162,5 +162,10 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="use_password">Sử dụng mật khẩu</string>
     <string name="logout_question">Bạn có muốn đăng xuất?</string>
     <string name="contract_number">Số hợp đồng</string>
+    <string name="status">Status</string>
+    <string name="please_sign">Please sign</string>
+    <string name="pending">Pending</string>
+    <string name="approved">Approved</string>
+    <string name="closed">Closed</string>
 
 </resources>

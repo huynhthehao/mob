@@ -1,6 +1,6 @@
 package vn.homecredit.hcvn.data.model.api.contract;
 
-class ContractStatus {
+public class ContractStatus {
     public static String Approved = "S";
     public static String Active = "A";
     public static String PaidOff = "L";

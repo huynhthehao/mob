@@ -1,62 +1,72 @@
+
 package vn.homecredit.hcvn.data.model.api.contract;
 
-import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class HcContract {
 
     public static final int TYPE_ACTIVED = 0;
     public static final int TYPE_APPROVIED = 1;
     public static final int TYPE_CLOSED = 2;
-    /**
-     * client_name : Eidiá»Šj Ajá»Ž Dcb
-     * contract_number : 3800589883
-     * dpd : 0
-     * id_number : 383200284
-     * primary_phone : 056456445
-     * product_type : Cash Loan
-     * signed_date : 2018-07-20T00:00:00
-     * amt_credit_total : 35409000
-     * status_text_en : Singed
-     * status_text_vn : Ä�Ã£ kÃ½
-     * tenor : 0
-     * product_code : CL
-     * is_credit_card : false
-     * status : N
-     */
-    private String client_name;
-    private String contract_number;
+
+    @SerializedName("client_name")
+    @Expose
+    private String clientName;
+    @SerializedName("contract_number")
+    @Expose
+    private String contractNumber;
+    @SerializedName("dpd")
+    @Expose
     private String dpd;
-    private String id_number;
-    private String primary_phone;
-    private String product_type;
-    private String signed_date;
-    private int amt_credit_total;
-    private String status_text_en;
-    private String status_text_vn;
-    private int tenor;
-    private String product_code;
-    private boolean is_credit_card;
+    @SerializedName("id_number")
+    @Expose
+    private String idNumber;
+    @SerializedName("primary_phone")
+    @Expose
+    private String primaryPhone;
+    @SerializedName("product_type")
+    @Expose
+    private String productType;
+    @SerializedName("signed_date")
+    @Expose
+    private String signedDate;
+    @SerializedName("amt_credit_total")
+    @Expose
+    private Integer amtCreditTotal;
+    @SerializedName("status_text_en")
+    @Expose
+    private String statusTextEn;
+    @SerializedName("status_text_vn")
+    @Expose
+    private String statusTextVn;
+    @SerializedName("tenor")
+    @Expose
+    private Integer tenor;
+    @SerializedName("product_code")
+    @Expose
+    private String productCode;
+    @SerializedName("is_credit_card")
+    @Expose
+    private Boolean isCreditCard;
+    @SerializedName("status")
+    @Expose
     private String status;
 
-    public static HcContract objectFromData(String str) {
-
-        return new Gson().fromJson(str, HcContract.class);
+    public String getClientName() {
+        return clientName;
     }
 
-    public String getClient_name() {
-        return client_name;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
-    public void setClient_name(String client_name) {
-        this.client_name = client_name;
+    public String getContractNumber() {
+        return contractNumber;
     }
 
-    public String getContract_number() {
-        return contract_number;
-    }
-
-    public void setContract_number(String contract_number) {
-        this.contract_number = contract_number;
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
     }
 
     public String getDpd() {
@@ -67,84 +77,84 @@ public class HcContract {
         this.dpd = dpd;
     }
 
-    public String getId_number() {
-        return id_number;
+    public String getIdNumber() {
+        return idNumber;
     }
 
-    public void setId_number(String id_number) {
-        this.id_number = id_number;
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
     }
 
-    public String getPrimary_phone() {
-        return primary_phone;
+    public String getPrimaryPhone() {
+        return primaryPhone;
     }
 
-    public void setPrimary_phone(String primary_phone) {
-        this.primary_phone = primary_phone;
+    public void setPrimaryPhone(String primaryPhone) {
+        this.primaryPhone = primaryPhone;
     }
 
-    public String getProduct_type() {
-        return product_type;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setProduct_type(String product_type) {
-        this.product_type = product_type;
+    public void setProductType(String productType) {
+        this.productType = productType;
     }
 
-    public String getSigned_date() {
-        return signed_date;
+    public String getSignedDate() {
+        return signedDate;
     }
 
-    public void setSigned_date(String signed_date) {
-        this.signed_date = signed_date;
+    public void setSignedDate(String signedDate) {
+        this.signedDate = signedDate;
     }
 
-    public int getAmt_credit_total() {
-        return amt_credit_total;
+    public Integer getAmtCreditTotal() {
+        return amtCreditTotal;
     }
 
-    public void setAmt_credit_total(int amt_credit_total) {
-        this.amt_credit_total = amt_credit_total;
+    public void setAmtCreditTotal(Integer amtCreditTotal) {
+        this.amtCreditTotal = amtCreditTotal;
     }
 
-    public String getStatus_text_en() {
-        return status_text_en;
+    public String getStatusTextEn() {
+        return statusTextEn;
     }
 
-    public void setStatus_text_en(String status_text_en) {
-        this.status_text_en = status_text_en;
+    public void setStatusTextEn(String statusTextEn) {
+        this.statusTextEn = statusTextEn;
     }
 
-    public String getStatus_text_vn() {
-        return status_text_vn;
+    public String getStatusTextVn() {
+        return statusTextVn;
     }
 
-    public void setStatus_text_vn(String status_text_vn) {
-        this.status_text_vn = status_text_vn;
+    public void setStatusTextVn(String statusTextVn) {
+        this.statusTextVn = statusTextVn;
     }
 
-    public int getTenor() {
+    public Integer getTenor() {
         return tenor;
     }
 
-    public void setTenor(int tenor) {
+    public void setTenor(Integer tenor) {
         this.tenor = tenor;
     }
 
-    public String getProduct_code() {
-        return product_code;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public void setProduct_code(String product_code) {
-        this.product_code = product_code;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
-    public boolean isIs_credit_card() {
-        return is_credit_card;
+    public Boolean getIsCreditCard() {
+        return isCreditCard;
     }
 
-    public void setIs_credit_card(boolean is_credit_card) {
-        this.is_credit_card = is_credit_card;
+    public void setIsCreditCard(Boolean isCreditCard) {
+        this.isCreditCard = isCreditCard;
     }
 
     public String getStatus() {
@@ -167,6 +177,4 @@ public class HcContract {
             return TYPE_CLOSED;
         }
     }
-
-
 }

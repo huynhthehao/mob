@@ -6,26 +6,35 @@
             type="vn.homecredit.hcvn.data.model.api.contract.HcContract"/>
     </data>
     <LinearLayout
+        android:id="@+id/item"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:descendantFocusability="afterDescendants"
+        >
 
         <TextView
             android:id="@+id/tvSection"
-            android:text="@string/closed"
+            android:text="@string/pending"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/AppTheme.DescriptionLabel"
             />
         <android.support.v7.widget.CardView
+            android:duplicateParentState="true"
+            android:descendantFocusability="afterDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/margin_smallest"
             android:layout_margin="@dimen/margin_smallest"
             >
             <android.support.constraint.ConstraintLayout
+                android:duplicateParentState="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:descendantFocusability="afterDescendants"
                 android:padding="@dimen/margin_high"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -75,8 +84,8 @@
                     app:layout_constraintLeft_toRightOf="@+id/barrier"
                     app:layout_constraintTop_toTopOf="@+id/tvLoadAmountTitle"
                     app:layout_constraintRight_toRightOf="parent"
-                    tools:text="7,999,999d"
-                    app:loanamount="@{contract.amtCreditTotal}"
+                    tools:text="Contract no."
+                    android:text="@{contract.amtCreditTotal.toString()}"
                     style="@style/Contact.Content"
                     />
 
@@ -86,18 +95,20 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="@+id/tvContractTitle"
                     app:layout_constraintTop_toBottomOf="@+id/tvLoadAmountTitle"
-                    android:text="Signed date"
+                    android:text="@string/status"
                     style="@style/Contact.Title"
                     />
 
                 <TextView
-                    android:id="@+id/tvSignedDate"
+                    android:id="@+id/tvSigned"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toRightOf="@+id/barrier"
                     app:layout_constraintTop_toTopOf="@+id/tvSignedDateTitle"
                     app:layout_constraintRight_toRightOf="parent"
-                    tools:text="01/02/2017"
+                    android:text="@string/please_sign"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:clickable="true"
                     app:date="@{contract.signedDate}"
                     style="@style/Contact.Content"
                     />

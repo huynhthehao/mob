@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/tvSection"
-            android:text="@string/closed"
+            android:text="@string/approved"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/AppTheme.DescriptionLabel"
@@ -101,6 +101,46 @@
                     app:date="@{contract.signedDate}"
                     style="@style/Contact.Content"
                     />
+
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    app:layout_constraintTop_toBottomOf="@+id/tvSignedDate"
+                    style="@style/Separator_Horizontal"
+                    />
+
+                <TextView
+                    android:id="@+id/tvNextPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/divider"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    tools:text="Your next payment 889.600\nis due on 22/06/2016"
+                    style="@style/Contact.Title"
+                    />
+
+                <TextView
+                    android:id="@+id/tvPaymentLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNextPayment"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:textColor="@color/red"
+                    android:gravity="center"
+                    android:drawableLeft="@drawable/ic_location"
+                    android:drawablePadding="@dimen/padding_small"
+                    tools:text="Payment locations"
+                    style="@style/Contact.Content"
+                    />
+
+
+
 
                 <android.support.constraint.Barrier
                     android:id="@+id/barrier"

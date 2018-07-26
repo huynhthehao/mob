@@ -35,7 +35,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ContractFragment extends BaseFragment<FragmentContractListBinding, ContractViewModel> {
+public class ContractFragment extends BaseFragment<FragmentContractListBinding, ContractViewModel> implements ContractRecyclerViewAdapter.OnContractListener {
 
     ContractRecyclerViewAdapter contractRecyclerViewAdapter;
     @Inject
@@ -60,16 +60,22 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
     protected void init() {
         super.init();
         contractRecyclerViewAdapter = new ContractRecyclerViewAdapter();
+        contractRecyclerViewAdapter.setOnContractListener(this);
         RecyclerView rvContract = getViewDataBinding().getRoot().findViewById(R.id.rvContract);
         rvContract.setAdapter(contractRecyclerViewAdapter);
-
-        getViewModel().getListMutableLiveData().observe(this, new Observer<List<HcContract>>() {
-            @Override
-            public void onChanged(@Nullable List<HcContract> hcContracts) {
-                if (hcContracts != null) {
-                    contractRecyclerViewAdapter.setNewData(hcContracts);
-                }
+        getViewModel().getListMutableLiveData().observe(this, hcContracts -> {
+            if (hcContracts != null) {
+                contractRecyclerViewAdapter.setNewData(hcContracts);
             }
         });
+
+        getViewModel().getRefreshing().observe(this, aBoolean -> getViewDataBinding().swiperefresh.setRefreshing(aBoolean));
+
+
+    }
+
+    @Override
+    public void onClicked(int position) {
+
     }
 }
