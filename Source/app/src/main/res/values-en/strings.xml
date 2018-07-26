@@ -155,4 +155,8 @@
     <string name="use_password">use password</string>
     <string name="logout_question">Bạn có muốn đăng xuất?</string>
     <string name="contract_number">Contract number</string>
+
+    <!-- Notifications Page -->
+    <string name="loading_data">Loading data, please wait...</string>
+    <string name="tap_to_reload">Tap to reload</string>
 </resources>

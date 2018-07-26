@@ -164,4 +164,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="logout_question">Bạn có muốn đăng xuất?</string>
     <string name="contract_number">Số hợp đồng</string>
 
+    <!-- Notifications Page -->
+    <string name="loading_data">Đang tải dữ liệu...</string>
+    <string name="tap_to_reload">Thử lại</string>
+
 </resources>
