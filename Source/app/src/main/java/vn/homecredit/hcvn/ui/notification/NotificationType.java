@@ -30,11 +30,20 @@ public enum NotificationType {
         return resouceIconId;
     }
 
-    public int getResouceIconIdForUpdate(boolean isNeedUpdate) {
+    public static int getResouceIconIdForUpdate(boolean isNeedUpdate) {
         if (isNeedUpdate) {
             return R.drawable.ic_update;
         } else {
             return R.drawable.ic_opening;
         }
+    }
+
+    public static int getImageResourceIdByType(int type) {
+        for (NotificationType value : NotificationType.values()) {
+            if (value.getType() == type) {
+                return value.getResouceIconId();
+            }
+        }
+        return MARKETING.getResouceIconId();
     }
 }

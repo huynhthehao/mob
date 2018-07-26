@@ -16,14 +16,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.ui.notification.NotificationsFragment.OnListFragmentInteractionListener;
-import vn.homecredit.hcvn.ui.notification.dummy.DummyContent.DummyItem;
+import vn.homecredit.hcvn.ui.notification.model.DummyContent.DummyItem;
 
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class NotificationRecyclerViewAdapter extends RecyclerView.Adapter<NotificationRecyclerViewAdapter.ViewHolder> {

@@ -7,7 +7,7 @@
  * Last modified 6/13/18 4:13 PM
  */
 
-package vn.homecredit.hcvn.ui.notification.dummy;
+package vn.homecredit.hcvn.ui.notification.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
