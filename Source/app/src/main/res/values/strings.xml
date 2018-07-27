@@ -165,7 +165,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="status">Status</string>
     <string name="please_sign">Please sign</string>
     <string name="pending">Pending</string>
-    <string name="approved">Approved</string>
+    <string name="approved">Đã kích hoạt</string>
     <string name="closed">Closed</string>
 
 </resources>

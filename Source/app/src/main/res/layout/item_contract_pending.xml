@@ -12,8 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:clickable="true"
-        android:descendantFocusability="afterDescendants"
         >
 
         <TextView
@@ -24,26 +22,23 @@
             style="@style/AppTheme.DescriptionLabel"
             />
         <android.support.v7.widget.CardView
-            android:duplicateParentState="true"
-            android:descendantFocusability="afterDescendants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="@dimen/margin_smallest"
             android:layout_margin="@dimen/margin_smallest"
             >
             <android.support.constraint.ConstraintLayout
-                android:duplicateParentState="true"
                 android:background="?android:attr/selectableItemBackground"
-                android:descendantFocusability="afterDescendants"
-                android:padding="@dimen/margin_high"
+                android:padding="@dimen/padding_normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/ivIcon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_moto"
+                    android:layout_width="@dimen/contract_type_width"
+                    android:layout_height="@dimen/contract_type_height"
+                    tools:src="@drawable/ic_contract_twowheel"
+                    app:type="@{contract.getTypeContract}"
                     />
 
                 <TextView
@@ -84,8 +79,8 @@
                     app:layout_constraintLeft_toRightOf="@+id/barrier"
                     app:layout_constraintTop_toTopOf="@+id/tvLoadAmountTitle"
                     app:layout_constraintRight_toRightOf="parent"
-                    tools:text="Contract no."
-                    android:text="@{contract.amtCreditTotal.toString()}"
+                    tools:text="7,999,999d"
+                    app:loanamount="@{contract.amtCreditTotal}"
                     style="@style/Contact.Content"
                     />
 
@@ -107,9 +102,10 @@
                     app:layout_constraintTop_toTopOf="@+id/tvSignedDateTitle"
                     app:layout_constraintRight_toRightOf="parent"
                     android:text="@string/please_sign"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="@color/red"
                     android:clickable="true"
-                    app:date="@{contract.signedDate}"
+                    android:focusable="true"
+                    android:background="?android:attr/selectableItemBackground"
                     style="@style/Contact.Content"
                     />
 

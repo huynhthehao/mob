@@ -6,9 +6,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class HcContract {
 
-    public static final int TYPE_ACTIVED = 0;
-    public static final int TYPE_APPROVIED = 1;
-    public static final int TYPE_CLOSED = 2;
+    public static final int STATUS_ACTIVE = 0;
+    public static final int STATUS_PENDING = 1;
+    public static final int STATUS_CLOSED = 2;
+
+    public static final int TYPE_TWO_WHEEL = 0;
+    public static final int TYPE_CASH_LOAN = 1;
+    public static final int TYPE_DURABLE = 2;
+    public static final int TYPE_CREDIT_CARD = 3;
 
     @SerializedName("client_name")
     @Expose
@@ -49,9 +54,24 @@ public class HcContract {
     @SerializedName("is_credit_card")
     @Expose
     private Boolean isCreditCard;
+
     @SerializedName("status")
     @Expose
     private String status;
+
+    @SerializedName("nextPayment")
+    @Expose
+    private NextPayment nextPayment;
+
+    private boolean isShowSection = false;
+
+    public boolean isShowSection() {
+        return isShowSection;
+    }
+
+    public void setShowSection(boolean showSection) {
+        isShowSection = showSection;
+    }
 
     public String getClientName() {
         return clientName;
@@ -165,16 +185,42 @@ public class HcContract {
         this.status = status;
     }
 
-    public int getTypeContract() {
+
+    public NextPayment getNextPayment() {
+        return nextPayment;
+    }
+
+    public void setNextPayment(NextPayment nextPayment) {
+        this.nextPayment = nextPayment;
+    }
+
+    public int getTypeStatus() {
         if (status == null) {
-            return TYPE_CLOSED;
+            return STATUS_CLOSED;
         }
         if (status.equals(ContractStatus.Active)) {
-            return TYPE_ACTIVED;
+            return STATUS_ACTIVE;
         }else if (status.equals(ContractStatus.Approved)) {
-            return TYPE_APPROVIED;
+            return STATUS_PENDING;
         }else {
-            return TYPE_CLOSED;
+            return STATUS_CLOSED;
+        }
+    }
+
+    public int getTypeContract() {
+        if (productCode == null) {
+            return TYPE_CASH_LOAN;
+        }
+        if (ContractType.CashLoan.equals(productCode)) {
+            return TYPE_CASH_LOAN;
+        }else if (ContractType.ConsumerDurables.equals(productCode)) {
+            return TYPE_DURABLE;
+        }else if (ContractType.CreditCard.equals(productCode)) {
+            return TYPE_CREDIT_CARD;
+        }else if (ContractType.TwoWheels.equals(productCode)) {
+            return TYPE_TWO_WHEEL;
+        }else {
+            return TYPE_CASH_LOAN;
         }
     }
 }

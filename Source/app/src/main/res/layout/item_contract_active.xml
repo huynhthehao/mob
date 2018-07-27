@@ -26,15 +26,17 @@
             android:layout_margin="@dimen/margin_smallest"
             >
             <android.support.constraint.ConstraintLayout
-                android:padding="@dimen/margin_high"
+                android:padding="@dimen/padding_normal"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/ivIcon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_moto"
+                    android:layout_width="@dimen/contract_type_width"
+                    android:layout_height="@dimen/contract_type_height"
+                    tools:src="@drawable/ic_contract_twowheel"
+                    app:type="@{contract.getTypeContract}"
                     />
 
                 <TextView
@@ -135,7 +137,7 @@
                     android:gravity="center"
                     android:drawableLeft="@drawable/ic_location"
                     android:drawablePadding="@dimen/padding_small"
-                    tools:text="Payment locations"
+                    android:text="Payment locations"
                     style="@style/Contact.Content"
                     />
 

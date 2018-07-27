@@ -14,14 +14,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
-import vn.homecredit.hcvn.databinding.ItemContractApprovedBinding;
+import vn.homecredit.hcvn.databinding.ItemContractActiveBinding;
 import vn.homecredit.hcvn.databinding.ItemContractCloseBinding;
 import vn.homecredit.hcvn.databinding.ItemContractPendingBinding;
-import vn.homecredit.hcvn.ui.contract.dummy.DummyContent.DummyItem;
+import vn.homecredit.hcvn.utils.DateUtils;
 import vn.homecredit.hcvn.utils.Log;
 
 import java.text.DecimalFormat;
@@ -55,31 +56,33 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @Override
     public int getItemViewType(int position) {
-        return items.get(position).getTypeContract();
+        return items.get(position).getTypeStatus();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        if (viewType == HcContract.TYPE_CLOSED) {
-            ItemContractCloseBinding itemContractCloseBinding = ItemContractCloseBinding.inflate(layoutInflater, parent, false);
-            return new CloseViewHolder(itemContractCloseBinding, onContractListener);
-        }else if (viewType == HcContract.TYPE_APPROVIED) {
-            ItemContractApprovedBinding itemContractApprovedBinding = ItemContractApprovedBinding.inflate(layoutInflater, parent, false);
-            return new ApprovedViewHolder(itemContractApprovedBinding);
-        }else {
+        if (viewType == HcContract.STATUS_ACTIVE) {
+            ItemContractActiveBinding itemContractApprovedBinding = ItemContractActiveBinding.inflate(layoutInflater, parent, false);
+            return new ActiveViewHolder(itemContractApprovedBinding, onContractListener);
+        }else if (viewType == HcContract.STATUS_PENDING) {
             ItemContractPendingBinding itemContractPendingBinding = ItemContractPendingBinding.inflate(layoutInflater,parent, false);
             return new PendingViewHolder(itemContractPendingBinding, onContractListener);
+        }else {
+            ItemContractCloseBinding itemContractCloseBinding = ItemContractCloseBinding.inflate(layoutInflater, parent, false);
+            return new CloseViewHolder(itemContractCloseBinding, onContractListener);
         }
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         HcContract hcContract = items.get(position);
-        if (hcContract.getTypeContract() == HcContract.TYPE_CLOSED) {
-            ((CloseViewHolder) holder).bind(hcContract);
-        }else if (hcContract.getTypeContract() == HcContract.TYPE_CLOSED) {
+        if (hcContract.getTypeStatus() == HcContract.STATUS_ACTIVE) {
+            ((ActiveViewHolder) holder).bind(hcContract);
+        }else if (hcContract.getTypeStatus() == HcContract.STATUS_PENDING) {
             ((PendingViewHolder) holder).bind(hcContract);
+        }else if (hcContract.getTypeStatus() == HcContract.STATUS_CLOSED) {
+            ((CloseViewHolder) holder).bind(hcContract);
         }
     }
 
@@ -88,65 +91,82 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         return items.size();
     }
 
-    public class ApprovedViewHolder extends RecyclerView.ViewHolder {
-        private final ItemContractApprovedBinding binding;
+    public class ActiveViewHolder extends RecyclerView.ViewHolder {
+        private final ItemContractActiveBinding binding;
 
-        public ApprovedViewHolder(ItemContractApprovedBinding binding) {
+        public ActiveViewHolder(ItemContractActiveBinding binding, OnContractListener onContractListener) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(view -> {
+                Log.debug("position " + getLayoutPosition());
+                if (onContractListener != null) {
+                    onContractListener.onClicked(getLayoutPosition());
+                }
+            });
         }
         public void bind(HcContract hcContract) {
             binding.setContract(hcContract);
+            if (!hcContract.isShowSection()) {
+                binding.tvSection.setVisibility(View.GONE);
+            }else {
+                binding.tvSection.setVisibility(View.VISIBLE);
+            }
             binding.executePendingBindings();
         }
     }
 
     public class PendingViewHolder extends RecyclerView.ViewHolder {
         private final ItemContractPendingBinding binding;
-        private OnContractListener onContractListener;
 
         public PendingViewHolder(ItemContractPendingBinding binding, OnContractListener onContractListener) {
             super(binding.getRoot());
             this.binding = binding;
-            this.onContractListener = onContractListener;
-        }
-        public void bind(HcContract hcContract) {
-            binding.setContract(hcContract);
             binding.getRoot().setOnClickListener(view -> {
+                Log.debug("position " + getLayoutPosition());
                 if (onContractListener != null) {
                     onContractListener.onClicked(getLayoutPosition());
                 }
             });
-            binding.tvSigned.setOnClickListener(view -> Log.debug("click sign"));
+            binding.tvSigned.setOnClickListener(view -> {
+                Log.debug("click sign");
+            });
+        }
+        public void bind(HcContract hcContract) {
+            binding.setContract(hcContract);
+            if (!hcContract.isShowSection()) {
+                binding.tvSection.setVisibility(View.GONE);
+            }else {
+                binding.tvSection.setVisibility(View.VISIBLE);
+            }
             binding.executePendingBindings();
         }
     }
 
     public class CloseViewHolder extends RecyclerView.ViewHolder {
+
         private final ItemContractCloseBinding binding;
-        private OnContractListener onContractListener;
 
         public CloseViewHolder(ItemContractCloseBinding binding, OnContractListener onContractListener) {
             super(binding.getRoot());
             this.binding = binding;
-            this.onContractListener = onContractListener;
-        }
-        public void bind(HcContract hcContract) {
-            binding.setContract(hcContract);
-            if (getLayoutPosition() != 0) {
-                binding.tvSection.setVisibility(View.GONE);
-            }else {
-                binding.tvSection.setVisibility(View.VISIBLE);
-            }
             binding.getRoot().setOnClickListener(view -> {
+                Log.debug("position " + getLayoutPosition());
                 if (onContractListener != null) {
                     onContractListener.onClicked(getLayoutPosition());
                 }
             });
+        }
+
+        public void bind(HcContract hcContract) {
+            binding.setContract(hcContract);
+            if (!hcContract.isShowSection()) {
+                binding.tvSection.setVisibility(View.GONE);
+            }else {
+                binding.tvSection.setVisibility(View.VISIBLE);
+            }
             binding.executePendingBindings();
         }
     }
-
 
     public interface OnContractListener {
         void onClicked(int position);
@@ -155,17 +175,7 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     @BindingAdapter({"date"})
     public static void setSingedDate(TextView textView, String signedDate) {
         if (signedDate == null) return;
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
-            SimpleDateFormat displayFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date serverDate = simpleDateFormat.parse(signedDate);
-            String displayDate = displayFormat.format(serverDate);
-            textView.setText(displayDate);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        textView.setText(DateUtils.convertDateFromUTCToSimple(signedDate));
     }
 
     @BindingAdapter({"loanamount"})
@@ -174,6 +184,28 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         NumberFormat formatter = new DecimalFormat("#,###");
         String formattedNumber = formatter.format(loanAmount);
         textView.setText(formattedNumber + "đ");
+    }
+
+    @BindingAdapter({"type"})
+    public static void setIcon(ImageView iv, int typeContract) {
+        switch (typeContract) {
+            case HcContract.TYPE_CASH_LOAN:
+                iv.setImageResource(R.drawable.ic_contract_cashloan);
+                break;
+            case HcContract.TYPE_DURABLE:
+                iv.setImageResource(R.drawable.ic_consumer_durable);
+                break;
+            case HcContract.TYPE_CREDIT_CARD:
+                iv.setImageResource(R.drawable.ic_contract_creditcard);
+                break;
+            case HcContract.TYPE_TWO_WHEEL:
+                iv.setImageResource(R.drawable.ic_contract_twowheel);
+                break;
+            default:
+                iv.setImageResource(R.drawable.ic_contract_twowheel);
+                break;
+
+        }
     }
 
 
