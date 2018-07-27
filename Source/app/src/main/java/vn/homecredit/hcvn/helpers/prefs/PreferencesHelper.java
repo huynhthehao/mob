@@ -32,6 +32,8 @@ public interface PreferencesHelper {
 
     void logout();
 
+    void changeLanguage();
+
     void setLanguageCode(String languageId);
 
     String getLanguageCode();
@@ -45,4 +47,7 @@ public interface PreferencesHelper {
 
     void saveObject(String key, Object obj);
     <T> T getObject(String key, Class<T> classType);
+
+    void setFingerprintEnableStatus();
+    String getFingerprintEnableStatus();
 }

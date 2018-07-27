@@ -11,6 +11,11 @@ package vn.homecredit.hcvn.helpers.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.DisplayMetrics;
 
 import com.google.gson.Gson;
 
@@ -20,6 +25,7 @@ import javax.inject.Inject;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.di.PreferenceInfo;
+import vn.homecredit.hcvn.helpers.LocaleHelper;
 import vn.homecredit.hcvn.utils.StringUtils;
 
 public class AppPreferencesHelper implements PreferencesHelper {
@@ -27,6 +33,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     // Do not edit these keys
     public static final String PREF_KEY_LOGGED_ON_INFO = "logged_on_user_key_";
     public static final String PREF_KEY_LOGGED_ON_User = "logged_on_user";
+    public static final String PREF_KEY_FINGERPRINT_ENABLE = "touch_id_enable_";
+    public static final String PREF_KEY_FINGERPRINT_SETTING = "touch_id_setting_";
 
 
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
@@ -34,7 +42,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_VERSIONRESP = "PREF_KEY_VERSIONRESP";
     private static final String PREF_KEY_SHOW_DASHBOARD = "PREF_KEY_SHOW_DASHBOARD";
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
-    private static final String PREF_KEY_FINGER_PRINT_ENABLE = "PREF_KEY_FINGER_PRINT_ENABLE";
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
 
     private final SharedPreferences mPrefs;
@@ -91,6 +98,31 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putString(PREF_KEY_ACCESS_TOKEN, null).commit();
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @Override
+    public void changeLanguage() {
+        String currentLangCode = getLanguageCode();
+        String newLangCode = currentLangCode.equals("vi") ? "en" : "vi";
+        setLanguageCode(newLangCode);
+    }
+
+    /*private static Context updateResources(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+
+        Resources res = context.getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        if (Build.VERSION.SDK_INT >= 17) {
+            config.setLocale(locale);
+            context = context.createConfigurationContext(config);
+        } else {
+            config.locale = locale;
+            res.updateConfiguration(config, res.getDisplayMetrics());
+        }
+        return context;
+    }*/
+
     @Override
     public void setLanguageCode(String languageId) {
         mPrefs.edit().putString(PREF_KEY_LANGUAGE_CODE, languageId).commit();
@@ -121,16 +153,6 @@ public class AppPreferencesHelper implements PreferencesHelper {
         mPrefs.edit().putBoolean(PREF_KEY_NOTIFICATION_SETTING, isEnable).commit();
     }
 
-    @Override
-    public boolean getFingerPrintSetting() {
-        return mPrefs.getBoolean(PREF_KEY_FINGER_PRINT_ENABLE, false);
-    }
-
-    @Override
-    public void setFingerPrintSetting(boolean isEnable) {
-        mPrefs.edit().putBoolean(PREF_KEY_FINGER_PRINT_ENABLE, isEnable).commit();
-    }
-
 
     @Override
     public void saveObject(String key, Object obj) {
@@ -154,5 +176,35 @@ public class AppPreferencesHelper implements PreferencesHelper {
         }catch(Exception ex) {
             return null;
         }
+    }
+
+    @Override
+    public boolean getFingerPrintSetting() {
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = PREF_KEY_FINGERPRINT_SETTING + currentUser;
+        return mPrefs.getBoolean(key, false);
+    }
+
+
+    @Override
+    public void setFingerPrintSetting(boolean isEnable) {
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = PREF_KEY_FINGERPRINT_SETTING + currentUser;
+        mPrefs.edit().putBoolean(key, isEnable).commit();
+    }
+
+
+    @Override
+    public void setFingerprintEnableStatus() {
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
+        saveObject(key,"1");
+    }
+
+    @Override
+    public String getFingerprintEnableStatus() {
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
+        return getObject(key, String.class);
     }
 }

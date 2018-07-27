@@ -13,18 +13,20 @@ import android.text.TextUtils;
 
 import javax.inject.Inject;
 
-import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
     private final AclDataManager mAclDataManager;
+    private final PreferencesHelper preferencesHelper;
 
     @Inject
-    public WelcomeViewModel(SchedulerProvider schedulerProvider, AclDataManager aclDataManager) {
+    public WelcomeViewModel(SchedulerProvider schedulerProvider, AclDataManager aclDataManager, PreferencesHelper preferencesHelper) {
         super(schedulerProvider);
         mAclDataManager = aclDataManager;
+        this.preferencesHelper = preferencesHelper;
     }
 
     public void hardCode() {
@@ -33,6 +35,15 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
 
     public void onLoginClick() {
         this.getNavigator().openLoginActivity();
+    }
+
+    public void onLanguageFlagClick(){
+        preferencesHelper.changeLanguage();
+        getNavigator().changeLanguage();
+    }
+
+    public String getCurrentLanguageCode(){
+        return preferencesHelper.getLanguageCode();
     }
 
     public void onSignupClick() {
