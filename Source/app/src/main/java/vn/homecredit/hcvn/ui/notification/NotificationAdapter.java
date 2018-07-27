@@ -16,9 +16,16 @@ import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
     List<NotificationModel> listData;
+    OnItemNotificationClickListener listener;
 
-    public NotificationAdapter() {
+    public NotificationAdapter(OnItemNotificationClickListener listener) {
         listData = new ArrayList<>();
+        this.listener = listener;
+    }
+
+    public void swapData(List<NotificationModel> listData) {
+        this.listData = listData;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -64,8 +71,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             } else {
                 ivHistory.setImageResource(R.drawable.ic_hisroty_unread);
             }
-            ivIcon.setImageResource(model.getType() == NotificationType.UPDATE.getType() ? NotificationType.getImageResourceIdByType(model.getType())
+            ivIcon.setImageResource(model.getType() != NotificationType.UPDATE.getType() ? NotificationType.getImageResourceIdByType(model.getType())
                     : NotificationType.getResouceIconIdForUpdate(model.isNeedToUpdate()));
+
+            vContent.setOnClickListener(view -> listener.onItemNotificationClicked(model));
         }
+    }
+
+    public interface OnItemNotificationClickListener {
+        void onItemNotificationClicked(NotificationModel model);
     }
 }

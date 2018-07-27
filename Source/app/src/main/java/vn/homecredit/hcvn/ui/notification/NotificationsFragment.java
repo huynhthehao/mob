@@ -9,19 +9,42 @@
 
 package vn.homecredit.hcvn.ui.notification;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import vn.homecredit.hcvn.R;
+import javax.inject.Inject;
 
-public class NotificationsFragment extends Fragment {
+import vn.homecredit.hcvn.BR;
+import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.databinding.FragmentNotificationsBinding;
+import vn.homecredit.hcvn.ui.base.BaseFragment;
+
+public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     public static NotificationsFragment newInstance() {
         NotificationsFragment fragment = new NotificationsFragment();
         return fragment;
+    }
+
+    @Override
+    public int getBindingVariable() {
+        return BR.viewModel;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_notifications;
+    }
+
+    @Override
+    public NotificationViewModel getViewModel() {
+        return ViewModelProviders.of(this, viewModelFactory).get(NotificationViewModel.class);
     }
 
     @Override
@@ -32,7 +55,6 @@ public class NotificationsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
-        return view;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }
