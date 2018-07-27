@@ -18,7 +18,7 @@ public class HomeViewModel extends BaseViewModel {
                 && accountRepository.getCachedProfile() != null
                 && accountRepository.getCachedProfile().getFullName() != null) {
             mUserName = accountRepository.getCachedProfile().getFullName();
-        }else {
+        } else {
             mUserName = "";
         }
     }
