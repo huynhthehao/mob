@@ -48,7 +48,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/setting_row_height"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="@dimen/view_size_medium_small"
@@ -81,7 +82,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/grey_300" />
+                    android:background="@color/grey_300"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:id="@+id/layNotification"

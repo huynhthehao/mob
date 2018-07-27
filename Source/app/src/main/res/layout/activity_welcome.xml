@@ -34,9 +34,10 @@
                 android:layout_height="30dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="15dp"
-                app:srcCompat="@drawable/ic_flag_vn"
+                android:src="@drawable/ic_flag_vn"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"/>
+                android:layout_marginRight="15dp"
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <LinearLayout
