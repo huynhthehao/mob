@@ -134,7 +134,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public ProfileResp.ProfileRespData getProfileRespData() {
-        return mMemoryHelper.getProfileRespData();
+        return mPreferencesHelper.getProfile();
     }
 
     @Override

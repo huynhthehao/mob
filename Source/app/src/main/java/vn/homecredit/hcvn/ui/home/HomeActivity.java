@@ -171,7 +171,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedContact() {
-        mViewPager.setCurrentItem(SectionsPagerAdapter.TAB_CONTRACTS);
+        setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_CONTRACTS);
     }
 
     @Override
@@ -184,7 +184,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedNotification() {
-        mViewPager.setCurrentItem(SectionsPagerAdapter.TAB_NOTIFICATION);
+        setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_NOTIFICATION);
     }
 
     @Override
@@ -194,7 +194,11 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedMore() {
-        mViewPager.setCurrentItem(SectionsPagerAdapter.TAB_MORE);
+        setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_MORE);
+    }
+
+    private void setViewPagerCurrentItemWithoutSmoothScroll(int tab){
+        mViewPager.setCurrentItem(tab, false);
     }
 
     @Override
