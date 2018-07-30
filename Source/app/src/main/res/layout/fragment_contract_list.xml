@@ -7,16 +7,33 @@
   ~
   ~ Last modified 6/13/18 4:11 PM
   -->
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.contract.main.ContractViewModel"/>
+    </data>
 
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="vn.homecredit.hcvn.ui.contract.ContractFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.contract.ContractFragment"
-    tools:listitem="@layout/fragment_contract" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{() -> viewModel.onRefresh()}">
+
+        <android.support.v7.widget.RecyclerView
+            android:padding="@dimen/padding_normal"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/rvContract"
+            android:name="vn.homecredit.hcvn.ui.contract.ContractFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:context=".ui.contract.main.ContractFragment"
+            tools:listitem="@layout/item_contract_close" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</layout>

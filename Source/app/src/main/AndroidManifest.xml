@@ -94,6 +94,7 @@
             android:windowSoftInputMode="adjustPan"
             >
         </activity>
+        <activity android:name=".ui.contract.signing.SigningActivity" />
     </application>
 
 </manifest>
