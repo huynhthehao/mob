@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.helpers.UiHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerprintUiHelper;
 
 
@@ -156,13 +157,8 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private void setPadding() {
         Window window = getDialog().getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        int padding = dpToPx(10);
-        params.y = dpToPx(params.y - padding);
+        int padding = UiHelper.dpToPx(getActivity(),10);
+        params.y = UiHelper.dpToPx(getActivity(),params.y - padding);
         window.setAttributes(params);
-    }
-
-    private int dpToPx(int dp) {
-        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
     }
 }
