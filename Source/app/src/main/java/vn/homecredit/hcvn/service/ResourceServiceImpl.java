@@ -31,6 +31,11 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
+    public Context getContext() {
+        return context;
+    }
+
+    @Override
     public int getColorById(int colorId) {
         if(this.context == null)
             return 0;

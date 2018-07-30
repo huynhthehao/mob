@@ -8,6 +8,8 @@ package vn.homecredit.hcvn.helpers;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Base64;
+
 import com.google.gson.Gson;
 import vn.homecredit.hcvn.helpers.entities.Asn1Object;
 import vn.homecredit.hcvn.helpers.entities.DerParser;
@@ -22,7 +24,6 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.KeySpec;
 import java.security.spec.RSAPrivateCrtKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
 
 
 public final class CryptoHelper {
@@ -37,7 +38,7 @@ public final class CryptoHelper {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
             byte[] encrypted = cipher.doFinal(value.getBytes());
 
-            return Base64.getEncoder().encodeToString(encrypted);
+            return android.util.Base64.encodeToString(encrypted, Base64.DEFAULT);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -52,7 +53,7 @@ public final class CryptoHelper {
             Cipher cipher = Cipher.getInstance("AES/ECB/ISO10126Padding");
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
 
-            byte[] original = cipher.doFinal(Base64.getDecoder().decode(encrypted));
+            byte[] original = cipher.doFinal(Base64.decode(encrypted, Base64.DEFAULT));
 
             return new String(original);
         } catch (Exception ex) {
@@ -92,7 +93,7 @@ public final class CryptoHelper {
             sign.initSign(privateKey);
             sign.update(message.getBytes("UTF-8"));
 
-            return new String(Base64.getEncoder().encodeToString(sign.sign()));
+            return new String(Base64.encodeToString(sign.sign(), Base64.DEFAULT));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (GeneralSecurityException e) {
@@ -140,7 +141,7 @@ public final class CryptoHelper {
             Signature sign = Signature.getInstance("SHA1withRSA");
             sign.initVerify(publicKey);
             sign.update(message.getBytes("UTF-8"));
-            return sign.verify(Base64.getDecoder().decode(signature.getBytes("UTF-8")));
+            return sign.verify(Base64.decode(signature.getBytes("UTF-8"), Base64.DEFAULT));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (GeneralSecurityException e) {
@@ -158,7 +159,7 @@ public final class CryptoHelper {
         privateKeyPEM = privateKeyPEM.replace("-----END RSA PRIVATE KEY-----", "");
         privateKeyPEM = privateKeyPEM.trim();
 
-        byte[] encoded = Base64.getDecoder().decode(privateKeyPEM);
+        byte[] encoded = Base64.decode(privateKeyPEM, Base64.DEFAULT);
         KeySpec keySpec = getRSAKeySpec(encoded);
         KeyFactory kf = KeyFactory.getInstance("RSA");
 
@@ -202,7 +203,7 @@ public final class CryptoHelper {
         publicKeyPEM = publicKeyPEM.trim();
 
         // Base64 decode data
-        byte[] encoded = Base64.getDecoder().decode(publicKeyPEM);
+        byte[] encoded = Base64.decode(publicKeyPEM, Base64.DEFAULT);
 
         KeyFactory kf = KeyFactory.getInstance("RSA");
         RSAPublicKey pubKey = (RSAPublicKey) kf.generatePublic(new X509EncodedKeySpec(encoded));

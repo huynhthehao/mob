@@ -6,8 +6,10 @@
 
 package vn.homecredit.hcvn.service;
 
+import android.content.Context;
+
 public interface ResourceService {
     String getStringById(int id);
-
+    Context getContext();
     int getColorById(int colorId);
 }

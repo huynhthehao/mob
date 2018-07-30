@@ -8,6 +8,7 @@ package vn.homecredit.hcvn.ui.custom;
 
 import android.annotation.SuppressLint;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +26,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.helpers.UiHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerprintUiHelper;
+
 
 @SuppressLint("ValidFragment")
 public class FingerprintAuthenticationDialogFragment extends DialogFragment
@@ -33,13 +36,14 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
 
     private Button mCancelButton;
     private View mFingerprintContent;
-    private View mBackupContent;
 
     private FingerprintManager.CryptoObject mCryptoObject;
     private FingerprintUiHelper fingerPrintUiHelper;
     private FingerprintManager fingerprintManager;
+    private boolean isSetPadding = false;
 
     private Runnable onValidateSuccessRunner = () -> System.out.print("Validated successfully");
+    private Runnable onDismissRunner = () -> System.out.print("Dismissed");
 
     @SuppressLint("ValidFragment")
     public FingerprintAuthenticationDialogFragment(FingerprintManager fingerprintManager) {
@@ -58,9 +62,18 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         this.onValidateSuccessRunner = onValidateSuccess;
     }
 
+    public void setOnDismiss(Runnable onDismissRunner){
+        this.onDismissRunner = onDismissRunner;
+    }
+
+
     @Override
     public void onStart() {
         super.onStart();
+        if(isSetPadding)
+            return;
+        isSetPadding = true;
+
         getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         setPadding();
     }
@@ -71,22 +84,33 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View dialogView = inflater.inflate(R.layout.fragment_fingerprint_dialog_container, container, false);
         mCancelButton = dialogView.findViewById(R.id.cancel_button);
-        mCancelButton.setOnClickListener(view -> dismiss());
+        mCancelButton.setOnClickListener(view -> onClose(view));
+
         mFingerprintContent = dialogView.findViewById(R.id.fingerprint_container);
-        mBackupContent = dialogView.findViewById(R.id.backup_container);
 
         fingerPrintUiHelper = new FingerprintUiHelper(fingerprintManager,this.getContext(),
                 dialogView.findViewById(R.id.fingerprint_icon),
-                dialogView.findViewById(R.id.fingerprint_status), this);
+                dialogView.findViewById(R.id.fingerprint_description), this);
 
         updateStage();
         return dialogView;
+    }
+
+    private void onClose(View view){
+        fingerPrintUiHelper.startBouncing();
+        view.postDelayed(() -> dismiss(), 500);
+    }
+
+    @Override public void onDismiss(DialogInterface dialog){
+        super.onDismiss(dialog);
+        onDismissRunner.run();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onResume() {
         super.onResume();
+        fingerPrintUiHelper.refreshMessage();
         fingerPrintUiHelper.startListening(mCryptoObject);
     }
 
@@ -107,7 +131,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private void updateStage() {
         mCancelButton.setText(R.string.cancel);
         mFingerprintContent.setVisibility(View.VISIBLE);
-        mBackupContent.setVisibility(View.GONE);
     }
 
     @Override
@@ -134,13 +157,8 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private void setPadding() {
         Window window = getDialog().getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
-        int padding = dpToPx(10);
-        params.y = dpToPx(params.y - padding);
+        int padding = UiHelper.dpToPx(getActivity(),10);
+        params.y = UiHelper.dpToPx(getActivity(),params.y - padding);
         window.setAttributes(params);
-    }
-
-    private int dpToPx(int dp) {
-        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
     }
 }
