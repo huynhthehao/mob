@@ -17,10 +17,6 @@ public class StringUtils {
     }
 
     public static boolean isNullOrEmpty(CharSequence input){
-        if(input == null)
-            return true;
-        String value = input.toString();
-
-        return value.length() < 1;
+        return input == null || input.length() == 0;
     }
 }

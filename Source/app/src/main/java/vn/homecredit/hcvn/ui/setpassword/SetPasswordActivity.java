@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.FirstComeFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivitySetpasswordBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
@@ -58,7 +59,7 @@ public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding
 
         getViewModel().getModelSignIn().observe(this, aBoolean -> {
             if (aBoolean != null && aBoolean == true) {
-                HomeActivity.start(SetPasswordActivity.this, true, true );
+                HomeActivity.start(SetPasswordActivity.this, true, FirstComeFlow.AFTER_SIGNUP );
             }
         });
 

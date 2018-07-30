@@ -9,7 +9,6 @@
 
 package vn.homecredit.hcvn.ui.base;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,13 +25,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import dagger.android.AndroidInjection;
 import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
+import vn.homecredit.hcvn.helpers.UiHelper;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.NetworkUtils;
@@ -47,9 +44,12 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     private T mViewDataBinding;
     private V mViewModel;
 
+    protected boolean getLoadingEnable(){
+        return true;
+    }
+
     /**
      * Override for set binding variable
-     *
      * @return variable id
      */
     public abstract int getBindingVariable();
@@ -63,7 +63,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     /**
      * Override for set view model
-     *
      * @return view model instance
      */
     public abstract V getViewModel();
@@ -157,8 +156,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (((ObservableBoolean) sender).get()) {
-                    showLoading();
+                    if(getLoadingEnable())
+                        showLoading();
                 } else {
+
                     hideLoading();
                 }
             }
@@ -172,13 +173,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
 
     public void showMessage(String message) {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                .title(R.string.notice)
-                .content(message)
-                .positiveText(R.string.ok);
-
-        MaterialDialog dialog = builder.build();
-        dialog.show();
+        UiHelper.showMessage(this, message);
     }
 
     public void showMessage(Integer messageId) {
@@ -187,30 +182,8 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     }
 
 
-    @SuppressLint("ResourceAsColor")
     public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
-        new MaterialDialog.Builder(this)
-                .title(title)
-                .content(message)
-                .positiveText(R.string.ok)
-                .negativeText(R.string.cancel)
-                .negativeColor(R.color.brownishGrey)
-                .canceledOnTouchOutside(false)
-                .cancelListener(dialog -> {
-                    try {
-                        onCompleted.accept(false);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                })
-                .onPositive((dialog, which) -> {
-                    try {
-                        onCompleted.accept(true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                })
-                .show();
+        UiHelper.showConfirmMessage(this,title, message,onCompleted);
     }
 
     private void bindModelMessageDialog() {

@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityWelcomeBinding;
+import vn.homecredit.hcvn.helpers.LocaleHelper;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
@@ -37,10 +38,12 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
 
     boolean mHasAnimationStarted = false;
     @Inject
-    WelcomeViewModel mWelcomeViewModel;
+    WelcomeViewModel viewModel;
+
     ActivityWelcomeBinding mActivityWelcomeBinding;
+
     public static void start(Context context) {
-        Intent intent =  new Intent(context, WelcomeActivity.class);
+        Intent intent = new Intent(context, WelcomeActivity.class);
         context.startActivity(intent);
     }
 
@@ -60,7 +63,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
 
     @Override
     public WelcomeViewModel getViewModel() {
-        return mWelcomeViewModel;
+        return viewModel;
     }
 
     @Override
@@ -101,10 +104,35 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     }
 
     @Override
+    public void changeLanguage() {
+        String langCode = viewModel.getCurrentLanguageCode();
+        LocaleHelper.setLocale(getBaseContext(),langCode);
+
+        ImageView flagImage = findViewById(R.id.languageFlag);
+
+        if (langCode.equals("vi")) {
+            flagImage.setImageResource(R.drawable.ic_flag_en);
+        } else {
+            flagImage.setImageResource(R.drawable.ic_flag_vn);
+        }
+    }
+
+
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityWelcomeBinding = getViewDataBinding();
-        mWelcomeViewModel.setNavigator(this);
+        viewModel.setNavigator(this);
+
+        String langCode = viewModel.getCurrentLanguageCode();
+        ImageView flagImage = findViewById(R.id.languageFlag);
+
+        if (langCode.equals("en")) {
+            flagImage.setImageResource(R.drawable.ic_flag_en);
+        } else {
+            flagImage.setImageResource(R.drawable.ic_flag_vn);
+        }
     }
 
     @Override

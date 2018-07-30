@@ -9,6 +9,8 @@
 
 package vn.homecredit.hcvn.ui.welcome;
 
+import android.content.Context;
+
 public interface WelcomeNavigator {
     void openWelcomeActivity();
     void openHomeActivity();
@@ -18,4 +20,5 @@ public interface WelcomeNavigator {
     void openIntroActivity();
     void openAclApplicationForm();
     void startIntro();
+    void changeLanguage();
 }

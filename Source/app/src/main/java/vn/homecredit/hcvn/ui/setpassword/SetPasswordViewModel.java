@@ -106,6 +106,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                     if (profileResp.getResponseCode() != ProfileResp.RESPONSE_CODE_SUCCESS) {
                         showMessage(profileResp.getResponseMessage());
                     } else {
+                        accountRepository.saveLoginInfo(otpParam.getPhoneNumber(), filedPass.get());
                         modelForgetPasswordSuccess.setValue(true);
                     }
                 }, throwable -> {
@@ -126,6 +127,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                     if (profileResp.getResponseCode() != ProfileResp.RESPONSE_CODE_SUCCESS) {
                         showMessage(profileResp.getResponseMessage());
                     } else {
+                        accountRepository.saveLoginInfo(otpParam.getPhoneNumber(), filedPass.get());
                         modelSignIn.setValue(true);
                     }
                 }, throwable -> {

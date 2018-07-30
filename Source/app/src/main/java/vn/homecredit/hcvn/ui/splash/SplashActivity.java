@@ -38,6 +38,11 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     }
 
     @Override
+    protected boolean getLoadingEnable() {
+        return false;
+    }
+
+    @Override
     public int getBindingVariable() {
         return BR.viewModel;
     }

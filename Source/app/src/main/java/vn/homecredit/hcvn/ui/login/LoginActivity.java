@@ -30,6 +30,7 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.FirstComeFlow;
 import vn.homecredit.hcvn.databinding.ActivityLoginBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.FingerprintAuthenticationDialogFragment;
@@ -45,6 +46,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     private KeyStore keyStore;
     private KeyGenerator keyGenerator;
     private boolean keyValid = false;
+    private boolean isShowingFingerprintDialog = false;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
@@ -116,7 +118,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     }
 
     public void openHomeActivity() {
-        HomeActivity.start(LoginActivity.this, true);
+        HomeActivity.start(LoginActivity.this, true, FirstComeFlow.AFTER_LOGIN);
         finish();
     }
 
@@ -129,6 +131,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void showFingerPrintAuthDialog() {
+        if(isShowingFingerprintDialog)
+            return;
+        isShowingFingerprintDialog = true;
         try {
             if(!keyValid)
                 initKeyInfo();
@@ -142,8 +147,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
             FingerprintManager fingerprintManager = getSystemService(FingerprintManager.class);
             FingerprintAuthenticationDialogFragment fragment = new FingerprintAuthenticationDialogFragment(fingerprintManager);
-
             fragment.setOnValidateSuccess(this::onValidatedSuccess);
+            fragment.setOnDismiss(this::onFingerprintDialogDismissed);
             fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
             fragment.show(getFragmentManager(), "FingerPrintDialog");
         }catch(Exception ex){
@@ -155,6 +160,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     private void onValidatedSuccess(){
         //showMessage("success");
         viewModel.autoLogin();
+    }
+
+    private void onFingerprintDialogDismissed(){
+        this.isShowingFingerprintDialog = false;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
