@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import org.parceler.Parcel;
 import org.parceler.Parcels;
 
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.utils.Log;
 
@@ -23,10 +24,11 @@ public class SigningActivity extends Activity{
         context.startActivity(intent);
     }
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contract_signing);
+
         if (getIntent().hasExtra(BUNDLE_CONTRACT)) {
             hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT));
             Log.debug(hcContract.getClientName());

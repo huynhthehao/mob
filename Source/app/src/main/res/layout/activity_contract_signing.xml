@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_scrollFlags="enterAlways"
+        app:navigationIcon="?android:attr/homeAsUpIndicator"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:title="@string/master_contract_title">
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginLeft="@dimen/margin_normal"
+            >
+            <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:content="aaa"
+                app:title="@string/master_contract_name"
+                android:textStyle="bold"
+                android:textColor="@color/yellow_500"
+                />
+
+            <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:content="aaaa"
+                app:title="@string/contract_id"
+                />
+
+            <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:content="aaaa"
+                app:title="@string/master_contract_toal_loan"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

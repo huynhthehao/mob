@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Contract owner"
+        style="@style/Contact.Summary.Title"
+        />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_toRightOf="@+id/tvTitle"
+        tools:text="Nguyen Van Nam"
+        style="@style/Contact.Summary.Content"
+        />
+    <View
+        android:layout_below="@+id/tvTitle"
+
+        style="@style/Separator_Horizontal"/>
+
+</RelativeLayout>

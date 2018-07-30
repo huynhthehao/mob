@@ -174,5 +174,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="signed_date">Ngày ký HĐ</string>
     <string name="contract_status">Trạng thái HĐ</string>
     <string name="payment_locations">Địa điểm giao dịch</string>
+    <string name="master_contract_title">Tóm Lược Hợp Đồng</string>
+    <string name="master_contract_name">Bên vay</string>
+    <string name="master_contract_toal_loan">Tổng giá trị khoản vay</string>
 
 </resources>
