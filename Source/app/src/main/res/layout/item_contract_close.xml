@@ -15,6 +15,7 @@
         <TextView
             android:id="@+id/tvSection"
             android:text="@string/closed"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/AppTheme.DescriptionLabel"
@@ -35,6 +36,10 @@
                     android:id="@+id/ivIcon"
                     android:layout_width="@dimen/contract_type_width"
                     android:layout_height="@dimen/contract_type_height"
+                    android:layout_marginLeft="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:src="@drawable/ic_contract_twowheel"
                     app:type="@{contract.getTypeContract}"
                     />
@@ -43,9 +48,10 @@
                     android:id="@+id/tvContractTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_normal"
+                    android:layout_marginLeft="@dimen/margin_high"
                     app:layout_constraintLeft_toRightOf="@+id/ivIcon"
-                    android:text="Contract no."
+                    app:layout_constraintTop_toTopOf="@+id/ivIcon"
+                    android:text="@string/contract_id"
                     style="@style/Contact.Title"
                     />
 
@@ -55,6 +61,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toRightOf="@+id/barrier"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvContractTitle"
                     tools:text="Contract no."
                     android:text="@{contract.contractNumber}"
                     style="@style/Contact.Content"
@@ -66,7 +73,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="@+id/tvContractTitle"
                     app:layout_constraintTop_toBottomOf="@+id/tvContractTitle"
-                    android:text="Loan Amount"
+                    android:text="@string/loan_amount"
                     style="@style/Contact.Title"
                     />
 
@@ -88,7 +95,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="@+id/tvContractTitle"
                     app:layout_constraintTop_toBottomOf="@+id/tvLoadAmountTitle"
-                    android:text="Signed date"
+                    android:text="@string/signed_date"
                     style="@style/Contact.Title"
                     />
 

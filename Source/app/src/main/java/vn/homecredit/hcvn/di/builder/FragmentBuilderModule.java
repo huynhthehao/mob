@@ -8,8 +8,8 @@ package vn.homecredit.hcvn.di.builder;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import vn.homecredit.hcvn.ui.contract.ContractFragment;
-import vn.homecredit.hcvn.ui.contract.ContractFragmentModule;
+import vn.homecredit.hcvn.ui.contract.main.ContractFragment;
+import vn.homecredit.hcvn.ui.contract.main.ContractFragmentModule;
 import vn.homecredit.hcvn.ui.more.MoreFragment;
 import vn.homecredit.hcvn.ui.more.MoreFragmentModule;
 

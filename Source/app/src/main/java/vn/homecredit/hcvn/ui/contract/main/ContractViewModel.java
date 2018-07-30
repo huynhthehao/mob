@@ -1,12 +1,15 @@
-package vn.homecredit.hcvn.ui.contract;
+package vn.homecredit.hcvn.ui.contract.main;
 
 import android.arch.lifecycle.MutableLiveData;
+
+import com.androidnetworking.error.ANError;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
+import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
@@ -19,6 +22,7 @@ public class ContractViewModel extends BaseViewModel {
 
     private MutableLiveData<List<HcContract>> listMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> refreshing = new MutableLiveData<>();
+    private MutableLiveData<Boolean> errorAuthenticate = new MutableLiveData<>();
 
     @Inject
     public ContractViewModel(ContractRepository contractRepository, SchedulerProvider schedulerProvider) {
@@ -34,9 +38,15 @@ public class ContractViewModel extends BaseViewModel {
         return listMutableLiveData;
     }
 
+    public MutableLiveData<Boolean> getErrorAuthenticate() {
+        return errorAuthenticate;
+    }
+
     @Override
     public void init() {
         super.init();
+        errorAuthenticate.setValue(false);
+        refreshing.setValue(false);
         getContracṭ̣();
     }
 
@@ -46,13 +56,16 @@ public class ContractViewModel extends BaseViewModel {
         contractRepository.contracts().subscribe(s -> {
             setIsLoading(false);
             refreshing.setValue(false);
-            Log.debug(s.getData().getContracts().size() + "");
             listMutableLiveData.setValue(s.getData().getContracts());
-
         }, throwable -> {
             setIsLoading(false);
             refreshing.setValue(false);
             handleError(throwable);
+            if (throwable instanceof ANError) {
+                if (((ANError) throwable).getErrorCode() == HcApiException.ERROR_CODE_UNAUTHORIZED) {
+                    errorAuthenticate.setValue(true);
+                }
+            }
         });
     }
 

@@ -11,7 +11,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.homecredit.hcvn.ui.contract.ContractViewModel"/>
+            type="vn.homecredit.hcvn.ui.contract.main.ContractViewModel"/>
     </data>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:context=".ui.contract.ContractFragment"
+            tools:context=".ui.contract.main.ContractFragment"
             tools:listitem="@layout/item_contract_close" />
 
     </android.support.v4.widget.SwipeRefreshLayout>

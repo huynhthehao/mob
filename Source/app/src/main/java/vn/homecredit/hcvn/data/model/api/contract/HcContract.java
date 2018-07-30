@@ -4,6 +4,9 @@ package vn.homecredit.hcvn.data.model.api.contract;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class HcContract {
 
     public static final int STATUS_ACTIVE = 0;
@@ -194,6 +197,20 @@ public class HcContract {
         this.nextPayment = nextPayment;
     }
 
+    public int getNextPaymentTotal() {
+        if (nextPayment == null) {
+            return 0;
+        }
+        return nextPayment.getTotal();
+    }
+
+    public String getNextPaymentDueDate() {
+        if (nextPayment == null) {
+            return "";
+        }
+        return nextPayment.getDateNextDue();
+    }
+
     public int getTypeStatus() {
         if (status == null) {
             return STATUS_CLOSED;
@@ -223,4 +240,6 @@ public class HcContract {
             return TYPE_CASH_LOAN;
         }
     }
+
+
 }

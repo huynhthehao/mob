@@ -4,7 +4,7 @@
  * Last modified 10/07/18 4:21 PM, by An.NguyenN1
  */
 
-package vn.homecredit.hcvn.ui.contract;
+package vn.homecredit.hcvn.ui.contract.main;
 
 import android.arch.lifecycle.ViewModelProvider;
 

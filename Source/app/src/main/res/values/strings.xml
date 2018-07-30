@@ -163,9 +163,16 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="logout_question">Bạn có muốn đăng xuất?</string>
     <string name="contract_number">Số hợp đồng</string>
     <string name="status">Status</string>
-    <string name="please_sign">Please sign</string>
-    <string name="pending">Pending</string>
+    <string name="please_sign">Vui lòng ký</string>
+    <string name="pending">Đang chờ</string>
     <string name="approved">Đã kích hoạt</string>
-    <string name="closed">Closed</string>
+    <string name="closed">Đã đóng</string>
+
+    <string name="nextpayment">Lần thanh toán kế tiếp của bạn &lt;b>%s&lt;/b> là vào ngày &lt;b>%s&lt;/b>.</string>
+    <string name="contract_id">Số HĐ</string>
+    <string name="loan_amount">Khoản vay</string>
+    <string name="signed_date">Ngày ký HĐ</string>
+    <string name="contract_status">Trạng thái HĐ</string>
+    <string name="payment_locations">Địa điểm giao dịch</string>
 
 </resources>

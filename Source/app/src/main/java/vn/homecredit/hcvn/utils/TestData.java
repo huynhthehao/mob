@@ -1,5 +1,7 @@
 package vn.homecredit.hcvn.utils;
 
+import java.util.UUID;
+
 import vn.homecredit.hcvn.data.model.api.contract.ContractStatus;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.api.contract.NextPayment;
@@ -17,6 +19,7 @@ public class TestData {
     }
     public static HcContract hcContract(String status, String type) {
         HcContract hcContract = new HcContract();
+        hcContract.setClientName(UUID.randomUUID().toString());
         hcContract.setContractNumber("3800589883");
         hcContract.setSignedDate("2018-07-20T00:00:00");
         hcContract.setAmtCreditTotal(35409000);

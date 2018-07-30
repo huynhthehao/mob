@@ -3,6 +3,9 @@ package vn.homecredit.hcvn.data.model.api.contract;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class NextPayment {
 
     @SerializedName("date_next_due")

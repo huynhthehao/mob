@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import vn.homecredit.hcvn.ui.contract.ContractFragment;
+import vn.homecredit.hcvn.ui.contract.main.ContractFragment;
 import vn.homecredit.hcvn.ui.more.MoreFragment;
 import vn.homecredit.hcvn.ui.notification.NotificationFragment;
 import vn.homecredit.hcvn.ui.support.SupportFragment;

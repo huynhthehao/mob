@@ -7,10 +7,11 @@
  * Last modified 6/13/18 4:11 PM
  */
 
-package vn.homecredit.hcvn.ui.contract;
+package vn.homecredit.hcvn.ui.contract.main;
 
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,14 +94,17 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     public class ActiveViewHolder extends RecyclerView.ViewHolder {
         private final ItemContractActiveBinding binding;
-
         public ActiveViewHolder(ItemContractActiveBinding binding, OnContractListener onContractListener) {
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(view -> {
-                Log.debug("position " + getLayoutPosition());
                 if (onContractListener != null) {
                     onContractListener.onClicked(getLayoutPosition());
+                }
+            });
+            binding.tvPaymentLocation.setOnClickListener(view -> {
+                if (onContractListener != null) {
+                    onContractListener.onLocationClicked(getLayoutPosition());
                 }
             });
         }
@@ -122,13 +126,14 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(view -> {
-                Log.debug("position " + getLayoutPosition());
                 if (onContractListener != null) {
                     onContractListener.onClicked(getLayoutPosition());
                 }
             });
             binding.tvSigned.setOnClickListener(view -> {
-                Log.debug("click sign");
+                if (onContractListener != null) {
+                    onContractListener.onSignClicked(getLayoutPosition());
+                }
             });
         }
         public void bind(HcContract hcContract) {
@@ -150,7 +155,6 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(view -> {
-                Log.debug("position " + getLayoutPosition());
                 if (onContractListener != null) {
                     onContractListener.onClicked(getLayoutPosition());
                 }
@@ -170,6 +174,8 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     public interface OnContractListener {
         void onClicked(int position);
+        void onLocationClicked(int position);
+        void onSignClicked(int position);
     }
 
     @BindingAdapter({"date"})
@@ -206,6 +212,17 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
                 break;
 
         }
+    }
+
+    @BindingAdapter({"total", "duedate"})
+    public static void setNextPayment(TextView tv, int total, String duedate) {
+        if (duedate == null) {
+            return;
+        }
+        NumberFormat formatter = new DecimalFormat("#,###");
+        String formattedNumber = formatter.format(total);
+        String duedateDisplay = DateUtils.convertDateFromUTCToSimple(duedate);
+        tv.setText(Html.fromHtml(tv.getContext().getResources().getString(R.string.nextpayment, formattedNumber, duedateDisplay)));
     }
 
 

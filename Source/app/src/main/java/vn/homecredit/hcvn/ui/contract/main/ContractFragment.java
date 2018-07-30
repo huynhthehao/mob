@@ -7,31 +7,19 @@
  * Last modified 6/13/18 4:11 PM
  */
 
-package vn.homecredit.hcvn.ui.contract;
+package vn.homecredit.hcvn.ui.contract.main;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
-import vn.homecredit.hcvn.ui.contract.dummy.DummyContent;
-import vn.homecredit.hcvn.ui.contract.dummy.DummyContent.DummyItem;
-
-import java.util.List;
+import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
+import vn.homecredit.hcvn.ui.login.LoginActivity;
 
 import javax.inject.Inject;
 
@@ -70,12 +58,33 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
         });
 
         getViewModel().getRefreshing().observe(this, aBoolean -> getViewDataBinding().swiperefresh.setRefreshing(aBoolean));
+        getViewModel().getErrorAuthenticate().observe(this, isErrorAuthenicate -> {
+            if (isErrorAuthenicate) {
+                startLogin();
+            }
+        });
+    }
 
+    private void startLogin() {
+        Intent intent = LoginActivity.newIntent(getContext());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
     }
 
     @Override
     public void onClicked(int position) {
+        // TODO: 7/30/18 Implement Contract Detail
+    }
 
+    @Override
+    public void onLocationClicked(int position) {
+        // TODO: 7/30/18 Implement Location
+
+    }
+
+    @Override
+    public void onSignClicked(int position) {
+        SigningActivity.start(getActivity(), contractRecyclerViewAdapter.getItem(position));
     }
 }
