@@ -1,6 +1,7 @@
 package vn.homecredit.hcvn.di.module;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.google.gson.Gson;
@@ -44,6 +45,8 @@ import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.service.ResourceServiceImpl;
 import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.service.VersionServiceImpl;
+import vn.homecredit.hcvn.ui.database.AppDatabase;
+import vn.homecredit.hcvn.ui.database.dao.NotificationDao;
 import vn.homecredit.hcvn.utils.AppConstants;
 import vn.homecredit.hcvn.utils.rx.AppSchedulerProvider;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;

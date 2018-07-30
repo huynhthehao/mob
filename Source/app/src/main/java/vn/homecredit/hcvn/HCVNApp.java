@@ -23,6 +23,7 @@ import dagger.android.HasActivityInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
+import vn.homecredit.hcvn.di.module.RoomModule;
 import vn.homecredit.hcvn.utils.AppLogger;
 
 /**
@@ -55,6 +56,7 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
         DaggerAppComponent.builder()
                 .application(this)
+                .roomModule(new RoomModule(this))
                 .build()
                 .inject(this);
 

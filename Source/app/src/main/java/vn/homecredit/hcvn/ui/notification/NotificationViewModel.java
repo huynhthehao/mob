@@ -13,14 +13,14 @@ import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class NotificationViewModel extends BaseViewModel {
-    private final NotificationRepository notificationRepository;
+    private final NotificationRepository repository;
     private MutableLiveData<List<NotificationModel>> dataNotitifications = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelIsRefreshing = new MutableLiveData<>();
 
     @Inject
     public NotificationViewModel(SchedulerProvider schedulerProvider, NotificationRepository notificationRepository) {
         super(schedulerProvider);
-        this.notificationRepository = notificationRepository;
+        this.repository = notificationRepository;
     }
 
     @Override
@@ -29,18 +29,26 @@ public class NotificationViewModel extends BaseViewModel {
     }
 
     private void loadNotifications() {
-        Disposable disposableNotifications = notificationRepository.getNotifications()
+        Disposable disposableNotifications = repository.getNotifications()
                 .subscribe(
                         notificationResp ->
                         {
                             modelIsRefreshing.setValue(false);
-                            dataNotitifications.setValue(notificationResp.getData());
+                            repository.cacheNotifications(notificationResp.getData());
+                            loadAndDisplayCachedNotifications();
                         },
                         throwable -> {
                             modelIsRefreshing.setValue(false);
                             handleError(throwable);
                         });
         getCompositeDisposable().add(disposableNotifications);
+    }
+
+    private void loadAndDisplayCachedNotifications() {
+        List<NotificationModel> listData = repository.getCachedNotifications();
+        if (listData != null) {
+            dataNotitifications.setValue(listData);
+        }
     }
 
     public void pullToRefreshNotifications() {

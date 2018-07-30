@@ -1,14 +1,26 @@
 package vn.homecredit.hcvn.ui.notification.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import io.reactivex.annotations.NonNull;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.ui.notification.NotificationType;
 
+@Entity(tableName = "notifications")
 public class NotificationModel {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "notification_id")
+    private Long notificationId;
+
     @SerializedName("Id")
     @Expose
     private String id;
@@ -20,10 +32,6 @@ public class NotificationModel {
     @SerializedName("ContractSKP")
     @Expose
     private String contractSKP;
-
-    @SerializedName("Data")
-    @Expose
-    private Object data;
 
     @SerializedName("UserId")
     @Expose
@@ -67,13 +75,24 @@ public class NotificationModel {
 
     @SerializedName("MessageSpan")
     @Expose
+    @TypeConverters(MessageSpanConverter.class)
     private List<MessageSpan> messageSpan;
 
+    @Embedded
     @SerializedName("Offer")
     @Expose
-    private Object offer;
+    private OfferModel offer;
 
+    @TypeConverters(ClwResultConverter.class)
     private ClwResult clwResult;
+
+    public Long getNotificationId() {
+        return notificationId;
+    }
+
+    public void setNotificationId(Long notificationId) {
+        this.notificationId = notificationId;
+    }
 
     public String getId() {
         return id;
@@ -97,14 +116,6 @@ public class NotificationModel {
 
     public void setContractSKP(String contractSKP) {
         this.contractSKP = contractSKP;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
     }
 
     public String getUserId() {
@@ -195,11 +206,11 @@ public class NotificationModel {
         this.messageSpan = messageSpan;
     }
 
-    public Object getOffer() {
+    public OfferModel getOffer() {
         return offer;
     }
 
-    public void setOffer(Object offer) {
+    public void setOffer(OfferModel offer) {
         this.offer = offer;
     }
 
