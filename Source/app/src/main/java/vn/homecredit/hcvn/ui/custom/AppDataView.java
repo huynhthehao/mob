@@ -105,7 +105,11 @@ public class AppDataView extends LinearLayout {
     }
 
     private void setTapToReloadIfNeed() {
-        vError.setOnClickListener(v -> tapToReloadListener.onTapToReload());
+        vError.setOnClickListener(view -> {
+            if (tapToReloadListener != null) {
+                tapToReloadListener.onTapToReload();
+            }
+        });
     }
 
     public void updateViewState(AppDataViewState viewState, String error) {

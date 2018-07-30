@@ -33,6 +33,7 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
+import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 @Singleton
 public class RestServiceImpl implements RestService {
@@ -201,6 +202,14 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
+    public Single<NotificationResp> getNotifications() {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/notifications");
+        return DefaultAndroidNetworking.get(url,
+                mApiHeader.getProtectedApiHeader(),
+                NotificationResp.class);
+    }
+
+    @Override
     public Single<OtpTimerResp> verifySignupOTP(String phone, String contractsId, String otp) {
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("phoneNumber", phone);
@@ -217,9 +226,10 @@ public class RestServiceImpl implements RestService {
         if (url == null) return url;
         if (url.contains("?")) {
             url += "&lang=" + preferencesHelper.getLanguageCode();
-        }else {
+        } else {
             url += "?lang=" + preferencesHelper.getLanguageCode();
         }
+        url += "&platform=2";
         return url;
     }
 
