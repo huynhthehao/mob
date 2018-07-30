@@ -3,7 +3,8 @@ package vn.homecredit.hcvn.data.model.api;
 import com.androidnetworking.error.ANError;
 
 public class HcApiException extends Throwable {
-    public static final int ERROR_UNKNOWN = -1;
+    public static final int ERROR_CODE_UNAUTHORIZED = 401;
+    public static final int ERROR_UNKNOWN = 1;
     private int errorResponseCode;
     private String errorResponseMessage;
 

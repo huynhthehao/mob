@@ -12,6 +12,7 @@ import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.SignupResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 
 public interface RestService {
     Single<VersionResp> checkUpdate();
@@ -26,4 +27,5 @@ public interface RestService {
     Single<ProfileResp> signUp(String phone, String contracsId, String otp, String password);
     Single<ProfileResp> forgetPasswordSetNew(String phone, String contracsId, String otp, String password);
 
+    Single<ContractResp> contract();
 }

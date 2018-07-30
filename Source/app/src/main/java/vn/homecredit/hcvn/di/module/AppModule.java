@@ -18,6 +18,8 @@ import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManagerImpl;
 import vn.homecredit.hcvn.data.acl.AclDatabaseService;
 import vn.homecredit.hcvn.data.acl.AclDatabaseServiceImpl;
+import vn.homecredit.hcvn.data.repository.ContractRepository;
+import vn.homecredit.hcvn.data.repository.ContractRepositoryImpl;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelperImpl;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
@@ -177,5 +179,11 @@ public class AppModule {
     @Singleton
     AccountRepository provideAccountRepository(AccountRepositoryImpl profileService) {
         return profileService;
+    }
+
+    @Provides
+    @Singleton
+    ContractRepository provideContractRepository(ContractRepositoryImpl contractRepositoryImpl) {
+        return contractRepositoryImpl;
     }
 }

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="contract"
+            type="vn.homecredit.hcvn.data.model.api.contract.HcContract"/>
+    </data>
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvSection"
+            android:text="@string/closed"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.DescriptionLabel"
+            />
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/margin_smallest"
+            android:layout_margin="@dimen/margin_smallest"
+            >
+            <android.support.constraint.ConstraintLayout
+                android:padding="@dimen/padding_normal"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivIcon"
+                    android:layout_width="@dimen/contract_type_width"
+                    android:layout_height="@dimen/contract_type_height"
+                    android:layout_marginLeft="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_contract_twowheel"
+                    app:type="@{contract.getTypeContract}"
+                    />
+
+                <TextView
+                    android:id="@+id/tvContractTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_high"
+                    app:layout_constraintLeft_toRightOf="@+id/ivIcon"
+                    app:layout_constraintTop_toTopOf="@+id/ivIcon"
+                    android:text="@string/contract_id"
+                    style="@style/Contact.Title"
+                    />
+
+                <TextView
+                    android:id="@+id/tvContract"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@+id/barrier"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvContractTitle"
+                    tools:text="Contract no."
+                    android:text="@{contract.contractNumber}"
+                    style="@style/Contact.Content"
+                    />
+
+                <TextView
+                    android:id="@+id/tvLoadAmountTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@+id/tvContractTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvContractTitle"
+                    android:text="@string/loan_amount"
+                    style="@style/Contact.Title"
+                    />
+
+                <TextView
+                    android:id="@+id/tvLoadAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@+id/barrier"
+                    app:layout_constraintTop_toTopOf="@+id/tvLoadAmountTitle"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:text="7,999,999d"
+                    app:loanamount="@{contract.amtCreditTotal}"
+                    style="@style/Contact.Content"
+                    />
+
+                <TextView
+                    android:id="@+id/tvSignedDateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@+id/tvContractTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLoadAmountTitle"
+                    android:text="@string/signed_date"
+                    style="@style/Contact.Title"
+                    />
+
+                <TextView
+                    android:id="@+id/tvSignedDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@+id/barrier"
+                    app:layout_constraintTop_toTopOf="@+id/tvSignedDateTitle"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:text="01/02/2017"
+                    app:date="@{contract.signedDate}"
+                    style="@style/Contact.Content"
+                    />
+
+                <android.support.constraint.Barrier
+                    android:id="@+id/barrier"
+                    app:constraint_referenced_ids="tvContractTitle,tvLoadAmountTitle, tvSignedDateTitle "
+                    app:barrierDirection="right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</layout>
