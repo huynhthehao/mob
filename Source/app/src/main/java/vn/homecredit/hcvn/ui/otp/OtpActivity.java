@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.OtpFlow;
+import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivityOtpBinding;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
