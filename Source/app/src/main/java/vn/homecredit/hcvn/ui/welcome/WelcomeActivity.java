@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
@@ -25,12 +24,12 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.LanguageCode;
 import vn.homecredit.hcvn.databinding.ActivityWelcomeBinding;
 import vn.homecredit.hcvn.helpers.LocaleHelper;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
-import vn.homecredit.hcvn.ui.home.DashBoardDialogFragment;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 
@@ -128,7 +127,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
         String langCode = viewModel.getCurrentLanguageCode();
         ImageView flagImage = findViewById(R.id.languageFlag);
 
-        if (langCode.equals("en")) {
+        if (langCode.equals(LanguageCode.ENGLISH)) {
             flagImage.setImageResource(R.drawable.ic_flag_en);
         } else {
             flagImage.setImageResource(R.drawable.ic_flag_vn);

@@ -23,7 +23,7 @@ import dagger.Module;
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
-import vn.homecredit.hcvn.data.model.OtpFlow;
+import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;

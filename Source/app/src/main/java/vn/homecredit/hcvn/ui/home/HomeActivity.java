@@ -26,7 +26,7 @@ import com.android.databinding.library.baseAdapters.BR;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.FirstComeFlow;
+import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
