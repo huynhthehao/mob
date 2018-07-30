@@ -65,6 +65,14 @@ public class ContractRepositoryImpl implements ContractRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Single<MasterContract> masterContract(String contractId) {
+        return restService.masterContract(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+    }
+
     @NonNull
     private List<HcContract> groupContract(List<HcContract> hcContractList) {
         if (hcContractList == null) {

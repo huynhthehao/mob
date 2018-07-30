@@ -3,6 +3,9 @@ package vn.homecredit.hcvn.data.model.api.contract;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class MasterContract {
 
     @SerializedName("MaterialPrepared")
@@ -111,6 +114,8 @@ public class MasterContract {
     @Expose
     private int minimumPayment;
 
+    public MasterContract() {
+    }
 
     public boolean isMaterialPrepared() {
         return materialPrepared;

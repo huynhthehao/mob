@@ -135,7 +135,7 @@ public class HcContract {
     }
 
     public Integer getAmtCreditTotal() {
-        return amtCreditTotal;
+        return masterContract != null ? masterContract.getLoanAmount() : amtCreditTotal;
     }
 
     public void setAmtCreditTotal(Integer amtCreditTotal) {

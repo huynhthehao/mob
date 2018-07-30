@@ -85,6 +85,7 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     @Override
     public void onSignClicked(int position) {
-        SigningActivity.start(getActivity(), contractRecyclerViewAdapter.getItem(position));
+//        SigningActivity.start(getActivity(), contractRecyclerViewAdapter.getItem(position));
+        getViewModel().setContractsId(contractRecyclerViewAdapter.getItem(position).getContractNumber());
     }
 }
