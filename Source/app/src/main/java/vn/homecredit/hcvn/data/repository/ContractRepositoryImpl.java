@@ -1,6 +1,7 @@
 package vn.homecredit.hcvn.data.repository;
 
 import android.support.annotation.NonNull;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.ContractType;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.utils.TestData;
 
@@ -41,6 +43,20 @@ public class ContractRepositoryImpl implements ContractRepository {
                     return contractResp;
                 })
                 .map(contractResp -> {
+
+                    List<MasterContract> masterContractList =  contractResp.getData().getMasterContracts();
+                    List<HcContract> contractMasterList = new ArrayList<>();
+                    if (masterContractList != null) {
+                        for (MasterContract masterContract : masterContractList) {
+                            HcContract hcContract = new HcContract();
+                            hcContract.setContractNumber(masterContract.getContractNumber());
+                            hcContract.setMasterContract(masterContract);
+                            contractMasterList.add(hcContract);
+                        }
+                    }
+                    if (contractResp.getData().getContracts() != null) {
+                        contractResp.getData().getContracts().addAll(contractMasterList);
+                    }
                     List<HcContract> contractList = groupContract(contractResp.getData().getContracts());
                     contractResp.getData().setContracts(contractList);
                    return contractResp;
@@ -51,6 +67,9 @@ public class ContractRepositoryImpl implements ContractRepository {
 
     @NonNull
     private List<HcContract> groupContract(List<HcContract> hcContractList) {
+        if (hcContractList == null) {
+            return null;
+        }
         List<HcContract> activeContractList = new ArrayList<>();
         List<HcContract> pendingContractList = new ArrayList<>();
         List<HcContract> closeContractList = new ArrayList<>();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="contract"
@@ -28,11 +28,10 @@
 
         <ScrollView
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:fillViewport="true"
             >
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,26 +42,101 @@
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:content="aaa"
+                    app:content="@{contract.customerFullname}"
                     app:title="@string/master_contract_name"
-                    android:textStyle="bold"
-                    android:textColor="@color/yellow_500"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:content="aaaa"
+                    app:content="@{contract.contractNumber}"
                     app:title="@string/contract_id"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:content="aaaa"
                     app:title="@string/master_contract_toal_loan"
                     />
 
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:content="@{contract.presentedInterestRate}"
+                    app:title="@string/interest_rate"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/insurance"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/tenor"
+                    />
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/monthly_installement"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/status"
+                    app:content="@{contract.status}"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_normal"
+                    android:background="#F4F5F7"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/bank_name"
+                    app:content="@{contract.disbursementBankName}"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/bank_account"
+                    app:content="@{contract.disbursementBankAccountNumber}"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/bank_branch"
+                    app:content="@{contract.disbursementBankBranchname}"
+                    />
+
+
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:imeOptions="actionDone"
+                    android:text="@string/master_contract_approved"
+                    style="@style/PrimaryButton"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:gravity="center"
+                    android:text="@string/password_help"
+                    android:textColor="@color/colorPrimary"
+                    />
             </LinearLayout>
 
         </ScrollView>

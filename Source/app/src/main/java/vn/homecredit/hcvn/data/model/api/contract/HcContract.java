@@ -66,6 +66,8 @@ public class HcContract {
     @Expose
     private NextPayment nextPayment;
 
+    private MasterContract masterContract;
+
     private boolean isShowSection = false;
 
     public boolean isShowSection() {
@@ -197,6 +199,14 @@ public class HcContract {
         this.nextPayment = nextPayment;
     }
 
+    public MasterContract getMasterContract() {
+        return masterContract;
+    }
+
+    public void setMasterContract(MasterContract masterContract) {
+        this.masterContract = masterContract;
+    }
+
     public int getNextPaymentTotal() {
         if (nextPayment == null) {
             return 0;
@@ -212,6 +222,9 @@ public class HcContract {
     }
 
     public int getTypeStatus() {
+        if (masterContract != null) {
+            return STATUS_PENDING;
+        }
         if (status == null) {
             return STATUS_CLOSED;
         }

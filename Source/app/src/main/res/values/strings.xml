@@ -178,5 +178,13 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="master_contract_title">Tóm Lược Hợp Đồng</string>
     <string name="master_contract_name">Bên vay</string>
     <string name="master_contract_toal_loan">Tổng giá trị khoản vay</string>
+    <string name="interest_rate">Lãi suất</string>
+    <string name="insurance">Bảo hiểm</string>
+    <string name="tenor">Tổng số kỳ thanh toán</string>
+    <string name="monthly_installement">Số tiền trả góp hàng tháng</string>
+    <string name="bank_name">Ngân hàng</string>
+    <string name="bank_account">Tài khoản ngân hàng</string>
+    <string name="bank_branch">Chi nhánh</string>
+    <string name="master_contract_approved">View details and sign</string>
 
 </resources>

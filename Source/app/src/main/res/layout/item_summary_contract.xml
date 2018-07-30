@@ -25,7 +25,6 @@
         />
     <View
         android:layout_below="@+id/tvTitle"
-
         style="@style/Separator_Horizontal"/>
 
 </RelativeLayout>

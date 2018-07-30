@@ -391,4 +391,8 @@ public class MasterContract {
     public void setMinimumPayment(int minimumPayment) {
         this.minimumPayment = minimumPayment;
     }
+
+    public int getLoanAmount() {
+        return isCreditCardContract ? creditLimit : creditAmount;
+    }
 }

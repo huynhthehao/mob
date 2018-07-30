@@ -71,6 +71,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = ForgetPasswordActivityModule.class)
     abstract ForgetPasswordActivity bindForgetPasswordActivity();
 
+
     @ContributesAndroidInjector(modules = OtpViewModel.class)
     abstract OtpActivity bindOtpActivity();
 
