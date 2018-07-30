@@ -26,6 +26,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentNotificationsBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.custom.AppDataView;
+import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 import vn.homecredit.hcvn.utils.Log;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
@@ -66,20 +67,21 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         appDataView = getViewDataBinding().advNotifications;
         rvNotifications = new RecyclerView(getActivity());
         initAdapter();
-        appDataView.initContentView(rvNotifications, 0, 0, null, () -> {
-            //TODO
-        });
+        appDataView.initContentView(rvNotifications, 0, 0, null, () -> getViewModel().pullToRefreshNotifications());
         getViewModel().init();
-        getViewModel().getDataNotitifications().observe(this, notificationModels -> {
-            notificationAdapter.swapData(notificationModels);
-        });
+        getViewModel().getDataNotitifications().observe(this, notificationModels -> notificationAdapter.swapData(notificationModels));
+        getViewModel().getModelIsRefreshing().observe(this, isRefreshing -> {
+                    if (!isRefreshing)
+                        appDataView.updateViewState(AppDataViewState.HIDE_RELOADING);
+                }
+        );
     }
 
     private void initAdapter() {
         notificationAdapter = new NotificationAdapter(model -> {
             //TODO
         });
-        rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvNotifications.setAdapter(notificationAdapter);
     }
 }
