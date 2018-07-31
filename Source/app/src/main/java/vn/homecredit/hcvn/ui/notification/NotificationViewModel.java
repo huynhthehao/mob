@@ -14,7 +14,7 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class NotificationViewModel extends BaseViewModel {
     private final NotificationRepository repository;
-    private MutableLiveData<List<NotificationModel>> dataNotitifications = new MutableLiveData<>();
+    private MutableLiveData<List<NotificationModel>> dataNotifications = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelIsRefreshing = new MutableLiveData<>();
 
     @Inject
@@ -25,10 +25,12 @@ public class NotificationViewModel extends BaseViewModel {
 
     @Override
     public void init() {
-        loadNotifications();
+        modelIsRefreshing.setValue(true);
+        loadAndDisplayCachedNotifications();
+        refreshNotifications();
     }
 
-    private void loadNotifications() {
+    private void refreshNotifications() {
         Disposable disposableNotifications = repository.getNotifications()
                 .subscribe(
                         notificationResp ->
@@ -47,16 +49,16 @@ public class NotificationViewModel extends BaseViewModel {
     private void loadAndDisplayCachedNotifications() {
         List<NotificationModel> listData = repository.getCachedNotifications();
         if (listData != null) {
-            dataNotitifications.setValue(listData);
+            dataNotifications.setValue(listData);
         }
     }
 
     public void pullToRefreshNotifications() {
-        loadNotifications();
+        refreshNotifications();
     }
 
-    public MutableLiveData<List<NotificationModel>> getDataNotitifications() {
-        return dataNotitifications;
+    public MutableLiveData<List<NotificationModel>> getDataNotifications() {
+        return dataNotifications;
     }
 
     public MutableLiveData<Boolean> getModelIsRefreshing() {

@@ -15,9 +15,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
@@ -27,7 +25,6 @@ import vn.homecredit.hcvn.databinding.FragmentNotificationsBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
-import vn.homecredit.hcvn.utils.Log;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
     @Inject
@@ -69,7 +66,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         initAdapter();
         appDataView.initContentView(rvNotifications, 0, 0, null, () -> getViewModel().pullToRefreshNotifications());
         getViewModel().init();
-        getViewModel().getDataNotitifications().observe(this, notificationModels -> notificationAdapter.swapData(notificationModels));
+        getViewModel().getDataNotifications().observe(this, notificationModels -> notificationAdapter.swapData(notificationModels));
         getViewModel().getModelIsRefreshing().observe(this, isRefreshing -> {
                     if (!isRefreshing)
                         appDataView.updateViewState(AppDataViewState.HIDE_RELOADING);
