@@ -25,4 +25,8 @@ public interface NotificationDao {
 
     @Query("SELECT * FROM notification")
     Flowable<List<NotificationModel>> loadNotifications();
+
+    @Query("UPDATE notification SET read = 1 WHERE id = :notificationId")
+    void markAsRead(String notificationId);
+
 }

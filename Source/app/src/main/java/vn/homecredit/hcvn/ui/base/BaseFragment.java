@@ -10,8 +10,11 @@
 package vn.homecredit.hcvn.ui.base;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +32,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.utils.CommonUtils;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
 
@@ -36,6 +40,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private View mRootView;
     private T mViewDataBinding;
     private V mViewModel;
+    protected ProgressDialog mProgressDialog;
 
     /**
      * Override for set binding variable
@@ -94,6 +99,16 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         super.onViewCreated(view, savedInstanceState);
         mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
         mViewDataBinding.executePendingBindings();
+        getViewModel().getIsLoading().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (((ObservableBoolean) sender).get()) {
+                    showLoading();
+                } else {
+                    hideLoading();
+                }
+            }
+        });
         this.init();
     }
 
@@ -132,6 +147,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
 
     public interface Callback {
         void onFragmentAttached();
+
         void onFragmentDetached(String tag);
     }
 
@@ -150,7 +166,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         dialog.show();
     }
 
-    public void showConfirmMessage(Integer titleId, Integer messageId, final Consumer<Boolean> onCompleted){
+    public void showConfirmMessage(Integer titleId, Integer messageId, final Consumer<Boolean> onCompleted) {
         String title = getResources().getString(titleId);
         String message = getResources().getString(messageId);
 
@@ -181,5 +197,15 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
                     }
                 })
                 .show();
+    }
+
+    public void hideLoading() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
+        }
+    }
+
+    public void showLoading() {
+        mProgressDialog = CommonUtils.showLoadingDialog(getContext());
     }
 }

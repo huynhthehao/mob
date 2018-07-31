@@ -8,6 +8,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import vn.homecredit.hcvn.data.model.api.BaseResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.database.dao.NotificationDao;
@@ -34,6 +35,13 @@ public class NotificationRepositoryImpl implements NotificationRepository {
     }
 
     @Override
+    public Single<BaseResp> markNotificationAsRead(String notificationID) {
+        return restService.markNotificationAsRead(notificationID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
     public void cacheNotifications(List<NotificationModel> notificationModels) {
         notificationDao.insert(notificationModels);
     }
@@ -41,5 +49,10 @@ public class NotificationRepositoryImpl implements NotificationRepository {
     @Override
     public Flowable<List<NotificationModel>> getCachedNotifications() {
         return notificationDao.loadNotifications();
+    }
+
+    @Override
+    public void makeNotificationAsRead(String notificationId) {
+        notificationDao.markAsRead(notificationId);
     }
 }

@@ -6,20 +6,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class NotificationViewModel extends BaseViewModel {
@@ -69,6 +62,33 @@ public class NotificationViewModel extends BaseViewModel {
                         dataNotifications.setValue(notificationModels);
                     }
                 });
+    }
+
+    public void markNotificationAsRead(NotificationModel model) {
+        // Will remove later when apply notification details page.
+        if (model.isRead()) {
+            return;
+        }
+        setIsLoading(true);
+        Disposable disposableMarkAsRead = repository.markNotificationAsRead(model.getId())
+                .subscribe(
+                        baseResp ->
+                        {
+                            setIsLoading(false);
+                            if (baseResp.getResponseCode() == 0) {
+                                updateNotificationAsRead(model.getId());
+                                loadAndDisplayCachedNotifications();
+                            }
+                        },
+                        throwable -> {
+                            setIsLoading(false);
+                            handleError(throwable);
+                        });
+        getCompositeDisposable().add(disposableMarkAsRead);
+    }
+
+    private void updateNotificationAsRead(String notificationId) {
+        repository.makeNotificationAsRead(notificationId);
     }
 
     public void pullToRefreshNotifications() {
