@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="vn.homecredit.hcvn.ui.map.PayMapActivity">
+
+    <item
+        android:id="@+id/menu_search_option"
+        android:icon="@drawable/ic_birthday"
+        android:title="Search Option"
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <group >
+                <item
+                    android:id="@+id/menuSearchFilmEpisode"
+                    android:checkable="true"
+                    android:checked="true"
+                    android:title="Episode" />
+                <item
+                    android:id="@+id/menuSearchActor"
+                    android:title="Actor" />
+                <item
+                    android:id="@+id/action_favorite"
+                    android:checkable="true"
+                    android:title="Custom"
+                    app:actionViewClass="android.widget.CheckBox"
+                    app:showAsAction="ifRoom|withText" />
+
+            </group>
+        </menu>
+    </item>
+</menu>

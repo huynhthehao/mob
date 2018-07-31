@@ -23,7 +23,7 @@ public class ApiHeader {
 
     private PublicApiHeader mPublicApiHeader;
     private PayooApiHeader mPayooApiHeader;
-
+    private PosApiHeader mPosApiHeader;
 
     @Inject
     public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, AclApiHeader aclApiHeader, PayooApiHeader payooApiHeader) {
@@ -47,6 +47,10 @@ public class ApiHeader {
 
     public PayooApiHeader getmPayooApiHeader() {
         return mPayooApiHeader;
+    }
+
+    public PosApiHeader getmPosApiHeader() {
+        return mPosApiHeader;
     }
 
     public static final class ProtectedApiHeader {
@@ -126,5 +130,17 @@ public class ApiHeader {
             mUser = user;
         }
     }
+
+    public static final class PosApiHeader {
+        @Expose
+        @SerializedName("Content-Type")
+        private String mContentType;
+
+        @Inject
+        public PosApiHeader() {
+            mContentType = "application/json";
+        }
+    }
+
 
 }

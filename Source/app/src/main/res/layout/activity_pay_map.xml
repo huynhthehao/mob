@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="vn.homecredit.hcvn.ui.test.PayMapViewModel" />
+            type="vn.homecredit.hcvn.ui.map.PayMapViewModel" />
 
     </data>
 
@@ -40,8 +40,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="vn.homecredit.hcvn.ui.test.PayMapActivity" />
-
+            tools:context="vn.homecredit.hcvn.ui.map.PayMapActivity" />
 
     </LinearLayout>
 </layout>

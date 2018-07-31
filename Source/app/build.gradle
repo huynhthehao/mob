@@ -141,4 +141,8 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation "org.parceler:parceler-api:$rootProject.parceler"
     annotationProcessor "org.parceler:parceler:$rootProject.parceler"
+
+    //google map direction router
+    implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
+
 }

@@ -1,11 +1,11 @@
-package vn.homecredit.hcvn.data.model.mapdata.payoo;
+package vn.homecredit.hcvn.data.model.mapdata.model.payoo;
 
 import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PayooData implements Serializable
-{
+public class PayooData implements Serializable {
 
     @SerializedName("DisplayName")
     @Expose

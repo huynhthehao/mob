@@ -1,38 +1,42 @@
-package vn.homecredit.hcvn.ui.test;
+package vn.homecredit.hcvn.ui.map;
 
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import javax.inject.Inject;
 
-import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.BR;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityPayMapBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 
-public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapViewModel> implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener {
+public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapViewModel> implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener, GoogleMap.OnMarkerClickListener {
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+
+    //Location mode
+    public static final int PAYMENT_MODE = 0;
+    public static final int DISBURSEMENT_MODE = 0;
+    public static final int CASH_LOAN_MODE = 0;
+
     @Inject
     PayMapViewModel payMapViewModel;
 
@@ -59,6 +63,10 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         payMapViewModel.init();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -68,6 +76,12 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     /**
      * Manipulates the map once available.
@@ -87,9 +101,8 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Quan 2"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(sydney.latitude, sydney.longitude), 15));
 
-        payMapViewModel.loadMapPayoo(mMap, this.getApplicationContext(), sydney);
         mMap.setOnCameraIdleListener(this);
-
+        mMap.setOnMarkerClickListener(this);
         getLocationPermission();
 
     }
@@ -179,6 +192,15 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     public void onCameraIdle() {
         //on map scroll end
         LatLng midLatLng = mMap.getCameraPosition().target;
-        payMapViewModel.loadMapPayoo(mMap, getApplicationContext(), midLatLng);
+        payMapViewModel.loadMapVnPos(mMap, this.getApplicationContext(), midLatLng);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (mLastKnownLocation != null) {
+            payMapViewModel.drawDirection(mMap, mLastKnownLocation, marker.getPosition(), getApplicationContext());
+        }
+
+        return false;
     }
 }

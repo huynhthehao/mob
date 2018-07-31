@@ -20,6 +20,8 @@ import vn.homecredit.hcvn.data.acl.AclDatabaseService;
 import vn.homecredit.hcvn.data.acl.AclDatabaseServiceImpl;
 import vn.homecredit.hcvn.data.remote.payoo.PayooRestService;
 import vn.homecredit.hcvn.data.remote.payoo.PayooRestServiceImpl;
+import vn.homecredit.hcvn.data.remote.pos.PosRestService;
+import vn.homecredit.hcvn.data.remote.pos.PosRestServiceImpl;
 import vn.homecredit.hcvn.data.repository.MapRepository;
 import vn.homecredit.hcvn.data.repository.MapRepositoryImpl;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
@@ -71,6 +73,12 @@ public class AppModule {
     @Singleton
     PayooRestService providePayooRestService(PayooRestServiceImpl payooRestService) {
         return payooRestService;
+    }
+
+    @Provides
+    @Singleton
+    PosRestService providePosRestService(PosRestServiceImpl posRestService) {
+        return posRestService;
     }
 
     @Provides
@@ -136,6 +144,12 @@ public class AppModule {
     @Singleton
     ApiHeader.PayooApiHeader provPayooApiHeader() {
         return new ApiHeader.PayooApiHeader("YM_7fPw6xA", "Partner07");
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader.PosApiHeader provPosApiHeader() {
+        return new ApiHeader.PosApiHeader();
     }
 
     @Provides

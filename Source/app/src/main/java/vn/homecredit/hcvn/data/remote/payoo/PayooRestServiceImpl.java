@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
-import vn.homecredit.hcvn.data.model.mapdata.payoo.PayooData;
+import vn.homecredit.hcvn.data.model.mapdata.model.payoo.PayooData;
 import vn.homecredit.hcvn.data.remote.ApiEndPoint;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 
