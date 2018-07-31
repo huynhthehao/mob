@@ -1,7 +1,5 @@
 package vn.homecredit.hcvn.data.repository;
 
-import android.arch.lifecycle.LiveData;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,11 +8,9 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
-import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.OneSignalService;
-import vn.homecredit.hcvn.ui.database.dao.NotificationDao;
+import vn.homecredit.hcvn.database.dao.NotificationDao;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 

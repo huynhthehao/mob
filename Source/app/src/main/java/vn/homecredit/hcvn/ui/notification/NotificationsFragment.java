@@ -81,7 +81,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
     }
 
     private void initAdapter() {
-        notificationAdapter = new NotificationAdapter(model -> {
+        notificationAdapter = new NotificationAdapter(getActivity(), model -> {
             //TODO
         });
         rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

@@ -1,7 +1,9 @@
 package vn.homecredit.hcvn.ui.notification;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +15,16 @@ import java.util.List;
 
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
+import vn.homecredit.hcvn.utils.TimeHelper;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
+    Context context;
     List<NotificationModel> listData;
     OnItemNotificationClickListener listener;
 
-    public NotificationAdapter(OnItemNotificationClickListener listener) {
+    public NotificationAdapter(Context context, OnItemNotificationClickListener listener) {
         listData = new ArrayList<>();
+        this.context = context;
         this.listener = listener;
     }
 
@@ -67,12 +72,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         public void bind(NotificationModel model) {
             tvTitle.setText(model.getTitle());
-            tvTime.setText(model.getTime());
-            tvDescription.setText(model.getMessageText());
+            tvTime.setText(TimeHelper.getTimeAgo(model.getTime()));
+            tvDescription.setText(Html.fromHtml(model.getMessageText()));
             if (model.isRead()) {
                 ivHistory.setImageResource(R.drawable.ic_history_read);
+                tvTime.setTextColor(context.getResources().getColor(R.color.brownishGrey));
             } else {
                 ivHistory.setImageResource(R.drawable.ic_hisroty_unread);
+                tvTime.setTextColor(context.getResources().getColor(R.color.primary_red));
             }
             ivIcon.setImageResource(model.getType() != NotificationType.UPDATE.getType() ? NotificationType.getImageResourceIdByType(model.getType())
                     : NotificationType.getResouceIconIdForUpdate(model.isNeedToUpdate()));

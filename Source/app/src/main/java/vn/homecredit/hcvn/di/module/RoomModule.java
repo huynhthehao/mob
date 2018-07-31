@@ -7,8 +7,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import vn.homecredit.hcvn.ui.database.AppDatabase;
-import vn.homecredit.hcvn.ui.database.dao.NotificationDao;
+import vn.homecredit.hcvn.database.AppDatabase;
+import vn.homecredit.hcvn.database.dao.NotificationDao;
 
 @Module
 public class RoomModule {
