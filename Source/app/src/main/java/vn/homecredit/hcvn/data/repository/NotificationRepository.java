@@ -1,7 +1,12 @@
 package vn.homecredit.hcvn.data.repository;
 
+import android.arch.lifecycle.LiveData;
+
 import java.util.List;
 
+import javax.inject.Singleton;
+
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
@@ -11,5 +16,5 @@ public interface NotificationRepository {
 
     void cacheNotifications(List<NotificationModel> notificationModels);
 
-    List<NotificationModel> getCachedNotifications();
+    Flowable<List<NotificationModel>> getCachedNotifications();
 }

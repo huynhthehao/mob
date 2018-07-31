@@ -24,6 +24,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     public void swapData(List<NotificationModel> listData) {
+        if (listData == null) {
+            return;
+        }
         this.listData = listData;
         notifyDataSetChanged();
     }

@@ -1,9 +1,12 @@
 package vn.homecredit.hcvn.data.repository;
 
+import android.arch.lifecycle.LiveData;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -40,7 +43,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
     }
 
     @Override
-    public List<NotificationModel> getCachedNotifications() {
+    public Flowable<List<NotificationModel>> getCachedNotifications() {
         return notificationDao.loadNotifications();
     }
 }
