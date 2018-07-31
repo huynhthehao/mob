@@ -18,6 +18,10 @@ import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManagerImpl;
 import vn.homecredit.hcvn.data.acl.AclDatabaseService;
 import vn.homecredit.hcvn.data.acl.AclDatabaseServiceImpl;
+import vn.homecredit.hcvn.data.remote.payoo.PayooRestService;
+import vn.homecredit.hcvn.data.remote.payoo.PayooRestServiceImpl;
+import vn.homecredit.hcvn.data.repository.MapRepository;
+import vn.homecredit.hcvn.data.repository.MapRepositoryImpl;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelperImpl;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
@@ -59,6 +63,12 @@ public class AppModule {
     @Singleton
     AclRestService provideAclRestService(AclRestServiceImpl aclRestService) {
         return aclRestService;
+    }
+
+    @Provides
+    @Singleton
+    PayooRestService providePayooRestService(PayooRestServiceImpl payooRestService) {
+        return payooRestService;
     }
 
     @Provides
@@ -121,6 +131,12 @@ public class AppModule {
     }
 
     @Provides
+    @Singleton
+    ApiHeader.PayooApiHeader provPayooApiHeader() {
+        return new ApiHeader.PayooApiHeader("YM_7fPw6xA", "Partner07");
+    }
+
+    @Provides
     SchedulerProvider provideSchedulerProvider() {
         return new AppSchedulerProvider();
     }
@@ -178,4 +194,11 @@ public class AppModule {
     AccountRepository provideAccountRepository(AccountRepositoryImpl profileService) {
         return profileService;
     }
+
+    @Provides
+    @Singleton
+    MapRepository provideMapRepository(MapRepositoryImpl mapRepository) {
+        return mapRepository;
+    }
+
 }

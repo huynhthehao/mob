@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <supports-screens
         android:smallScreens="true"
@@ -86,13 +87,19 @@
         <activity
             android:name=".ui.profile.ProfileActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ui.settings.changepass.ChangePassActivity"
-            android:windowSoftInputMode="adjustPan"
-            >
-        </activity>
-        <activity android:name=".ui.forgetpassword.ForgetPasswordActivity"
-            android:windowSoftInputMode="adjustPan"
-            >
+        <activity
+            android:name=".ui.settings.changepass.ChangePassActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.forgetpassword.ForgetPasswordActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".ui.test.PayMapActivity"
+            android:label="@string/title_activity_pay_map">
         </activity>
     </application>
 

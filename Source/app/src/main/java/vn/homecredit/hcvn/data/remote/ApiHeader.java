@@ -22,12 +22,15 @@ public class ApiHeader {
     private final AclApiHeader mAclApiHeader;
 
     private PublicApiHeader mPublicApiHeader;
+    private PayooApiHeader mPayooApiHeader;
+
 
     @Inject
-    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, AclApiHeader aclApiHeader) {
+    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, AclApiHeader aclApiHeader, PayooApiHeader payooApiHeader) {
         mPublicApiHeader = publicApiHeader;
         mProtectedApiHeader = protectedApiHeader;
         mAclApiHeader = aclApiHeader;
+        mPayooApiHeader = payooApiHeader;
     }
 
     public ProtectedApiHeader getProtectedApiHeader() {
@@ -40,6 +43,10 @@ public class ApiHeader {
 
     public AclApiHeader getAclApiHeader() {
         return mAclApiHeader;
+    }
+
+    public PayooApiHeader getmPayooApiHeader() {
+        return mPayooApiHeader;
     }
 
     public static final class ProtectedApiHeader {
@@ -101,6 +108,22 @@ public class ApiHeader {
 
         public String getAuthorization() {
             return mAuthorization;
+        }
+    }
+
+    public static final class PayooApiHeader {
+        @Expose
+        @SerializedName("token")
+        private String mToken;
+
+        @Expose
+        @SerializedName("user")
+        private String mUser;
+
+        @Inject
+        public PayooApiHeader(String token, String user) {
+            mToken = token;
+            mUser = user;
         }
     }
 

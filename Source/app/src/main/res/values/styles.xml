@@ -34,7 +34,6 @@
     </style>
 
 
-
     <style name="Separator_Horizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
@@ -95,6 +94,7 @@
         <item name="colorControlNormal">@color/brownishGrey</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
+
     <style name="AppTheme.TextInputLayout" parent="AppTheme.TextLabel">
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
@@ -133,11 +133,12 @@
     </style>
 
 
-    <style name="DialogAnimation" >
+    <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_up</item>
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
-    <style name="DialogAnimation.LeftRight" parent="DialogAnimation" >
+
+    <style name="DialogAnimation.LeftRight" parent="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_left</item>
         <item name="android:windowExitAnimation">@anim/slide_right</item>
     </style>
@@ -146,11 +147,13 @@
         <item name="android:progressDrawable">@drawable/red_scrubber_progress</item>
         <item name="android:thumb">@drawable/red_scrubber_control</item>
     </style>
+
     <style name="ClickableView">
         <item name="android:clickable">true</item>
         <item name="android:foreground">?selectableItemBackground</item>
     </style>
-    <style name="SwitchCompatTheme" >
+
+    <style name="SwitchCompatTheme">
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
