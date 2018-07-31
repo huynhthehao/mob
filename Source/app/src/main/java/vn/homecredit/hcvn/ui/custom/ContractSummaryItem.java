@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.text.Spanned;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -100,6 +101,12 @@ public class ContractSummaryItem extends RelativeLayout {
 
     public void setColor(int color) {
         this.color = color;
+        invalidate();
+    }
+
+    public void setContent(Spanned spanned) {
+        this.content = spanned.toString();
+        tvContent.setText(spanned);
         invalidate();
     }
 }

@@ -26,6 +26,8 @@ import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.model.api.contract.ContractDataResp;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
@@ -213,12 +215,21 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
-    public Single<MasterContract> masterContract(String contractId) {
+    public Single<MasterContractResp> masterContract(String contractId) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/summary/" + contractId);
         return Rx2AndroidNetworking.get(url)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
-                .getObjectSingle(MasterContract.class);
+                .getObjectSingle(MasterContractResp.class);
+    }
+
+    @Override
+    public Single<MasterContractDocResp> masterContractDoc(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/" + contractId + "/image");
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(MasterContractDocResp.class);
     }
 
     @Override

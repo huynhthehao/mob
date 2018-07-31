@@ -70,16 +70,6 @@ public class ContractViewModel extends BaseViewModel {
         });
     }
 
-    public void setContractsId(String contractsId) {
-        contractRepository.masterContract(contractsId)
-                .subscribe(new Consumer<MasterContract>() {
-                    @Override
-                    public void accept(MasterContract masterContract) throws Exception {
-
-                    }
-                });
-    }
-
     public void onRefresh() {
         getContracṭ̣();
     }

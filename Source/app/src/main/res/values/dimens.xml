@@ -60,4 +60,9 @@
     <dimen name="profile_icon_size">16dp</dimen>
     <dimen name="contract_type_width">40dp</dimen>
     <dimen name="contract_type_height">40dp</dimen>
+
+    <dimen name="contract_item_padding">@dimen/padding_medium</dimen>
+    <dimen name="contract_item_icon_padding_left">@dimen/padding_small</dimen>
+    <dimen name="contract_item_title_margin_left">@dimen/margin_normal</dimen>
+
 </resources>

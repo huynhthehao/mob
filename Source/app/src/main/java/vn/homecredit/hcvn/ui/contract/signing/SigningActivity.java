@@ -14,6 +14,7 @@ import org.parceler.Parcels;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.ActivityContractSigningBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
@@ -35,7 +36,7 @@ public class SigningActivity extends BaseActivity<ActivityContractSigningBinding
 
     @Override
     public int getBindingVariable() {
-        return 0;
+        return BR.viewModel;
     }
 
     @Override
@@ -53,8 +54,7 @@ public class SigningActivity extends BaseActivity<ActivityContractSigningBinding
         super.onCreate(savedInstanceState);
         if (getIntent().hasExtra(BUNDLE_CONTRACT)) {
             hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT));
-            Log.debug(hcContract.getClientName());
-            getViewModel().setContractsId(hcContract.getIdNumber());
+            getViewModel().setContractsId(hcContract.getContractNumber());
         }
     }
 }

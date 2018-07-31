@@ -2,9 +2,11 @@
 
 <layout xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
-            name="contract"
-            type="vn.homecredit.hcvn.data.model.api.contract.MasterContract"/>
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.contract.signing.SigningViewModel"
+            />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -42,27 +44,29 @@
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:content="@{contract.customerFullname}"
+                    app:content="@{viewModel.customerName}"
                     app:title="@string/master_contract_name"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:content="@{contract.contractNumber}"
+                    app:content="@{viewModel.contractNumber}"
                     app:title="@string/contract_id"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:currency="@{viewModel.totalLoanAmount}"
                     app:title="@string/master_contract_toal_loan"
+                    android:textStyle="bold"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:content="@{contract.presentedInterestRate}"
+                    app:interest="@{viewModel.interestRate}"
                     app:title="@string/interest_rate"
                     />
 
@@ -70,24 +74,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:title="@string/insurance"
+                    app:content="@{viewModel.insurance ? @string/master_contract_include_insurance : @string/no}"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:title="@string/tenor"
+                    app:content="@{viewModel.paymentDuration}"
+                    app:title="@string/payment_duration"
                     />
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:currency="@{viewModel.monthlyInstallement}"
                     app:title="@string/monthly_installement"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:title="@string/status"
-                    app:content="@{contract.status}"
+                    app:title="@string/mastercontract_status"
+                    app:content="@{viewModel.status}"
                     />
                 <View
                     android:layout_width="match_parent"
@@ -98,24 +105,26 @@
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.hasDisbursementBankAccount ? View.VISIBLE : View.GONE}"
                     app:title="@string/bank_name"
-                    app:content="@{contract.disbursementBankName}"
+                    app:content="@{viewModel.bankName}"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.hasDisbursementBankAccount ? View.VISIBLE : View.GONE}"
                     app:title="@string/bank_account"
-                    app:content="@{contract.disbursementBankAccountNumber}"
+                    app:content="@{viewModel.bankAccount}"
                     />
 
                 <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.hasDisbursementBankAccount ? View.VISIBLE : View.GONE}"
                     app:title="@string/bank_branch"
-                    app:content="@{contract.disbursementBankBranchname}"
+                    app:content="@{viewModel.bankBranch}"
                     />
-
 
                 <Button
                     android:id="@+id/btnNext"
@@ -125,17 +134,31 @@
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:imeOptions="actionDone"
-                    android:text="@string/master_contract_approved"
+                    android:text="@{viewModel.btnNextText}"
+                    android:onClick="@{() -> viewModel.onNextClicked()}"
+                    android:visibility="@{viewModel.isPreparing ? View.GONE : View.VISIBLE}"
                     style="@style/PrimaryButton"
                     />
 
-                <TextView
+                <ProgressBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:gravity="center"
-                    android:text="@string/password_help"
-                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:indeterminateOnly="true"
+                    android:indeterminateTint="@color/colorPrimary"
+                    android:indeterminateTintMode="src_in"
+                    android:maxHeight="10dip"
+                    android:minHeight="10dip"
+                    android:visibility="@{viewModel.isPreparing ? View.VISIBLE : View.GONE}"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    />
+                <TextView
+                    android:text="@string/master_contract_wait_prepare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:visibility="@{viewModel.isPreparing ? View.VISIBLE : View.GONE}"
+                    style="@style/AppTheme.DescriptionLabel"
                     />
             </LinearLayout>
 

@@ -294,12 +294,12 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
             }
 //
 //            if (mProposeOffer != null) {
-//                if (Stream.of(validTenor).anyMatch(xx -> xx.getTenor() == mProposeOffer.getTenor()))
-//                    setTenor(mProposeOffer.getTenor());
+//                if (Stream.of(validTenor).anyMatch(xx -> xx.getPaymentDuration() == mProposeOffer.getPaymentDuration()))
+//                    setTenor(mProposeOffer.getPaymentDuration());
 //                else
-//                    setTenor(Stream.of(validTenor).findLast().getValue().getTenor());
+//                    setTenor(Stream.of(validTenor).findLast().getValue().getPaymentDuration());
 //            } else
-//                setTenor(Stream.of(validTenor).findLast().getValue().getTenor());
+//                setTenor(Stream.of(validTenor).findLast().getValue().getPaymentDuration());
         }
 
         SelectedTenorIndex.set(Stream.of(mTenorValues).map(x -> x.getValue()).toList().indexOf(mTenor));

@@ -189,7 +189,7 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         if (loanAmount == null) return;
         NumberFormat formatter = new DecimalFormat("#,###");
         String formattedNumber = formatter.format(loanAmount);
-        textView.setText(formattedNumber + "đ");
+        textView.setText(Html.fromHtml(textView.getContext().getString(R.string.currency, formattedNumber)));
     }
 
     @BindingAdapter({"type"})

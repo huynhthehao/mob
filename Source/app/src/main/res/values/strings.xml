@@ -180,11 +180,19 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="master_contract_toal_loan">Tổng giá trị khoản vay</string>
     <string name="interest_rate">Lãi suất</string>
     <string name="insurance">Bảo hiểm</string>
-    <string name="tenor">Tổng số kỳ thanh toán</string>
+    <string name="payment_duration">Tổng số kỳ thanh toán</string>
     <string name="monthly_installement">Số tiền trả góp hàng tháng</string>
     <string name="bank_name">Ngân hàng</string>
     <string name="bank_account">Tài khoản ngân hàng</string>
     <string name="bank_branch">Chi nhánh</string>
-    <string name="master_contract_approved">View details and sign</string>
+    <string name="master_contract_approved">Xem chi tiết và xác nhận</string>
+    <string name="master_contract_prepare_data">Tải dữ liệu hợp đồng</string>
+    <string name="currency">"%s&lt;u>đ&lt;/u>"</string>
+    <string name="contract_summary_interest">"%s%% / năm"</string>
+    <string name="mastercontract_status">Trạng thái hợp đồng</string>
+    <string name="master_contract_include_insurance">Có (đã bao gồm trong số tiền vay)</string>
+    <string name="master_contract_wait_prepare">Vui lòng chờ giây lát để chúng tôi hoàn tất chuẩn bị dữ liệu hồ sơ của bạn</string>
+    <string name="master_contract_approve_retry">Hệ thống của chúng tôi đang khởi tạo chi tiết hợp đồng của bạn, vui lòng đợi một vài phút và thử lại</string>
+    <string name="no">Không</string>
 
 </resources>
