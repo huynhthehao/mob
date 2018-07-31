@@ -19,6 +19,7 @@ import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
+import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class NotificationViewModel extends BaseViewModel {
@@ -56,7 +57,7 @@ public class NotificationViewModel extends BaseViewModel {
     }
 
     private void cacheNotification(NotificationResp notificationResp) {
-        Completable.fromAction(() -> repository.cacheNotifications(notificationResp.getData()));
+        repository.cacheNotifications(notificationResp.getData());
     }
 
     private void loadAndDisplayCachedNotifications() {

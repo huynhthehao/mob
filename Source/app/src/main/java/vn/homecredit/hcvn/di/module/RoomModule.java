@@ -15,7 +15,7 @@ public class RoomModule {
     private AppDatabase appDatabase;
 
     public RoomModule(Application mApplication) {
-        appDatabase = Room.databaseBuilder(mApplication, AppDatabase.class, "hc-db").build();
+        appDatabase = Room.databaseBuilder(mApplication, AppDatabase.class, "hc-db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
     }
 
     @Singleton

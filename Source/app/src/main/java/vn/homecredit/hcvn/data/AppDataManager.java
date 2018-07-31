@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.database.AppDatabase;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
@@ -32,15 +33,17 @@ public class AppDataManager implements DataManager {
     private final MemoryHelper mMemoryHelper;
     private final OneSignalService mOneSignalService;
     private final FingerPrintHelper mfingerPrintHelper;
+    private AppDatabase appDatabase;
 
 
     @Inject
-    public AppDataManager(PreferencesHelper preferencesHelper, RestService restService, MemoryHelper memoryHelper, OneSignalService oneSignalService, FingerPrintHelper fingerPrintHelper) {
+    public AppDataManager(PreferencesHelper preferencesHelper, RestService restService, MemoryHelper memoryHelper, OneSignalService oneSignalService, FingerPrintHelper fingerPrintHelper, AppDatabase appDatabase) {
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
         mMemoryHelper = memoryHelper;
         mOneSignalService = oneSignalService;
         mfingerPrintHelper = fingerPrintHelper;
+        this.appDatabase = appDatabase;
     }
 
     @Override
@@ -99,6 +102,9 @@ public class AppDataManager implements DataManager {
     @Override
     public void logout() {
         mPreferencesHelper.logout();
+        // delete all table in database
+        Thread t = new Thread(() -> appDatabase.clearAllTables());
+        t.start();
     }
 
 

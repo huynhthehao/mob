@@ -5,24 +5,22 @@ import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import io.reactivex.annotations.NonNull;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.ui.notification.NotificationType;
 
-@Entity(tableName = "notifications")
+@Entity(tableName = "notification")
 public class NotificationModel {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "notification_id")
-    private Long notificationId;
-
     @SerializedName("Id")
     @Expose
+    @PrimaryKey
+    @NonNull
     private String id;
 
     @SerializedName("ContractNumber")
@@ -85,14 +83,6 @@ public class NotificationModel {
 
     @TypeConverters(ClwResultConverter.class)
     private ClwResult clwResult;
-
-    public Long getNotificationId() {
-        return notificationId;
-    }
-
-    public void setNotificationId(Long notificationId) {
-        this.notificationId = notificationId;
-    }
 
     public String getId() {
         return id;

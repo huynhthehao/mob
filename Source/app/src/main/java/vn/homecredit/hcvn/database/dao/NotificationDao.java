@@ -20,9 +20,9 @@ public interface NotificationDao {
     @Update
     void update(NotificationModel notificationModel);
 
-    @Query("SELECT * from notifications WHERE id = :id")
+    @Query("SELECT * from notification WHERE id = :id")
     NotificationModel load(String id);
 
-    @Query("SELECT * FROM notifications")
+    @Query("SELECT * FROM notification")
     Flowable<List<NotificationModel>> loadNotifications();
 }

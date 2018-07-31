@@ -69,12 +69,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         getViewModel().getDataNotifications().observe(this, notificationModels -> notificationAdapter.swapData(notificationModels));
         getViewModel().getModelIsRefreshing().observe(this, isRefreshing -> {
                     if (!isRefreshing)
-                        appDataView.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                appDataView.updateViewState(AppDataViewState.HIDE_RELOADING);
-                            }
-                        }, 200);
+                        appDataView.updateViewState(AppDataViewState.HIDE_RELOADING);
 
                 }
         );
