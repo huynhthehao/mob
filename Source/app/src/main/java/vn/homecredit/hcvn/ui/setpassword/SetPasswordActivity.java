@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.FirstComeFlow;
+import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivitySetpasswordBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;

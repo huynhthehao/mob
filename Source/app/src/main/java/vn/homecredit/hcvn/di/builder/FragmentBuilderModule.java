@@ -8,6 +8,8 @@ package vn.homecredit.hcvn.di.builder;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+import vn.homecredit.hcvn.ui.contract.main.ContractFragment;
+import vn.homecredit.hcvn.ui.contract.main.ContractFragmentModule;
 import vn.homecredit.hcvn.ui.more.MoreFragment;
 import vn.homecredit.hcvn.ui.more.MoreFragmentModule;
 
@@ -15,4 +17,7 @@ import vn.homecredit.hcvn.ui.more.MoreFragmentModule;
 public abstract class FragmentBuilderModule {
     @ContributesAndroidInjector(modules = MoreFragmentModule.class)
     abstract MoreFragment moreFragment();
+
+    @ContributesAndroidInjector(modules = ContractFragmentModule.class)
+    abstract ContractFragment contractsFragment();
 }

@@ -9,11 +9,9 @@
 
 package vn.homecredit.hcvn.ui.base;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -23,12 +21,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
-import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.helpers.UiHelper;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
 
@@ -132,6 +127,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
 
     public interface Callback {
         void onFragmentAttached();
+
         void onFragmentDetached(String tag);
     }
 
@@ -141,45 +137,17 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     }
 
     public void showMessage(String message) {
-        MaterialDialog.Builder builder = new MaterialDialog.Builder(this.getContext())
-                .title(R.string.notice)
-                .content(message)
-                .positiveText(R.string.ok);
-
-        MaterialDialog dialog = builder.build();
-        dialog.show();
+        UiHelper.showMessage(this.getContext(), message);
     }
 
-    public void showConfirmMessage(Integer titleId, Integer messageId, final Consumer<Boolean> onCompleted){
+    public void showConfirmMessage(Integer titleId, Integer messageId, final Consumer<Boolean> onCompleted) {
         String title = getResources().getString(titleId);
         String message = getResources().getString(messageId);
 
         showConfirmMessage(title, message, onCompleted);
     }
 
-
     public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
-        new MaterialDialog.Builder(this.getActivity())
-                .title(title)
-                .content(message)
-                .positiveText(R.string.ok)
-                .negativeColor(getResources().getColor(R.color.my_secondary_text))
-                .negativeText(R.string.cancel)
-                .canceledOnTouchOutside(false)
-                .cancelListener(dialog -> {
-                    try {
-                        onCompleted.accept(false);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                })
-                .onPositive((dialog, which) -> {
-                    try {
-                        onCompleted.accept(true);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                })
-                .show();
+        UiHelper.showConfirmMessage(this.getContext(),title,message, onCompleted);
     }
 }

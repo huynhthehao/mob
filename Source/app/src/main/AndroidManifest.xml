@@ -101,6 +101,7 @@
             android:name=".ui.test.PayMapActivity"
             android:label="@string/title_activity_pay_map">
         </activity>
+        <activity android:name=".ui.contract.signing.SigningActivity" />
     </application>
 
 </manifest>

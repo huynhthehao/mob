@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.data.model.LanguageCode;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
@@ -69,7 +70,7 @@ public class AclRestServiceImpl implements AclRestService {
         requestBody.put("Otp", otp);
         requestBody.put("Source", otpPassParam.getOtpTimerResp().getData().getSource());
         String langId = Locale.getDefault().getLanguage();
-        if (!langId.equals("vi") && !langId.equals("en")) {
+        if (!langId.equals(LanguageCode.VIETNAMESE) && !langId.equals(LanguageCode.ENGLISH)) {
             langId = "vi";
         }
         String url = String.format("%s/otp/Validation?lang=%s",ApiEndPoint.ENDPOINT_CLW, langId);

@@ -22,6 +22,8 @@ import vn.homecredit.hcvn.data.remote.payoo.PayooRestService;
 import vn.homecredit.hcvn.data.remote.payoo.PayooRestServiceImpl;
 import vn.homecredit.hcvn.data.repository.MapRepository;
 import vn.homecredit.hcvn.data.repository.MapRepositoryImpl;
+import vn.homecredit.hcvn.data.repository.ContractRepository;
+import vn.homecredit.hcvn.data.repository.ContractRepositoryImpl;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelperImpl;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
@@ -201,4 +203,10 @@ public class AppModule {
         return mapRepository;
     }
 
+
+    @Provides
+    @Singleton
+    ContractRepository provideContractRepository(ContractRepositoryImpl contractRepositoryImpl) {
+        return contractRepositoryImpl;
+    }
 }

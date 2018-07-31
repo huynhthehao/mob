@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 7/25/18 1:09 PM, by Hien.NguyenM
+ * Last modified 7/26/18 1:39 PM, by Hien.NguyenM
  */
 
-package vn.homecredit.hcvn.data.model;
+package vn.homecredit.hcvn.data.model.enums;
 
 public enum FirstComeFlow {
     AFTER_LOGIN(1),

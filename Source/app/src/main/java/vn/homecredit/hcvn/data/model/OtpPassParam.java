@@ -10,6 +10,7 @@ import org.parceler.Parcel;
 import org.parceler.ParcelConstructor;
 
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
+import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 
 @Parcel
 public class OtpPassParam {

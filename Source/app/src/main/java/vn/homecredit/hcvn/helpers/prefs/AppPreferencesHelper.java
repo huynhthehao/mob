@@ -11,21 +11,17 @@ package vn.homecredit.hcvn.helpers.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.DisplayMetrics;
 
 import com.google.gson.Gson;
-
 import java.util.Locale;
 import javax.inject.Inject;
 
+import vn.homecredit.hcvn.data.model.LanguageCode;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.di.PreferenceInfo;
-import vn.homecredit.hcvn.helpers.LocaleHelper;
 import vn.homecredit.hcvn.utils.StringUtils;
 
 public class AppPreferencesHelper implements PreferencesHelper {
@@ -103,25 +99,12 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public void changeLanguage() {
         String currentLangCode = getLanguageCode();
-        String newLangCode = currentLangCode.equals("vi") ? "en" : "vi";
+        String newLangCode = currentLangCode.equals(LanguageCode.VIETNAMESE)
+                ? LanguageCode.ENGLISH
+                : LanguageCode.VIETNAMESE;
         setLanguageCode(newLangCode);
     }
 
-    /*private static Context updateResources(Context context, String language) {
-        Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-
-        Resources res = context.getResources();
-        Configuration config = new Configuration(res.getConfiguration());
-        if (Build.VERSION.SDK_INT >= 17) {
-            config.setLocale(locale);
-            context = context.createConfigurationContext(config);
-        } else {
-            config.locale = locale;
-            res.updateConfiguration(config, res.getDisplayMetrics());
-        }
-        return context;
-    }*/
 
     @Override
     public void setLanguageCode(String languageId) {
@@ -136,8 +119,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
             return langId;
 
         langId = Locale.getDefault().getLanguage();
-        if (!langId.equals("vi") && !langId.equals("en")) {
-            langId = "vi";
+        if (!langId.equals(LanguageCode.VIETNAMESE) && !langId.equals(LanguageCode.ENGLISH)) {
+            langId = LanguageCode.VIETNAMESE;
         }
         return langId;
     }
