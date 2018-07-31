@@ -76,9 +76,9 @@ public class NotificationModel {
     @TypeConverters(MessageSpanConverter.class)
     private List<MessageSpan> messageSpan;
 
-    @Embedded
     @SerializedName("Offer")
     @Expose
+    @TypeConverters(OfferConverter.class)
     private OfferModel offer;
 
     @TypeConverters(ClwResultConverter.class)
