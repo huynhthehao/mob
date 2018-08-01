@@ -57,22 +57,6 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<ProfileResp> getProfile() {
-        return mRestService.getProfile().doOnSuccess(response -> {
-            if (response.getResponseCode() == 0) {
-                mOneSignalService.SendTags("UserId", response.getData().getUserId());
-                mOneSignalService.SendTags("UserName", response.getData().getFullName());
-                //TODO: Notifcation Setting
-//                mOneSignalService.SendTags("Active", Settings.Notification.ToString());
-                mMemoryHelper.setProfileRespData(response.getData());
-                //TODO: Set Badge
-//                App.Current.SetBadge(resp.Data.NotificationCount);
-            }
-        });
-    }
-
-
-    @Override
     public ApiHeader getApiHeader() {
         return mRestService.getApiHeader();
     }
@@ -157,16 +141,6 @@ public class AppDataManager implements DataManager {
     public void setAccessToken(String accessToken) {
         mPreferencesHelper.setAccessToken(accessToken);
         mRestService.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
-    }
-
-    @Override
-    public ProfileResp.ProfileRespData loadProfile() {
-        return mPreferencesHelper.getProfile();
-    }
-
-    @Override
-    public void saveProfile(ProfileResp.ProfileRespData profileRespData) {
-        mPreferencesHelper.saveProfile(profileRespData);
     }
 
     @Override

@@ -25,6 +25,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
 import vn.homecredit.hcvn.di.module.RoomModule;
 import vn.homecredit.hcvn.utils.AppLogger;
+import vn.homecredit.hcvn.utils.Log;
 
 /**
  * Created by QuanP on 11/06/18.
@@ -80,7 +81,7 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
                 }).setNotificationReceivedHandler(new OneSignal.NotificationReceivedHandler() {
                     @Override
                     public void notificationReceived(OSNotification notification) {
-
+                        Log.debug("value", notification.payload.body);
                         AppLogger.d(notification.payload.body);
                         JSONObject additionalData = notification.payload.additionalData;
                         //TODO: Tracking

@@ -10,10 +10,10 @@
 package vn.homecredit.hcvn.service;
 
 public interface OneSignalService {
-    void SendTags(String key, String value);
-    void SetSubscription(boolean subscribe);
-    void DeleteTag(String key);
-    String JsonString(Object object);
+    void sendTags(String key, String value);
+    void setSubscription(boolean subscribe);
+    void deleteTag(String key);
+    String jsonString(Object object);
 
     void tryGetPlayerId();
 }

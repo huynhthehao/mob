@@ -9,12 +9,17 @@
 
 package vn.homecredit.hcvn.service;
 
+import android.content.Context;
+
+import com.onesignal.OSPermissionSubscriptionState;
 import com.onesignal.OneSignal;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import timber.log.Timber;
+import vn.homecredit.hcvn.data.model.DeviceInfoModel;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 
 @Singleton
 public class OneSignalServiceImpl implements OneSignalService {
@@ -26,34 +31,31 @@ public class OneSignalServiceImpl implements OneSignalService {
     }
 
     @Override
-    public void SendTags(String key, String value) {
+    public void sendTags(String key, String value) {
         OneSignal.sendTag(key, value);
     }
 
     @Override
-    public void SetSubscription(boolean subscribe) {
+    public void setSubscription(boolean subscribe) {
         OneSignal.setSubscription(subscribe);
     }
 
     @Override
-    public void DeleteTag(String key) {
+    public void deleteTag(String key) {
         OneSignal.deleteTag(key);
     }
 
     @Override
-    public String JsonString(Object object) {
+    public String jsonString(Object object) {
         return object.toString();
     }
 
     @Override
     public void tryGetPlayerId() {
-        OneSignal.idsAvailable((id, token) -> {
-            mDeviceInfo.setPlayerId(id);
-            mDeviceInfo.setPushToken(token);
-
-            Timber.v(String.format("PlayerId: %s", id));
-            Timber.v(String.format("Push token: %s", token));
-
-        });
+        OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
+        String userID = status.getSubscriptionStatus().getUserId();
+        String token = status.getSubscriptionStatus().getPushToken();
+        mDeviceInfo.setPlayerId(userID);
+        mDeviceInfo.setPushToken(token);
     }
 }

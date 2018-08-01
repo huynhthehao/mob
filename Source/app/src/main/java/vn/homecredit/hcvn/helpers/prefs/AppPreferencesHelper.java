@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import java.util.Locale;
 import javax.inject.Inject;
 
+import vn.homecredit.hcvn.data.model.DeviceInfoModel;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.di.PreferenceInfo;
@@ -36,6 +37,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
     private static final String PREF_KEY_FINGER_PRINT_ENABLE = "PREF_KEY_FINGER_PRINT_ENABLE";
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
+    private static final String PREF_KEY_DEVICE_INFO = "PREF_KEY_DEVICE_INFO";
 
     private final SharedPreferences mPrefs;
 
@@ -154,5 +156,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
         }catch(Exception ex) {
             return null;
         }
+    }
+
+    @Override
+    public DeviceInfoModel getDeviceInfo() {
+        return getObject(PREF_KEY_DEVICE_INFO, DeviceInfoModel.class);
+    }
+
+    @Override
+    public void saveDeviceInfo(DeviceInfoModel deviceInfoModel) {
+        saveObject(PREF_KEY_DEVICE_INFO, deviceInfoModel);
     }
 }

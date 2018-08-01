@@ -19,7 +19,6 @@ import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 public interface DataManager  {
     Single<VersionResp> checkUpdate();
     Single<TokenResp> getToken(String phoneNumber, String password);
-    Single<ProfileResp> getProfile();
     ApiHeader getApiHeader();
 
     VersionResp.VersionRespData getVersionRespData();
@@ -32,10 +31,6 @@ public interface DataManager  {
 
     String getAccessToken();
     void setAccessToken(String accessToken);
-
-    ProfileResp.ProfileRespData loadProfile();
-    void saveProfile(ProfileResp.ProfileRespData profileRespData);
-
 
     boolean getIsShowDashboard();
     void setIsShowDashboard(boolean value);
