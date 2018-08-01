@@ -1,10 +1,13 @@
 package vn.homecredit.hcvn.ui.map;
 
 import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -29,17 +33,20 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
-import vn.homecredit.hcvn.MainActivity;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityPayMapBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
-import vn.homecredit.hcvn.utils.BitmapUtils;
+import vn.homecredit.hcvn.utils.ResourcesUtil;
+
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapViewModel> implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener, GoogleMap.OnMarkerClickListener {
 
     //permissions
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
-
+    //google direction key
+    public static String GG_DIRECTION_KEY = ResourcesUtil.getString(R.string.google_direction_key);
     //Location mode
     public static final int PAYMENT_MODE = 0;
     public static final int DISBURSEMENT_MODE = 1;
@@ -47,9 +54,9 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     //Maker type
     public static final String MAKER_MOMO = "momo";
     public static final String MAKER_PAYOO = "payoo";
-
     public static final String MAKER_EBAY = "epaydisbursement";
     public static final String MAKER_DEFAULT = "";
+    public static final String MODE_KEY = "Mode";
 
     public int currentMode = PAYMENT_MODE;
 
@@ -57,12 +64,20 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     PayMapViewModel payMapViewModel;
 
     private GoogleMap mMap;
+    private View mMapView;
     private boolean mLocationPermissionGranted;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Location mLastKnownLocation;
     private LatLng mCenterLocation;
     Toolbar toolbar;
     private Marker marker = null;
+    static LatLng defaultLocation = new LatLng(10.787273, 106.749810);
+
+    public static void start(Context context, int modeMap) {
+        Intent intent = new Intent(context, PayMapActivity.class);
+        intent.putExtra(MODE_KEY, modeMap);
+        context.startActivity(intent);
+    }
 
     @Override
     public int getBindingVariable() {
@@ -85,13 +100,17 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         payMapViewModel.init();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
+        mMapView = mapFragment.getView();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        currentMode = getIntent().getIntExtra(MODE_KEY, PAYMENT_MODE);
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -143,6 +162,9 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                     payMapViewModel.loadCashLoanMap(mMap, mCenterLocation, getApplicationContext());
                 }
                 break;
+            case android.R.id.home:
+                onBackPressed();
+                break;
             default:
                 break;
         }
@@ -150,33 +172,46 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
         return super.onOptionsItemSelected(item);
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
-        LatLng defaultLocation = new LatLng(10.787273, 106.749810);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(defaultLocation.latitude, defaultLocation.longitude), 15));
         mMap.setOnCameraIdleListener(this);
         mMap.setOnMarkerClickListener(this);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+
+        //custom position of current position
+        View locationButton = ((View) mMapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_END, 0);
+            rlp.addRule(RelativeLayout.ALIGN_END, 0);
+
+        }
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        rlp.setMargins(50, 0, 0, 50);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            rlp.setMarginStart(50);
+        }
         getLocationPermission();
 
     }
 
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), ACCESS_FINE_LOCATION) == PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
             updateLocationUI();
             getDeviceLocation();
         } else {
             ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
@@ -189,7 +224,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
             case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        && grantResults[0] == PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
                 }
             }
@@ -214,8 +249,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), 15));
                             mCenterLocation = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                        } catch (Exception e) {
-                            //
+                        } catch (Exception ignored) {
                         }
 
                     } else {
@@ -223,7 +257,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                     }
                 });
             }
-        } catch (SecurityException e) {
+        } catch (SecurityException ignored) {
         }
     }
 
@@ -241,7 +275,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                 mLastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e) {
+        } catch (SecurityException ignored) {
         }
     }
 
@@ -290,8 +324,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
         @Override
         public View getInfoContents(Marker marker) {
 
-            if (PayMapActivity.this.marker != null
-                    && PayMapActivity.this.marker.isInfoWindowShown()) {
+            if ((PayMapActivity.this.marker != null) && PayMapActivity.this.marker.isInfoWindowShown()) {
                 PayMapActivity.this.marker.hideInfoWindow();
                 PayMapActivity.this.marker.showInfoWindow();
             }
@@ -303,6 +336,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
             PayMapActivity.this.marker = marker;
 
             final ImageView image = view.findViewById(R.id.infor_image);
+            image.setVisibility(View.VISIBLE);
 
             switch (Objects.requireNonNull((String) marker.getTag())) {
                 case MAKER_EBAY:
@@ -315,8 +349,10 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                     image.setImageResource(R.drawable.ic_payoo);
                     break;
                 case PayMapActivity.MAKER_DEFAULT:
+                    image.setVisibility(View.GONE);
                     break;
                 default:
+                    image.setVisibility(View.GONE);
                     break;
 
             }
