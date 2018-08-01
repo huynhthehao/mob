@@ -42,7 +42,7 @@
             <ImageView
                 android:id="@+id/ivHistory"
                 android:layout_width="10dp"
-                android:layout_height="16dp"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/ic_history_read" />
 
