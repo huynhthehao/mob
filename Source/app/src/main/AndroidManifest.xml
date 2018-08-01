@@ -98,7 +98,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.test.PayMapActivity"
+            android:name=".ui.map.PayMapActivity"
             android:label="@string/title_activity_pay_map">
         </activity>
         <activity android:name=".ui.contract.signing.SigningActivity" />

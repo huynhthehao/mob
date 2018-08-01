@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +36,12 @@ import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.BitmapUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
+import static vn.homecredit.hcvn.ui.map.PayMapActivity.GG_DIRECTION_KEY;
+
 public class PayMapViewModel extends BaseViewModel {
 
     private MapRepository mMapRepository;
     private List<Polyline> mPolylines = new ArrayList<>();
-    private static String GG_MAP_DIRECTION_KEY = "AIzaSyARvrEdNOBOHlzTRTiPbh0rkZASCDzQUTY";
 
     @Inject
     public PayMapViewModel(MapRepository mapRepository, SchedulerProvider schedulerProvider) {
@@ -52,11 +54,14 @@ public class PayMapViewModel extends BaseViewModel {
         super.init();
     }
 
-
     public void loadMapPayoo(GoogleMap mMap, Context context, LatLng latLng) {
         Disposable disposable = mMapRepository.getPayooNear(latLng.latitude, latLng.longitude)
+                .toObservable().distinctUntilChanged()
                 .subscribe(
                         payooDataList -> {
+                            if (payooDataList.isEmpty()) {
+                                return;
+                            }
                             for (PayooData payooData : payooDataList) {
                                 drawMaker(PayMapActivity.MAKER_PAYOO, mMap, context, new LatLng(payooData.getLat(),
                                         payooData.getLong()), payooData.getDisplayName(), payooData.getAddress());
@@ -70,18 +75,15 @@ public class PayMapViewModel extends BaseViewModel {
 
     public void loadMapPos(GoogleMap googleMap, Context context, LatLng latLng) {
         Disposable disposable = mMapRepository.getPosNear(latLng.latitude, latLng.longitude)
+                .toObservable().distinctUntilChanged()
                 .subscribe(
                         posModel -> {
-                            for (PosData posData : posModel.getData()) {
-                                // create marker
-                                Bitmap icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_contract_creditcard);
-                                MarkerOptions marker = new MarkerOptions().position(new LatLng(posData.getLatitude(),
-                                        posData.getLongitude()))
-                                        .title(posData.getTitle())
-                                        .snippet(posData.getAddress())
-                                        .icon(BitmapDescriptorFactory.fromBitmap(icon));
-                                // adding marker
-                                googleMap.addMarker(marker);
+                            if (posModel.getData().isEmpty()) {
+                                return;
+                            }
+                            for (PosData data : posModel.getData()) {
+                                drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
+                                        data.getLongitude()), data.getTitle(), data.getAddress());
                             }
                         }, throwable ->
                         {
@@ -93,16 +95,12 @@ public class PayMapViewModel extends BaseViewModel {
         Disposable disposable = mMapRepository.getVnPosNear(latLng.latitude, latLng.longitude)
                 .subscribe(
                         posModel -> {
-                            for (PosData posData : posModel.getData()) {
-                                // create marker
-                                Bitmap icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_contract_cashloan);
-                                MarkerOptions marker = new MarkerOptions().position(new LatLng(posData.getLatitude(),
-                                        posData.getLongitude()))
-                                        .title(posData.getTitle())
-                                        .snippet(posData.getAddress())
-                                        .icon(BitmapDescriptorFactory.fromBitmap(icon));
-                                // adding marker
-                                googleMap.addMarker(marker);
+                            if (posModel.getData().isEmpty()) {
+                                return;
+                            }
+                            for (PosData data : posModel.getData()) {
+                                drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
+                                        data.getLongitude()), data.getTitle(), data.getAddress());
                             }
                         }, throwable -> {
                         }
@@ -112,10 +110,15 @@ public class PayMapViewModel extends BaseViewModel {
 
     public void loadClwData(GoogleMap googleMap, Context context, LatLng latLng) {
         Disposable disposable = mMapRepository.getClwModelNear(latLng.latitude, latLng.longitude)
+                .toObservable().distinctUntilChanged()
                 .subscribe(
                         clwModels -> {
-                            for (ClwData posData : clwModels.getData()) {
-                                drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(posData.getLatitude(), posData.getLongitude()), posData.getTitle(), posData.getAddress());
+                            if (clwModels.getData().isEmpty()) {
+                                return;
+                            }
+                            for (ClwData data : clwModels.getData()) {
+                                drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
+                                        data.getLongitude()), data.getTitle(), data.getAddress());
                             }
                         }, throwable -> {
                         }
@@ -125,12 +128,15 @@ public class PayMapViewModel extends BaseViewModel {
 
     public void loadDisbursement(GoogleMap googleMap, Context context, LatLng latLng) {
         Disposable disposable = mMapRepository.getDisbursementModelNear(latLng.latitude, latLng.longitude)
+                .toObservable().distinctUntilChanged()
                 .subscribe(
                         disbursementModel -> {
-                            for (DisbursementData posData : disbursementModel.getData()) {
-                                // create marker
-                                drawMaker(posData.getBrand(), googleMap, context, new LatLng(posData.getLatitude(), posData.getLongitude()), posData.getTitle(), posData.getAddress());
-
+                            if (disbursementModel.getData().isEmpty()) {
+                                return;
+                            }
+                            for (DisbursementData data : disbursementModel.getData()) {
+                                drawMaker(data.getBrand(), googleMap, context, new LatLng(data.getLatitude(),
+                                        data.getLongitude()), data.getTitle(), data.getAddress());
                             }
                         }, throwable -> {
                         }
@@ -140,10 +146,15 @@ public class PayMapViewModel extends BaseViewModel {
 
     public void loadPayment(GoogleMap googleMap, Context context, LatLng latLng) {
         Disposable disposable = mMapRepository.getPaymentModelNear(latLng.latitude, latLng.longitude)
+                .toObservable().distinctUntilChanged()
                 .subscribe(
                         paymentModel -> {
-                            for (PaymentData posData : paymentModel.getData()) {
-                                drawMaker(posData.getBrand(), googleMap, context, new LatLng(posData.getLatitude(), posData.getLongitude()), posData.getTitle(), posData.getAddress());
+                            if (paymentModel.getData().isEmpty()) {
+                                return;
+                            }
+                            for (PaymentData data : paymentModel.getData()) {
+                                drawMaker(data.getBrand(), googleMap, context, new LatLng(data.getLatitude(),
+                                        data.getLongitude()), data.getTitle(), data.getAddress());
                             }
                         }, throwable -> {
                         }
@@ -151,14 +162,14 @@ public class PayMapViewModel extends BaseViewModel {
         getCompositeDisposable().add(disposable);
     }
 
-    public void drawDirection(GoogleMap mMap, Location mLastKnownLocation, LatLng position, Context context) {
+    public void drawDirection(GoogleMap map, Location mLastKnownLocation, LatLng position, Context context) {
 
         //clear poly
         for (Polyline polyline : mPolylines) {
             polyline.remove();
         }
 
-        GoogleDirection.withServerKey(GG_MAP_DIRECTION_KEY)
+        GoogleDirection.withServerKey(GG_DIRECTION_KEY)
                 .from(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()))
                 .to(new LatLng(position.latitude, position.longitude))
                 .avoid(AvoidType.FERRIES)
@@ -167,10 +178,13 @@ public class PayMapViewModel extends BaseViewModel {
                     @Override
                     public void onDirectionSuccess(Direction direction, String rawBody) {
                         if (direction.isOK()) {
-                            // Do something
                             Route route = direction.getRouteList().get(0);
                             ArrayList<LatLng> directionPositionList = route.getLegList().get(0).getDirectionPoint();
-                            mPolylines.add(mMap.addPolyline(DirectionConverter.createPolyline(context, directionPositionList, 5, Color.RED)));
+                            PolylineOptions polylineOptions = DirectionConverter.createPolyline(context, directionPositionList, 5, Color.RED);
+                            polylineOptions.color(Color.GRAY).width(17);
+                            mPolylines.add(map.addPolyline(polylineOptions));
+                            polylineOptions.color(Color.RED).width(14);
+                            mPolylines.add(map.addPolyline(polylineOptions));
 
                         }
                     }
