@@ -130,6 +130,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                         // push notification config
                         oneSignalService.sendTags("UserId", response.getData().getUserId());
                         oneSignalService.sendTags("UserName", response.getData().getFullName());
+                        oneSignalService.sendTags("Active", String.valueOf(preferencesHelper.getNotificationSetting()));
                         //TODO: Notifcation Setting
                         //                mOneSignalService.sendTags("Active", Settings.Notification.ToString());
                         //TODO: Set Badge

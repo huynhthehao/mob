@@ -86,6 +86,9 @@ public class AppDataManager implements DataManager {
     @Override
     public void logout() {
         mPreferencesHelper.logout();
+        // delete tags notification
+        mOneSignalService.deleteTag("UserId");
+        mOneSignalService.deleteTag("UserName");
         // delete all table in database
         Thread t = new Thread(() -> appDatabase.clearAllTables());
         t.start();
