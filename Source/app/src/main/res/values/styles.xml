@@ -126,6 +126,11 @@
         <item name="fontFamily">@font/myriadpro_regular</item>
     </style>
 
+    <style name="Contact.Section" parent="Base.TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/brownishGrey</item>
+        <item name="fontFamily">@font/myriadpro_regular</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="Contact.Title" parent="Base.TextAppearance.AppCompat.Medium">
         <item name="android:textColor">@color/brownishGrey</item>
         <item name="fontFamily">@font/myriadpro_regular</item>
