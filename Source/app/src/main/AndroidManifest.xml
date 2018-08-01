@@ -12,11 +12,10 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <supports-screens
-        android:smallScreens="true"
-        android:normalScreens="true"
-        android:largeScreens="true"
         android:anyDensity="true"
-        />
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
 
     <application
         android:name=".HCVNApp"
@@ -71,30 +70,27 @@
             android:label="@string/title_activity_acl_introduction" />
         <activity
             android:name=".ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.signup.SignUpActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.setpassword.SetPasswordActivity"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.profile.ProfileActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ui.settings.changepass.ChangePassActivity"
-            android:windowSoftInputMode="adjustPan"
-            >
-        </activity>
-        <activity android:name=".ui.forgetpassword.ForgetPasswordActivity"
-            android:windowSoftInputMode="adjustPan"
-            >
-        </activity>
+        <activity
+            android:name=".ui.settings.changepass.ChangePassActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".ui.forgetpassword.ForgetPasswordActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.contract.signing.SigningActivity" />
+        <activity android:name=".ui.contract.detail.ContractDetailActivity"></activity>
     </application>
 
 </manifest>
