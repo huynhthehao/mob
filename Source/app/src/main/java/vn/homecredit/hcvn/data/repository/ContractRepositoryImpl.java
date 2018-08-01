@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,7 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
@@ -42,14 +44,16 @@ public class ContractRepositoryImpl implements ContractRepository {
     public Single<ContractResp> contracts() {
         return restService.contract()
                 .map(contractResp -> {
-//                    if (BuildConfig.DEBUG) {
-//                        contractResp.getData().getContracts().add(TestData.activeContract());
-//                        contractResp.getData().getContracts().add(TestData.pendingContract());
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CashLoan));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.ConsumerDurables));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CreditCard));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.TwoWheels));
-//                    }
+                    if (BuildConfig.DEBUG) {
+                        contractResp.getData().getContracts().add(TestData.activeContract());
+                        contractResp.getData().getContracts().add(TestData.pendingContract());
+                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CashLoan));
+                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.ConsumerDurables));
+                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CreditCard));
+                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.TwoWheels));
+                        contractResp.getData().getContracts().add(TestData.closeContract());
+                        contractResp.getData().getContracts().add(TestData.closeContract());
+                    }
                     return contractResp;
                 })
                 .map(contractResp -> {
@@ -77,6 +81,14 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public Single<MasterContractDocResp> masterContractDoc(String contractId) {
         return restService.masterContractDoc(contractId)
+                .doOnSuccess(new Consumer<MasterContractDocResp>() {
+                    @Override
+                    public void accept(MasterContractDocResp masterContractDocResp) throws Exception {
+                        String image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3J63zkgb86xW7ejMWk4TcEo0EEcRHX16akchPHmHo4WmW5Ys";
+                        List<String> images = Arrays.asList(image, image, image);
+                        masterContractDocResp.getImages().addAll(images);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

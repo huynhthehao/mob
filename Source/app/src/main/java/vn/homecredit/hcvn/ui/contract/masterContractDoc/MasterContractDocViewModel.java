@@ -4,6 +4,8 @@ import android.arch.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
@@ -17,6 +19,7 @@ public class MasterContractDocViewModel extends BaseViewModel {
     private MasterContract masterContract;
     private MutableLiveData<List<String>> modelMasterContractsDocs = new MutableLiveData<>();
 
+    @Inject
     public MasterContractDocViewModel(ContractRepository contractRepository, SchedulerProvider schedulerProvider) {
         super(schedulerProvider);
         this.contractRepository = contractRepository;

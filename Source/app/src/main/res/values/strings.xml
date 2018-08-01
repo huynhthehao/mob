@@ -194,5 +194,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="master_contract_wait_prepare">Vui lòng chờ giây lát để chúng tôi hoàn tất chuẩn bị dữ liệu hồ sơ của bạn</string>
     <string name="master_contract_approve_retry">Hệ thống của chúng tôi đang khởi tạo chi tiết hợp đồng của bạn, vui lòng đợi một vài phút và thử lại</string>
     <string name="no">Không</string>
+    <string name="contract_detail">Chi Tiết Hợp Đồng</string>
+    <string name="contract_detail_hint">Tôi đã đọc, hiểu và đồng ý với toàn bộ nội dung của các tài liệu trên đây</string>
+    <string name="agreeandsign">Đồng ý và ký xác nhận</string>
 
 </resources>

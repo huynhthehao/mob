@@ -9,6 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import org.parceler.Parcel;
 import org.parceler.Parcels;
@@ -55,12 +61,25 @@ public class MasterContractDocActivity extends BaseActivity<ActivityMasterContra
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fragmentMasterDoc = (SimpleRecyclerViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMasterDoc);
+        setupFooter();
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
         if (getIntent().hasExtra(BUNDLE_MASTER_CONTRACT)) {
             MasterContract masterContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_MASTER_CONTRACT));
             getViewModel().setMasterContract(masterContract);
         }
+
+
         getViewModel().getModelMasterContractsDocs().observe(this, strings -> fragmentMasterDoc.updateImages(strings));
 
+    }
+
+    private void setupFooter() {
+        View footer = LayoutInflater.from(this).inflate(R.layout.item_contract_detail_footer, null);
+        Button btnAgree = footer.findViewById(R.id.btnAgree);
+        SwitchCompat switchAgree = footer.findViewById(R.id.switchAgree);
+        btnAgree.setOnClickListener(v -> showMessage("aaa" + switchAgree.isChecked()));
+        switchAgree.setOnCheckedChangeListener((buttonView, isChecked) -> btnAgree.setEnabled(switchAgree.isEnabled()));
+        fragmentMasterDoc.addFooterView(footer);
     }
 
 }
