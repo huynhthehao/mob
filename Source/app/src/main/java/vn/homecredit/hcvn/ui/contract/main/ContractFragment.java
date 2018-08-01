@@ -75,8 +75,7 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     @Override
     public void onClicked(int position) {
-        // TODO: 7/30/18 Implement Contract Detail
-        ContractDetailActivity.start(getContext());
+        ContractDetailActivity.start(getContext(), contractRecyclerViewAdapter.getItem(position));
     }
 
     @Override

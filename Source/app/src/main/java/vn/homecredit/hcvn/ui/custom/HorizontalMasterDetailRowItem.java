@@ -46,6 +46,11 @@ public class HorizontalMasterDetailRowItem extends LinearLayout {
         }
     }
 
+    @BindingAdapter("textValue")
+    public static void setTextValue(HorizontalMasterDetailRowItem horizontalMasterDetailRowItem, int value) {
+        horizontalMasterDetailRowItem.tvValue.setText(String.format("%d", value));
+    }
+
     private void init(Context context, AttributeSet attrs) {
         View.inflate(context, R.layout.item_view_horizontal_master_detail, this);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalMasterDetailRowItem);
