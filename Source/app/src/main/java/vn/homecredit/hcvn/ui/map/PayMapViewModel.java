@@ -3,6 +3,7 @@ package vn.homecredit.hcvn.ui.map;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.Address;
 import android.location.Location;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -24,6 +25,9 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwData;
+import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementData;
+import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentData;
 import vn.homecredit.hcvn.data.model.mapdata.model.payoo.PayooData;
 import vn.homecredit.hcvn.data.model.mapdata.model.pos.PosData;
 import vn.homecredit.hcvn.data.repository.MapRepository;
@@ -47,8 +51,6 @@ public class PayMapViewModel extends BaseViewModel {
     public void init() {
         super.init();
     }
-
-
 
 
     public void loadMapPayoo(GoogleMap mMap, Context context, LatLng latLng) {
@@ -92,8 +94,9 @@ public class PayMapViewModel extends BaseViewModel {
                                 // adding marker
                                 googleMap.addMarker(marker);
                             }
-                        }
-                );
+                        }, throwable ->
+                        {
+                        });
         getCompositeDisposable().add(disposable);
     }
 
@@ -113,6 +116,61 @@ public class PayMapViewModel extends BaseViewModel {
                                 // adding marker
                                 googleMap.addMarker(marker);
                             }
+                        }, throwable -> {
+                        }
+                );
+        getCompositeDisposable().add(disposable);
+    }
+
+    public void loadClwData(GoogleMap googleMap, Context context, LatLng latLng) {
+        Disposable disposable = mMapRepository.getClwModelNear(latLng.latitude, latLng.longitude)
+                .subscribe(
+                        clwModels -> {
+                            Log.debug("NNam" + clwModels);
+                            for (ClwData posData : clwModels.getData()) {
+                                // create marker
+                                Bitmap icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_contract_cashloan);
+                                MarkerOptions marker = new MarkerOptions().position(new LatLng(posData.getLatitude(),
+                                        posData.getLongitude()))
+                                        .title(posData.getTitle())
+                                        .snippet(posData.getAddress())
+                                        .icon(BitmapDescriptorFactory.fromBitmap(icon));
+                                // adding marker
+                                googleMap.addMarker(marker);
+                            }
+                        }, throwable -> {
+                        }
+                );
+        getCompositeDisposable().add(disposable);
+    }
+
+    public void loadDisbursement(GoogleMap googleMap, Context context, LatLng latLng) {
+        Disposable disposable = mMapRepository.getDisbursementModelNear(latLng.latitude, latLng.longitude)
+                .subscribe(
+                        disbursementModel -> {
+                            Log.debug("NNam" + disbursementModel);
+                            for (DisbursementData posData : disbursementModel.getData()) {
+                                // create marker
+                                drawMaker(posData.getBrand(), googleMap, context, new LatLng(posData.getLatitude(), posData.getLongitude()), posData.getTitle(), posData.getAddress());
+
+                            }
+                        }, throwable -> {
+                        }
+                );
+        getCompositeDisposable().add(disposable);
+    }
+
+    public void loadPayment(GoogleMap googleMap, Context context, LatLng latLng) {
+        Disposable disposable = mMapRepository.getPaymentModelNear(latLng.latitude, latLng.longitude)
+                .subscribe(
+                        paymentModel -> {
+                            Log.debug("NNam" + paymentModel);
+                            for (PaymentData posData : paymentModel.getData()) {
+                                // create marker
+                                drawMaker(posData.getBrand(), googleMap, context, new LatLng(posData.getLatitude(), posData.getLongitude()), posData.getTitle(), posData.getAddress());
+                                // adding marker
+                            }
+                        }, throwable -> {
                         }
                 );
         getCompositeDisposable().add(disposable);
@@ -151,7 +209,51 @@ public class PayMapViewModel extends BaseViewModel {
                 });
     }
 
-    public void clearMap(GoogleMap mapview){
+    public void loadPaymentMap(GoogleMap map, LatLng position, Context context) {
+        map.clear();
+        loadPayment(map, context, position);
+    }
+
+    public void loadDisbursementMap(GoogleMap map, LatLng position, Context context) {
+        map.clear();
+        loadDisbursement(map, context, position);
+    }
+
+    public void loadCashLoanMap(GoogleMap map, LatLng position, Context context) {
+        map.clear();
+        loadClwData(map, context, position);
+    }
+
+    public void drawMaker(String makerType, GoogleMap googleMap, Context context, LatLng latLng, String title, String address) {
+        Bitmap icon = null;
+
+        switch (makerType) {
+            case PayMapActivity.MAKER_EBAY:
+                icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_home_menu);
+                break;
+            case PayMapActivity.MAKER_MOMO:
+                icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_momo);
+                break;
+            case PayMapActivity.MAKER_POS:
+                icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_contract_cashloan);
+                break;
+            default:
+                break;
+
+        }
+
+        MarkerOptions marker = new MarkerOptions().position(latLng)
+                .title(title)
+                .snippet(address);
+        if (icon != null) {
+            marker.icon(BitmapDescriptorFactory.fromBitmap(icon));
+        }
+
+        // adding marker
+        googleMap.addMarker(marker);
+    }
+
+    public void clearMap(GoogleMap mapview) {
         mapview.clear();
     }
 

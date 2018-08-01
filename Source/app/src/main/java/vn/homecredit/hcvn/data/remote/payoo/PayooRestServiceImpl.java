@@ -17,7 +17,7 @@ public class PayooRestServiceImpl implements PayooRestService {
     private ApiHeader mApiHeader;
 
     @Inject
-    public PayooRestServiceImpl(ApiHeader apiHeader){
+    public PayooRestServiceImpl(ApiHeader apiHeader) {
         this.mApiHeader = apiHeader;
     }
 
@@ -28,7 +28,7 @@ public class PayooRestServiceImpl implements PayooRestService {
                 "&lat=" + lat +
                 "&verify=Verify&limit=10000";
         return Rx2AndroidNetworking.get(url)
-                .addHeaders(mApiHeader.getmPayooApiHeader())
+                .addHeaders(mApiHeader.getPayooApiHeader())
                 .build()
                 .getObjectListSingle(PayooData.class);
     }

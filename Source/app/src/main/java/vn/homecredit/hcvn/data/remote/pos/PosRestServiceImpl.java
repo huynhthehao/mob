@@ -25,7 +25,7 @@ public class PosRestServiceImpl implements PosRestService {
                 "&lat=" + lat;
 
         return Rx2AndroidNetworking.get(url)
-                .addHeaders(mApiHeader.getmPosApiHeader())
+                .addHeaders(mApiHeader.getPosApiHeader())
                 .build()
                 .getObjectSingle(PosModel.class);
     }
@@ -38,7 +38,7 @@ public class PosRestServiceImpl implements PosRestService {
                 "&lat=" + lat;
 
         return Rx2AndroidNetworking.get(url)
-                .addHeaders(mApiHeader.getmPosApiHeader())
+                .addHeaders(mApiHeader.getPosApiHeader())
                 .build()
                 .getObjectSingle(PosModel.class);
     }

@@ -7,8 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -18,7 +19,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 
 import javax.inject.Inject;
@@ -30,12 +30,19 @@ import vn.homecredit.hcvn.ui.base.BaseActivity;
 
 public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapViewModel> implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener, GoogleMap.OnMarkerClickListener {
 
+    //permissions
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
     //Location mode
     public static final int PAYMENT_MODE = 0;
-    public static final int DISBURSEMENT_MODE = 0;
-    public static final int CASH_LOAN_MODE = 0;
+    public static final int DISBURSEMENT_MODE = 1;
+    public static final int CASH_LOAN_MODE = 2;
+    //Maker type
+    public static final String MAKER_MOMO = "momo";
+    public static final String MAKER_EBAY = "epaydisbursement";
+    public static final String MAKER_POS = "";
+
+    public int currentMode = PAYMENT_MODE;
 
     @Inject
     PayMapViewModel payMapViewModel;
@@ -44,6 +51,8 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     private boolean mLocationPermissionGranted;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Location mLastKnownLocation;
+    private LatLng mCenterLocation;
+    Toolbar toolbar;
 
     @Override
     public int getBindingVariable() {
@@ -64,7 +73,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         payMapViewModel.init();
@@ -73,34 +82,71 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                 .findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_map, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        switch (currentMode) {
+            case PAYMENT_MODE:
+                menu.findItem(R.id.payment).setChecked(true);
+                toolbar.setTitle(R.string.map_payment_location);
+                break;
+            case DISBURSEMENT_MODE:
+                menu.findItem(R.id.disbursement).setChecked(true);
+                toolbar.setTitle(R.string.map_disbursement_location);
+                break;
+            case CASH_LOAN_MODE:
+                menu.findItem(R.id.cash_loan).setChecked(true);
+                toolbar.setTitle(R.string.map_cash_loan_location);
+                break;
+            default:
+                menu.findItem(R.id.payment).setChecked(true);
+                break;
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.payment:
+                currentMode = PAYMENT_MODE;
+                if (mCenterLocation != null) {
+                    payMapViewModel.loadPaymentMap(mMap, mCenterLocation, getApplicationContext());
+                }
+                break;
+            case R.id.disbursement:
+                currentMode = DISBURSEMENT_MODE;
+                if (mCenterLocation != null) {
+                    payMapViewModel.loadDisbursementMap(mMap, mCenterLocation, getApplicationContext());
+                }
+                break;
+            case R.id.cash_loan:
+                currentMode = CASH_LOAN_MODE;
+                if (mCenterLocation != null) {
+                    payMapViewModel.loadCashLoanMap(mMap, mCenterLocation, getApplicationContext());
+                }
+                break;
+            default:
+                break;
+        }
+        invalidateOptionsMenu();
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(10.787273, 106.749810);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Quan 2"));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(sydney.latitude, sydney.longitude), 15));
-
+        LatLng defaultLocation = new LatLng(10.787273, 106.749810);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(defaultLocation.latitude, defaultLocation.longitude), 15));
         mMap.setOnCameraIdleListener(this);
         mMap.setOnMarkerClickListener(this);
         getLocationPermission();
@@ -154,18 +200,21 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                     if (task.isSuccessful()) {
                         // Set the map's camera position to the current location of the device.
                         mLastKnownLocation = (Location) task.getResult();
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                new LatLng(mLastKnownLocation.getLatitude(),
-                                        mLastKnownLocation.getLongitude()), 15));
+                        try {
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                    new LatLng(mLastKnownLocation.getLatitude(),
+                                            mLastKnownLocation.getLongitude()), 15));
+                            mCenterLocation = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+                        } catch (Exception e) {
+                            //
+                        }
+
                     } else {
-                        Log.d("NNam", "Current location is null. Using defaults.");
-                        Log.e("NNam", "Exception: %s", task.getException());
                         mMap.getUiSettings().setMyLocationButtonEnabled(false);
                     }
                 });
             }
         } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
         }
     }
 
@@ -184,15 +233,29 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                 getLocationPermission();
             }
         } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
         }
     }
 
     @Override
     public void onCameraIdle() {
         //on map scroll end
-        LatLng midLatLng = mMap.getCameraPosition().target;
-        payMapViewModel.loadMapVnPos(mMap, this.getApplicationContext(), midLatLng);
+        mCenterLocation = mMap.getCameraPosition().target;
+        if (mCenterLocation == null) {
+            return;
+        }
+        switch (currentMode) {
+            case PAYMENT_MODE:
+                payMapViewModel.loadPayment(mMap, getApplicationContext(), mCenterLocation);
+                break;
+            case DISBURSEMENT_MODE:
+                payMapViewModel.loadDisbursement(mMap, getApplicationContext(), mCenterLocation);
+                break;
+            case CASH_LOAN_MODE:
+                payMapViewModel.loadClwData(mMap, getApplicationContext(), mCenterLocation);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -200,7 +263,6 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
         if (mLastKnownLocation != null) {
             payMapViewModel.drawDirection(mMap, mLastKnownLocation, marker.getPosition(), getApplicationContext());
         }
-
         return false;
     }
 }

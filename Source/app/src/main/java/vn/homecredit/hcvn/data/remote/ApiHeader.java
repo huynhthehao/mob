@@ -24,6 +24,8 @@ public class ApiHeader {
     private PublicApiHeader mPublicApiHeader;
     private PayooApiHeader mPayooApiHeader;
     private PosApiHeader mPosApiHeader;
+    private ClwMapApiHeader mClwMapApiHeader;
+    private DisbursementApiHeader mDisbursementApiHeader;
 
     @Inject
     public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, AclApiHeader aclApiHeader, PayooApiHeader payooApiHeader) {
@@ -45,12 +47,16 @@ public class ApiHeader {
         return mAclApiHeader;
     }
 
-    public PayooApiHeader getmPayooApiHeader() {
+    public PayooApiHeader getPayooApiHeader() {
         return mPayooApiHeader;
     }
 
-    public PosApiHeader getmPosApiHeader() {
+    public PosApiHeader getPosApiHeader() {
         return mPosApiHeader;
+    }
+
+    public DisbursementApiHeader getDisbursementApiHeader() {
+        return mDisbursementApiHeader;
     }
 
     public static final class ProtectedApiHeader {
@@ -142,5 +148,37 @@ public class ApiHeader {
         }
     }
 
+    public static final class ClwMapApiHeader {
+        @Expose
+        @SerializedName("Content-Type")
+        private String mContentType;
+
+        @Inject
+        public ClwMapApiHeader() {
+            mContentType = "application/json";
+        }
+    }
+
+    public static final class DisbursementApiHeader {
+        @Expose
+        @SerializedName("Content-Type")
+        private String mContentType;
+
+        @Inject
+        public DisbursementApiHeader() {
+            mContentType = "application/json";
+        }
+    }
+
+    public static final class PaymentApiHeader {
+        @Expose
+        @SerializedName("Content-Type")
+        private String mContentType;
+
+        @Inject
+        public PaymentApiHeader() {
+            mContentType = "application/json";
+        }
+    }
 
 }

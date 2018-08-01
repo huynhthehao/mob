@@ -27,6 +27,8 @@
 
         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
         <item name="android:buttonStyle">@style/Button</item>
+        <item name="android:radioButtonStyle">@style/MyRadioButtonStyle</item>
+
     </style>
 
     <style name="Button" parent="Widget.AppCompat.Button">
@@ -175,6 +177,11 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="MyRadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="buttonTint">@color/colorPrimary</item>
+        <item name="android:checkedButton">@android:color/holo_purple</item>
     </style>
 
 </resources>

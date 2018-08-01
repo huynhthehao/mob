@@ -6,26 +6,21 @@
 
     <item
         android:id="@+id/menu_search_option"
-        android:icon="@drawable/ic_birthday"
-        android:title="Search Option"
-        app:showAsAction="ifRoom|withText">
+        android:icon="@drawable/ic_change_location"
+        app:showAsAction="ifRoom|withText"
+        tools:ignore="MenuTitle">
         <menu>
-            <group >
+            <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/menuSearchFilmEpisode"
-                    android:checkable="true"
+                    android:id="@+id/payment"
                     android:checked="true"
-                    android:title="Episode" />
+                    android:title="@string/map_payment_location" />
                 <item
-                    android:id="@+id/menuSearchActor"
-                    android:title="Actor" />
+                    android:id="@+id/disbursement"
+                    android:title="@string/map_disbursement_location" />
                 <item
-                    android:id="@+id/action_favorite"
-                    android:checkable="true"
-                    android:title="Custom"
-                    app:actionViewClass="android.widget.CheckBox"
-                    app:showAsAction="ifRoom|withText" />
-
+                    android:id="@+id/cash_loan"
+                    android:title="@string/map_cash_loan_location" />
             </group>
         </menu>
     </item>
