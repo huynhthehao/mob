@@ -62,7 +62,7 @@
                         android:orientation="vertical">
 
                         <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
-                            textValue="@{hcContractModel.clientName}"
+                            app:textValue="@{hcContractModel.clientName}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:textTitle="@string/full_name"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
@@ -73,7 +73,7 @@
                             android:layout_marginHorizontal="@dimen/margin_normal" />
 
                         <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
-                            textValue="@{hcContractModel.contractNumber}"
+                            app:textValue="@{hcContractModel.contractNumber}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:textTitle="@string/contract_no"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
@@ -83,7 +83,7 @@
                             android:layout_marginHorizontal="@dimen/margin_normal" />
 
                         <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
-                            textValue="@{hcContractModel.signedDate}"
+                            app:textValue="@{hcContractModel.signedDate}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:textTitle="@string/signed_date"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
@@ -93,7 +93,7 @@
                             android:layout_marginHorizontal="@dimen/margin_normal" />
 
                         <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
-                            textValue="@{hcContractModel.productType}"
+                            app:textValue="@{hcContractModel.productType}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:textTitle="@string/product_type"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
@@ -103,7 +103,7 @@
                             android:layout_marginHorizontal="@dimen/margin_normal" />
 
                         <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
-                            textValue="@{hcContractModel.formattedTenor}"
+                            app:textValue="@{hcContractModel.tenor != null ? String.format(@string/tenor_month, hcContractModel.tenor) : `-`}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:textTitle="@string/tenor"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
@@ -113,7 +113,8 @@
                             android:layout_marginHorizontal="@dimen/margin_normal" />
 
                         <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
-                            textValue="@{hcContractModel.statusTextVn}"
+                            app:textValue="@{hcContractModel.statusTextVn}"
+                            app:textColor="@{hcContractModel.status == `A` ? @color/success : @color/colorPrimary}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:textTitle="@string/contract_status"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>

@@ -29,16 +29,18 @@ public class ContractDetailViewModel extends BaseViewModel {
         private String contractNumber;
         private String signedDate;
         private String productType;
-        private String formattedTenor;
+        private Integer tenor;
         private String statusTextVn;
+        private String status;
 
         public ContractViewModel(HcContract hcContract) {
             this.clientName = hcContract.getClientName();
             this.contractNumber = hcContract.getContractNumber();
             this.signedDate = DateUtils.convertDateFromUTCToSimple(hcContract.getSignedDate());
             this.productType = hcContract.getProductType();
-            this.formattedTenor = String.format("%d tháng", hcContract.getTenor());
+            this.tenor = hcContract.getTenor();
             this.statusTextVn = hcContract.getStatusTextVn();
+            this.status = hcContract.getStatus();
         }
 
         public String getClientName() {
@@ -57,12 +59,16 @@ public class ContractDetailViewModel extends BaseViewModel {
             return productType;
         }
 
-        public String getFormattedTenor() {
-            return formattedTenor;
-        }
-
         public String getStatusTextVn() {
             return statusTextVn;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public Integer getTenor() {
+            return tenor;
         }
     }
 }

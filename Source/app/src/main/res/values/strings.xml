@@ -182,5 +182,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="contract_no">Số HĐ</string>
     <string name="product_type">Loại sản phẩm</string>
     <string name="tenor">Thời hạn</string>
+    <string name="tenor_month">%d tháng</string>
 
 </resources>

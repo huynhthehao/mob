@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.databinding.BindingAdapter;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
@@ -17,6 +18,7 @@ public class HorizontalMasterDetailRowItem extends LinearLayout {
     private String title = "";
     private int srcId = 0;
     private TextView tvValue;
+    private int textColor = 0;
 
     public HorizontalMasterDetailRowItem(Context context) {
         super(context);
@@ -46,6 +48,11 @@ public class HorizontalMasterDetailRowItem extends LinearLayout {
         }
     }
 
+    @BindingAdapter("textColor")
+    public static void setTextColorValue(HorizontalMasterDetailRowItem horizontalMasterDetailRowItem, int value) {
+        horizontalMasterDetailRowItem.tvValue.setTextColor(value);
+    }
+
     @BindingAdapter("textValue")
     public static void setTextValue(HorizontalMasterDetailRowItem horizontalMasterDetailRowItem, int value) {
         horizontalMasterDetailRowItem.tvValue.setText(String.format("%d", value));
@@ -56,9 +63,13 @@ public class HorizontalMasterDetailRowItem extends LinearLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalMasterDetailRowItem);
         title = typedArray.getString(R.styleable.HorizontalMasterDetailRowItem_textTitle);
         srcId = typedArray.getResourceId(R.styleable.HorizontalMasterDetailRowItem_src, 0);
+//        textColor = typedArray.getResourceId(R.styleable.HorizontalMasterDetailRowItem_textColor, 0);
 
         ((TextView) findViewById(R.id.tvTitle)).setText(title);
         tvValue = findViewById(R.id.tvValue);
+        if (textColor != 0) {
+            tvValue.setTextColor(textColor);
+        }
 
         typedArray.recycle();
     }
