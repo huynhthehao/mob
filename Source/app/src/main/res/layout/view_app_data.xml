@@ -14,7 +14,8 @@
             android:id="@+id/vContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/padding_small">
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="@dimen/padding_small">
 
 
             <ProgressBar
