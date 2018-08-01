@@ -61,7 +61,7 @@
                             textValue="Nguyen Van Nam"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:textTitle="Full name"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+                            app:textTitle="@string/full_name"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
 
                         <View
                             style="@style/Separator_Horizontal"
@@ -71,7 +71,47 @@
                             textValue="Nguyen Van Nam"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:textTitle="Full name"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+                            app:textTitle="@string/contract_no"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
+                            textValue="Nguyen Van Nam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:textTitle="@string/signed_date"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
+                            textValue="Nguyen Van Nam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:textTitle="@string/product_type"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
+                            textValue="Nguyen Van Nam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:textTitle="@string/tenor"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
+                            textValue="Nguyen Van Nam"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:textTitle="@string/contract_status"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
 
 
                     </LinearLayout>
