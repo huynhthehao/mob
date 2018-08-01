@@ -60,4 +60,7 @@
     <dimen name="profile_icon_size">16dp</dimen>
     <dimen name="contract_type_width">40dp</dimen>
     <dimen name="contract_type_height">40dp</dimen>
+    <dimen name="maker_infor_image_size">40dp</dimen>
+    <dimen name="max_size_marker_info_window">300dp</dimen>
+    <dimen name="max_size_marker_info_title_window">250dp</dimen>
 </resources>

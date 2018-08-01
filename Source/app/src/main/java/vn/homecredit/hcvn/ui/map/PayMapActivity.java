@@ -1,5 +1,6 @@
 package vn.homecredit.hcvn.ui.map;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -21,12 +24,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
+import vn.homecredit.hcvn.MainActivity;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityPayMapBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.utils.BitmapUtils;
 
 public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapViewModel> implements OnMapReadyCallback, GoogleMap.OnCameraIdleListener, GoogleMap.OnMarkerClickListener {
 
@@ -39,8 +46,10 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     public static final int CASH_LOAN_MODE = 2;
     //Maker type
     public static final String MAKER_MOMO = "momo";
+    public static final String MAKER_PAYOO = "payoo";
+
     public static final String MAKER_EBAY = "epaydisbursement";
-    public static final String MAKER_POS = "";
+    public static final String MAKER_DEFAULT = "";
 
     public int currentMode = PAYMENT_MODE;
 
@@ -53,6 +62,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     private Location mLastKnownLocation;
     private LatLng mCenterLocation;
     Toolbar toolbar;
+    private Marker marker = null;
 
     @Override
     public int getBindingVariable() {
@@ -143,8 +153,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
         LatLng defaultLocation = new LatLng(10.787273, 106.749810);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(defaultLocation.latitude, defaultLocation.longitude), 15));
         mMap.setOnCameraIdleListener(this);
@@ -246,6 +255,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
         switch (currentMode) {
             case PAYMENT_MODE:
                 payMapViewModel.loadPayment(mMap, getApplicationContext(), mCenterLocation);
+                payMapViewModel.loadMapPayoo(mMap, getApplicationContext(), mCenterLocation);
                 break;
             case DISBURSEMENT_MODE:
                 payMapViewModel.loadDisbursement(mMap, getApplicationContext(), mCenterLocation);
@@ -263,6 +273,70 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
         if (mLastKnownLocation != null) {
             payMapViewModel.drawDirection(mMap, mLastKnownLocation, marker.getPosition(), getApplicationContext());
         }
+        this.marker = marker;
         return false;
+    }
+
+
+    public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+
+        private View view;
+
+        @SuppressLint("InflateParams")
+        CustomInfoWindowAdapter() {
+            view = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            if (PayMapActivity.this.marker != null
+                    && PayMapActivity.this.marker.isInfoWindowShown()) {
+                PayMapActivity.this.marker.hideInfoWindow();
+                PayMapActivity.this.marker.showInfoWindow();
+            }
+            return null;
+        }
+
+        @Override
+        public View getInfoWindow(final Marker marker) {
+            PayMapActivity.this.marker = marker;
+
+            final ImageView image = view.findViewById(R.id.infor_image);
+
+            switch (Objects.requireNonNull((String) marker.getTag())) {
+                case MAKER_EBAY:
+                    image.setImageResource(R.drawable.ic_epay);
+                    break;
+                case PayMapActivity.MAKER_MOMO:
+                    image.setImageResource(R.drawable.ic_momo);
+                    break;
+                case PayMapActivity.MAKER_PAYOO:
+                    image.setImageResource(R.drawable.ic_payoo);
+                    break;
+                case PayMapActivity.MAKER_DEFAULT:
+                    break;
+                default:
+                    break;
+
+            }
+            final String title = marker.getTitle();
+            final TextView titleUi = view.findViewById(R.id.infor_title);
+            if (title != null) {
+                titleUi.setText(title);
+            } else {
+                titleUi.setText("");
+            }
+
+            final String snippet = marker.getSnippet();
+            final TextView snippetUi = view.findViewById(R.id.infor_snipper);
+            if (snippet != null) {
+                snippetUi.setText(snippet);
+            } else {
+                snippetUi.setText("");
+            }
+            return view;
+        }
+
     }
 }
