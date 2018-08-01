@@ -2,6 +2,8 @@ package vn.homecredit.hcvn.ui.contract.detail;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -16,6 +18,11 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, ContractDetailActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     public int getBindingVariable() {
@@ -35,7 +42,7 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getViewModel().init();
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
     }
 }

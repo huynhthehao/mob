@@ -176,4 +176,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="contract_status">Trạng thái HĐ</string>
     <string name="payment_locations">Địa điểm giao dịch</string>
 
+    <string name="contract_detail">Thông tin hợp đồng</string>
+    <string name="payment_schedule">Xem lịch thanh toán</string>
+    <string name="payment_history">Lịch sử thanh toán</string>
+
 </resources>

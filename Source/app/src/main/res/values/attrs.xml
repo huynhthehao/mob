@@ -9,6 +9,7 @@
 
 <resources>
     <attr name="src" format="integer"/>
+    <attr name="textTitle" format="string"/>
     <declare-styleable name="stfStatefulLayout">
         <attr name="stfLayoutRes" format="integer" />
     </declare-styleable>
@@ -20,7 +21,12 @@
         <attr name="src"/>
     </declare-styleable>
     <declare-styleable name="ProfileItemView">
-        <attr name="textTitle" format="string"/>
+        <attr name="textTitle" />
+        <attr name="src"/>
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalMasterDetailRowItem">
+        <attr name="textTitle" />
         <attr name="src"/>
     </declare-styleable>
 
