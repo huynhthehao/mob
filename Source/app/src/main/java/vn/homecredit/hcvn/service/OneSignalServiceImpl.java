@@ -10,9 +10,15 @@
 package vn.homecredit.hcvn.service;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.onesignal.OSNotification;
+import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OSPermissionSubscriptionState;
 import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -20,6 +26,15 @@ import javax.inject.Singleton;
 import timber.log.Timber;
 import vn.homecredit.hcvn.data.model.DeviceInfoModel;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.ui.home.HomeActivity;
+import vn.homecredit.hcvn.ui.notification.NotificationType;
+import vn.homecredit.hcvn.ui.notification.model.ClwResult;
+import vn.homecredit.hcvn.ui.notification.model.ClwResultConverter;
+import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
+import vn.homecredit.hcvn.ui.notification.model.OfferConverter;
+import vn.homecredit.hcvn.ui.notification.model.OfferModel;
+
+import static vn.homecredit.hcvn.ui.notification.NotificationType.INCOMING;
 
 @Singleton
 public class OneSignalServiceImpl implements OneSignalService {
@@ -57,5 +72,75 @@ public class OneSignalServiceImpl implements OneSignalService {
         String token = status.getSubscriptionStatus().getPushToken();
         mDeviceInfo.setPlayerId(userID);
         mDeviceInfo.setPushToken(token);
+    }
+
+    @Override
+    public void notificationReceived(OSNotification notification) {
+        JSONObject additionalData = notification.payload.additionalData;
+        getNotificationModel(notification, additionalData);
+    }
+
+    @Override
+    public void notificationOpenHandler(Context context, OSNotificationOpenResult result) {
+        Intent intent = new Intent(context, HomeActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(HomeActivity.BUNDLE_SELECT_NOTIFICATION_TAB, true);
+        context.startActivity(intent);
+    }
+
+    private void getNotificationModel(OSNotification notification, JSONObject additionalData) {
+        NotificationModel model = new NotificationModel();
+        if (additionalData == null || !additionalData.has("Type")) {
+            return;
+        }
+        try {
+            int type = additionalData.getInt("Type");
+            NotificationType notificationType = NotificationType.getNotificationByType(type);
+            model.setType(type);
+            model.setMessageText(notification.payload.body);
+            switch (notificationType) {
+                case INCOMING:
+                case REMINDER:
+                    model.setContractNumber(getStringData(additionalData, "ContractNumber"));
+                    model.setContractSKP(getStringData(additionalData, "ContractSKP"));
+                    break;
+                case MARKETING:
+                    model.setMarketingUrlVi(getStringData(additionalData, "MarketingUrlVi"));
+                    model.setMarketingUrlEn(getStringData(additionalData, "MarketingUrlEn"));
+                    break;
+                case CRM:
+                    if (additionalData.has("Offer")) {
+                        OfferModel offerModel = new OfferConverter().fromStringToObject(additionalData.getJSONObject("Offer").toString());
+                        if (offerModel != null)
+                            model.setOffer(offerModel);
+                    }
+                    break;
+                case CLW_APPLICATION_LOAN_EXPIRED:
+                case CLW_APPLICATION_LOAN_RESULT:
+                case CLW_APPLICATION_LOAN_REMIND_SIGNING:
+                    if (additionalData.has("ClwResult")) {
+                        ClwResult clwResult = new ClwResultConverter().fromStringToObject(additionalData.getJSONObject("ClwResult").toString());
+                        if (clwResult != null)
+                            model.setClwResult(clwResult);
+                    }
+                    break;
+            }
+            if (additionalData.has("Id")) {
+                model.setId(getStringData(additionalData, "Id"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getStringData(JSONObject object, String key) {
+        if (object.has(key)) {
+            try {
+                return object.getString(key);
+            } catch (JSONException e) {
+            }
+        }
+        return "";
     }
 }

@@ -46,4 +46,13 @@ public enum NotificationType {
         }
         return MARKETING.getResouceIconId();
     }
+
+    public static NotificationType getNotificationByType(int type) {
+        for (NotificationType value : NotificationType.values()) {
+            if (value.getType() == type) {
+                return value;
+            }
+        }
+        return INCOMING;
+    }
 }

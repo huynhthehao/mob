@@ -33,21 +33,24 @@ import vn.homecredit.hcvn.utils.AppUtils;
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked, ViewPager.OnPageChangeListener {
     public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
     public static final String BUNDLE_SHOW_FINGERPRINT = "BUNDLE_SHOW_FINGERPRINT";
+    public static final String BUNDLE_SELECT_NOTIFICATION_TAB = "BUNDLE_SELECT_NOTIFICATION_TAB";
 
     @Inject
     HomeViewModel mHomeViewModel;
     @Inject
     PreferencesHelper preferencesHelper;
 
-    public static void start(Context context, boolean showDashboard ) {
+    public static void start(Context context, boolean showDashboard) {
         start(context, showDashboard, false);
     }
+
     public static void start(Context context) {
         start(context, false, false);
     }
+
     public static void start(Context context, boolean showDashboard, boolean isShowDialogFingersprint) {
-        Intent intent =  new Intent(context, HomeActivity.class);
-        intent.putExtra(BUNDLE_SHOW_DASHBOARD , showDashboard);
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.putExtra(BUNDLE_SHOW_DASHBOARD, showDashboard);
         intent.putExtra(BUNDLE_SHOW_FINGERPRINT, isShowDialogFingersprint);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
@@ -92,6 +95,19 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         mViewPager.addOnPageChangeListener(this);
         checkToShowDialog();
+        checkToOpenNotificationTab(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        checkToOpenNotificationTab(intent);
+    }
+
+    private void checkToOpenNotificationTab(Intent intent) {
+        if (intent.getBooleanExtra(BUNDLE_SELECT_NOTIFICATION_TAB, false)) {
+            onClickedNotification();
+        }
     }
 
     @Override
@@ -116,7 +132,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
                 preferencesHelper.getIsShowDashboard()) {
             showDashboard(getString(R.string.hello), mHomeViewModel.getUserName());
         }
-        if (getIntent().getBooleanExtra(BUNDLE_SHOW_FINGERPRINT, false) ) {
+        if (getIntent().getBooleanExtra(BUNDLE_SHOW_FINGERPRINT, false)) {
             DialogAnnounceFingerprint.showDialog(getSupportFragmentManager());
         }
     }
@@ -158,7 +174,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_MORE);
     }
 
-    private void setViewPagerCurrentItemWithoutSmoothScroll(int tab){
+    private void setViewPagerCurrentItemWithoutSmoothScroll(int tab) {
         mViewPager.setCurrentItem(tab, false);
     }
 

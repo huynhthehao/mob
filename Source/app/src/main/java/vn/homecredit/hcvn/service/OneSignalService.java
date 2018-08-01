@@ -9,6 +9,11 @@
 
 package vn.homecredit.hcvn.service;
 
+import android.content.Context;
+
+import com.onesignal.OSNotification;
+import com.onesignal.OSNotificationOpenResult;
+
 public interface OneSignalService {
     void sendTags(String key, String value);
     void setSubscription(boolean subscribe);
@@ -16,4 +21,8 @@ public interface OneSignalService {
     String jsonString(Object object);
 
     void tryGetPlayerId();
+
+    void notificationReceived(OSNotification notification);
+
+    void notificationOpenHandler(Context context, OSNotificationOpenResult result);
 }

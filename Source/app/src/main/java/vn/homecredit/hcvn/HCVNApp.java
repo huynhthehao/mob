@@ -2,6 +2,7 @@ package vn.homecredit.hcvn;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,8 @@ import dagger.android.support.HasSupportFragmentInjector;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
 import vn.homecredit.hcvn.di.module.RoomModule;
+import vn.homecredit.hcvn.service.OneSignalService;
+import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.utils.AppLogger;
 import vn.homecredit.hcvn.utils.Log;
 
@@ -40,6 +43,9 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
     @Inject
     CalligraphyConfig mCalligraphyConfig;
+
+    @Inject
+    OneSignalService oneSignalService;
 
     @Override
     public DispatchingAndroidInjector<Activity> activityInjector() {
@@ -72,26 +78,17 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true).setNotificationOpenedHandler(new OneSignal.NotificationOpenedHandler() {
-                    @Override
-                    public void notificationOpened(OSNotificationOpenResult result) {
-                        //TODO: Tracking
-                        //TODO: Process Push
-                    }
-                }).setNotificationReceivedHandler(new OneSignal.NotificationReceivedHandler() {
-                    @Override
-                    public void notificationReceived(OSNotification notification) {
-                        Log.debug("value", notification.payload.body);
-                        AppLogger.d(notification.payload.body);
-                        JSONObject additionalData = notification.payload.additionalData;
-                        //TODO: Tracking
-                        // ...
-                        //End TODO
-                        Toast.makeText(HCVNApp.this.getApplicationContext(), notification.payload.body, Toast.LENGTH_SHORT).show();
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .setNotificationOpenedHandler(result -> {
+                    //TODO: Tracking
+                    oneSignalService.notificationOpenHandler(getApplicationContext(), result);
+                }).setNotificationReceivedHandler(notification -> {
+            Log.debug("value", "full: " + notification.toString());
+            Log.debug("value", notification.payload.body);
+            //TODO: Tracking
 
-                        AppLogger.d(String.format("%s", additionalData));
-                    }
-                }).init();
+            oneSignalService.notificationReceived(notification);
+        }).init();
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
