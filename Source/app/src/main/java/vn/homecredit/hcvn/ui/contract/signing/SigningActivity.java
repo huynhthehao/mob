@@ -1,6 +1,7 @@
 package vn.homecredit.hcvn.ui.contract.signing;
 
 import android.app.Activity;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -16,9 +17,11 @@ import javax.inject.Inject;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.databinding.ActivityContractSigningBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.contract.main.ContractViewModel;
+import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
 import vn.homecredit.hcvn.utils.Log;
 
 public class SigningActivity extends BaseActivity<ActivityContractSigningBinding, SigningViewModel>{
@@ -56,5 +59,15 @@ public class SigningActivity extends BaseActivity<ActivityContractSigningBinding
             hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT));
             getViewModel().setContractsId(hcContract.getContractNumber());
         }
+
+        getViewModel().getModelViewDoc().observe(this, aBoolean -> {
+            if (aBoolean) {
+                showMasterContractDocActivity(getViewModel().getMasterContract());
+            }
+        });
+    }
+
+    private void showMasterContractDocActivity(MasterContract masterContract) {
+        MasterContractDocActivity.start(this, masterContract);
     }
 }

@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ fragment_contract_list.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
-  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
-  ~
-  ~ Last modified 6/13/18 4:11 PM
-  -->
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocViewModel"/>
     </data>
 
-    <android.support.v7.widget.RecyclerView
-        android:padding="@dimen/padding_small"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rvImage"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_contract_close"
-        />
+        android:layout_height="match_parent">
+        <fragment
+            android:id="@+id/fragmentMasterDoc"
+            android:name="vn.homecredit.hcvn.ui.custom.SimpleRecyclerViewFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.constraint.ConstraintLayout>
 </layout>

@@ -1,5 +1,6 @@
 package vn.homecredit.hcvn.ui.contract.signing;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.text.Html;
@@ -38,6 +39,7 @@ public class SigningViewModel extends BaseViewModel {
     private ObservableField<Integer> btnNextText = new ObservableField<>(R.string.master_contract_approved);
     private ObservableField<Boolean> isPreparing = new ObservableField<>(false);
     private MasterContract masterContract;
+    private MutableLiveData<Boolean> modelViewDoc = new MutableLiveData<>();
 
     @Inject
     public SigningViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository) {
@@ -45,8 +47,14 @@ public class SigningViewModel extends BaseViewModel {
         this.contractRepository = contractRepository;
     }
 
-    public ContractRepository getContractRepository() {
-        return contractRepository;
+    @Override
+    public void init() {
+        super.init();
+        modelViewDoc.setValue(false);
+    }
+
+    public MutableLiveData<Boolean> getModelViewDoc() {
+        return modelViewDoc;
     }
 
     public ObservableField<Integer> getBtnNextText() {
@@ -105,6 +113,10 @@ public class SigningViewModel extends BaseViewModel {
         return bankBranch;
     }
 
+    public MasterContract getMasterContract() {
+        return masterContract;
+    }
+
     public void onNextClicked() {
         if (masterContract == null) {
             return;
@@ -112,7 +124,8 @@ public class SigningViewModel extends BaseViewModel {
         if (masterContract.isMaterialPrepared()) {
             // TODO: 8/1/2018 Load Master Contract Doc
         }else {
-            prepare();
+//            prepare();
+            modelViewDoc.setValue(true);
         }
     }
 
