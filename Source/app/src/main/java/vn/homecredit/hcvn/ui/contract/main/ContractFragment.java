@@ -21,6 +21,7 @@ import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 import javax.inject.Inject;
 
@@ -70,7 +71,7 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     @Override
     public void onLocationClicked(int position) {
-        // TODO: 7/30/18 Implement Location
+        PayMapActivity.start(getContext(), PayMapActivity.PAYMENT_MODE);
 
     }
 

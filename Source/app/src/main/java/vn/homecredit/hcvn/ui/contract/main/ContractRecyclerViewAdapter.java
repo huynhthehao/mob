@@ -24,14 +24,10 @@ import vn.homecredit.hcvn.databinding.ItemContractActiveBinding;
 import vn.homecredit.hcvn.databinding.ItemContractCloseBinding;
 import vn.homecredit.hcvn.databinding.ItemContractPendingBinding;
 import vn.homecredit.hcvn.utils.DateUtils;
-import vn.homecredit.hcvn.utils.Log;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -132,12 +128,22 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             });
         }
         public void bind(HcContract hcContract) {
+            if (hcContract == null) {
+                return;
+            }
             binding.setContract(hcContract);
             if (!hcContract.isShowSection()) {
                 binding.tvSection.setVisibility(View.GONE);
             }else {
                 binding.tvSection.setVisibility(View.VISIBLE);
             }
+            String status;
+            if (hcContract.getMasterContract() != null) {
+                status = hcContract.getMasterContract().canApproved() ? itemView.getContext().getString(R.string.please_sign) : hcContract.getMasterContract().getStatus();
+            }else {
+                status = hcContract.getStatusTextVn();
+            }
+            binding.tvSigned.setText(status);
             binding.executePendingBindings();
         }
     }
