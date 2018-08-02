@@ -113,6 +113,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
                 }
         );
         getViewModel().getModelNotificationUnreadCount().observe(this, count -> {
+            // Update notification unread count at tab
             ((HomeActivity) getActivity()).updateNotificationCount(count);
         });
     }

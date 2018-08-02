@@ -24,11 +24,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.google.android.gms.maps.model.Dash;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
+import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
@@ -49,6 +53,9 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Inject
     PreferencesHelper preferencesHelper;
+
+    @Inject
+    NotificationRepository notificationRepository;
 
     public static void start(Context context, boolean showDashboard) {
         start(context, showDashboard, FirstComeFlow.AFTER_LOGIN);
@@ -189,6 +196,21 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
             ((DashBoardDialogFragment) dashboardFragment).setOnDashboardClicked(this);
             dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
+            // update notification count
+            notificationRepository.getCachedNotifications()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(notificationModels -> {
+                        if (notificationModels != null) {
+                            int count = 0;
+                            for (int i = 0; i < notificationModels.size(); i++) {
+                                if (!notificationModels.get(i).isRead()) {
+                                    count = count + 1;
+                                }
+                            }
+                            updateNotificationCountForDashBoard(count);
+                        }
+                    });
         }
     }
 
@@ -278,5 +300,17 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             return;
         TabLayout.Tab tab = tabLayout.getTabAt(1);
         mSectionsPagerAdapter.updateNotificationCount(tab.getCustomView(), count);
+
+        // update dashboard if dashboard is opening, and receive a push notification.
+        updateNotificationCountForDashBoard(count);
     }
+
+    private void updateNotificationCountForDashBoard(int count) {
+        if (dashboardFragment == null) {
+            return;
+        }
+        ((DashBoardDialogFragment) dashboardFragment).updateNotificationCount(count);
+    }
+
+
 }
