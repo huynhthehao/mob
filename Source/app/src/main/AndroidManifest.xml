@@ -84,21 +84,15 @@
         <activity
             android:name=".ui.profile.ProfileActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ui.settings.changepass.ChangePassActivity"
-            android:windowSoftInputMode="adjustPan"
-            />
         <activity
-         android:name=".ui.forgetpassword.ForgetPasswordActivity"
-            android:windowSoftInputMode="adjustPan"
-            />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
+            android:name=".ui.settings.changepass.ChangePassActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".ui.forgetpassword.ForgetPasswordActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".ui.map.PayMapActivity"
-            android:label="@string/title_activity_pay_map">
-        </activity>
+            android:label="@string/title_activity_pay_map"></activity>
         <activity android:name=".ui.contract.signing.SigningActivity" />
         <activity android:name=".ui.contract.detail.ContractDetailActivity"></activity>
     </application>
