@@ -84,8 +84,10 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     @Override
     protected void init()  {
         super.init();
-        AppCenter.start(getApplication(), BuildConfig.APPCENTER_SECRET,
-                Analytics.class, Crashes.class);
+        if (!BuildConfig.DEBUG) {
+            AppCenter.start(getApplication(), BuildConfig.APPCENTER_SECRET,
+                    Analytics.class, Crashes.class);
+        }
         if (!isTaskRoot()
                 && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
                 && getIntent().getAction() != null

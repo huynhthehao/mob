@@ -174,8 +174,31 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="contract_id">Số HĐ</string>
     <string name="loan_amount">Khoản vay</string>
     <string name="signed_date">Ngày ký HĐ</string>
-    <string name="contract_status">Trạng thái HĐ</string>con
+    <string name="contract_status">Trạng thái HĐ</string>
     <string name="payment_locations">Địa điểm giao dịch</string>
+    <string name="master_contract_title">Tóm Lược Hợp Đồng</string>
+    <string name="master_contract_name">Bên vay</string>
+    <string name="master_contract_toal_loan">Tổng giá trị khoản vay</string>
+    <string name="interest_rate">Lãi suất</string>
+    <string name="insurance">Bảo hiểm</string>
+    <string name="payment_duration">Tổng số kỳ thanh toán</string>
+    <string name="monthly_installement">Số tiền trả góp hàng tháng</string>
+    <string name="bank_name">Ngân hàng</string>
+    <string name="bank_account">Tài khoản ngân hàng</string>
+    <string name="bank_branch">Chi nhánh</string>
+    <string name="master_contract_approved">Xem chi tiết và xác nhận</string>
+    <string name="master_contract_prepare_data">Tải dữ liệu hợp đồng</string>
+    <string name="currency">"%s&lt;u>đ&lt;/u>"</string>
+    <string name="contract_summary_interest">"%s%% / năm"</string>
+    <string name="mastercontract_status">Trạng thái hợp đồng</string>
+    <string name="master_contract_include_insurance">Có (đã bao gồm trong số tiền vay)</string>
+    <string name="master_contract_wait_prepare">Vui lòng chờ giây lát để chúng tôi hoàn tất chuẩn bị dữ liệu hồ sơ của bạn</string>
+    <string name="master_contract_approve_retry">Hệ thống của chúng tôi đang khởi tạo chi tiết hợp đồng của bạn, vui lòng đợi một vài phút và thử lại</string>
+    <string name="no">Không</string>
+    <string name="master_contract_detail">Chi Tiết Hợp Đồng</string>
+    <string name="contract_detail_hint">Tôi đã đọc, hiểu và đồng ý với toàn bộ nội dung của các tài liệu trên đây</string>
+    <string name="agreeandsign">Đồng ý và ký xác nhận</string>
+    <string name="error_system">Lỗi hệ thống, vui lòng thử lại sau.</string>
     <string name="map_payment_location">Địa điểm giao dịch</string>
     <string name="map_disbursement_location">Địa Điểm Nhận Tiền</string>
     <string name="map_cash_loan_location">Địa Điểm Vay</string>
@@ -187,5 +210,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="product_type">Loại sản phẩm</string>
     <string name="tenor">Thời hạn</string>
     <string name="tenor_month">%d tháng</string>
+    <string name="token_expired">Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại</string>
 
 </resources>

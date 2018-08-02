@@ -10,14 +10,16 @@ import org.parceler.Parcel;
 import org.parceler.ParcelConstructor;
 
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 
 @Parcel
 public class OtpPassParam {
 
+    private MasterContract masterContract;
     private OtpTimerResp otpTimerResp;
-    private final String phoneNumber;
-    private final String contractId;
+    private String phoneNumber;
+    private String contractId;
     private String otp;
     private OtpFlow otpFlow;
 
@@ -29,11 +31,21 @@ public class OtpPassParam {
         this.otpFlow = otpFlow;
         this.otp = otp;
     }
+
     public OtpPassParam(OtpTimerResp otpTimerResp, String phoneNumber, String contractId, OtpFlow otpFlow) {
         this.otpTimerResp = otpTimerResp;
         this.phoneNumber = phoneNumber;
         this.contractId = contractId;
         this.otpFlow = otpFlow;
+    }
+
+    public OtpPassParam(OtpTimerResp otpTimerResp, MasterContract masterContract) {
+        this.masterContract = masterContract;
+        this.otpTimerResp = otpTimerResp;
+        this.phoneNumber = masterContract.getCustomerPrimaryPhoneNumber();
+        this.contractId = masterContract.getContractNumber();
+        this.otpFlow = masterContract.isCreditCardContract() ? OtpFlow.MASTER_CONTRACT_CREDIT_CARD : OtpFlow.MASTER_CONTRACT;
+        this.otpTimerResp = otpTimerResp;
     }
 
     public String getPhoneNumber() {
@@ -70,5 +82,8 @@ public class OtpPassParam {
         this.otpFlow = otpFlow;
     }
 
+    public MasterContract getMasterContract() {
+        return masterContract;
+    }
 }
 

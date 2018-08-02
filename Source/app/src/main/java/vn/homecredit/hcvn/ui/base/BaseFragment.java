@@ -9,7 +9,9 @@
 
 package vn.homecredit.hcvn.ui.base;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.helpers.UiHelper;
+import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
 
@@ -75,6 +78,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
         mRootView = mViewDataBinding.getRoot();
+        bindModelErrorAuthenticate();
         return mRootView;
     }
 
@@ -147,7 +151,22 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         showConfirmMessage(title, message, onCompleted);
     }
 
+    private void bindModelErrorAuthenticate() {
+        getViewModel().getErrorAuthenticate().observe(this, o -> {
+            if (o != null && o == Boolean.TRUE) {
+                startWelcome();
+            }
+        });
+    }
+
     public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
         UiHelper.showConfirmMessage(this.getContext(),title,message, onCompleted);
+    }
+
+    private void startWelcome() {
+        Intent intent = WelcomeActivity.newIntent(getContext());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
 }

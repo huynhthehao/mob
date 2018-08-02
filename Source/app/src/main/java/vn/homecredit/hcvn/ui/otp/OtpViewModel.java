@@ -8,6 +8,7 @@ package vn.homecredit.hcvn.ui.otp;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.support.v4.provider.FontsContractCompat;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 
 import dagger.Module;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.model.enums.OtpFlow;
@@ -28,6 +30,7 @@ import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
+import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
@@ -54,11 +57,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private final ResourceService resourceService;
     private final DeviceInfo deviceInfo;
     private final AccountRepository accountRepository;
+    private final ContractRepository contractRepository;
     private final AclDataManager aclDataManager;
 
     public ObservableBoolean resendVisibile = new ObservableBoolean(false);
     public ObservableBoolean agreementTermVisibile = new ObservableBoolean(false);
     public ObservableField<String> otp = new ObservableField("");
+    private OtpPassParam otpPassParam;
 
 
     @Inject
@@ -66,12 +71,14 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                         ResourceService resourceService,
                         DeviceInfo deviceInfo,
                         AccountRepository accountRepository,
+                        ContractRepository contractRepository,
                         AclDataManager aclDataManager) {
         super( schedulerProvider);
 
         this.resourceService = resourceService;
         this.deviceInfo = deviceInfo;
         this.accountRepository = accountRepository;
+        this.contractRepository = contractRepository;
         this.aclDataManager = aclDataManager;
     }
 
@@ -82,6 +89,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                 && otpPassParam.getOtpTimerResp().getData() != null) {
             phonePrimary = otpPassParam.getOtpTimerResp().getData().getPrimaryPhone();
         }
+        this.otpPassParam = otpPassParam;
         initData(otpPassParam.getPhoneNumber(), otpPassParam.getContractId(), otpPassParam.getOtpFlow(), otpPassParam.getOtpTimerResp().getData());
     }
 
@@ -111,6 +119,10 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
     public void onNextClick() {
         switch (otpFlow) {
+            case MASTER_CONTRACT:
+            case MASTER_CONTRACT_CREDIT_CARD:
+                verifyOtpMasterContract();
+                break;
             case FORGOT_PASSWORD:
                 verifyOtpForgetPassword();
                 break;
@@ -126,6 +138,10 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     public void onResendOtp() {
         stopTimer();
         switch (otpFlow) {
+            case MASTER_CONTRACT:
+            case MASTER_CONTRACT_CREDIT_CARD:
+                resendOtpMasterContract();
+                break;
             case FORGOT_PASSWORD:
                 resendOtpForForgetPassword();
                 break;
@@ -136,6 +152,55 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                 resendOtpForCLW();
                 break;
         }
+    }
+
+    private void verifyOtpMasterContract() {
+        if (otpPassParam == null || otpPassParam.getMasterContract() == null) {
+            showMessage(R.string.error_system);
+            return;
+        }
+        String inputOtp = otp.get();
+        if (StringUtils.isNullOrWhiteSpace(inputOtp)) {
+            showMessage(R.string.otp_empty);
+            return;
+        }
+        setIsLoading(true);
+        boolean hasDisbursementBankAccount = otpPassParam.getMasterContract().isHasDisbursementBankAccount();
+        boolean creditCardContract = otpPassParam.getMasterContract().isCreditCardContract();
+        contractRepository.masterContractVerify(contractId, inputOtp, hasDisbursementBankAccount, creditCardContract)
+                .subscribe(new Consumer<OtpTimerResp>() {
+                    @Override
+                    public void accept(OtpTimerResp otpTimerResp) throws Exception {
+                        setIsLoading(false);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        setIsLoading(false);
+                    }
+                });
+    }
+
+    private void resendOtpMasterContract() {
+        if (otpPassParam == null || otpPassParam.getMasterContract() == null) {
+            showMessage(R.string.error_system);
+            return;
+        }
+        setIsLoading(true);
+        Disposable resendProcess = contractRepository.masterContractApproved(otpPassParam.getMasterContract().getContractNumber())
+                .subscribe(response -> {
+                    setIsLoading(false);
+                    if (response == null) {
+                        return;
+                    }
+                    if (response.isVerified()) {
+                        initData(otpPassParam);
+                    }else {
+                        showMessage(response.getResponseMessage());
+                    }
+                }, throwable -> setIsLoading(false));
+
+        startSafeProcess(resendProcess);
     }
 
     private void resendOtpForForgetPassword() {

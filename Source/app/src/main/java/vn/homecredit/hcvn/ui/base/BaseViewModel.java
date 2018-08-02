@@ -31,6 +31,7 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private MutableLiveData<Integer> messageIdData = new MutableLiveData<>();
     private MutableLiveData<Integer> messageResourceData = new MutableLiveData<>();
     private MutableLiveData<BaseMessage> confirmMessageData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> errorAuthenticate = new MutableLiveData<>();
 
     public BaseViewModel(SchedulerProvider schedulerProvider) {
         this.mSchedulerProvider = schedulerProvider;
@@ -90,6 +91,10 @@ public abstract class BaseViewModel<N> extends ViewModel {
         return confirmMessageData;
     }
 
+    public MutableLiveData<Boolean> getErrorAuthenticate() {
+        return errorAuthenticate;
+    }
+
     public void showMessage(String message) {
         this.messageData.setValue(message);
     }
@@ -106,14 +111,20 @@ public abstract class BaseViewModel<N> extends ViewModel {
         confirmMessageData.setValue(new MessageQuestion(title, message, onCompleted));
     }
 
-    public void init() {}
+    public void init() {
+        errorAuthenticate.setValue(false);
+    }
 
     public void handleError(Throwable throwable) {
         if (throwable == null) {
             return;
         }
         if (throwable instanceof HcApiException) {
-            messageData.setValue(((HcApiException) throwable).getErrorResponseMessage());
+            if (((HcApiException) throwable).getErrorResponseCode() == HcApiException.ERROR_CODE_UNAUTHORIZED) {
+
+            }else {
+                messageData.setValue(((HcApiException) throwable).getErrorResponseMessage());
+            }
         }else {
             messageData.setValue(throwable.getMessage());
         }

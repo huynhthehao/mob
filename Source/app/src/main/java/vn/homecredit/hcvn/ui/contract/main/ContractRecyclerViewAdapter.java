@@ -127,11 +127,6 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             this.binding = binding;
             binding.getRoot().setOnClickListener(view -> {
                 if (onContractListener != null) {
-                    onContractListener.onClicked(getLayoutPosition());
-                }
-            });
-            binding.tvSigned.setOnClickListener(view -> {
-                if (onContractListener != null) {
                     onContractListener.onSignClicked(getLayoutPosition());
                 }
             });
@@ -189,7 +184,7 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         if (loanAmount == null) return;
         NumberFormat formatter = new DecimalFormat("#,###");
         String formattedNumber = formatter.format(loanAmount);
-        textView.setText(formattedNumber + "đ");
+        textView.setText(Html.fromHtml(textView.getContext().getString(R.string.currency, formattedNumber)));
     }
 
     @BindingAdapter({"type"})

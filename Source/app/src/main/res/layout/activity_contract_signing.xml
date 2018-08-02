@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.contract.signing.SigningViewModel"
+            />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_scrollFlags="enterAlways"
+            app:navigationIcon="?android:attr/homeAsUpIndicator"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/master_contract_title">
+
+        </android.support.v7.widget.Toolbar>
+
+        <ScrollView
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_marginLeft="@dimen/margin_normal"
+                >
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:content="@{viewModel.customerName}"
+                    app:title="@string/master_contract_name"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:content="@{viewModel.contractNumber}"
+                    app:title="@string/contract_id"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:currency="@{viewModel.totalLoanAmount}"
+                    app:title="@string/master_contract_toal_loan"
+                    android:textStyle="bold"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:interest="@{viewModel.interestRate}"
+                    app:title="@string/interest_rate"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/insurance"
+                    app:content="@{viewModel.insurance ? @string/master_contract_include_insurance : @string/no}"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:content="@{viewModel.paymentDuration}"
+                    app:title="@string/payment_duration"
+                    />
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:currency="@{viewModel.monthlyInstallement}"
+                    app:title="@string/monthly_installement"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/mastercontract_status"
+                    app:content="@{viewModel.status}"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_normal"
+                    android:background="#F4F5F7"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.hasDisbursementBankAccount ? View.VISIBLE : View.GONE}"
+                    app:title="@string/bank_name"
+                    app:content="@{viewModel.bankName}"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.hasDisbursementBankAccount ? View.VISIBLE : View.GONE}"
+                    app:title="@string/bank_account"
+                    app:content="@{viewModel.bankAccount}"
+                    />
+
+                <vn.homecredit.hcvn.ui.custom.ContractSummaryItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewModel.hasDisbursementBankAccount ? View.VISIBLE : View.GONE}"
+                    app:title="@string/bank_branch"
+                    app:content="@{viewModel.bankBranch}"
+                    />
+
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:imeOptions="actionDone"
+                    android:text="@{viewModel.btnNextText}"
+                    android:onClick="@{() -> viewModel.onNextClicked()}"
+                    android:visibility="@{viewModel.isPreparing ? View.GONE : View.VISIBLE}"
+                    style="@style/PrimaryButton"
+                    />
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:indeterminateOnly="true"
+                    android:indeterminateTint="@color/colorPrimary"
+                    android:indeterminateTintMode="src_in"
+                    android:maxHeight="10dip"
+                    android:minHeight="10dip"
+                    android:visibility="@{viewModel.isPreparing ? View.VISIBLE : View.GONE}"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    />
+                <TextView
+                    android:text="@string/master_contract_wait_prepare"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:visibility="@{viewModel.isPreparing ? View.VISIBLE : View.GONE}"
+                    style="@style/AppTheme.DescriptionLabel"
+                    />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
