@@ -7,11 +7,11 @@
 package vn.homecredit.hcvn.data.remote;
 
 import io.reactivex.Single;
-import vn.homecredit.hcvn.data.model.api.BaseResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
@@ -28,7 +28,7 @@ public interface RestService {
     Single<ProfileResp> signUp(String phone, String contracsId, String otp, String password);
     Single<ProfileResp> forgetPasswordSetNew(String phone, String contracsId, String otp, String password);
     Single<NotificationResp> getNotifications();
-    Single<BaseResp> markNotificationAsRead(String notificationId);
+    Single<BaseApiResponse> markNotificationAsRead(String notificationId);
 
     Single<ContractResp> contract();
 }

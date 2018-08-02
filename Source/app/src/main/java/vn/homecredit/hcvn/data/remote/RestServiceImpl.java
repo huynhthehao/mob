@@ -23,7 +23,7 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
-import vn.homecredit.hcvn.data.model.api.BaseResp;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
@@ -212,11 +212,11 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
-    public Single<BaseResp> markNotificationAsRead(String notificationId) {
+    public Single<BaseApiResponse> markNotificationAsRead(String notificationId) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/notifications/read/" + notificationId);
         return DefaultAndroidNetworking.get(url,
                 mApiHeader.getProtectedApiHeader(),
-                BaseResp.class);
+                BaseApiResponse.class);
     }
 
     public Single<ContractResp> contract() {
