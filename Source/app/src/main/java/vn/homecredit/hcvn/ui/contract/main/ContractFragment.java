@@ -18,6 +18,7 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 
@@ -74,7 +75,7 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     @Override
     public void onClicked(int position) {
-        // TODO: 7/30/18 Implement Contract Detail
+        ContractDetailActivity.start(getContext(), contractRecyclerViewAdapter.getItem(position));
     }
 
     @Override

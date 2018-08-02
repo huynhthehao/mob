@@ -173,7 +173,15 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="contract_id">Số HĐ</string>
     <string name="loan_amount">Khoản vay</string>
     <string name="signed_date">Ngày ký HĐ</string>
-    <string name="contract_status">Trạng thái HĐ</string>
+    <string name="contract_status">Trạng thái HĐ</string>con
     <string name="payment_locations">Địa điểm giao dịch</string>
+
+    <string name="contract_detail">Thông tin hợp đồng</string>
+    <string name="payment_schedule">Xem lịch thanh toán</string>
+    <string name="payment_history">Lịch sử thanh toán</string>
+    <string name="contract_no">Số HĐ</string>
+    <string name="product_type">Loại sản phẩm</string>
+    <string name="tenor">Thời hạn</string>
+    <string name="tenor_month">%d tháng</string>
 
 </resources>
