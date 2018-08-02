@@ -60,7 +60,6 @@ public class ForgetPasswordViewModel extends BaseViewModel {
                 .subscribe(otpTimer -> {
                             setIsLoading(false);
                             if (otpTimer == null) return;
-                            Log.debug(otpTimer.toString());
                             if (otpTimer.isVerified()) {
                                 OtpPassParam otpPassParam = new OtpPassParam(otpTimer, username.get(), contracts.get(), OtpFlow.FORGOT_PASSWORD);
                                 modelOtpPassParam.setValue(otpPassParam);

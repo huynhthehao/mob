@@ -112,7 +112,8 @@
                         android:layout_height="wrap_content"
                         android:checked="@{viewModel.notificationChecked}"
                         android:onCheckedChanged="@{(switch, checked) -> viewModel.onNotificationCheckedChanged(checked)}"
-                        android:theme="@style/SwitchCompatTheme" />
+                        android:theme="@style/SwitchCompatTheme"
+                        />
                 </LinearLayout>
 
                 <LinearLayout

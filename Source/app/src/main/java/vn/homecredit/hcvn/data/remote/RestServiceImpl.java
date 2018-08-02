@@ -25,6 +25,9 @@ import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
@@ -224,7 +227,57 @@ public class RestServiceImpl implements RestService {
         return Rx2AndroidNetworking.get(url)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
-                .getObjectSingle(ContractResp.class);
+                .getObjectSingle(ContractResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
+    }
+
+    @Override
+    public Single<MasterContractResp> masterContract(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/summary/" + contractId);
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(MasterContractResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
+    }
+
+    @Override
+    public Single<MasterContractDocResp> masterContractDoc(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/" + contractId + "/image");
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(MasterContractDocResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
+
+
+    }
+
+    @Override
+    public Single<OtpTimerResp> masterContractApprove(String contractId) {
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("contractNumber", contractId);
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/sign/accept?v=2");
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class);
+    }
+
+    @Override
+    public Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/sign/verify?v=2");
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("ContractNumber", contractId);
+        requestBody.put("OTP", otp);
+        requestBody.put("HasDisbursementBankAccount", hasDisbursementBankAccount ? "true" : "false");
+        requestBody.put("IsCreditCardContract", isCreditCardContract ? "true" : "false");
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)))
+                ;
     }
 
     @Override

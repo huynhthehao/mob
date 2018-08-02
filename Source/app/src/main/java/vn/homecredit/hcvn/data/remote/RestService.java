@@ -13,6 +13,8 @@ import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 public interface RestService {
@@ -31,4 +33,8 @@ public interface RestService {
     Single<BaseApiResponse> markNotificationAsRead(String notificationId);
 
     Single<ContractResp> contract();
+    Single<MasterContractResp> masterContract(String contractId);
+    Single<MasterContractDocResp> masterContractDoc(String contractId);
+    Single<OtpTimerResp> masterContractApprove(String contractId);
+    Single<OtpTimerResp> masterContractVerify(String contractId, String otp,  boolean hasDisbursementBankAccount, boolean isCreditCardContract);
 }
