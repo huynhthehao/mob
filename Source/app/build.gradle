@@ -87,6 +87,8 @@ dependencies {
     implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
@@ -139,4 +141,8 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation "org.parceler:parceler-api:$rootProject.parceler"
     annotationProcessor "org.parceler:parceler:$rootProject.parceler"
+
+    //google map direction router
+    implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
+
 }

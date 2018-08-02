@@ -18,6 +18,18 @@ import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManagerImpl;
 import vn.homecredit.hcvn.data.acl.AclDatabaseService;
 import vn.homecredit.hcvn.data.acl.AclDatabaseServiceImpl;
+import vn.homecredit.hcvn.data.remote.clwmap.ClwMapService;
+import vn.homecredit.hcvn.data.remote.clwmap.ClwMapServiceImpl;
+import vn.homecredit.hcvn.data.remote.disbursement.DisbursementService;
+import vn.homecredit.hcvn.data.remote.disbursement.DisbursementServiceImpl;
+import vn.homecredit.hcvn.data.remote.payment.PaymentService;
+import vn.homecredit.hcvn.data.remote.payment.PaymentServiceImpl;
+import vn.homecredit.hcvn.data.remote.payoo.PayooRestService;
+import vn.homecredit.hcvn.data.remote.payoo.PayooRestServiceImpl;
+import vn.homecredit.hcvn.data.remote.pos.PosRestService;
+import vn.homecredit.hcvn.data.remote.pos.PosRestServiceImpl;
+import vn.homecredit.hcvn.data.repository.MapRepository;
+import vn.homecredit.hcvn.data.repository.MapRepositoryImpl;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.data.repository.ContractRepositoryImpl;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
@@ -61,6 +73,36 @@ public class AppModule {
     @Singleton
     AclRestService provideAclRestService(AclRestServiceImpl aclRestService) {
         return aclRestService;
+    }
+
+    @Provides
+    @Singleton
+    PayooRestService providePayooRestService(PayooRestServiceImpl payooRestService) {
+        return payooRestService;
+    }
+
+    @Provides
+    @Singleton
+    PosRestService providePosRestService(PosRestServiceImpl posRestService) {
+        return posRestService;
+    }
+
+    @Provides
+    @Singleton
+    ClwMapService provideClwMapServiceImpl(ClwMapServiceImpl clwMapService) {
+        return clwMapService;
+    }
+
+    @Provides
+    @Singleton
+    DisbursementService provideDisbusermentServiceImpl(DisbursementServiceImpl disbursementService) {
+        return disbursementService;
+    }
+
+    @Provides
+    @Singleton
+    PaymentService providePaymentService(PaymentServiceImpl paymentService) {
+        return paymentService;
     }
 
     @Provides
@@ -123,6 +165,36 @@ public class AppModule {
     }
 
     @Provides
+    @Singleton
+    ApiHeader.PayooApiHeader provPayooApiHeader() {
+        return new ApiHeader.PayooApiHeader("YM_7fPw6xA", "Partner07");
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader.PosApiHeader provPosApiHeader() {
+        return new ApiHeader.PosApiHeader();
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader.ClwMapApiHeader provClwMapApiHeader() {
+        return new ApiHeader.ClwMapApiHeader();
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader.DisbursementApiHeader provDisbursementApiHeader() {
+        return new ApiHeader.DisbursementApiHeader();
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader.PaymentApiHeader provPaymentApiHeader() {
+        return new ApiHeader.PaymentApiHeader();
+    }
+
+    @Provides
     SchedulerProvider provideSchedulerProvider() {
         return new AppSchedulerProvider();
     }
@@ -180,6 +252,13 @@ public class AppModule {
     AccountRepository provideAccountRepository(AccountRepositoryImpl profileService) {
         return profileService;
     }
+
+    @Provides
+    @Singleton
+    MapRepository provideMapRepository(MapRepositoryImpl mapRepository) {
+        return mapRepository;
+    }
+
 
     @Provides
     @Singleton

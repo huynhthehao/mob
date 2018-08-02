@@ -163,6 +163,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="use_password">Sử dụng mật khẩu</string>
     <string name="logout_question">Bạn có muốn đăng xuất?</string>
     <string name="contract_number">Số hợp đồng</string>
+    <string name="title_activity_pay_map">Map</string>
     <string name="status">Status</string>
     <string name="please_sign">Vui lòng ký</string>
     <string name="pending">Đang chờ</string>
@@ -175,6 +176,9 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="signed_date">Ngày ký HĐ</string>
     <string name="contract_status">Trạng thái HĐ</string>con
     <string name="payment_locations">Địa điểm giao dịch</string>
+    <string name="map_payment_location">Địa điểm giao dịch</string>
+    <string name="map_disbursement_location">Địa Điểm Nhận Tiền</string>
+    <string name="map_cash_loan_location">Địa Điểm Vay</string>
 
     <string name="contract_detail">Thông tin hợp đồng</string>
     <string name="payment_schedule">Xem lịch thanh toán</string>
