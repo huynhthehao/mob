@@ -15,6 +15,9 @@ public class DateUtils {
        return convertDate(date, FORMAT_UTC, newFormat);
     }
     public static String convertDate(String date, String oldFormat, String newFormat) {
+        if (oldFormat == null || newFormat == null) {
+            return "";
+        }
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(oldFormat);
             SimpleDateFormat displayFormat = new SimpleDateFormat(newFormat);

@@ -59,19 +59,9 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
         });
 
         getViewModel().getRefreshing().observe(this, aBoolean -> getViewDataBinding().swiperefresh.setRefreshing(aBoolean));
-        getViewModel().getErrorAuthenticate().observe(this, isErrorAuthenicate -> {
-            if (isErrorAuthenicate) {
-                startLogin();
-            }
-        });
-    }
-
-    private void startLogin() {
-        Intent intent = LoginActivity.newIntent(getContext());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
 
     }
+
 
     @Override
     public void onClicked(int position) {

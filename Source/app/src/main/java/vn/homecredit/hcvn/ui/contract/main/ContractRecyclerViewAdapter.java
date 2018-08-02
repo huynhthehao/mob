@@ -127,11 +127,6 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
             this.binding = binding;
             binding.getRoot().setOnClickListener(view -> {
                 if (onContractListener != null) {
-                    onContractListener.onClicked(getLayoutPosition());
-                }
-            });
-            binding.tvSigned.setOnClickListener(view -> {
-                if (onContractListener != null) {
                     onContractListener.onSignClicked(getLayoutPosition());
                 }
             });

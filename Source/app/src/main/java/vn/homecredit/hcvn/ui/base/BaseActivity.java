@@ -11,7 +11,9 @@ package vn.homecredit.hcvn.ui.base;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
@@ -33,6 +35,8 @@ import vn.homecredit.hcvn.helpers.UiHelper;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.NetworkUtils;
+
+import static vn.homecredit.hcvn.HCVNApp.getContext;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity
         implements BaseFragment.Callback {
@@ -168,6 +172,15 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         bindModelMessageByIdDialog();
         bindModelResourceMessageDialog();
         bindModelConfirmDialog();
+        bindModelErrorAuthenticate();
+    }
+
+    private void bindModelErrorAuthenticate() {
+        getViewModel().getErrorAuthenticate().observe(this, o -> {
+            if (o != null && o == Boolean.TRUE) {
+                startWelcome();
+            }
+        });
     }
 
 
@@ -215,5 +228,11 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 showConfirmMessage(messageData.getTitle(),messageData.getContent(),messageData.getOnCompleted());
             }
         });
+    }
+    private void startWelcome() {
+        Intent intent = WelcomeActivity.newIntent(getContext());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
 }
