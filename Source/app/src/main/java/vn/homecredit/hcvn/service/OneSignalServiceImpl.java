@@ -87,9 +87,9 @@ public class OneSignalServiceImpl implements OneSignalService {
         intent.setAction(NotificationsFragment.ACTION_REFRESH_NOTIFICATIONS);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
-        // get data
-        JSONObject additionalData = notification.payload.additionalData;
-        getNotificationModel(notification, additionalData);
+        // get data, will open later
+        //        JSONObject additionalData = notification.payload.additionalData;
+        //        getNotificationModel(notification, additionalData);
     }
 
     @Override
