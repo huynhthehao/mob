@@ -19,6 +19,9 @@ import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionAct
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragmentProvider;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailViewModel;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
@@ -99,4 +102,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector()
     abstract PayMapActivity bindPayMapActivity();
+
+    @ContributesAndroidInjector(modules = ContractDetailActivityModule.class)
+    abstract ContractDetailActivity bindContractDetailActivity();
 }
