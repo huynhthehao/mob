@@ -33,4 +33,6 @@ public interface RestService {
     Single<ContractResp> contract();
     Single<MasterContractResp> masterContract(String contractId);
     Single<MasterContractDocResp> masterContractDoc(String contractId);
+    Single<OtpTimerResp> masterContractApprove(String contractId);
+    Single<OtpTimerResp> masterContractVerify(String contractId, String otp,  boolean hasDisbursementBankAccount, boolean isCreditCardContract);
 }

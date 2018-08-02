@@ -197,5 +197,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="contract_detail">Chi Tiết Hợp Đồng</string>
     <string name="contract_detail_hint">Tôi đã đọc, hiểu và đồng ý với toàn bộ nội dung của các tài liệu trên đây</string>
     <string name="agreeandsign">Đồng ý và ký xác nhận</string>
+    <string name="error_system">Lỗi hệ thống, vui lòng thử lại sau.</string>
 
 </resources>

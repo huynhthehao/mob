@@ -211,7 +211,8 @@ public class RestServiceImpl implements RestService {
         return Rx2AndroidNetworking.get(url)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
-                .getObjectSingle(ContractResp.class);
+                .getObjectSingle(ContractResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
     }
 
     @Override
@@ -220,7 +221,8 @@ public class RestServiceImpl implements RestService {
         return Rx2AndroidNetworking.get(url)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
-                .getObjectSingle(MasterContractResp.class);
+                .getObjectSingle(MasterContractResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
     }
 
     @Override
@@ -229,7 +231,37 @@ public class RestServiceImpl implements RestService {
         return Rx2AndroidNetworking.get(url)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
-                .getObjectSingle(MasterContractDocResp.class);
+                .getObjectSingle(MasterContractDocResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
+
+
+    }
+
+    @Override
+    public Single<OtpTimerResp> masterContractApprove(String contractId) {
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("contractNumber", contractId);
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/sign/accept?v=2");
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class);
+    }
+
+    @Override
+    public Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/sign/verify?v=2");
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("ContractNumber", contractId);
+        requestBody.put("OTP", otp);
+        requestBody.put("HasDisbursementBankAccount", hasDisbursementBankAccount ? "true" : "false");
+        requestBody.put("IsCreditCardContract", isCreditCardContract ? "true" : "false");
+        return Rx2AndroidNetworking.post(url)
+                .addBodyParameter(requestBody)
+                .build()
+                .getObjectSingle(OtpTimerResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)))
+                ;
     }
 
     @Override
@@ -249,7 +281,7 @@ public class RestServiceImpl implements RestService {
         if (url == null) return url;
         if (url.contains("?")) {
             url += "&lang=" + preferencesHelper.getLanguageCode();
-        }else {
+        } else {
             url += "?lang=" + preferencesHelper.getLanguageCode();
         }
         return url;

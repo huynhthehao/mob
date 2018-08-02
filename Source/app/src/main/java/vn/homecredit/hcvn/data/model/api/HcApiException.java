@@ -2,6 +2,8 @@ package vn.homecredit.hcvn.data.model.api;
 
 import com.androidnetworking.error.ANError;
 
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
+
 public class HcApiException extends Throwable {
     public static final int ERROR_CODE_UNAUTHORIZED = 401;
     public static final int ERROR_UNKNOWN = 1;
@@ -41,6 +43,9 @@ public class HcApiException extends Throwable {
             }else if (errorObject instanceof OtpTimerResp){
                 errorResponseCode = ((OtpTimerResp) errorObject).getResponseCode();
                 errorResponseMessage = ((OtpTimerResp) errorObject).getResponseMessage();
+            }else if (errorObject instanceof BaseApiResponse){
+                errorResponseCode = ((BaseApiResponse) errorObject).getResponseCode();
+                errorResponseMessage = ((BaseApiResponse) errorObject).getResponseMessage();
             }
         }else {
             errorResponseCode = ERROR_UNKNOWN;

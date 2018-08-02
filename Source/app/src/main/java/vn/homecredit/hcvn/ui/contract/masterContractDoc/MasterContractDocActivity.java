@@ -25,10 +25,12 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.databinding.ActivityMasterContractDocBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.SimpleRecyclerViewFragment;
+import vn.homecredit.hcvn.ui.otp.OtpActivity;
 
 public class MasterContractDocActivity extends BaseActivity<ActivityMasterContractDocBinding, MasterContractDocViewModel> {
     private static final String BUNDLE_MASTER_CONTRACT = "BUNDLE_MASTER_CONTRACT";
@@ -71,13 +73,25 @@ public class MasterContractDocActivity extends BaseActivity<ActivityMasterContra
 
         getViewModel().getModelMasterContractsDocs().observe(this, strings -> fragmentMasterDoc.updateImages(strings));
 
+        getViewModel().getModelOtpPassParam().observe(this, otpPassParam -> {
+            if (otpPassParam != null) {
+                showOTPPage(otpPassParam);
+            }
+        });
+    }
+
+    private void showOTPPage(OtpPassParam otpPassParam) {
+        OtpActivity.start(this, otpPassParam);
     }
 
     private void setupFooter() {
         View footer = LayoutInflater.from(this).inflate(R.layout.item_contract_detail_footer, null);
         Button btnAgree = footer.findViewById(R.id.btnAgree);
         SwitchCompat switchAgree = footer.findViewById(R.id.switchAgree);
-        btnAgree.setOnClickListener(v -> showMessage("aaa" + switchAgree.isChecked()));
+        btnAgree.setOnClickListener(v -> {
+            showMessage("aaa" + switchAgree.isChecked());
+            getViewModel().doApprove();
+        });
         switchAgree.setOnCheckedChangeListener((buttonView, isChecked) -> btnAgree.setEnabled(switchAgree.isEnabled()));
         fragmentMasterDoc.addFooterView(footer);
     }

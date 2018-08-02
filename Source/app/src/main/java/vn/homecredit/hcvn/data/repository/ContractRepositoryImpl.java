@@ -19,6 +19,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.BuildConfig;
+import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.ContractType;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
@@ -113,6 +114,21 @@ public class ContractRepositoryImpl implements ContractRepository {
                 })
                 ;
 
+    }
+
+    @Override
+    public Single<OtpTimerResp> masterContractApproved(String contractId) {
+        return restService.masterContractApprove(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+    }
+
+    @Override
+    public Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
+        return restService.masterContractVerify(contractId, otp, hasDisbursementBankAccount, isCreditCardContract)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @NonNull
