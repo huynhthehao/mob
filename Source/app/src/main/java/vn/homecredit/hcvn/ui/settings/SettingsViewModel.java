@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
+import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.LanguageValue;
@@ -15,6 +16,7 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SettingsViewModel extends BaseViewModel {
     private final DataManager dataManager;
+    private final OneSignalService oneSignalService;
     private ObservableField<String> appVersion = new ObservableField<>("");
     private ObservableField<Integer> languageValue = new ObservableField<>(R.string.english);
     private ObservableField<Boolean> fingerPrintVisibility = new ObservableField<>(true);
@@ -28,9 +30,10 @@ public class SettingsViewModel extends BaseViewModel {
 
 
     @Inject
-    public SettingsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+    public SettingsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, OneSignalService oneSignalService) {
         super(schedulerProvider);
         this.dataManager = dataManager;
+        this.oneSignalService = oneSignalService;
     }
 
     @Override
@@ -79,6 +82,7 @@ public class SettingsViewModel extends BaseViewModel {
 
     public void onNotificationCheckedChanged(boolean isEnable) {
         dataManager.setNotificationSetting(isEnable);
+        oneSignalService.sendTags("Active", String.valueOf(isEnable));
     }
 
     public void onFingerPrintCheckedChanged(boolean isEnable) {

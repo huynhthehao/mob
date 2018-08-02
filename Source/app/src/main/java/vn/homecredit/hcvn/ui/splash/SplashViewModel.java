@@ -35,8 +35,8 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
     @Override
     public void init() {
         super.init();
-        checkUpdate();
         mOneSignalService.tryGetPlayerId();
+        checkUpdate();
     }
 
     public void checkUpdate() {

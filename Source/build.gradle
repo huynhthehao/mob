@@ -77,4 +77,5 @@ ext {
     materialDialogVersion = '0.9.6.0'
 
     parceler = '1.1.11'
+    roomVersion='1.1.1'
 }

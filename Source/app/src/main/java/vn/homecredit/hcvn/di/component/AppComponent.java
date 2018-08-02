@@ -8,25 +8,25 @@
  */
 
 package vn.homecredit.hcvn.di.component;
+
 import android.app.Application;
-
-
-import vn.homecredit.hcvn.HCVNApp;
-//import com.mindorks.framework.mvvm.di.builder.ActivityBuilder;
-import vn.homecredit.hcvn.di.builder.ActivityBuilder;
-import vn.homecredit.hcvn.di.builder.FragmentBuilderModule;
-import vn.homecredit.hcvn.di.module.AppModule;
 
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
+import vn.homecredit.hcvn.HCVNApp;
+import vn.homecredit.hcvn.di.builder.ActivityBuilder;
+import vn.homecredit.hcvn.di.builder.FragmentBuilderModule;
+import vn.homecredit.hcvn.di.module.AppModule;
+import vn.homecredit.hcvn.di.module.RoomModule;
 
 
 @Singleton
 @Component(modules = {AndroidInjectionModule.class,
         AppModule.class,
+        RoomModule.class,
         FragmentBuilderModule.class,
         ActivityBuilder.class})
 public interface AppComponent {
@@ -37,6 +37,8 @@ public interface AppComponent {
 
         @BindsInstance
         Builder application(Application application);
+
+        Builder roomModule(RoomModule roomModule);
 
         AppComponent build();
     }

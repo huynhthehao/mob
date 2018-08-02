@@ -9,10 +9,12 @@
 
 package vn.homecredit.hcvn.ui.base;
 
-import android.arch.lifecycle.Observer;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
+import android.databinding.ObservableBoolean;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -26,6 +28,7 @@ import android.view.ViewGroup;
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.helpers.UiHelper;
+import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
@@ -34,6 +37,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private View mRootView;
     private T mViewDataBinding;
     private V mViewModel;
+    protected ProgressDialog mProgressDialog;
 
     /**
      * Override for set binding variable
@@ -93,6 +97,16 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         super.onViewCreated(view, savedInstanceState);
         mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
         mViewDataBinding.executePendingBindings();
+        getViewModel().getIsLoading().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                if (((ObservableBoolean) sender).get()) {
+                    showLoading();
+                } else {
+                    hideLoading();
+                }
+            }
+        });
         this.init();
     }
 
@@ -160,13 +174,22 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     }
 
     public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
-        UiHelper.showConfirmMessage(this.getContext(),title,message, onCompleted);
+        UiHelper.showConfirmMessage(this.getContext(), title, message, onCompleted);
+    }
+
+    public void hideLoading() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.cancel();
+        }
+    }
+
+    public void showLoading() {
+        mProgressDialog = CommonUtils.showLoadingDialog(getContext());
     }
 
     private void startWelcome() {
         Intent intent = WelcomeActivity.newIntent(getContext());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
     }
 }

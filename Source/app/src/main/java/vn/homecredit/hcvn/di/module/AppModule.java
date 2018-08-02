@@ -18,6 +18,11 @@ import vn.homecredit.hcvn.data.acl.AclDataManager;
 import vn.homecredit.hcvn.data.acl.AclDataManagerImpl;
 import vn.homecredit.hcvn.data.acl.AclDatabaseService;
 import vn.homecredit.hcvn.data.acl.AclDatabaseServiceImpl;
+import vn.homecredit.hcvn.data.remote.ApiHeader;
+import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.data.remote.RestServiceImpl;
+import vn.homecredit.hcvn.data.remote.acl.AclRestService;
+import vn.homecredit.hcvn.data.remote.acl.AclRestServiceImpl;
 import vn.homecredit.hcvn.data.remote.clwmap.ClwMapService;
 import vn.homecredit.hcvn.data.remote.clwmap.ClwMapServiceImpl;
 import vn.homecredit.hcvn.data.remote.disbursement.DisbursementService;
@@ -28,24 +33,21 @@ import vn.homecredit.hcvn.data.remote.payoo.PayooRestService;
 import vn.homecredit.hcvn.data.remote.payoo.PayooRestServiceImpl;
 import vn.homecredit.hcvn.data.remote.pos.PosRestService;
 import vn.homecredit.hcvn.data.remote.pos.PosRestServiceImpl;
-import vn.homecredit.hcvn.data.repository.MapRepository;
-import vn.homecredit.hcvn.data.repository.MapRepositoryImpl;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
+import vn.homecredit.hcvn.data.repository.AccountRepositoryImpl;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.data.repository.ContractRepositoryImpl;
+import vn.homecredit.hcvn.data.repository.MapRepository;
+import vn.homecredit.hcvn.data.repository.MapRepositoryImpl;
+import vn.homecredit.hcvn.data.repository.NotificationRepository;
+import vn.homecredit.hcvn.data.repository.NotificationRepositoryImpl;
+import vn.homecredit.hcvn.di.PreferenceInfo;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelperImpl;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelperImpl;
 import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.data.remote.ApiHeader;
-import vn.homecredit.hcvn.data.remote.RestService;
-import vn.homecredit.hcvn.data.remote.RestServiceImpl;
-import vn.homecredit.hcvn.data.remote.acl.AclRestService;
-import vn.homecredit.hcvn.data.remote.acl.AclRestServiceImpl;
-import vn.homecredit.hcvn.data.repository.AccountRepository;
-import vn.homecredit.hcvn.data.repository.AccountRepositoryImpl;
-import vn.homecredit.hcvn.di.PreferenceInfo;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactoryImpl;
 import vn.homecredit.hcvn.service.DeviceInfo;
@@ -251,8 +253,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    AccountRepository provideAccountRepository(AccountRepositoryImpl profileService) {
-        return profileService;
+    AccountRepository provideAccountRepository(AccountRepositoryImpl accountRepositoryImpl) {
+        return accountRepositoryImpl;
+    }
+
+    @Provides
+    @Singleton
+    NotificationRepository provideNotificationRepository(NotificationRepositoryImpl notificationRepositoryImpl) {
+        return notificationRepositoryImpl;
     }
 
     @Provides

@@ -36,7 +36,7 @@ public class DeviceInfoImpl implements DeviceInfo {
         mPlatform = 0;
         mBrand = Build.BRAND;
 
-        mPlayerId = "UNKNOWN_PLAYER_ID";
+        mPlayerId = "";
         mPushToken = "";
     }
 

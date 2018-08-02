@@ -212,4 +212,9 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="tenor_month">%d tháng</string>
     <string name="token_expired">Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại</string>
 
+    <!-- Notifications Page -->
+    <string name="loading_data">Đang tải dữ liệu...</string>
+    <string name="tap_to_reload">Thử lại</string>
+    <string name="see_details">Xem chi tiết</string>
+
 </resources>

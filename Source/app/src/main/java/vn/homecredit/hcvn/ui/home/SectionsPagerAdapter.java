@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import vn.homecredit.hcvn.ui.contract.main.ContractFragment;
 import vn.homecredit.hcvn.ui.more.MoreFragment;
-import vn.homecredit.hcvn.ui.notification.NotificationFragment;
+import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.support.SupportFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -26,7 +26,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case TAB_CONTRACTS:
                 return new ContractFragment();
             case TAB_NOTIFICATION:
-                return NotificationFragment.newInstance(1);
+                return NotificationsFragment.newInstance();
             case TAB_SUPPORT:
                 return SupportFragment.newInstance("A", "B");
             case TAB_MORE:
@@ -36,6 +36,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         }
         return new ContractFragment();
     }
+
+
 
     @Override
     public int getCount() {

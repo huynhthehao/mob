@@ -23,7 +23,7 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
-import vn.homecredit.hcvn.data.model.api.contract.ContractDataResp;
+import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
@@ -38,6 +38,7 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
+import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 @Singleton
 public class RestServiceImpl implements RestService {
@@ -206,6 +207,21 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
+    public Single<NotificationResp> getNotifications() {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/notifications");
+        return DefaultAndroidNetworking.get(url,
+                mApiHeader.getProtectedApiHeader(),
+                NotificationResp.class);
+    }
+
+    @Override
+    public Single<BaseApiResponse> markNotificationAsRead(String notificationId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/notifications/read/" + notificationId);
+        return DefaultAndroidNetworking.get(url,
+                mApiHeader.getProtectedApiHeader(),
+                BaseApiResponse.class);
+    }
+
     public Single<ContractResp> contract() {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/contracts");
         return Rx2AndroidNetworking.get(url)
@@ -284,6 +300,7 @@ public class RestServiceImpl implements RestService {
         } else {
             url += "?lang=" + preferencesHelper.getLanguageCode();
         }
+        url += "&platform=2";
         return url;
     }
 

@@ -15,9 +15,12 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.google.gson.Gson;
+
 import java.util.Locale;
+
 import javax.inject.Inject;
 
+import vn.homecredit.hcvn.data.model.DeviceInfoModel;
 import vn.homecredit.hcvn.data.model.LanguageCode;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
@@ -39,6 +42,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_SHOW_DASHBOARD = "PREF_KEY_SHOW_DASHBOARD";
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
+    private static final String PREF_KEY_DEVICE_INFO = "PREF_KEY_DEVICE_INFO";
 
     private final SharedPreferences mPrefs;
 
@@ -156,12 +160,21 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
         try {
             return gson.fromJson(json, classType);
-        }catch(Exception ex) {
+        } catch (Exception ex) {
             return null;
         }
     }
 
     @Override
+    public DeviceInfoModel getDeviceInfo() {
+        return getObject(PREF_KEY_DEVICE_INFO, DeviceInfoModel.class);
+    }
+
+    @Override
+    public void saveDeviceInfo(DeviceInfoModel deviceInfoModel) {
+        saveObject(PREF_KEY_DEVICE_INFO, deviceInfoModel);
+    }
+
     public boolean getFingerPrintSetting() {
         String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
         String key = PREF_KEY_FINGERPRINT_SETTING + currentUser;
@@ -181,7 +194,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public void setFingerprintEnableStatus() {
         String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
         String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
-        saveObject(key,"1");
+        saveObject(key, "1");
     }
 
     @Override

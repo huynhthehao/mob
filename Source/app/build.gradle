@@ -143,8 +143,11 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation "org.parceler:parceler-api:$rootProject.parceler"
     annotationProcessor "org.parceler:parceler:$rootProject.parceler"
+    //Room
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
 
     //google map direction router
     implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
-
 }
