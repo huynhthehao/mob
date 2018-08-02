@@ -82,4 +82,9 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvNotifications.setAdapter(notificationAdapter);
     }
+
+    public void refreshList() {
+        appDataView.updateViewState(AppDataViewState.SHOW_RELOADING);
+        getViewModel().pullToRefreshNotifications();
+    }
 }

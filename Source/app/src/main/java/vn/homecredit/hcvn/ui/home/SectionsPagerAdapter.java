@@ -37,6 +37,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         return ContractFragment.newInstance(1);
     }
 
+
+
     @Override
     public int getCount() {
         return 4;

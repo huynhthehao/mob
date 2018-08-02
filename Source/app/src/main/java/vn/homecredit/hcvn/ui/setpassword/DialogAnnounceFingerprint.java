@@ -9,12 +9,21 @@ import vn.homecredit.hcvn.ui.custom.HcDialogFragment;
 
 public class DialogAnnounceFingerprint extends HcDialogFragment {
 
-    private static final String TAG_FINGERSPRINT = "TAG_FINGERSPRINT";
+    public static final String TAG_FINGERSPRINT = "TAG_FINGERSPRINT";
 
     public static void showDialog(FragmentManager fragmentManager) {
         if (fragmentManager.findFragmentByTag(TAG_FINGERSPRINT) == null) {
             DialogAnnounceFingerprint dialogFingersprint = newInstance();
             dialogFingersprint.show(fragmentManager, TAG_FINGERSPRINT);
+        }
+    }
+
+    public static void dismissDialog(FragmentManager fragmentManager) {
+        if (fragmentManager.findFragmentByTag(TAG_FINGERSPRINT) != null) {
+            DialogAnnounceFingerprint dialogFingersprint = (DialogAnnounceFingerprint) fragmentManager.findFragmentByTag(TAG_FINGERSPRINT);
+            if (dialogFingersprint != null) {
+                dialogFingersprint.dismiss();
+            }
         }
     }
 
@@ -24,6 +33,7 @@ public class DialogAnnounceFingerprint extends HcDialogFragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.dialog_announce_fingersprint;

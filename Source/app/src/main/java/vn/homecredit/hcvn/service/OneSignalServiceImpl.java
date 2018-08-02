@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationOpenResult;
@@ -27,6 +28,7 @@ import timber.log.Timber;
 import vn.homecredit.hcvn.data.model.DeviceInfoModel;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
+import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.notification.NotificationType;
 import vn.homecredit.hcvn.ui.notification.model.ClwResult;
 import vn.homecredit.hcvn.ui.notification.model.ClwResultConverter;
@@ -39,10 +41,12 @@ import static vn.homecredit.hcvn.ui.notification.NotificationType.INCOMING;
 @Singleton
 public class OneSignalServiceImpl implements OneSignalService {
     private final DeviceInfo mDeviceInfo;
+    private PreferencesHelper preferencesHelper;
 
     @Inject
-    public OneSignalServiceImpl(DeviceInfo deviceInfo) {
+    public OneSignalServiceImpl(DeviceInfo deviceInfo, PreferencesHelper preferencesHelper) {
         mDeviceInfo = deviceInfo;
+        this.preferencesHelper = preferencesHelper;
     }
 
     @Override
@@ -83,9 +87,11 @@ public class OneSignalServiceImpl implements OneSignalService {
     @Override
     public void notificationOpenHandler(Context context, OSNotificationOpenResult result) {
         Intent intent = new Intent(context, HomeActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(HomeActivity.BUNDLE_SELECT_NOTIFICATION_TAB, true);
+        if (TextUtils.isEmpty(preferencesHelper.getAccessToken())) {
+            intent = new Intent(context, LoginActivity.class);
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

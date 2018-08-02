@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.setpassword.DialogAnnounceFingerprint;
 import vn.homecredit.hcvn.utils.AppUtils;
 
@@ -34,6 +36,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
     public static final String BUNDLE_SHOW_FINGERPRINT = "BUNDLE_SHOW_FINGERPRINT";
     public static final String BUNDLE_SELECT_NOTIFICATION_TAB = "BUNDLE_SELECT_NOTIFICATION_TAB";
+    DialogFragment dashboardFragment;
+    DialogAnnounceFingerprint dialogFingerPrint;
 
     @Inject
     HomeViewModel mHomeViewModel;
@@ -106,7 +110,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     private void checkToOpenNotificationTab(Intent intent) {
         if (intent.getBooleanExtra(BUNDLE_SELECT_NOTIFICATION_TAB, false)) {
-            onClickedNotification();
+            openNotificationTabFromPushNotification();
         }
     }
 
@@ -133,16 +137,23 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             showDashboard(getString(R.string.hello), mHomeViewModel.getUserName());
         }
         if (getIntent().getBooleanExtra(BUNDLE_SHOW_FINGERPRINT, false)) {
-            DialogAnnounceFingerprint.showDialog(getSupportFragmentManager());
+            showFingerPrintAnnounceDialog();
         }
     }
 
     private void showDashboard(String greeting, String username) {
         if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
             preferencesHelper.setIsShowDashboard(false);
-            DialogFragment dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
+            dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
             ((DashBoardDialogFragment) dashboardFragment).setOnDashboardClicked(this);
             dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
+        }
+    }
+
+    private void showFingerPrintAnnounceDialog() {
+        if (getSupportFragmentManager().findFragmentByTag(DialogAnnounceFingerprint.TAG_FINGERSPRINT) == null) {
+            dialogFingerPrint = DialogAnnounceFingerprint.newInstance();
+            dialogFingerPrint.show(getSupportFragmentManager(), DialogAnnounceFingerprint.TAG_FINGERSPRINT);
         }
     }
 
@@ -209,5 +220,23 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private void openNotificationTabFromPushNotification() {
+        dismissDashBoardAndFingerPrintDialog();
+        setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_NOTIFICATION);
+        Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + mViewPager.getId() + ":" + mViewPager.getCurrentItem());
+        if (mViewPager.getCurrentItem() == 1 && page != null) {
+            ((NotificationsFragment) page).refreshList();
+        }
+    }
+
+    private void dismissDashBoardAndFingerPrintDialog() {
+        if (dialogFingerPrint != null) {
+            dialogFingerPrint.dismiss();
+        }
+        if (dashboardFragment != null) {
+            dashboardFragment.dismiss();
+        }
     }
 }
