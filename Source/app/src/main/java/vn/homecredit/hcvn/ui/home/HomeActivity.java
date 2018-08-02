@@ -38,7 +38,7 @@ import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
 import vn.homecredit.hcvn.utils.SpanBuilder;
 
-public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked, ViewPager.OnPageChangeListener {
+public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked, ViewPager.OnPageChangeListener, NotificationsFragment.OnNotificationCountListener {
     public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
     public static final String BUNDLE_SELECT_NOTIFICATION_TAB = "BUNDLE_SELECT_NOTIFICATION_TAB";
     DialogFragment dashboardFragment;
@@ -72,6 +72,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    TabLayout tabLayout;
 
     @Override
     public int getBindingVariable() {
@@ -96,15 +97,19 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         getViewModel().setNavigator(this);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
         // Set up the ViewPager with the sections adapter.
         mViewPager = getViewDataBinding().container;
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(4);
-        TabLayout tabLayout = getViewDataBinding().tabs;
+        tabLayout = getViewDataBinding().tabs;
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         mViewPager.addOnPageChangeListener(this);
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(mSectionsPagerAdapter.getTabView(i));
+        }
         checkToShowDialog();
         checkToOpenNotificationTab(getIntent());
     }
@@ -265,5 +270,13 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         if (dashboardFragment != null) {
             dashboardFragment.dismiss();
         }
+    }
+
+    @Override
+    public void updateNotificationCount(int count) {
+        if (mSectionsPagerAdapter == null)
+            return;
+        TabLayout.Tab tab = tabLayout.getTabAt(1);
+        mSectionsPagerAdapter.updateNotificationCount(tab.getCustomView(), count);
     }
 }

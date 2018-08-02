@@ -20,6 +20,7 @@ public class NotificationViewModel extends BaseViewModel {
     private final NotificationRepository repository;
     private MutableLiveData<List<NotificationModel>> dataNotifications = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelIsRefreshing = new MutableLiveData<>();
+    private MutableLiveData<Integer> modelNotificationUnreadCount = new MutableLiveData<>();
 
     @Inject
     public NotificationViewModel(SchedulerProvider schedulerProvider, NotificationRepository notificationRepository) {
@@ -61,8 +62,19 @@ public class NotificationViewModel extends BaseViewModel {
                 .subscribe(notificationModels -> {
                     if (notificationModels != null) {
                         dataNotifications.setValue(notificationModels);
+                        updateNotificationCountUnRead(notificationModels);
                     }
                 });
+    }
+
+    private void updateNotificationCountUnRead(List<NotificationModel> notificationModels) {
+        int count = 0;
+        for (int i = 0; i < notificationModels.size(); i++) {
+            if (!notificationModels.get(i).isRead()) {
+                count = count + 1;
+            }
+        }
+        modelNotificationUnreadCount.setValue(count);
     }
 
     public void markNotificationAsRead(NotificationModel model) {
@@ -102,5 +114,9 @@ public class NotificationViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> getModelIsRefreshing() {
         return modelIsRefreshing;
+    }
+
+    public MutableLiveData<Integer> getModelNotificationUnreadCount() {
+        return modelNotificationUnreadCount;
     }
 }

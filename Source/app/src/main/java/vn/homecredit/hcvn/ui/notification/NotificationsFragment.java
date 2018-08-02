@@ -32,6 +32,7 @@ import vn.homecredit.hcvn.databinding.FragmentNotificationsBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
+import vn.homecredit.hcvn.ui.home.HomeActivity;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
     public static final String ACTION_REFRESH_NOTIFICATIONS = "ACTION_REFRESH_NOTIFICATIONS";
@@ -45,6 +46,10 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
     public static NotificationsFragment newInstance() {
         NotificationsFragment fragment = new NotificationsFragment();
         return fragment;
+    }
+
+    public interface OnNotificationCountListener {
+        void updateNotificationCount(int count);
     }
 
     private final BroadcastReceiver mRefreshListBroadcastReceiver = new BroadcastReceiver() {
@@ -107,6 +112,9 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
 
                 }
         );
+        getViewModel().getModelNotificationUnreadCount().observe(this, count -> {
+            ((HomeActivity) getActivity()).updateNotificationCount(count);
+        });
     }
 
     private void initAdapter() {

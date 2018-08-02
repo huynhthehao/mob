@@ -68,4 +68,7 @@
     <dimen name="maker_infor_image_size">40dp</dimen>
     <dimen name="max_size_marker_info_window">300dp</dimen>
     <dimen name="max_size_marker_info_title_window">250dp</dimen>
+
+    <dimen name="tab_icon_size">20dp</dimen>
+    <dimen name="text_size_notification_count">8sp</dimen>
 </resources>
