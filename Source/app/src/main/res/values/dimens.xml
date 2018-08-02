@@ -65,4 +65,7 @@
     <dimen name="contract_item_icon_padding_left">@dimen/padding_small</dimen>
     <dimen name="contract_item_title_margin_left">@dimen/margin_normal</dimen>
 
+    <dimen name="maker_infor_image_size">40dp</dimen>
+    <dimen name="max_size_marker_info_window">300dp</dimen>
+    <dimen name="max_size_marker_info_title_window">250dp</dimen>
 </resources>

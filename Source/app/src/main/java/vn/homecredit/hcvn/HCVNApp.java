@@ -2,6 +2,7 @@ package vn.homecredit.hcvn;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,8 @@ import vn.homecredit.hcvn.utils.AppLogger;
 
 public class HCVNApp extends Application implements HasActivityInjector, HasSupportFragmentInjector {
 
+    private static Context context;
+
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
     @Inject
@@ -58,6 +61,8 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
                 .build()
                 .inject(this);
 
+        context = getApplicationContext();
+
         AppLogger.init();
 
         AndroidNetworking.initialize(getApplicationContext());
@@ -70,25 +75,25 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true).setNotificationOpenedHandler(new OneSignal.NotificationOpenedHandler() {
-                    @Override
-                    public void notificationOpened(OSNotificationOpenResult result) {
-                        //TODO: Tracking
-                        //TODO: Process Push
-                    }
-                }).setNotificationReceivedHandler(new OneSignal.NotificationReceivedHandler() {
-                    @Override
-                    public void notificationReceived(OSNotification notification) {
+            @Override
+            public void notificationOpened(OSNotificationOpenResult result) {
+                //TODO: Tracking
+                //TODO: Process Push
+            }
+        }).setNotificationReceivedHandler(new OneSignal.NotificationReceivedHandler() {
+            @Override
+            public void notificationReceived(OSNotification notification) {
 
-                        AppLogger.d(notification.payload.body);
-                        JSONObject additionalData = notification.payload.additionalData;
-                        //TODO: Tracking
-                        // ...
-                        //End TODO
-                        Toast.makeText(HCVNApp.this.getApplicationContext(), notification.payload.body, Toast.LENGTH_SHORT).show();
+                AppLogger.d(notification.payload.body);
+                JSONObject additionalData = notification.payload.additionalData;
+                //TODO: Tracking
+                // ...
+                //End TODO
+                Toast.makeText(HCVNApp.this.getApplicationContext(), notification.payload.body, Toast.LENGTH_SHORT).show();
 
-                        AppLogger.d(String.format("%s", additionalData));
-                    }
-                }).init();
+                AppLogger.d(String.format("%s", additionalData));
+            }
+        }).init();
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -128,4 +133,7 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
         });
     }
 
+    public static Context getContext() {
+        return context;
+    }
 }
