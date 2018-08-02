@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="vn.homecredit.hcvn.ui.map.PayMapActivity">
+
+    <item
+        android:id="@+id/menu_search_option"
+        android:icon="@drawable/ic_change_location"
+        app:showAsAction="ifRoom|withText"
+        tools:ignore="MenuTitle">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/payment"
+                    android:checked="true"
+                    android:title="@string/map_payment_location" />
+                <item
+                    android:id="@+id/disbursement"
+                    android:title="@string/map_disbursement_location" />
+                <item
+                    android:id="@+id/cash_loan"
+                    android:title="@string/map_cash_loan_location" />
+            </group>
+        </menu>
+    </item>
+</menu>

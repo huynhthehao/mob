@@ -19,6 +19,9 @@ import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionAct
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragmentProvider;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailViewModel;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
@@ -38,6 +41,7 @@ import vn.homecredit.hcvn.ui.signup.SignUpActivityModule;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
+import vn.homecredit.hcvn.ui.map.PayMapActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivityModule;
 
@@ -95,4 +99,10 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector()
     abstract ProfileActivity bindProfileActivity();
+
+    @ContributesAndroidInjector()
+    abstract PayMapActivity bindPayMapActivity();
+
+    @ContributesAndroidInjector(modules = ContractDetailActivityModule.class)
+    abstract ContractDetailActivity bindContractDetailActivity();
 }

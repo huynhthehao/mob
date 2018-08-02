@@ -4,7 +4,7 @@ import vn.homecredit.hcvn.R;
 
 public enum LanguageValue {
     ENGLISH("en", R.string.english),
-    VIETNAMESE("vn", R.string.vietnamese);
+    VIETNAMESE("vi", R.string.vietnamese);
 
     private String code;
     private int displayNameResId;

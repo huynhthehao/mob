@@ -30,6 +30,7 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
 import vn.homecredit.hcvn.databinding.ActivityLoginBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.FingerprintAuthenticationDialogFragment;
@@ -117,7 +118,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     }
 
     public void openHomeActivity() {
-        HomeActivity.start(LoginActivity.this, true);
+        HomeActivity.start(LoginActivity.this, true, FirstComeFlow.AFTER_LOGIN);
         finish();
     }
 

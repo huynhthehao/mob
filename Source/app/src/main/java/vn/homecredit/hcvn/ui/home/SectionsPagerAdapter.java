@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import vn.homecredit.hcvn.ui.contract.ContractFragment;
+import vn.homecredit.hcvn.ui.contract.main.ContractFragment;
 import vn.homecredit.hcvn.ui.more.MoreFragment;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.support.SupportFragment;
@@ -24,7 +24,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case TAB_CONTRACTS:
-                return ContractFragment.newInstance(1);
+                return new ContractFragment();
             case TAB_NOTIFICATION:
                 return NotificationsFragment.newInstance();
             case TAB_SUPPORT:
@@ -34,7 +34,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             default:
                 break;
         }
-        return ContractFragment.newInstance(1);
+        return new ContractFragment();
     }
 
 

@@ -24,6 +24,7 @@ import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.model.api.BaseResp;
+import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
@@ -216,6 +217,14 @@ public class RestServiceImpl implements RestService {
         return DefaultAndroidNetworking.get(url,
                 mApiHeader.getProtectedApiHeader(),
                 BaseResp.class);
+    }
+
+    public Single<ContractResp> contract() {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/contracts");
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(ContractResp.class);
     }
 
     @Override

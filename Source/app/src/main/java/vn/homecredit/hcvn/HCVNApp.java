@@ -2,19 +2,14 @@ package vn.homecredit.hcvn;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
-import com.onesignal.OSNotification;
-import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
-
-import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -26,15 +21,15 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
 import vn.homecredit.hcvn.di.module.RoomModule;
 import vn.homecredit.hcvn.service.OneSignalService;
-import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.utils.AppLogger;
-import vn.homecredit.hcvn.utils.Log;
 
 /**
  * Created by QuanP on 11/06/18.
  */
 
 public class HCVNApp extends Application implements HasActivityInjector, HasSupportFragmentInjector {
+
+    private static Context context;
 
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
@@ -67,6 +62,8 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
                 .build()
                 .inject(this);
 
+        context = getApplicationContext();
+
         AppLogger.init();
 
         AndroidNetworking.initialize(getApplicationContext());
@@ -83,8 +80,6 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
                     //TODO: Tracking
                     oneSignalService.notificationOpenHandler(getApplicationContext(), result);
                 }).setNotificationReceivedHandler(notification -> {
-            Log.debug("value", "full: " + notification.toString());
-            Log.debug("value", notification.payload.body);
             //TODO: Tracking
 
             oneSignalService.notificationReceived(getApplicationContext(), notification);
@@ -128,4 +123,7 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
         });
     }
 
+    public static Context getContext() {
+        return context;
+    }
 }

@@ -33,6 +33,8 @@ public interface PreferencesHelper {
 
     void logout();
 
+    void changeLanguage();
+
     void setLanguageCode(String languageId);
 
     String getLanguageCode();
@@ -42,12 +44,18 @@ public interface PreferencesHelper {
     void setNotificationSetting(boolean isEnable);
 
     boolean getFingerPrintSetting();
+
     void setFingerPrintSetting(boolean isEnable);
 
     void saveObject(String key, Object obj);
+
     <T> T getObject(String key, Class<T> classType);
 
     DeviceInfoModel getDeviceInfo();
 
     void saveDeviceInfo(DeviceInfoModel deviceInfoModel);
+
+    void setFingerprintEnableStatus();
+
+    String getFingerprintEnableStatus();
 }

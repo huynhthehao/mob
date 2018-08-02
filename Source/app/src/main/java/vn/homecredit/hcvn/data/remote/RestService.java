@@ -10,9 +10,9 @@ import io.reactivex.Single;
 import vn.homecredit.hcvn.data.model.api.BaseResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
-import vn.homecredit.hcvn.data.model.api.SignupResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 public interface RestService {
@@ -30,4 +30,5 @@ public interface RestService {
     Single<NotificationResp> getNotifications();
     Single<BaseResp> markNotificationAsRead(String notificationId);
 
+    Single<ContractResp> contract();
 }

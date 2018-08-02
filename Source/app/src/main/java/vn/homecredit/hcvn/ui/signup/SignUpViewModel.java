@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.model.OtpFlow;
+import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
