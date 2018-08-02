@@ -18,13 +18,11 @@ import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 public class NotificationRepositoryImpl implements NotificationRepository {
     private final RestService restService;
     private NotificationDao notificationDao;
-    private final OneSignalService oneSignalService;
 
     @Inject
-    public NotificationRepositoryImpl(RestService restService, NotificationDao notificationDao, OneSignalService oneSignalService) {
+    public NotificationRepositoryImpl(RestService restService, NotificationDao notificationDao) {
         this.restService = restService;
         this.notificationDao = notificationDao;
-        this.oneSignalService = oneSignalService;
     }
 
     @Override
