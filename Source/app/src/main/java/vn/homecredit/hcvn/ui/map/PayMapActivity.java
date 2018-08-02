@@ -226,6 +226,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
                 if (grantResults.length > 0
                         && grantResults[0] == PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
+                    updateLocationUI();
                 }
             }
         }
@@ -304,6 +305,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        getDeviceLocation();
         if (mLastKnownLocation != null) {
             payMapViewModel.drawDirection(mMap, mLastKnownLocation, marker.getPosition(), getApplicationContext());
         }
