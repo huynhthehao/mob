@@ -87,7 +87,7 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
             Log.debug("value", notification.payload.body);
             //TODO: Tracking
 
-            oneSignalService.notificationReceived(notification);
+            oneSignalService.notificationReceived(getApplicationContext(), notification);
         }).init();
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {

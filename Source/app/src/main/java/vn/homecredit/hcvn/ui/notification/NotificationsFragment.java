@@ -11,11 +11,18 @@ package vn.homecredit.hcvn.ui.notification;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
@@ -27,6 +34,8 @@ import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
+    public static final String ACTION_REFRESH_NOTIFICATIONS = "ACTION_REFRESH_NOTIFICATIONS";
+
     @Inject
     ViewModelProvider.Factory viewNotificationFactory;
     AppDataView appDataView;
@@ -37,6 +46,18 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         NotificationsFragment fragment = new NotificationsFragment();
         return fragment;
     }
+
+    private final BroadcastReceiver mRefreshListBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action != null && action.equals(ACTION_REFRESH_NOTIFICATIONS)) {
+                if (getViewModel() != null) {
+                    refreshList();
+                }
+            }
+        }
+    };
 
     @Override
     public int getBindingVariable() {
@@ -56,6 +77,19 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mRefreshListBroadcastReceiver,
+                new IntentFilter(ACTION_REFRESH_NOTIFICATIONS));
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mRefreshListBroadcastReceiver);
     }
 
     @Override

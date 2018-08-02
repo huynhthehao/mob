@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import com.onesignal.OSNotification;
@@ -30,6 +31,7 @@ import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.notification.NotificationType;
+import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.notification.model.ClwResult;
 import vn.homecredit.hcvn.ui.notification.model.ClwResultConverter;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
@@ -79,7 +81,13 @@ public class OneSignalServiceImpl implements OneSignalService {
     }
 
     @Override
-    public void notificationReceived(OSNotification notification) {
+    public void notificationReceived(Context context, OSNotification notification) {
+        // send broadcast receiver
+        Intent intent = new Intent();
+        intent.setAction(NotificationsFragment.ACTION_REFRESH_NOTIFICATIONS);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+        // get data
         JSONObject additionalData = notification.payload.additionalData;
         getNotificationModel(notification, additionalData);
     }

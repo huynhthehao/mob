@@ -22,7 +22,7 @@ public interface OneSignalService {
 
     void tryGetPlayerId();
 
-    void notificationReceived(OSNotification notification);
+    void notificationReceived(Context context, OSNotification notification);
 
     void notificationOpenHandler(Context context, OSNotificationOpenResult result);
 }
