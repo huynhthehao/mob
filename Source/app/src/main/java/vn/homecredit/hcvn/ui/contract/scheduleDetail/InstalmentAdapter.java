@@ -16,6 +16,7 @@ import java.util.List;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.utils.DateUtils;
+import vn.homecredit.hcvn.utils.StringUtils;
 
 public class InstalmentAdapter extends RecyclerView.Adapter<InstalmentAdapter.ViewHolder> {
     Context context;
@@ -72,11 +73,14 @@ public class InstalmentAdapter extends RecyclerView.Adapter<InstalmentAdapter.Vi
         }
 
         public void bind(ScheduleDetailResp.Instalment model) {
-            if (TextUtils.isEmpty(model.getInstalmentDate())) {
+            if (!TextUtils.isEmpty(model.getInstalmentDate())) {
                 dueDateTextView.setText(DateUtils.convertDateFromUTCToSimple(model.getInstalmentDate()));
             }
+            else {
+                dueDateTextView.setVisibility(View.INVISIBLE);
+            }
             paymentTypeTextView.setText(model.getRegularityTextVn());
-            amountDueTextView.setText(model.getAmount());
+            amountDueTextView.setText(StringUtils.getCurrencyMaskValue(model.getAmount()));
             passImageView.setVisibility(model.getInstalmentStatus() == 1 ? View.VISIBLE : View.INVISIBLE);
             vContent.setOnClickListener(view -> listener.onItemNotificationClicked(model));
         }
