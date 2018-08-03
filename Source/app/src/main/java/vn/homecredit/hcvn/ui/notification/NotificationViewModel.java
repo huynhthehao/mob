@@ -47,12 +47,22 @@ public class NotificationViewModel extends BaseViewModel {
                             modelIsRefreshing.setValue(false);
                             cacheNotification(notificationResp);
                             loadAndDisplayCachedNotifications();
+                            saveCurrentBadgeCount(notificationResp.getData());
                         },
                         throwable -> {
                             modelIsRefreshing.setValue(false);
                             handleError(throwable);
                         });
         getCompositeDisposable().add(disposableNotifications);
+    }
+
+    private void saveCurrentBadgeCount(List<NotificationModel> notificationModels) {
+        int count = 0;
+        for (int i = 0; i < notificationModels.size(); i++) {
+            if (!notificationModels.get(i).isRead()) {
+                count = count + 1;
+            }
+        }
     }
 
     private void cacheNotification(NotificationResp notificationResp) {
@@ -78,6 +88,7 @@ public class NotificationViewModel extends BaseViewModel {
                 count = count + 1;
             }
         }
+        preferencesHelper.setCurrentBadgeCount(count);
         modelNotificationUnreadCount.setValue(count);
     }
 

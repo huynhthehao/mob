@@ -25,6 +25,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.onesignal.shortcutbadger.ShortcutBadger;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
@@ -111,12 +113,15 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         getViewModel().getModelIsRefreshing().observe(this, isRefreshing -> {
                     if (!isRefreshing)
                         appDataView.updateViewState(AppDataViewState.HIDE_RELOADING);
-
+                    else
+                        appDataView.updateViewState(AppDataViewState.SHOW_RELOADING);
                 }
         );
         getViewModel().getModelNotificationUnreadCount().observe(this, count -> {
             // Update notification unread count at tab
             ((HomeActivity) getActivity()).updateNotificationCount(count);
+            // Update badge number
+            ShortcutBadger.applyCount(getActivity(), count);
         });
         getViewModel().getModelOpenNotificationMarketingType().observe(this, marketingUrl -> {
             AppUtils.openExternalBrowser(getActivity(), marketingUrl);

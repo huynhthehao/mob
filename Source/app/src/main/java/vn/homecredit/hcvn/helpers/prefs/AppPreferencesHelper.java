@@ -42,6 +42,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
     private static final String PREF_KEY_DEVICE_INFO = "PREF_KEY_DEVICE_INFO";
+    private static final String PREF_KEY_CURRENT_BADGE_COUNT = "PREF_KEY_CURRENT_BADGE_COUNT";
 
     private final SharedPreferences mPrefs;
 
@@ -203,5 +204,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
         String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
         String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
         return getObject(key, String.class);
+    }
+
+    @Override
+    public void setCurrentBadgeCount(int currentBadgeCount) {
+        mPrefs.edit().putInt(PREF_KEY_CURRENT_BADGE_COUNT, currentBadgeCount).commit();
+    }
+
+    @Override
+    public int getCurrentBadgeCount() {
+        return mPrefs.getInt(PREF_KEY_CURRENT_BADGE_COUNT, 0);
     }
 }
