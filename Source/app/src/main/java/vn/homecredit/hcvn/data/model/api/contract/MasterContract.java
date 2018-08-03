@@ -400,4 +400,8 @@ public class MasterContract {
     public int getLoanAmount() {
         return isCreditCardContract ? creditLimit : creditAmount;
     }
+
+    public boolean canApproved() {
+        return contractStatus.equals("approved");
+    }
 }

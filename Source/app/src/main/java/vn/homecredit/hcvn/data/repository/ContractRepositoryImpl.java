@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Single;
@@ -26,6 +27,8 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.PaymentResp;
+import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.TestData;
@@ -127,6 +130,20 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
         return restService.masterContractVerify(contractId, otp, hasDisbursementBankAccount, isCreditCardContract)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<ScheduleDetailResp> viewInstalmentsv1(String contractId) {
+        return restService.viewInstalmentsv1(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<PaymentResp> viewPaymentsv1(String contractId) {
+        return restService.viewPaymentsv1(contractId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

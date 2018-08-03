@@ -52,14 +52,11 @@ public class ContractViewModel extends BaseViewModel {
     }
 
     private void getContracṭ̣() {
-        setIsLoading(true);
         refreshing.setValue(true);
         contractRepository.contracts().subscribe(s -> {
-            setIsLoading(false);
             refreshing.setValue(false);
             listMutableLiveData.setValue(s.getData().getContracts());
         }, throwable -> {
-            setIsLoading(false);
             refreshing.setValue(false);
             handleError(throwable);
             if (throwable instanceof ANError) {
