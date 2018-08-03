@@ -38,6 +38,7 @@ public final class AppUtils {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
+
     public static void openPlayStoreForApp(Context context, String appPackageName) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
@@ -53,6 +54,9 @@ public final class AppUtils {
     }
 
     public static void openExternalBrowser(Context context, String uri) {
+        if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
+            return;
+        }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(uri));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -62,12 +66,12 @@ public final class AppUtils {
     private static void safeStartActivity(Context context, Intent intent) {
         try {
             context.startActivity(intent);
-        }catch (ActivityNotFoundException e) {
+        } catch (ActivityNotFoundException e) {
             Log.printStackTrace(e);
         }
     }
 
-    public static void openDeviceCallDialog(Context context, String phoneNumber){
+    public static void openDeviceCallDialog(Context context, String phoneNumber) {
         try {
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + phoneNumber));

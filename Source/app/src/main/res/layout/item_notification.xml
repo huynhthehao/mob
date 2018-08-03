@@ -7,7 +7,6 @@
 
     <LinearLayout
         android:id="@+id/vContent"
-        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/padding_medium"
