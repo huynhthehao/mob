@@ -21,6 +21,7 @@ import vn.homecredit.hcvn.di.builder.ActivityBuilder;
 import vn.homecredit.hcvn.di.builder.FragmentBuilderModule;
 import vn.homecredit.hcvn.di.module.AppModule;
 import vn.homecredit.hcvn.di.module.RoomModule;
+import vn.homecredit.hcvn.service.AppNotificationExtenderService;
 
 
 @Singleton
@@ -31,6 +32,7 @@ import vn.homecredit.hcvn.di.module.RoomModule;
         ActivityBuilder.class})
 public interface AppComponent {
     void inject(HCVNApp app);
+    void inject(AppNotificationExtenderService appNotificationExtenderService);
 
     @Component.Builder
     interface Builder {

@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.onesignal.NotificationExtenderService;
 
 import javax.inject.Singleton;
 
@@ -50,6 +51,7 @@ import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactoryImpl;
+import vn.homecredit.hcvn.service.AppNotificationExtenderService;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.DeviceInfoImpl;
 import vn.homecredit.hcvn.service.OneSignalService;

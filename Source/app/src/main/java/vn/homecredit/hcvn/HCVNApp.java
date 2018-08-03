@@ -19,9 +19,11 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import vn.homecredit.hcvn.di.component.AppComponent;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
 import vn.homecredit.hcvn.di.module.RoomModule;
 import vn.homecredit.hcvn.service.OneSignalService;
+import vn.homecredit.hcvn.utils.AppConstants;
 import vn.homecredit.hcvn.utils.AppLogger;
 
 /**
@@ -31,6 +33,7 @@ import vn.homecredit.hcvn.utils.AppLogger;
 public class HCVNApp extends Application implements HasActivityInjector, HasSupportFragmentInjector {
 
     private static Context context;
+    private AppComponent appComponent;
 
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
@@ -64,11 +67,11 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
     public void onCreate() {
         super.onCreate();
 
-        DaggerAppComponent.builder()
+        appComponent = DaggerAppComponent.builder()
                 .application(this)
                 .roomModule(new RoomModule(this))
-                .build()
-                .inject(this);
+                .build();
+        appComponent.inject(this);
 
         context = getApplicationContext();
 
@@ -88,8 +91,8 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
                     //TODO: Tracking
                     oneSignalService.notificationOpenHandler(getApplicationContext(), result);
                 }).setNotificationReceivedHandler(notification -> {
-                    //TODO: Tracking
-                    oneSignalService.notificationReceived(getApplicationContext(), notification);
+            //TODO: Tracking
+            oneSignalService.notificationReceived(getApplicationContext(), notification);
         }).init();
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -132,5 +135,9 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
     public static Context getContext() {
         return context;
+    }
+
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 }
