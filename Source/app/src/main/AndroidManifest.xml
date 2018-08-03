@@ -55,6 +55,10 @@
             android:label="@string/otp_page_title"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.contract.creditcard.CreditCardListActivity"
+            android:label="@string/card_list_title"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".ui.welcome.WelcomeActivity"

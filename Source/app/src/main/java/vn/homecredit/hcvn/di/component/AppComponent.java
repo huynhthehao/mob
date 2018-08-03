@@ -10,9 +10,7 @@
 package vn.homecredit.hcvn.di.component;
 import android.app.Application;
 
-
 import vn.homecredit.hcvn.HCVNApp;
-//import com.mindorks.framework.mvvm.di.builder.ActivityBuilder;
 import vn.homecredit.hcvn.di.builder.ActivityBuilder;
 import vn.homecredit.hcvn.di.builder.FragmentBuilderModule;
 import vn.homecredit.hcvn.di.module.AppModule;
@@ -34,7 +32,6 @@ public interface AppComponent {
 
     @Component.Builder
     interface Builder {
-
         @BindsInstance
         Builder application(Application application);
 

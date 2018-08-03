@@ -176,4 +176,10 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="contract_status">Trạng thái HĐ</string>
     <string name="payment_locations">Địa điểm giao dịch</string>
 
+    <string name="card_list_title">Danh Sách Thẻ</string>
+    <string name="card_number">Số thẻ</string>
+    <string name="card_status">Trạng thái thẻ</string>
+    <string name="card_type">Loại thẻ</string>
+    <string name="data_not_found">Dữ liệu không tìm thấy</string>
+
 </resources>

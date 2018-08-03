@@ -128,8 +128,7 @@ public class RestServiceImpl implements RestService {
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(OtpTimerResp.class)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)))
-                ;
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)));
     }
 
     @Override

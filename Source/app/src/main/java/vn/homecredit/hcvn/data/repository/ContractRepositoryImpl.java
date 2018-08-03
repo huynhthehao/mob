@@ -35,7 +35,7 @@ public class ContractRepositoryImpl implements ContractRepository {
                         contractResp.getData().getContracts().add(TestData.pendingContract());
                         contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CashLoan));
                         contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.ConsumerDurables));
-                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CreditCard));
+                        contractResp.getData().getContracts().add(TestData.activeCreditCardContract());
                         contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.TwoWheels));
                     }
                     return contractResp;

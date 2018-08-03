@@ -16,8 +16,10 @@ import android.support.v7.widget.RecyclerView;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 
@@ -67,14 +69,24 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     private void startLogin() {
         Intent intent = LoginActivity.newIntent(getContext());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 
     }
 
     @Override
     public void onClicked(int position) {
-        // TODO: 7/30/18 Implement Contract Detail
+        HcContract selectedItem = getViewModel().getDataAtIndex(position);
+        if (selectedItem == null) {
+            showMessage(R.string.data_not_found);
+            return;
+        }
+
+        if (selectedItem.isCreditCard()) {
+            Intent intent = CreditCardListActivity.getNewIntent(getContext(), selectedItem);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
     @Override

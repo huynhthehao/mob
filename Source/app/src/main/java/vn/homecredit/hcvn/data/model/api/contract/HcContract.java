@@ -6,6 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+
 @Parcel
 public class HcContract {
 
@@ -54,6 +59,7 @@ public class HcContract {
     @SerializedName("product_code")
     @Expose
     private String productCode;
+
     @SerializedName("is_credit_card")
     @Expose
     private Boolean isCreditCard;
@@ -62,9 +68,19 @@ public class HcContract {
     @Expose
     private String status;
 
+    @SerializedName("cards")
+    @Expose
+    private List<HcCreditCard> cards = new ArrayList<>();
+
     @SerializedName("nextPayment")
     @Expose
     private NextPayment nextPayment;
+
+    public List<HcCreditCard> getCards(){ return cards; }
+    public void setCards(List<HcCreditCard> cards){
+        if(cards != null)
+            this.cards = cards;
+    }
 
     private boolean isShowSection = false;
 
@@ -172,11 +188,13 @@ public class HcContract {
         this.productCode = productCode;
     }
 
-    public Boolean getIsCreditCard() {
+    public Boolean isCreditCard() {
+        if(isCreditCard == null)
+            return false;
         return isCreditCard;
     }
 
-    public void setIsCreditCard(Boolean isCreditCard) {
+    public void isCreditCard(Boolean isCreditCard) {
         this.isCreditCard = isCreditCard;
     }
 

@@ -6,13 +6,26 @@
 
 package vn.homecredit.hcvn.data.model.api;
 
+import android.graphics.drawable.Drawable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.LanguageCode;
+import vn.homecredit.hcvn.data.model.api.contract.ContractStatus;
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 
+@Parcel
 public class HcCreditCard {
+
+    public static final String ActiveStatusLabel = "ACTIVE";
+
+    private transient Drawable backgroundType;
 
     @SerializedName("card_number")
     @Expose
@@ -24,7 +37,7 @@ public class HcCreditCard {
 
     @SerializedName("card_status")
     @Expose
-    public Integer status;
+    public String status;
 
     @SerializedName("status_text_en")
     @Expose
@@ -50,11 +63,40 @@ public class HcCreditCard {
     @Expose
     public long totalOutStandingDebt;
 
-    public String getStatusText(PreferencesHelper preferencesHelper){
-        String currentLangeCode = preferencesHelper.getLanguageCode();
+    public HcContract refContract;
+
+
+    public String getStatusText(){
+        String currentLangeCode = AppPreferencesHelper.getCurrentLanguageCode();
         if(currentLangeCode.equals(LanguageCode.ENGLISH))
             return statusDescriptionEn;
 
         return statusDescriptionVn;
+    }
+
+    public void setBackgroundTypeId(Drawable backgroundType){
+        this.backgroundType = backgroundType;
+    }
+
+    public Drawable getBackgroundType(){
+        return this.backgroundType;
+    }
+
+    public int getContractStatusColorId(){
+        if(refContract == null)
+            return R.color.black;
+        if(ContractStatus.Active.equalsIgnoreCase(refContract.getStatus())){
+            return R.color.activeDisplay;
+        }
+
+        return R.color.primary_red;
+    }
+
+    public int getStatusColorId(){
+        if(ActiveStatusLabel.equalsIgnoreCase(status)){
+            return R.color.activeDisplay;
+        }
+
+        return R.color.primary_red;
     }
 }

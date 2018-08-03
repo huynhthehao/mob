@@ -29,9 +29,6 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
         this.preferencesHelper = preferencesHelper;
     }
 
-    public void hardCode() {
-        getNavigator().openWelcomeActivity();
-    }
 
     public void onLoginClick() {
         this.getNavigator().openLoginActivity();
@@ -60,9 +57,5 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
         } else {
             this.getNavigator().openAclApplicationForm();
         }
-    }
-
-    public void startIntro() {
-        this.getNavigator().startIntro();
     }
 }

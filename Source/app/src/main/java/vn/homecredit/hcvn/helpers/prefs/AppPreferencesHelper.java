@@ -41,9 +41,13 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
 
     private final SharedPreferences mPrefs;
+    private static String initFileName;
+    private static Context initContext;
 
     @Inject
     public AppPreferencesHelper(Context context, @PreferenceInfo String prefFileName) {
+        initFileName = prefFileName;
+        initContext = context;
         mPrefs = context.getSharedPreferences(prefFileName, Context.MODE_PRIVATE);
     }
 
@@ -113,7 +117,11 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getLanguageCode() {
-        String langId = mPrefs.getString(PREF_KEY_LANGUAGE_CODE, "");
+        return getCurrentLanguageCode(mPrefs);
+    }
+
+    private static String getCurrentLanguageCode(SharedPreferences preferences){
+        String langId = preferences.getString(PREF_KEY_LANGUAGE_CODE, "");
 
         if (langId != null && !langId.equals(""))
             return langId;
@@ -125,6 +133,13 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return langId;
     }
 
+    public static String getCurrentLanguageCode(){
+        if(initContext == null || StringUtils.isNullOrEmpty(initFileName))
+            return LanguageCode.VIETNAMESE;
+
+        SharedPreferences preferences = initContext.getSharedPreferences(initFileName, Context.MODE_PRIVATE);
+        return getCurrentLanguageCode(preferences);
+    }
 
     @Override
     public boolean getNotificationSetting() {

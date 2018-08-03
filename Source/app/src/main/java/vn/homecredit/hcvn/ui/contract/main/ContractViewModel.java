@@ -38,6 +38,15 @@ public class ContractViewModel extends BaseViewModel {
         return listMutableLiveData;
     }
 
+    public HcContract getDataAtIndex(int index){
+        try {
+            List<HcContract> contracts = listMutableLiveData.getValue();
+            return contracts.get(index);
+        } catch (Exception ex){
+            return null;
+        }
+    }
+
     public MutableLiveData<Boolean> getErrorAuthenticate() {
         return errorAuthenticate;
     }

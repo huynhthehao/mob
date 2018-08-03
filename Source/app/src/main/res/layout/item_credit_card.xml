@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 7/30/18 3:57 PM, by Hien.NguyenM
+  -->
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="card"
+            type="vn.homecredit.hcvn.data.model.api.HcCreditCard"/>
+    </data>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="10dp"
+        android:background="@{card.getBackgroundType()}">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="?android:attr/selectableItemBackground"  >
+            <ImageView
+                android:id="@+id/cardIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_small"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_contract_creditcard"/>
+
+            <TextView
+                android:id="@+id/lbCardNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                app:layout_constraintLeft_toRightOf="@+id/cardIcon"
+                app:layout_constraintTop_toTopOf="@+id/cardIcon"
+                android:text="@string/card_number"
+                style="@style/CreditCard.Label" />
+
+            <TextView
+                android:id="@+id/tvCardNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/barrier"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbCardNumber"
+                tools:text="xxxx xxxx xxxx 9786"
+                android:text="@{card.cardNumber}"
+                style="@style/CreditCard.BindingContent" />
+
+            <TextView
+                android:id="@+id/lbCardStatus"
+                android:layout_marginTop="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/lbCardNumber"
+                app:layout_constraintTop_toBottomOf="@+id/lbCardNumber"
+                android:text="@string/card_status"
+                style="@style/CreditCard.Label" />
+
+            <TextView
+                android:id="@+id/tvCardStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/barrier"
+                app:layout_constraintTop_toTopOf="@+id/lbCardStatus"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:text="Active"
+                android:text="@{card.getStatusText()}"
+                style="@style/CreditCard.BindingContent" />
+
+            <TextView
+                android:id="@+id/lbCardType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                app:layout_constraintLeft_toLeftOf="@+id/lbCardNumber"
+                app:layout_constraintTop_toBottomOf="@+id/lbCardStatus"
+                android:text="@string/card_type"
+                style="@style/CreditCard.Label" />
+
+            <TextView
+                android:id="@+id/tvCardType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/barrier"
+                app:layout_constraintTop_toTopOf="@+id/lbCardType"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="@{card.cardType}"
+                tools:text="Personal"
+                style="@style/CreditCard.BindingContent" />
+
+            <android.support.constraint.Barrier
+                android:id="@+id/barrier"
+                app:constraint_referenced_ids="lbCardNumber,lbCardStatus, lbCardType"
+                app:barrierDirection="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</layout>
