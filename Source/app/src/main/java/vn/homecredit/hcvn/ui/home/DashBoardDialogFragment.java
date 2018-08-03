@@ -5,7 +5,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.repository.NotificationRepository;
+import vn.homecredit.hcvn.ui.custom.DashBoadItemView;
 import vn.homecredit.hcvn.ui.custom.FullscreenDialogFragment;
+import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 
 
 public class DashBoardDialogFragment extends FullscreenDialogFragment implements View.OnClickListener {
@@ -14,6 +17,7 @@ public class DashBoardDialogFragment extends FullscreenDialogFragment implements
     public static final String BUNDLE_USERNAME = "USERNAME";
 
     OnDashboardClicked onDashboardClicked;
+    DashBoadItemView dashBoadNotificationView;
 
     public static DashBoardDialogFragment newInstance(String greeting, String username) {
         Bundle args = new Bundle();
@@ -36,7 +40,8 @@ public class DashBoardDialogFragment extends FullscreenDialogFragment implements
         view.findViewById(R.id.dashboardContact).setOnClickListener(this);
         view.findViewById(R.id.dashboardSchedule).setOnClickListener(this);
         view.findViewById(R.id.dashboardOffer).setOnClickListener(this);
-        view.findViewById(R.id.dashboardNotification).setOnClickListener(this);
+        dashBoadNotificationView = view.findViewById(R.id.dashboardNotification);
+        dashBoadNotificationView.setOnClickListener(this);
         view.findViewById(R.id.dashboardMomo).setOnClickListener(this);
         view.findViewById(R.id.dashboardMore).setOnClickListener(this);
         if (getArguments() != null && getArguments().containsKey(BUNDLE_USERNAME) && getArguments().containsKey(BUNDLE_GREETING)) {
@@ -85,12 +90,23 @@ public class DashBoardDialogFragment extends FullscreenDialogFragment implements
         this.onDashboardClicked = onDashboardClicked;
     }
 
+    public void updateNotificationCount(int count) {
+        if (dashBoadNotificationView == null)
+            return;
+        dashBoadNotificationView.updateNotificationCount(count);
+    }
+
     public interface OnDashboardClicked {
         void onClickedContact();
+
         void onClickedSchedule();
+
         void onClickedOffer();
+
         void onClickedNotification();
+
         void onClickedMomo();
+
         void onClickedMore();
     }
 }

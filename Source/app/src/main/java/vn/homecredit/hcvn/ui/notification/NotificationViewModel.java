@@ -10,21 +10,26 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
-import vn.homecredit.hcvn.utils.Log;
+import vn.homecredit.hcvn.utils.CountryValue;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class NotificationViewModel extends BaseViewModel {
     private final NotificationRepository repository;
+    private final PreferencesHelper preferencesHelper;
     private MutableLiveData<List<NotificationModel>> dataNotifications = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelIsRefreshing = new MutableLiveData<>();
+    private MutableLiveData<Integer> modelNotificationUnreadCount = new MutableLiveData<>();
+    private MutableLiveData<String> modelOpenNotificationMarketingType = new MutableLiveData<>();
 
     @Inject
-    public NotificationViewModel(SchedulerProvider schedulerProvider, NotificationRepository notificationRepository) {
+    public NotificationViewModel(SchedulerProvider schedulerProvider, NotificationRepository notificationRepository, PreferencesHelper preferencesHelper) {
         super(schedulerProvider);
         this.repository = notificationRepository;
+        this.preferencesHelper = preferencesHelper;
     }
 
     @Override
@@ -42,12 +47,22 @@ public class NotificationViewModel extends BaseViewModel {
                             modelIsRefreshing.setValue(false);
                             cacheNotification(notificationResp);
                             loadAndDisplayCachedNotifications();
+                            saveCurrentBadgeCount(notificationResp.getData());
                         },
                         throwable -> {
                             modelIsRefreshing.setValue(false);
                             handleError(throwable);
                         });
         getCompositeDisposable().add(disposableNotifications);
+    }
+
+    private void saveCurrentBadgeCount(List<NotificationModel> notificationModels) {
+        int count = 0;
+        for (int i = 0; i < notificationModels.size(); i++) {
+            if (!notificationModels.get(i).isRead()) {
+                count = count + 1;
+            }
+        }
     }
 
     private void cacheNotification(NotificationResp notificationResp) {
@@ -61,16 +76,35 @@ public class NotificationViewModel extends BaseViewModel {
                 .subscribe(notificationModels -> {
                     if (notificationModels != null) {
                         dataNotifications.setValue(notificationModels);
+                        updateNotificationCountUnRead(notificationModels);
                     }
                 });
     }
 
-    public void markNotificationAsRead(NotificationModel model) {
-        // Will remove later when apply notification details page.
-        if (model.isRead()) {
-            return;
+    private void updateNotificationCountUnRead(List<NotificationModel> notificationModels) {
+        int count = 0;
+        for (int i = 0; i < notificationModels.size(); i++) {
+            if (!notificationModels.get(i).isRead()) {
+                count = count + 1;
+            }
         }
-        setIsLoading(true);
+        preferencesHelper.setCurrentBadgeCount(count);
+        modelNotificationUnreadCount.setValue(count);
+    }
+
+    public void onNotificationItemClicked(NotificationModel model) {
+        if (!model.isRead()) {
+            if (model.getType() != NotificationType.MARKETING.getType()) {
+                setIsLoading(true);
+            }
+            markAsReadNotificationToServer(model);
+        }
+        if (model.getType() == NotificationType.MARKETING.getType()) {
+            modelOpenNotificationMarketingType.setValue(getMarketingUrl(model));
+        }
+    }
+
+    private void markAsReadNotificationToServer(NotificationModel model) {
         Disposable disposableMarkAsRead = repository.markNotificationAsRead(model.getId())
                 .subscribe(
                         baseResp ->
@@ -88,6 +122,14 @@ public class NotificationViewModel extends BaseViewModel {
         getCompositeDisposable().add(disposableMarkAsRead);
     }
 
+    private String getMarketingUrl(NotificationModel model) {
+        if (preferencesHelper.getLanguageCode().equalsIgnoreCase(CountryValue.VIETNAMESE.getLanguageCode())) {
+            return model.getMarketingUrlVi();
+        } else {
+            return model.getMarketingUrlEn();
+        }
+    }
+
     private void updateNotificationAsRead(String notificationId) {
         repository.makeNotificationAsRead(notificationId);
     }
@@ -102,5 +144,13 @@ public class NotificationViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> getModelIsRefreshing() {
         return modelIsRefreshing;
+    }
+
+    public MutableLiveData<Integer> getModelNotificationUnreadCount() {
+        return modelNotificationUnreadCount;
+    }
+
+    public MutableLiveData<String> getModelOpenNotificationMarketingType() {
+        return modelOpenNotificationMarketingType;
     }
 }

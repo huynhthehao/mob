@@ -58,4 +58,8 @@ public interface PreferencesHelper {
     void setFingerprintEnableStatus();
 
     String getFingerprintEnableStatus();
+
+    void setCurrentBadgeCount(int currentBadgeCount);
+
+    int getCurrentBadgeCount();
 }
