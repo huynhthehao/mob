@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_normal"
+        android:layout_margin="@dimen/margin_normal"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -45,7 +45,7 @@
             android:layout_weight="0.1"
             android:src="@drawable/ic_pass" />
     </LinearLayout>
-
+z
     <View
-        style="@style/Separator_Horizontal" />
+        style="@style/Separator_Horizontal" android:layout_marginHorizontal="@dimen/margin_normal" />
 </LinearLayout>
