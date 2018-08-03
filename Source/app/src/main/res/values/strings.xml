@@ -218,5 +218,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="see_details">Xem chi tiết</string>
 
     <string name="empty_instalment">Lịch thanh toán chưa có dữ liệu</string>
+    <string name="due_date">Ngày đến hạn</string>
+    <string name="payment_type">Loại thanh toán</string>
+    <string name="amount_due">Số tiền cần thanh toán</string>
 
 </resources>

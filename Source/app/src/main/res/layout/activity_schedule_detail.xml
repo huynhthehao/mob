@@ -39,7 +39,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
+            android:padding="@dimen/padding_small"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -50,7 +50,7 @@
                 android:layout_weight="0.3"
                 style="@style/AppTheme.Title"
                 android:textStyle="bold"
-                android:text="Due date" />
+                android:text="@string/due_date" />
 
             <TextView
                 android:id="@+id/paymentTypeTextView"
@@ -59,7 +59,7 @@
                 android:layout_weight="0.3"
                 style="@style/AppTheme.Title"
                 android:textStyle="bold"
-                android:text="Payment type" />
+                android:text="@string/payment_type" />
 
             <TextView
                 android:id="@+id/amountDueTextView"
@@ -70,11 +70,11 @@
                 android:layout_gravity="end"
                 style="@style/AppTheme.Title"
                 android:textStyle="bold"
-                android:text="Amount due" />
+                android:text="@string/amount_due" />
         </LinearLayout>
         <View
             style="@style/Separator_Horizontal"
-            android:layout_marginHorizontal="@dimen/margin_normal" />
+            android:layout_marginHorizontal="@dimen/margin_small" />
         <vn.homecredit.hcvn.ui.custom.AppDataView
             android:id="@+id/appDataView"
             android:layout_width="match_parent"
