@@ -67,6 +67,7 @@ public class MenuRowItem extends LinearLayout {
         };
         TypedArray array = getContext().getTheme().obtainStyledAttributes(attrs, set, 0, 0);
 
+
         mSrc = array.getResourceId(0, DEFAULT_IMAGE_SRC);
         mTitle = array.getString(1);
 

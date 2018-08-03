@@ -10,6 +10,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         manifestPlaceholders = [
                 onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
@@ -87,6 +88,9 @@ dependencies {
     implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:multidex:1.0.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
@@ -106,7 +110,7 @@ dependencies {
     implementation "uk.co.chrisjenx:calligraphy:$rootProject.calligraphyVersion"
 
     // image
-//    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
 
     // parser
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
@@ -139,4 +143,11 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation "org.parceler:parceler-api:$rootProject.parceler"
     annotationProcessor "org.parceler:parceler:$rootProject.parceler"
+    //Room
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
+
+    //google map direction router
+    implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
 }

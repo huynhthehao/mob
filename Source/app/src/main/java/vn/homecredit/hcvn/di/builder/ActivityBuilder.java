@@ -21,6 +21,15 @@ import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
+import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
+import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
+import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivityModule;
+import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
+import vn.homecredit.hcvn.ui.contract.signing.SigningActivityModule;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailViewModel;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
@@ -40,6 +49,7 @@ import vn.homecredit.hcvn.ui.signup.SignUpActivityModule;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
+import vn.homecredit.hcvn.ui.map.PayMapActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivityModule;
 
@@ -73,6 +83,9 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = ForgetPasswordActivityModule.class)
     abstract ForgetPasswordActivity bindForgetPasswordActivity();
 
+    @ContributesAndroidInjector(modules = SigningActivityModule.class)
+    abstract SigningActivity bindSigningActivity();
+
     @ContributesAndroidInjector(modules = OtpViewModel.class)
     abstract OtpActivity bindOtpActivity();
 
@@ -100,4 +113,13 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector()
     abstract ProfileActivity bindProfileActivity();
+
+    @ContributesAndroidInjector(modules = MasterContractDocActivityModule.class)
+    abstract MasterContractDocActivity bindMastercontractDocActivity();
+
+    @ContributesAndroidInjector()
+    abstract PayMapActivity bindPayMapActivity();
+
+    @ContributesAndroidInjector(modules = ContractDetailActivityModule.class)
+    abstract ContractDetailActivity bindContractDetailActivity();
 }

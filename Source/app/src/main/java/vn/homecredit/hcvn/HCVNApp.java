@@ -2,18 +2,15 @@ package vn.homecredit.hcvn;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
-import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
-import com.onesignal.OSNotification;
-import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OneSignal;
-
-import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -23,6 +20,8 @@ import dagger.android.HasActivityInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
+import vn.homecredit.hcvn.di.module.RoomModule;
+import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.utils.AppLogger;
 
 /**
@@ -31,6 +30,8 @@ import vn.homecredit.hcvn.utils.AppLogger;
 
 public class HCVNApp extends Application implements HasActivityInjector, HasSupportFragmentInjector {
 
+    private static Context context;
+
     @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
     @Inject
@@ -38,6 +39,9 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
     @Inject
     CalligraphyConfig mCalligraphyConfig;
+
+    @Inject
+    OneSignalService oneSignalService;
 
     @Override
     public DispatchingAndroidInjector<Activity> activityInjector() {
@@ -50,13 +54,23 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
     }
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
 
         DaggerAppComponent.builder()
                 .application(this)
+                .roomModule(new RoomModule(this))
                 .build()
                 .inject(this);
+
+        context = getApplicationContext();
 
         AppLogger.init();
 
@@ -69,26 +83,15 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true).setNotificationOpenedHandler(new OneSignal.NotificationOpenedHandler() {
-                    @Override
-                    public void notificationOpened(OSNotificationOpenResult result) {
-                        //TODO: Tracking
-                        //TODO: Process Push
-                    }
-                }).setNotificationReceivedHandler(new OneSignal.NotificationReceivedHandler() {
-                    @Override
-                    public void notificationReceived(OSNotification notification) {
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .setNotificationOpenedHandler(result -> {
+                    //TODO: Tracking
+                    oneSignalService.notificationOpenHandler(getApplicationContext(), result);
+                }).setNotificationReceivedHandler(notification -> {
+            //TODO: Tracking
 
-                        AppLogger.d(notification.payload.body);
-                        JSONObject additionalData = notification.payload.additionalData;
-                        //TODO: Tracking
-                        // ...
-                        //End TODO
-                        Toast.makeText(HCVNApp.this.getApplicationContext(), notification.payload.body, Toast.LENGTH_SHORT).show();
-
-                        AppLogger.d(String.format("%s", additionalData));
-                    }
-                }).init();
+            oneSignalService.notificationReceived(getApplicationContext(), notification);
+        }).init();
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -128,4 +131,7 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
         });
     }
 
+    public static Context getContext() {
+        return context;
+    }
 }

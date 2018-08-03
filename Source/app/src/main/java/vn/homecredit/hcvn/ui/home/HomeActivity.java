@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
+
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.style.StyleSpan;
 import android.view.Menu;
@@ -30,6 +32,7 @@ import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.custom.ActionDialogFragment;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
@@ -37,6 +40,8 @@ import vn.homecredit.hcvn.utils.SpanBuilder;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked, ViewPager.OnPageChangeListener {
     public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
+    public static final String BUNDLE_SELECT_NOTIFICATION_TAB = "BUNDLE_SELECT_NOTIFICATION_TAB";
+    DialogFragment dashboardFragment;
     public static final String BUNDLE_SHOW_FIRSTCOME = "BUNDLE_SHOW_FIRSTCOME";
 
     @Inject
@@ -101,6 +106,19 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         mViewPager.addOnPageChangeListener(this);
         checkToShowDialog();
+        checkToOpenNotificationTab(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        checkToOpenNotificationTab(intent);
+    }
+
+    private void checkToOpenNotificationTab(Intent intent) {
+        if (intent.getBooleanExtra(BUNDLE_SELECT_NOTIFICATION_TAB, false)) {
+            openNotificationTabFromPushNotification();
+        }
     }
 
     @Override
@@ -163,7 +181,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     private void showDashboard(String greeting, String username) {
         if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
             preferencesHelper.setIsShowDashboard(false);
-            DialogFragment dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
+            dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
             ((DashBoardDialogFragment) dashboardFragment).setOnDashboardClicked(this);
             dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
         }
@@ -197,7 +215,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_MORE);
     }
 
-    private void setViewPagerCurrentItemWithoutSmoothScroll(int tab){
+    private void setViewPagerCurrentItemWithoutSmoothScroll(int tab) {
         mViewPager.setCurrentItem(tab, false);
     }
 
@@ -232,5 +250,20 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private void openNotificationTabFromPushNotification() {
+        dismissDashBoardAndFingerPrintDialog();
+        setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_NOTIFICATION);
+        Fragment page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + mViewPager.getId() + ":" + mViewPager.getCurrentItem());
+        if (mViewPager.getCurrentItem() == 1 && page != null) {
+            ((NotificationsFragment) page).refreshList();
+        }
+    }
+
+    private void dismissDashBoardAndFingerPrintDialog() {
+        if (dashboardFragment != null) {
+            dashboardFragment.dismiss();
+        }
     }
 }

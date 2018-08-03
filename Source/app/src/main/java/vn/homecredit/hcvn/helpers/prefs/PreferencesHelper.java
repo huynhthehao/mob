@@ -9,6 +9,7 @@
 
 package vn.homecredit.hcvn.helpers.prefs;
 
+import vn.homecredit.hcvn.data.model.DeviceInfoModel;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 
@@ -43,11 +44,18 @@ public interface PreferencesHelper {
     void setNotificationSetting(boolean isEnable);
 
     boolean getFingerPrintSetting();
+
     void setFingerPrintSetting(boolean isEnable);
 
     void saveObject(String key, Object obj);
+
     <T> T getObject(String key, Class<T> classType);
 
+    DeviceInfoModel getDeviceInfo();
+
+    void saveDeviceInfo(DeviceInfoModel deviceInfoModel);
+
     void setFingerprintEnableStatus();
+
     String getFingerprintEnableStatus();
 }

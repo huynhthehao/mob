@@ -20,8 +20,10 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 import javax.inject.Inject;
 
@@ -60,19 +62,9 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
         });
 
         getViewModel().getRefreshing().observe(this, aBoolean -> getViewDataBinding().swiperefresh.setRefreshing(aBoolean));
-        getViewModel().getErrorAuthenticate().observe(this, isErrorAuthenicate -> {
-            if (isErrorAuthenicate) {
-                startLogin();
-            }
-        });
-    }
-
-    private void startLogin() {
-        Intent intent = LoginActivity.newIntent(getContext());
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
 
     }
+
 
     @Override
     public void onClicked(int position) {
@@ -86,12 +78,15 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
             Intent intent = CreditCardListActivity.getNewIntent(getContext(), selectedItem);
             //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            return;
         }
+
+        ContractDetailActivity.start(getContext(), contractRecyclerViewAdapter.getItem(position));
     }
 
     @Override
     public void onLocationClicked(int position) {
-        // TODO: 7/30/18 Implement Location
+        PayMapActivity.start(getContext(), PayMapActivity.PAYMENT_MODE);
 
     }
 

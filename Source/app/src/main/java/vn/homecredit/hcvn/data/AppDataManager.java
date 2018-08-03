@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import vn.homecredit.hcvn.database.AppDatabase;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
@@ -32,15 +33,17 @@ public class AppDataManager implements DataManager {
     private final MemoryHelper mMemoryHelper;
     private final OneSignalService mOneSignalService;
     private final FingerPrintHelper mfingerPrintHelper;
+    private AppDatabase appDatabase;
 
 
     @Inject
-    public AppDataManager(PreferencesHelper preferencesHelper, RestService restService, MemoryHelper memoryHelper, OneSignalService oneSignalService, FingerPrintHelper fingerPrintHelper) {
+    public AppDataManager(PreferencesHelper preferencesHelper, RestService restService, MemoryHelper memoryHelper, OneSignalService oneSignalService, FingerPrintHelper fingerPrintHelper, AppDatabase appDatabase) {
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
         mMemoryHelper = memoryHelper;
         mOneSignalService = oneSignalService;
         mfingerPrintHelper = fingerPrintHelper;
+        this.appDatabase = appDatabase;
     }
 
     @Override
@@ -52,22 +55,6 @@ public class AppDataManager implements DataManager {
     public Single<TokenResp> getToken(String phoneNumber, String password) {
         return mRestService.getToken(phoneNumber, password);
     }
-
-    @Override
-    public Single<ProfileResp> getProfile() {
-        return mRestService.getProfile().doOnSuccess(response -> {
-            if (response.getResponseCode() == 0) {
-                mOneSignalService.SendTags("UserId", response.getData().getUserId());
-                mOneSignalService.SendTags("UserName", response.getData().getFullName());
-                //TODO: Notifcation Setting
-//                mOneSignalService.SendTags("Active", Settings.Notification.ToString());
-                mMemoryHelper.setProfileRespData(response.getData());
-                //TODO: Set Badge
-//                App.Current.SetBadge(resp.Data.NotificationCount);
-            }
-        });
-    }
-
 
     @Override
     public ApiHeader getApiHeader() {
@@ -99,6 +86,12 @@ public class AppDataManager implements DataManager {
     @Override
     public void logout() {
         mPreferencesHelper.logout();
+        // delete tags notification
+        mOneSignalService.deleteTag("UserId");
+        mOneSignalService.deleteTag("UserName");
+        // delete all table in database
+        Thread t = new Thread(() -> appDatabase.clearAllTables());
+        t.start();
     }
 
 
@@ -151,16 +144,6 @@ public class AppDataManager implements DataManager {
     public void setAccessToken(String accessToken) {
         mPreferencesHelper.setAccessToken(accessToken);
         mRestService.getApiHeader().getProtectedApiHeader().setAccessToken(accessToken);
-    }
-
-    @Override
-    public ProfileResp.ProfileRespData loadProfile() {
-        return mPreferencesHelper.getProfile();
-    }
-
-    @Override
-    public void saveProfile(ProfileResp.ProfileRespData profileRespData) {
-        mPreferencesHelper.saveProfile(profileRespData);
     }
 
     @Override

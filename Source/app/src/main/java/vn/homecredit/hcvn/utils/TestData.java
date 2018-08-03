@@ -15,6 +15,9 @@ public class TestData {
     public static HcContract activeContract() {
         return hcContract(ContractStatus.Active, null);
     }
+    public static HcContract closeContract() {
+        return hcContract(ContractStatus.Finished, null);
+    }
     public static HcContract pendingContract() {
         return hcContract(ContractStatus.Approved, null);
     }

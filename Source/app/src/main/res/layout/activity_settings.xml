@@ -27,8 +27,7 @@
             app:layout_scrollFlags="enterAlways"
             app:navigationIcon="?android:attr/homeAsUpIndicator"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/settings">
-        </android.support.v7.widget.Toolbar>
+            app:title="@string/settings"></android.support.v7.widget.Toolbar>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,7 +112,8 @@
                         android:layout_height="wrap_content"
                         android:checked="@{viewModel.notificationChecked}"
                         android:onCheckedChanged="@{(switch, checked) -> viewModel.onNotificationCheckedChanged(checked)}"
-                        android:theme="@style/SwitchCompatTheme" />
+                        android:theme="@style/SwitchCompatTheme"
+                        />
                 </LinearLayout>
 
                 <LinearLayout

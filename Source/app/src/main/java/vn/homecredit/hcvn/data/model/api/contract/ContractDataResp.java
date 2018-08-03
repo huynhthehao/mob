@@ -11,6 +11,10 @@ public class ContractDataResp {
     @Expose
     private List<HcContract> contracts = null;
 
+    @SerializedName("MasterContracts")
+    @Expose
+    private List<MasterContract> masterContracts = null;
+
     public List<HcContract> getContracts() {
         return contracts;
     }
@@ -19,4 +23,11 @@ public class ContractDataResp {
         this.contracts = contracts;
     }
 
+    public List<MasterContract> getMasterContracts() {
+        return masterContracts;
+    }
+
+    public void setMasterContracts(List<MasterContract> masterContracts) {
+        this.masterContracts = masterContracts;
+    }
 }

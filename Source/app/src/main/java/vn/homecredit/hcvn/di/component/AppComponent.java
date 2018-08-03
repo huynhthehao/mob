@@ -8,6 +8,7 @@
  */
 
 package vn.homecredit.hcvn.di.component;
+
 import android.app.Application;
 
 import vn.homecredit.hcvn.HCVNApp;
@@ -20,11 +21,13 @@ import javax.inject.Singleton;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
+import vn.homecredit.hcvn.di.module.RoomModule;
 
 
 @Singleton
 @Component(modules = {AndroidInjectionModule.class,
         AppModule.class,
+        RoomModule.class,
         FragmentBuilderModule.class,
         ActivityBuilder.class})
 public interface AppComponent {
@@ -34,6 +37,8 @@ public interface AppComponent {
     interface Builder {
         @BindsInstance
         Builder application(Application application);
+
+        Builder roomModule(RoomModule roomModule);
 
         AppComponent build();
     }
