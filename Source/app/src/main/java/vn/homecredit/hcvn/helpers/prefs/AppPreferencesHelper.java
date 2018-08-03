@@ -16,8 +16,6 @@ import android.support.annotation.RequiresApi;
 
 import com.google.gson.Gson;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.data.model.DeviceInfoModel;
@@ -25,6 +23,7 @@ import vn.homecredit.hcvn.data.model.LanguageCode;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.di.PreferenceInfo;
+import vn.homecredit.hcvn.utils.CountryValue;
 import vn.homecredit.hcvn.utils.StringUtils;
 
 public class AppPreferencesHelper implements PreferencesHelper {
@@ -117,7 +116,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public String getLanguageCode() {
-        String langId = mPrefs.getString(PREF_KEY_LANGUAGE_CODE, "");
+        // Comment cause just support vn now, will open later when we support another languages.
+        /*String langId = mPrefs.getString(PREF_KEY_LANGUAGE_CODE, "");
 
         if (langId != null && !langId.equals(""))
             return langId;
@@ -126,7 +126,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
         if (!langId.equals(LanguageCode.VIETNAMESE) && !langId.equals(LanguageCode.ENGLISH)) {
             langId = LanguageCode.VIETNAMESE;
         }
-        return langId;
+        return langId;*/
+        return CountryValue.VIETNAMESE.getLanguageCode();
     }
 
 

@@ -10,22 +10,26 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
-import vn.homecredit.hcvn.utils.Log;
+import vn.homecredit.hcvn.utils.CountryValue;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class NotificationViewModel extends BaseViewModel {
     private final NotificationRepository repository;
+    private final PreferencesHelper preferencesHelper;
     private MutableLiveData<List<NotificationModel>> dataNotifications = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelIsRefreshing = new MutableLiveData<>();
     private MutableLiveData<Integer> modelNotificationUnreadCount = new MutableLiveData<>();
+    private MutableLiveData<String> modelOpenNotificationMarketingType = new MutableLiveData<>();
 
     @Inject
-    public NotificationViewModel(SchedulerProvider schedulerProvider, NotificationRepository notificationRepository) {
+    public NotificationViewModel(SchedulerProvider schedulerProvider, NotificationRepository notificationRepository, PreferencesHelper preferencesHelper) {
         super(schedulerProvider);
         this.repository = notificationRepository;
+        this.preferencesHelper = preferencesHelper;
     }
 
     @Override
@@ -77,12 +81,19 @@ public class NotificationViewModel extends BaseViewModel {
         modelNotificationUnreadCount.setValue(count);
     }
 
-    public void markNotificationAsRead(NotificationModel model) {
-        // Will remove later when apply notification details page.
-        if (model.isRead()) {
-            return;
+    public void onNotificationItemClicked(NotificationModel model) {
+        if (!model.isRead()) {
+            if (model.getType() != NotificationType.MARKETING.getType()) {
+                setIsLoading(true);
+            }
+            markAsReadNotificationToServer(model);
         }
-        setIsLoading(true);
+        if (model.getType() == NotificationType.MARKETING.getType()) {
+            modelOpenNotificationMarketingType.setValue(getMarketingUrl(model));
+        }
+    }
+
+    private void markAsReadNotificationToServer(NotificationModel model) {
         Disposable disposableMarkAsRead = repository.markNotificationAsRead(model.getId())
                 .subscribe(
                         baseResp ->
@@ -98,6 +109,14 @@ public class NotificationViewModel extends BaseViewModel {
                             handleError(throwable);
                         });
         getCompositeDisposable().add(disposableMarkAsRead);
+    }
+
+    private String getMarketingUrl(NotificationModel model) {
+        if (preferencesHelper.getLanguageCode().equalsIgnoreCase(CountryValue.VIETNAMESE.getLanguageCode())) {
+            return model.getMarketingUrlVi();
+        } else {
+            return model.getMarketingUrlEn();
+        }
     }
 
     private void updateNotificationAsRead(String notificationId) {
@@ -118,5 +137,9 @@ public class NotificationViewModel extends BaseViewModel {
 
     public MutableLiveData<Integer> getModelNotificationUnreadCount() {
         return modelNotificationUnreadCount;
+    }
+
+    public MutableLiveData<String> getModelOpenNotificationMarketingType() {
+        return modelOpenNotificationMarketingType;
     }
 }

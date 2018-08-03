@@ -15,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
@@ -33,6 +34,7 @@ import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
+import vn.homecredit.hcvn.utils.AppUtils;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
     public static final String ACTION_REFRESH_NOTIFICATIONS = "ACTION_REFRESH_NOTIFICATIONS";
@@ -116,11 +118,14 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
             // Update notification unread count at tab
             ((HomeActivity) getActivity()).updateNotificationCount(count);
         });
+        getViewModel().getModelOpenNotificationMarketingType().observe(this, marketingUrl -> {
+            AppUtils.openExternalBrowser(getActivity(), marketingUrl);
+        });
     }
 
     private void initAdapter() {
         notificationAdapter = new NotificationAdapter(getActivity(), model -> {
-            getViewModel().markNotificationAsRead(model);
+            getViewModel().onNotificationItemClicked(model);
         });
         rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvNotifications.setAdapter(notificationAdapter);
