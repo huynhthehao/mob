@@ -12,7 +12,7 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 public class ContractDetailViewModel extends BaseViewModel {
 
     private HcContract hcContract;
-    private MutableLiveData<Boolean> modelPaymentSchedule = new MutableLiveData<>();
+    private MutableLiveData<String> modelPaymentSchedule = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelPaymentHistory = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
 
@@ -26,7 +26,7 @@ public class ContractDetailViewModel extends BaseViewModel {
         super.init();
         modelLocation.setValue(false);
         modelPaymentHistory.setValue(false);
-        modelPaymentSchedule.setValue(false);
+        modelPaymentSchedule.setValue(null);
     }
 
     public HcContract getHcContract() {
@@ -37,7 +37,7 @@ public class ContractDetailViewModel extends BaseViewModel {
         this.hcContract = hcContract;
     }
 
-    public MutableLiveData<Boolean> getModelPaymentSchedule() {
+    public MutableLiveData<String> getModelPaymentSchedule() {
         return modelPaymentSchedule;
     }
 
@@ -50,7 +50,7 @@ public class ContractDetailViewModel extends BaseViewModel {
     }
 
     public void onPaymentScheduleClicked() {
-        modelPaymentSchedule.setValue(true);
+        modelPaymentSchedule.setValue(this.hcContract.getContractNumber());
     }
 
     public void onPaymentHistoryClicked() {
