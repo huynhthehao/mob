@@ -26,27 +26,29 @@ public class ScheduleDetailViewModel extends BaseViewModel {
         this.contractRepository = contractRepository;
     }
 
-    @Override
-    public void init() {
+    public void init(String contractNumber) {
         super.init();
+        setContractNumber(contractNumber);
+        modelIsRefreshing.setValue(true);
+        refreshCollection();
     }
 
     private void refreshCollection() {
-        Disposable disposableNotifications = contractRepository.ViewInstalmentsv1(contractNumber)
+        Disposable refreshTrigger = contractRepository.viewInstalmentsv1(contractNumber)
                 .subscribe(
-                        notificationResp ->
+                        response ->
                         {
                             modelIsRefreshing.setValue(false);
-                            loadAndDisplayCachedNotifications(notificationResp);
+                            display(response);
                         },
                         throwable -> {
                             modelIsRefreshing.setValue(false);
                             handleError(throwable);
                         });
-        getCompositeDisposable().add(disposableNotifications);
+        getCompositeDisposable().add(refreshTrigger);
     }
 
-    private void loadAndDisplayCachedNotifications(ScheduleDetailResp scheduleDetailResp) {
+    private void display(ScheduleDetailResp scheduleDetailResp) {
         if (scheduleDetailResp != null && scheduleDetailResp.getData() != null) {
             dataCollection.setValue(scheduleDetailResp.getData());
         }

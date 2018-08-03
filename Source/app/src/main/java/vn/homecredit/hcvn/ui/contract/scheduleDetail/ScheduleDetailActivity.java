@@ -25,7 +25,7 @@ public class ScheduleDetailActivity extends BaseActivity<ActivityScheduleDetailB
     ViewModelProvider.Factory viewModelFactory;
     AppDataView appDataView;
     InstalmentAdapter instalmentAdapter;
-    RecyclerView rvNotifications;
+    RecyclerView recyclerView;
 
     public static void start(Context context, String contractNumber) {
         Intent intent = getNewIntent(context, contractNumber);
@@ -60,22 +60,21 @@ public class ScheduleDetailActivity extends BaseActivity<ActivityScheduleDetailB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getViewModel().init();
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
 
         if (getIntent().hasExtra(BUNDLE_CONTRACT_NUMBER)) {
             String contractNumber = getIntent().getStringExtra(BUNDLE_CONTRACT_NUMBER);
 
-            appDataView = getViewDataBinding().advNotifications;
-            rvNotifications = new RecyclerView(this);
+            appDataView = getViewDataBinding().appDataView;
+            recyclerView = new RecyclerView(this);
             initAdapter();
-            appDataView.initContentView(rvNotifications, 0, 0, null, () -> getViewModel().pullToRefreshCollection());
-            getViewModel().init();
-            getViewModel().setContractNumber(contractNumber);
-            getViewModel().getDataCollection().observe(this, notificationModels -> instalmentAdapter.swapData(notificationModels));
+            appDataView.initContentView(recyclerView, 0, R.string.empty_instalment, null, () -> getViewModel().pullToRefreshCollection());
+            getViewModel().getDataCollection().observe(this, listData -> instalmentAdapter.swapData(listData));
             getViewModel().getModelIsRefreshing().observe(this, isRefreshing -> {
-                if (!isRefreshing) appDataView.updateViewState(AppDataViewState.HIDE_RELOADING);
+                appDataView.updateViewState(!isRefreshing ? AppDataViewState.HIDE_RELOADING : AppDataViewState.SHOW_RELOADING);
             });
+            appDataView.updateViewState(AppDataViewState.SHOW_RELOADING);
+            getViewModel().init(contractNumber);
         }
 
     }
@@ -84,7 +83,7 @@ public class ScheduleDetailActivity extends BaseActivity<ActivityScheduleDetailB
         instalmentAdapter = new InstalmentAdapter(this, model -> {
 
         });
-        rvNotifications.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        rvNotifications.setAdapter(instalmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(instalmentAdapter);
     }
 }

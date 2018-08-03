@@ -27,6 +27,7 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.PaymentResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.utils.Log;
@@ -134,8 +135,15 @@ public class ContractRepositoryImpl implements ContractRepository {
     }
 
     @Override
-    public Single<ScheduleDetailResp> ViewInstalmentsv1(String contractId) {
+    public Single<ScheduleDetailResp> viewInstalmentsv1(String contractId) {
         return restService.viewInstalmentsv1(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<PaymentResp> viewPaymentsv1(String contractId) {
+        return restService.viewPaymentsv1(contractId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

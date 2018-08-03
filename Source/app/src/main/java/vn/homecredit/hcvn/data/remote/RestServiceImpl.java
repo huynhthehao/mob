@@ -28,6 +28,7 @@ import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.PaymentResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
@@ -288,6 +289,15 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(ScheduleDetailResp.class);
+    }
+
+    @Override
+    public Single<PaymentResp> viewPaymentsv1(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/payments", contractId));
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(PaymentResp.class);
     }
 
     @Override

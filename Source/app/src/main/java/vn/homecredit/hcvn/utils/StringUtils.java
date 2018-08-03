@@ -6,6 +6,9 @@
 
 package vn.homecredit.hcvn.utils;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class StringUtils {
 
     public static boolean isNullOrWhiteSpace(CharSequence input){
@@ -20,9 +23,9 @@ public class StringUtils {
         return input == null || input.length() == 0;
     }
 
-//    public static string currentcy() {
-//        NumberFormat formatter = new DecimalFormat("#,###");
-//        String formattedNumber = formatter.format(loanAmount);
-//        textView.setText(Html.fromHtml(textView.getContext().getString(R.string.currency, formattedNumber)));
-//    }
+    public static String getCurrencyMaskValue(Number inputNumber) {
+        NumberFormat formatter = new DecimalFormat("#,###");
+        String formattedNumber = formatter.format(inputNumber);
+        return formattedNumber;
+    }
 }

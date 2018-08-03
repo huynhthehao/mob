@@ -220,4 +220,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="paid_date">Paid date</string>
     <string name="amount">Amount</string>
 
+    <string name="empty_instalment">Lịch thanh toán chưa có dữ liệu</string>
+
 </resources>
