@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.contract.PaymentHisResp;
+import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.utils.DateUtils;
 import vn.homecredit.hcvn.utils.StringUtils;
 
 public class PaymentHistoryAdapter extends RecyclerView.Adapter<PaymentHistoryAdapter.ViewHolder> {
     Context context;
-    List<PaymentHisResp.Payment> listData;
+    List<PaymentHistoryResp.Payment> listData;
     PaymentHistoryAdapter.OnItemNotificationClickListener listener;
 
     public PaymentHistoryAdapter(Context context, PaymentHistoryAdapter.OnItemNotificationClickListener listener) {
@@ -28,7 +28,7 @@ public class PaymentHistoryAdapter extends RecyclerView.Adapter<PaymentHistoryAd
         this.listener = listener;
     }
 
-    public void swapData(List<PaymentHisResp.Payment> listData) {
+    public void swapData(List<PaymentHistoryResp.Payment> listData) {
         if (listData == null) {
             return;
         }
@@ -46,7 +46,7 @@ public class PaymentHistoryAdapter extends RecyclerView.Adapter<PaymentHistoryAd
 
     @Override
     public void onBindViewHolder(@NonNull PaymentHistoryAdapter.ViewHolder holder, int position) {
-        PaymentHisResp.Payment model = listData.get(position);
+        PaymentHistoryResp.Payment model = listData.get(position);
         holder.bind(model);
     }
 
@@ -66,7 +66,7 @@ public class PaymentHistoryAdapter extends RecyclerView.Adapter<PaymentHistoryAd
 
         }
 
-        public void bind(PaymentHisResp.Payment model) {
+        public void bind(PaymentHistoryResp.Payment model) {
             if (!TextUtils.isEmpty(model.getPaidDate())) {
                 dueDateTextView.setText(DateUtils.convertDateFromUTCToSimple(model.getPaidDate()));
             } else {
@@ -78,6 +78,6 @@ public class PaymentHistoryAdapter extends RecyclerView.Adapter<PaymentHistoryAd
     }
 
     public interface OnItemNotificationClickListener {
-        void onItemNotificationClicked(PaymentHisResp.Payment model);
+        void onItemNotificationClicked(PaymentHistoryResp.Payment model);
     }
 }

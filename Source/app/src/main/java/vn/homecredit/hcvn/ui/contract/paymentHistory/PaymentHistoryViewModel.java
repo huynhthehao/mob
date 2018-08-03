@@ -7,7 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
-import vn.homecredit.hcvn.data.model.api.contract.PaymentHisResp;
+import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
@@ -18,7 +18,7 @@ public class PaymentHistoryViewModel extends BaseViewModel {
     private String contractNumber;
 
     private final ContractRepository contractRepository;
-    private MutableLiveData<List<PaymentHisResp.Payment>> dataCollection = new MutableLiveData<>();
+    private MutableLiveData<List<PaymentHistoryResp.Payment>> dataCollection = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelIsRefreshing = new MutableLiveData<>();
 
     @Inject
@@ -54,7 +54,7 @@ public class PaymentHistoryViewModel extends BaseViewModel {
         getCompositeDisposable().add(disposableNotifications);
     }
 
-    private void loadAndDisplayCachedNotifications(PaymentHisResp scheduleDetailResp) {
+    private void loadAndDisplayCachedNotifications(PaymentHistoryResp scheduleDetailResp) {
         if (scheduleDetailResp != null && scheduleDetailResp.getData() != null) {
             dataCollection.setValue(scheduleDetailResp.getData());
         }
@@ -65,7 +65,7 @@ public class PaymentHistoryViewModel extends BaseViewModel {
         refreshCollection();
     }
 
-    public MutableLiveData<List<PaymentHisResp.Payment>> getDataCollection() {
+    public MutableLiveData<List<PaymentHistoryResp.Payment>> getDataCollection() {
         return dataCollection;
     }
 
