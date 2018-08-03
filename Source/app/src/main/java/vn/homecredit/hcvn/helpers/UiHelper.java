@@ -15,10 +15,45 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.MDButton;
 
+import java.text.DecimalFormat;
+
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 
 public class UiHelper {
+
+    public static final String getVietnameseMoneyFormat(long number) {
+        return getDecimalFormatCore(number);
+    }
+
+    public static final String getVietnameseMoneyFormat(String number) {
+        double numberValue = parseDouble(number);
+        return getDecimalFormatCore(numberValue);
+    }
+
+    public static final String getVietnameseMoneyFormat(double number) {
+        return getDecimalFormatCore(number);
+    }
+
+    // TODO: Will implement English extending
+    private static String getDecimalFormatCore(Object number) {
+        DecimalFormat formatter = new DecimalFormat("#,###.00");
+        String formatValue = formatter.format(number);
+        formatValue = formatValue.replace(".00", "")
+                .replace(".0", "");
+
+        formatValue += "₫";
+        return formatValue;
+    }
+
+
+    private static double parseDouble(String number) {
+        try {
+            return Double.parseDouble(number);
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
 
     public static int dpToPx(Context context, int dp) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();

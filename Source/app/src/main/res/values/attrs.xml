@@ -39,6 +39,14 @@
         <attr name="textColor"/>
     </declare-styleable>
 
+    <declare-styleable name="DefaultTwoColumnsRowItem">
+        <attr name="leftText" format="string"/>
+        <attr name="rightText" format="string"/>
+        <attr name="textColor"/>
+        <attr name="verticalPadding" format="dimension" />
+        <attr name="leftColumnWeightPercent" format="integer"/>
+    </declare-styleable>
+
     <declare-styleable name="StepIndicator">
         <attr name="currentStep" format="integer" />
         <attr name="numOfSteps" format="integer" />

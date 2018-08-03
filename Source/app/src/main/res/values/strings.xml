@@ -217,6 +217,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="tap_to_reload">Thử lại</string>
     <string name="see_details">Xem chi tiết</string>
 
+    <string name="card_detail_title">Thông Tin Thẻ</string>
     <string name="card_list_title">Danh Sách Thẻ</string>
     <string name="card_number">Số thẻ</string>
     <string name="card_status">Trạng thái thẻ</string>
