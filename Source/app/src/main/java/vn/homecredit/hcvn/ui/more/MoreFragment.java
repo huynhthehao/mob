@@ -10,8 +10,10 @@
 package vn.homecredit.hcvn.ui.more;
 
 
+import android.app.NotificationManager;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,7 +39,7 @@ import vn.homecredit.hcvn.utils.AppUtils;
  * Use the {@link MoreFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel> {
+public class MoreFragment extends BaseFragment<FragmentMoreBinding, MoreViewModel> {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -88,6 +90,10 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
             showConfirmMessage(R.string.log_out, R.string.logout_question, (yes) -> {
                 if (yes) {
                     getViewModel().logout();
+                    // clear all current push notifications on status bar
+                    NotificationManager nm = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                    nm.cancelAll();
+                    // restart app
                     AppUtils.restartApp(getActivity());
                 }
             });
@@ -99,6 +105,7 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding,MoreViewModel
             showToast("clicked Momo");
         }
     }
+
     private void showLocation(Boolean clickedLocation) {
         if (clickedLocation) {
             showToast("clicked Location");
