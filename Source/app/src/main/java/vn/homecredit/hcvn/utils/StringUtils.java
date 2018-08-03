@@ -19,4 +19,10 @@ public class StringUtils {
     public static boolean isNullOrEmpty(CharSequence input){
         return input == null || input.length() == 0;
     }
+
+//    public static string currentcy() {
+//        NumberFormat formatter = new DecimalFormat("#,###");
+//        String formattedNumber = formatter.format(loanAmount);
+//        textView.setText(Html.fromHtml(textView.getContext().getString(R.string.currency, formattedNumber)));
+//    }
 }
