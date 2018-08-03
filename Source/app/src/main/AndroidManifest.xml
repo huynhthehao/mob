@@ -99,6 +99,7 @@
         <activity android:name=".ui.contract.masterContractDoc.MasterContractDocActivity" />
         <activity android:name=".ui.contract.detail.ContractDetailActivity"></activity>
         <activity android:name=".ui.contract.scheduleDetail.ScheduleDetailActivity"></activity>
+        <activity android:name=".ui.contract.paymentHistory.PaymentHistoryActivity" />
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_maps_key"/>
     </application>

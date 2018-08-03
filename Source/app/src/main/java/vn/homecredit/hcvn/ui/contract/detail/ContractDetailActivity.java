@@ -1,12 +1,9 @@
 package vn.homecredit.hcvn.ui.contract.detail;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -19,6 +16,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.ActivityContractDetailBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
@@ -76,9 +74,9 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
                 showPaymentSchedule(contractNumber);
             }
         });
-        getViewModel().getModelPaymentHistory().observe(this, aBoolean -> {
-            if (aBoolean) {
-                showPaymentHistory();
+        getViewModel().getModelPaymentHistory().observe(this, contractNumber -> {
+            if (!TextUtils.isEmpty(contractNumber)) {
+                showPaymentHistory(contractNumber);
             }
         });
         getViewModel().getModelLocation().observe(this, aBoolean -> {
@@ -88,8 +86,8 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
         });
     }
 
-    private void showPaymentHistory() {
-
+    private void showPaymentHistory(String contractNumber) {
+        PaymentHistoryActivity.start(this, contractNumber);
     }
 
     private void showPaymentSchedule(String contractNumber) {

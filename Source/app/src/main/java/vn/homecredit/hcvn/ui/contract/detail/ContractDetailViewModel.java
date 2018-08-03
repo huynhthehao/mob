@@ -13,7 +13,7 @@ public class ContractDetailViewModel extends BaseViewModel {
 
     private HcContract hcContract;
     private MutableLiveData<String> modelPaymentSchedule = new MutableLiveData<>();
-    private MutableLiveData<Boolean> modelPaymentHistory = new MutableLiveData<>();
+    private MutableLiveData<String> modelPaymentHistory = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
 
     @Inject
@@ -25,7 +25,7 @@ public class ContractDetailViewModel extends BaseViewModel {
     public void init() {
         super.init();
         modelLocation.setValue(false);
-        modelPaymentHistory.setValue(false);
+        modelPaymentHistory.setValue(null);
         modelPaymentSchedule.setValue(null);
     }
 
@@ -41,7 +41,7 @@ public class ContractDetailViewModel extends BaseViewModel {
         return modelPaymentSchedule;
     }
 
-    public MutableLiveData<Boolean> getModelPaymentHistory() {
+    public MutableLiveData<String> getModelPaymentHistory() {
         return modelPaymentHistory;
     }
 
@@ -54,7 +54,7 @@ public class ContractDetailViewModel extends BaseViewModel {
     }
 
     public void onPaymentHistoryClicked() {
-        modelPaymentHistory.setValue(true);
+        modelPaymentHistory.setValue(this.hcContract.getContractNumber());
     }
 
     public void onLocationClicked() {
