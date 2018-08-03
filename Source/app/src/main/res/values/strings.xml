@@ -216,6 +216,9 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="loading_data">Đang tải dữ liệu...</string>
     <string name="tap_to_reload">Thử lại</string>
     <string name="see_details">Xem chi tiết</string>
+    <!--payment history-->
+    <string name="paid_date">Ngày thanh toán</string>
+    <string name="amount">Số tiền</string>
 
     <string name="empty_instalment">Lịch thanh toán chưa có dữ liệu</string>
     <string name="due_date">Ngày đến hạn</string>

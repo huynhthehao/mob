@@ -21,13 +21,14 @@ import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivityModule;
+import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
+import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivityModule;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivityModule;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivityModule;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
-import vn.homecredit.hcvn.ui.contract.detail.ContractDetailViewModel;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
@@ -120,4 +121,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = ScheduleDetailActivityModule.class)
     abstract ScheduleDetailActivity bindScheduleDetailActivity();
+
+    @ContributesAndroidInjector(modules = PaymentHistoryActivityModule.class)
+    abstract PaymentHistoryActivity bindPaymentHistoryActivity();
+
 }

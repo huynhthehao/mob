@@ -7,7 +7,7 @@ import java.util.List;
 
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
-public class PaymentResp extends BaseApiResponse {
+public class PaymentHistoryResp extends BaseApiResponse {
 
     @SerializedName("data")
     @Expose
