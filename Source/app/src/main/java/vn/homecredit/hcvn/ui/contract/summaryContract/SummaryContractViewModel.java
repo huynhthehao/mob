@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.ui.contract.signing;
+package vn.homecredit.hcvn.ui.contract.summaryContract;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.BindingAdapter;
@@ -20,7 +20,7 @@ import vn.homecredit.hcvn.ui.custom.ContractSummaryItem;
 import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
-public class SigningViewModel extends BaseViewModel {
+public class SummaryContractViewModel extends BaseViewModel {
 
     private ContractRepository contractRepository;
 
@@ -42,7 +42,7 @@ public class SigningViewModel extends BaseViewModel {
     private MutableLiveData<Boolean> modelViewDoc = new MutableLiveData<>();
 
     @Inject
-    public SigningViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository) {
+    public SummaryContractViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository) {
         super(schedulerProvider);
         this.contractRepository = contractRepository;
     }
@@ -123,6 +123,7 @@ public class SigningViewModel extends BaseViewModel {
         }
         if (masterContract.isMaterialPrepared()) {
             // TODO: 8/1/2018 Load Master Contract Doc
+            modelViewDoc.setValue(true);
         }else {
 //            prepare();
             modelViewDoc.setValue(true);

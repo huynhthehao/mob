@@ -26,6 +26,7 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.TestData;
@@ -46,14 +47,14 @@ public class ContractRepositoryImpl implements ContractRepository {
         return restService.contract()
                 .map(contractResp -> {
                     if (BuildConfig.DEBUG) {
-                        contractResp.getData().getContracts().add(TestData.activeContract());
-                        contractResp.getData().getContracts().add(TestData.pendingContract());
-                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CashLoan));
-                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.ConsumerDurables));
-                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CreditCard));
-                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.TwoWheels));
-                        contractResp.getData().getContracts().add(TestData.closeContract());
-                        contractResp.getData().getContracts().add(TestData.closeContract());
+//                        contractResp.getData().getContracts().add(TestData.activeContract());
+//                        contractResp.getData().getContracts().add(TestData.pendingContract());
+//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CashLoan));
+//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.ConsumerDurables));
+//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CreditCard));
+//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.TwoWheels));
+//                        contractResp.getData().getContracts().add(TestData.closeContract());
+//                        contractResp.getData().getContracts().add(TestData.closeContract());
                     }
                     return contractResp;
                 })
@@ -125,10 +126,15 @@ public class ContractRepositoryImpl implements ContractRepository {
     }
 
     @Override
-    public Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
+    public Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
         return restService.masterContractVerify(contractId, otp, hasDisbursementBankAccount, isCreditCardContract)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval) {
+        return null;
     }
 
     @NonNull

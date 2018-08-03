@@ -95,11 +95,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.contract.signing.SigningActivity" />
+        <activity android:name=".ui.contract.summaryContract.SummaryContractActivity" />
         <activity android:name=".ui.contract.masterContractDoc.MasterContractDocActivity" />
         <activity android:name=".ui.contract.detail.ContractDetailActivity"></activity>
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_maps_key"/>
     </application>
 
 </manifest>

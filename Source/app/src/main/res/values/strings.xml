@@ -198,7 +198,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="master_contract_detail">Chi Tiết Hợp Đồng</string>
     <string name="contract_detail_hint">Tôi đã đọc, hiểu và đồng ý với toàn bộ nội dung của các tài liệu trên đây</string>
     <string name="agreeandsign">Đồng ý và ký xác nhận</string>
-    <string name="error_system">Lỗi hệ thống, vui lòng thử lại sau.</string>
+    <string name="error_system">Lỗi hệ thống, vui lòng thử lại sau...</string>
     <string name="map_payment_location">Địa điểm giao dịch</string>
     <string name="map_disbursement_location">Địa Điểm Nhận Tiền</string>
     <string name="map_cash_loan_location">Địa Điểm Vay</string>
@@ -216,5 +216,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="loading_data">Đang tải dữ liệu...</string>
     <string name="tap_to_reload">Thử lại</string>
     <string name="see_details">Xem chi tiết</string>
+    <string name="master_contract_wait">Vui lòng chờ giây lát để chúng tôi hoàn tất quá trình ký hồ sơ của bạn</string>
+    <string name="master_contract_sign_error">Ký hợp đồng bị lỗi</string>
+    <string name="master_contract_sign_contact">Vui lòng thử lại hoặc gọi vào trung tâm hỗ trợ %s để được trợ giúp</string>
 
 </resources>

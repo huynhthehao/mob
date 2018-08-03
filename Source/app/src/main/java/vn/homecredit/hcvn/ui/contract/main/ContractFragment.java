@@ -11,7 +11,6 @@ package vn.homecredit.hcvn.ui.contract.main;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 
 import vn.homecredit.hcvn.BR;
@@ -19,8 +18,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
-import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
-import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 import javax.inject.Inject;
@@ -77,6 +75,6 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     @Override
     public void onSignClicked(int position) {
-        SigningActivity.start(getActivity(), contractRecyclerViewAdapter.getItem(position));
+        SummaryContractActivity.start(getActivity(), contractRecyclerViewAdapter.getItem(position));
     }
 }
