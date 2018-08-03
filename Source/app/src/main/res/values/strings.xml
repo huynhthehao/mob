@@ -216,6 +216,14 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="loading_data">Đang tải dữ liệu...</string>
     <string name="tap_to_reload">Thử lại</string>
     <string name="see_details">Xem chi tiết</string>
+    <!--payment history-->
+    <string name="paid_date">Ngày thanh toán</string>
+    <string name="amount">Số tiền</string>
+
+    <string name="empty_instalment">Lịch thanh toán chưa có dữ liệu</string>
+    <string name="due_date">Ngày đến hạn</string>
+    <string name="payment_type">Loại thanh toán</string>
+    <string name="amount_due">Số tiền cần thanh toán</string>
 
     <string name="card_detail_title">Thông Tin Thẻ</string>
     <string name="card_list_title">Danh Sách Thẻ</string>

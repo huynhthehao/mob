@@ -25,9 +25,10 @@ import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
-import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
+import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
@@ -277,6 +278,24 @@ public class RestServiceImpl implements RestService {
                 .getObjectSingle(OtpTimerResp.class)
                 .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)))
                 ;
+    }
+
+    @Override
+    public Single<ScheduleDetailResp> viewInstalmentsv1(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/instalments", contractId));
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(ScheduleDetailResp.class);
+    }
+
+    @Override
+    public Single<PaymentHistoryResp> viewPaymentsv1(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/payments", contractId));
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(PaymentHistoryResp.class);
     }
 
     @Override

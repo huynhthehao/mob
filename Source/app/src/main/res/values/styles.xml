@@ -30,6 +30,8 @@
         <item name="android:buttonStyle">@style/Button</item>
         <item name="android:radioButtonStyle">@style/MyRadioButtonStyle</item>
 
+        <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
+
     </style>
 
     <style name="Button" parent="Widget.AppCompat.Button">
@@ -139,6 +141,7 @@
         <item name="fontFamily">@font/myriadpro_regular</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="Contact.Title" parent="Base.TextAppearance.AppCompat">
         <item name="android:textColor">@color/brownishGrey</item>
         <item name="fontFamily">@font/myriadpro_regular</item>
@@ -224,8 +227,6 @@
         <item name="buttonTint">@color/colorPrimary</item>
         <item name="android:checkedButton">@android:color/holo_purple</item>
     </style>
-
-
 
 
 </resources>

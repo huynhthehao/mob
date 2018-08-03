@@ -1,7 +1,6 @@
 package vn.homecredit.hcvn.data.repository;
 
 import android.support.annotation.NonNull;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,12 +10,9 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
@@ -26,8 +22,9 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
+import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.remote.RestService;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.TestData;
 
 public class ContractRepositoryImpl implements ContractRepository {
@@ -127,6 +124,20 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
         return restService.masterContractVerify(contractId, otp, hasDisbursementBankAccount, isCreditCardContract)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<ScheduleDetailResp> viewInstalmentsv1(String contractId) {
+        return restService.viewInstalmentsv1(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<PaymentHistoryResp> viewPaymentsv1(String contractId) {
+        return restService.viewPaymentsv1(contractId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

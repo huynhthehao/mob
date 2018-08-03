@@ -16,8 +16,6 @@ import android.support.annotation.RequiresApi;
 
 import com.google.gson.Gson;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.data.model.DeviceInfoModel;
@@ -25,6 +23,7 @@ import vn.homecredit.hcvn.data.model.LanguageCode;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.di.PreferenceInfo;
+import vn.homecredit.hcvn.utils.CountryValue;
 import vn.homecredit.hcvn.utils.StringUtils;
 
 public class AppPreferencesHelper implements PreferencesHelper {
@@ -43,6 +42,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
     private static final String PREF_KEY_DEVICE_INFO = "PREF_KEY_DEVICE_INFO";
+    private static final String PREF_KEY_CURRENT_BADGE_COUNT = "PREF_KEY_CURRENT_BADGE_COUNT";
 
     private final SharedPreferences mPrefs;
     private static String initFileName;
@@ -124,8 +124,10 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return getCurrentLanguageCode(mPrefs);
     }
 
-    private static String getCurrentLanguageCode(SharedPreferences preferences){
-        String langId = preferences.getString(PREF_KEY_LANGUAGE_CODE, "");
+
+    private static String getCurrentLanguageCode(SharedPreferences preferences) {
+        // Comment cause just support vn now, will open later when we support another languages.
+        /*String langId = mPrefs.getString(PREF_KEY_LANGUAGE_CODE, "");
 
         if (langId != null && !langId.equals(""))
             return langId;
@@ -134,7 +136,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
         if (!langId.equals(LanguageCode.VIETNAMESE) && !langId.equals(LanguageCode.ENGLISH)) {
             langId = LanguageCode.VIETNAMESE;
         }
-        return langId;
+        return langId;*/
+        return LanguageCode.VIETNAMESE;
     }
 
     public static String getCurrentLanguageCode(){
@@ -217,5 +220,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
         String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
         String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
         return getObject(key, String.class);
+    }
+
+    @Override
+    public void setCurrentBadgeCount(int currentBadgeCount) {
+        mPrefs.edit().putInt(PREF_KEY_CURRENT_BADGE_COUNT, currentBadgeCount).commit();
+    }
+
+    @Override
+    public int getCurrentBadgeCount() {
+        return mPrefs.getInt(PREF_KEY_CURRENT_BADGE_COUNT, 0);
     }
 }

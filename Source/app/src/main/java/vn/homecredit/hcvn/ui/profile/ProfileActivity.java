@@ -38,7 +38,6 @@ public class ProfileActivity extends BaseActivity<ActivityProfileBinding, Profil
         super.onCreate(savedInstanceState);
         getViewDataBinding().tvProfileUpdateMessage.setMovementMethod(LinkMovementMethod.getInstance());
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
-        profileViewModel.init();
         profileViewModel.getModelCustomerServiceCall().observe(this, customerServicePhone -> {
             if (!TextUtils.isEmpty(customerServicePhone)) {
                 AppUtils.openDeviceCallDialog(this, customerServicePhone);
@@ -53,5 +52,6 @@ public class ProfileActivity extends BaseActivity<ActivityProfileBinding, Profil
         profileViewModel.getRefreshing().observe(this, aBoolean -> {
             getViewDataBinding().swiperefresh.setRefreshing(aBoolean);
         });
+        profileViewModel.init();
     }
 }

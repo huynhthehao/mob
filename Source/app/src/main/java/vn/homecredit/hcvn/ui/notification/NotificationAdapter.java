@@ -98,7 +98,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         private String getDescription(NotificationModel model) {
             String description = model.getMessageText();
-            if (model.getOffer() != null) {
+            if (model.getOffer() != null || model.getType() == NotificationType.MARKETING.getType()) {
                 int labelColor = context.getResources().getColor(R.color.primary_red);
                 String сolorString = String.format("%X", labelColor).substring(2);
                 description = description + " <b><font color=\"#%s\">" + context.getString(R.string.see_details) + "</font></b>";

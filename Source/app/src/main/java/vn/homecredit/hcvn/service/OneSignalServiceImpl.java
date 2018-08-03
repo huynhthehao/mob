@@ -18,6 +18,7 @@ import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OSPermissionSubscriptionState;
 import com.onesignal.OneSignal;
+import com.onesignal.shortcutbadger.ShortcutBadger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,6 +83,12 @@ public class OneSignalServiceImpl implements OneSignalService {
 
     @Override
     public void notificationReceived(Context context, OSNotification notification) {
+        // Increase badge number
+        int count = preferencesHelper.getCurrentBadgeCount();
+        count = count + 1;
+        ShortcutBadger.applyCount(context, count);
+        preferencesHelper.setCurrentBadgeCount(count);
+
         // send broadcast receiver
         Intent intent = new Intent();
         intent.setAction(NotificationsFragment.ACTION_REFRESH_NOTIFICATIONS);
