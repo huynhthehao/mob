@@ -53,12 +53,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     public View getTabView(int position) {
         View v = LayoutInflater.from(context).inflate(R.layout.custom_tab_view, null);
-        TextView tvNotification = v.findViewById(R.id.tvNotificationCount);
-        if (position != 1) {
-            tvNotification.setVisibility(View.GONE);
-        } else {
-            tvNotification.setVisibility(View.VISIBLE);
-        }
         ImageView img = v.findViewById(R.id.ivImage);
         img.setImageResource(imageResId[position]);
         return v;

@@ -88,9 +88,8 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
                     //TODO: Tracking
                     oneSignalService.notificationOpenHandler(getApplicationContext(), result);
                 }).setNotificationReceivedHandler(notification -> {
-            //TODO: Tracking
-
-            oneSignalService.notificationReceived(getApplicationContext(), notification);
+                    //TODO: Tracking
+                    oneSignalService.notificationReceived(getApplicationContext(), notification);
         }).init();
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
