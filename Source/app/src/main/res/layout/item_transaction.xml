@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 8/6/18 11:12 AM, by Hien.NguyenM
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="0dp">
+
+    <data>
+        <import type="vn.homecredit.hcvn.helpers.UiHelper" />
+
+        <variable
+            name="transaction"
+            type="vn.homecredit.hcvn.data.model.api.Transaction" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <View style="@style/Separator_Horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="1dp"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <TextView
+                    android:id="@+id/lbTransactionDate"
+                    style="@style/CreditCard.Label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="30"
+                    android:text="@{UiHelper.getDateFormat(transaction.transactionDate)}"
+                    tools:text="01/01/2011" />
+
+                <TextView
+                    android:id="@+id/tvCardNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="18dp"
+                    android:layout_weight="40"
+                    android:text="@{transaction.description}"
+                    tools:text="Mua đồ siêu thị" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_weight="30"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/lbCardStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_weight="1"
+                        android:text="@{transaction.getAmountDisplay()}"
+                        android:textAlignment="textEnd"
+                        tools:text="-900,000" />
+
+                    <ImageView
+                        android:id="@+id/cardIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginLeft="7dp"
+                        android:src="@drawable/ic_arrow_right" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

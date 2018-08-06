@@ -15,14 +15,26 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.MDButton;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 
 public class UiHelper {
+
+    public static String getDateFormat(Date input){
+        if(input == null)
+            return "01/01/1990";
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(input);
+    }
 
     public static String getCurrencyFormat(long number) {
         return getDecimalFormatCore(number);
@@ -49,7 +61,6 @@ public class UiHelper {
         formatValue += "₫";
         return formatValue;
     }
-
 
     private static double parseDouble(String number) {
         try {

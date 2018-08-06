@@ -29,8 +29,12 @@ import javax.inject.Inject;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.Transaction;
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.data.model.enums.TransactionListType;
 import vn.homecredit.hcvn.databinding.ActivityCreditcardDetailBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionListActivity;
 import vn.homecredit.hcvn.ui.custom.BouncingInterpolator;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
@@ -112,8 +116,7 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
                 Matrix matrix = new Matrix();
                 matrix.postRotate(degrees);
 
-                Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(),
-                        matrix, true);
+                Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(), matrix, true);
 
                 imageView.setImageBitmap(rotated);
             }
@@ -127,17 +130,19 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
     }
 
     @Override
-    public void onTransactionHistoryTapped() {
-        showMessage("Transaction History Tapped");
+    public void onTransactionHistoryTapped(HcContract contract) {
+        Transaction.TransactionsLoading loadingData = new Transaction.TransactionsLoading(contract, TransactionListType.History);
+        Intent intent = TransactionListActivity.getNewIntent(this, loadingData);
+        startActivity(intent);
     }
 
     @Override
-    public void onRepaymentHistoryTapped() {
+    public void onRepaymentHistoryTapped(HcContract contract) {
         showMessage("Repayment History Tapped");
     }
 
     @Override
-    public void onHoldTransactionTapped() {
+    public void onHoldTransactionTapped(HcContract contract) {
         showMessage("Hold Transaction Tapped");
     }
 

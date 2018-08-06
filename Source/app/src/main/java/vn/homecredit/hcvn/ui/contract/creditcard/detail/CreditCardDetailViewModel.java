@@ -66,18 +66,39 @@ public class CreditCardDetailViewModel extends BaseViewModel {
     }
 
     public void onTransactionHistoryTapped() {
-        if (listener != null)
-            listener.onTransactionHistoryTapped();
+        if (listener != null) {
+            HcCreditCard currentCard = cardData.get();
+            if(currentCard == null || currentCard.refContract == null){
+                showMessage(R.string.data_not_found);
+                return;
+            }
+
+            listener.onTransactionHistoryTapped(currentCard.refContract);
+        }
     }
 
     public void onRepaymentHistoryTapped() {
-        if (listener != null)
-            listener.onRepaymentHistoryTapped();
+        if (listener != null) {
+            HcCreditCard currentCard = cardData.get();
+            if(currentCard == null || currentCard.refContract == null){
+                showMessage(R.string.data_not_found);
+                return;
+            }
+
+            listener.onRepaymentHistoryTapped(currentCard.refContract);
+        }
     }
 
     public void onHoldTransactionTapped() {
-        if (listener != null)
-            listener.onHoldTransactionTapped();
+        if (listener != null){
+            HcCreditCard currentCard = cardData.get();
+            if(currentCard == null || currentCard.refContract == null){
+                showMessage(R.string.data_not_found);
+                return;
+            }
+
+            listener.onHoldTransactionTapped(currentCard.refContract);
+        }
     }
 
     public void onPaymentLocationTapped() {

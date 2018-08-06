@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 8/3/18 9:20 AM, by Hien.NguyenM
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/inOneMonth"
+        android:icon="@drawable/ic_check_red"
+        android:title="@string/last_1_month" />
+
+    <item
+        android:id="@+id/inThreeMonths"
+        android:icon="@null"
+        android:title="@string/last_3_months" />
+
+    <item
+        android:id="@+id/inSixMonths"
+        android:icon="@null"
+        android:title="@string/last_6_months" />
+</menu>

@@ -54,7 +54,7 @@
             android:label="@string/otp_page_title"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.contract.creditcard.CreditCardListActivity"
+            android:name=".ui.contract.creditcard.list.CreditCardListActivity"
             android:label="@string/card_list_title"
             android:theme="@style/AppTheme" />
         <activity

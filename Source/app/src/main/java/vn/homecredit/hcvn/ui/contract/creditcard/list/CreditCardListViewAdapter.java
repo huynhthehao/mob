@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 7/30/18 3:57 PM, by Hien.NguyenM
+ * Last modified 8/2/18 9:29 PM, by Hien.NguyenM
  */
 
-package vn.homecredit.hcvn.ui.contract.creditcard;
+package vn.homecredit.hcvn.ui.contract.creditcard.list;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

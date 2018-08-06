@@ -83,18 +83,15 @@
                                 app:leftText="@string/card_number"
                                 app:rightText="@{viewModel.cardData.cardNumber}"
                                 tools:rightText="XXXX XXXX XXXX 1234" />
-
                             <View style="@style/Separator_Horizontal" />
 
                             <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:leftColumnWeightPercent="50"
-
                                 app:leftText="@string/credit_limit"
                                 app:rightText="@{UiHelper.getCurrencyFormat(viewModel.cardData.limit)}"
                                 tools:rightText="1,234₫" />
-
                             <View style="@style/Separator_Horizontal" />
 
                             <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
@@ -104,7 +101,6 @@
                                 app:leftText="@string/available_balance"
                                 app:rightText="@{UiHelper.getCurrencyFormat(viewModel.cardData.availableBalance)}"
                                 tools:rightText="1,234₫" />
-
                             <View style="@style/Separator_Horizontal" />
 
                             <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
@@ -123,7 +119,6 @@
                                 android:id="@+id/showMorePanel"
                                 android:visibility="@{viewModel.morePanelVisible ? View.VISIBLE : View.GONE}"
                                 tools:visibility="@{View.VISIBLE}">
-
                                 <View style="@style/Separator_Horizontal" />
 
                                 <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
@@ -144,7 +139,6 @@
                                     app:leftText="@string/full_name"
                                     app:rightText="@{viewModel.cardData.refContract.clientName}"
                                     tools:rightText="Lê Văn Tèo" />
-
                                 <View style="@style/Separator_Horizontal" />
 
                                 <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
@@ -154,7 +148,6 @@
                                     app:leftText="@string/contract_no"
                                     app:rightText="@{viewModel.cardData.refContract.contractNumber}"
                                     tools:rightText="0123456789" />
-
                                 <View style="@style/Separator_Horizontal" />
 
                                 <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
@@ -164,7 +157,6 @@
                                     app:leftText="@string/signed_date"
                                     app:rightText="@{viewModel.cardData.refContract.signedDate}"
                                     tools:rightText="01/01/2001" />
-
                                 <View style="@style/Separator_Horizontal" />
 
                                 <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem

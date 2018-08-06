@@ -1,13 +1,10 @@
 /*
- * ContractFragment.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/13/18 4:11 PM
+ * Last modified 8/6/18 11:40 AM, by Hien.NguyenM
  */
 
-package vn.homecredit.hcvn.ui.contract.creditcard;
+package vn.homecredit.hcvn.ui.contract.creditcard.list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +30,7 @@ public class CreditCardListActivity extends BaseActivity<ActivityCreditcardListB
 
     public static final String BUNDLE_INPUT_CONTRACT = "INPUT_CONTRACT ";
 
-    CreditCardListViewAdapter contractRecyclerViewAdapter;
+    CreditCardListViewAdapter cardListViewAdapter;
 
     @Inject
     CreditCardListViewModel viewModel;
@@ -45,7 +42,7 @@ public class CreditCardListActivity extends BaseActivity<ActivityCreditcardListB
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_creditcard_list;
+        return R.layout.activity_transaction_list;
     }
 
     @Override
@@ -77,19 +74,19 @@ public class CreditCardListActivity extends BaseActivity<ActivityCreditcardListB
     }
 
     private void initDataAdapter(List<HcCreditCard> cards) {
-        contractRecyclerViewAdapter = new CreditCardListViewAdapter(this);
+        cardListViewAdapter = new CreditCardListViewAdapter(this);
 
         RecyclerView recyclerView = getViewDataBinding().getRoot().findViewById(R.id.lvCreditCards);
-        recyclerView.setAdapter(contractRecyclerViewAdapter);
-        contractRecyclerViewAdapter.setListener(this);
-        contractRecyclerViewAdapter.setNewData(cards);
+        recyclerView.setAdapter(cardListViewAdapter);
+        cardListViewAdapter.setListener(this);
+        cardListViewAdapter.setNewData(cards);
         SwipeRefreshLayout fresher = findViewById(R.id.fsCreditCardList);
         fresher.setEnabled(false);
     }
 
 
     @Override
-    public void onCardClicked(HcCreditCard card) {
+    public void onCardTapped(HcCreditCard card) {
         if (card == null) {
             showMessage(R.string.data_not_found);
             return;

@@ -19,10 +19,8 @@ import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionAct
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragmentProvider;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
-import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
-import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
-import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
-import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
+import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListViewModel;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailViewModel;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;

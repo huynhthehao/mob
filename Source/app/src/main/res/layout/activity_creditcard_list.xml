@@ -8,12 +8,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.contract.creditcard.CreditCardListActivity">
+    tools:context=".ui.contract.creditcard.list.CreditCardListActivity">
 
     <data>
         <variable
             name="viewModel"
-            type="vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel" />
+            type="vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListViewModel" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -39,10 +39,7 @@
                 app:layout_scrollFlags="enterAlways"
                 app:navigationIcon="?android:attr/homeAsUpIndicator"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/card_list_title">
-
-            </android.support.v7.widget.Toolbar>
-
+                app:title="@string/card_list_title" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -60,12 +57,12 @@
 
                 <android.support.v7.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/lvCreditCards"
-                    android:name="vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity"
+                    android:name="vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListActivity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="0dp"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                    tools:context=".ui.contract.creditcard.CreditCardListActivity"
+                    tools:context=".ui.contract.creditcard.list.CreditCardListActivity"
                     tools:listitem="@layout/item_credit_card" />
 
             </android.support.v4.widget.SwipeRefreshLayout>

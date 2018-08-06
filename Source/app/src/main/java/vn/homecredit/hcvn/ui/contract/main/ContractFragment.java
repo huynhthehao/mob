@@ -19,10 +19,9 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
-import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
-import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 import javax.inject.Inject;

@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 8/1/18 10:28 AM, by Hien.NguyenM
+ * Last modified 8/6/18 11:40 AM, by Hien.NguyenM
  */
 
-package vn.homecredit.hcvn.ui.contract.creditcard;
+package vn.homecredit.hcvn.ui.contract.creditcard.list;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +34,7 @@ public class CreditCardHolder extends RecyclerView.ViewHolder {
             HcCreditCard card = binding.getCard();
 
             if(listener != null)
-                listener.onCardClicked(card);
+                listener.onCardTapped(card);
         });
     }
 }
