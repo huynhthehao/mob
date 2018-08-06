@@ -4,10 +4,20 @@ import android.arch.lifecycle.MutableLiveData;
 
 import javax.inject.Inject;
 
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.DateUtils;
+import vn.homecredit.hcvn.utils.ResourcesUtil;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
+
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Active;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Approved;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Cancelled;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Finished;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.PaidOff;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Rejected;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.WrittenOff;
 
 public class ContractDetailViewModel extends BaseViewModel {
 
@@ -15,6 +25,16 @@ public class ContractDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> modelPaymentSchedule = new MutableLiveData<>();
     private MutableLiveData<String> modelPaymentHistory = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
+
+    public MutableLiveData<String> getModelStatusColor() {
+        return modelStatusColor;
+    }
+
+    public void setModelStatusColor(MutableLiveData<String> modelStatusColor) {
+        this.modelStatusColor = modelStatusColor;
+    }
+
+    private MutableLiveData<String> modelStatusColor = new MutableLiveData<>();
 
     @Inject
     public ContractDetailViewModel(SchedulerProvider schedulerProvider) {
@@ -107,7 +127,23 @@ public class ContractDetailViewModel extends BaseViewModel {
         public Integer getTenor() {
             return tenor;
         }
-    }
 
+
+        public int getStatusTextColor() {
+            switch (status) {
+                case Active:
+                    return ResourcesUtil.getColor(R.color.success);
+                case Approved:
+                case PaidOff:
+                case Cancelled:
+                case Finished:
+                case WrittenOff:
+                case Rejected:
+                    return ResourcesUtil.getColor(R.color.colorPrimary);
+                default:
+                    return ResourcesUtil.getColor(R.color.textGray);
+            }
+        }
+    }
 
 }

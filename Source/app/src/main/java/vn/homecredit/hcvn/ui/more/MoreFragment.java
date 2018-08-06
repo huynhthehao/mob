@@ -29,6 +29,7 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentMoreBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.ui.map.PayMapActivity;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.ChangePassActivity;
@@ -108,7 +109,8 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding, MoreViewMode
 
     private void showLocation(Boolean clickedLocation) {
         if (clickedLocation) {
-            showToast("clicked Location");
+//            showToast("clicked Location");
+            PayMapActivity.start(getContext(),PayMapActivity.PAYMENT_MODE);
         }
     }
 

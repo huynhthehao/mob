@@ -199,7 +199,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="contract_detail_hint">Tôi đã đọc, hiểu và đồng ý với toàn bộ nội dung của các tài liệu trên đây</string>
     <string name="agreeandsign">Đồng ý và ký xác nhận</string>
     <string name="error_system">Lỗi hệ thống, vui lòng thử lại sau.</string>
-    <string name="map_payment_location">Địa điểm giao dịch</string>
+    <string name="map_payment_location">Địa điểm thanh toán</string>
     <string name="map_disbursement_location">Địa Điểm Nhận Tiền</string>
     <string name="map_cash_loan_location">Địa Điểm Vay</string>
 
@@ -255,5 +255,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="hold_transactions">Giao dịch chưa hạch toán</string>
     <string name="hold_transactions_title">Giao Dịch Chưa Hạch Toán</string>
     <string name="hold_transactions_detail_title">Chi Tiết Giao Dịch Chưa Hạch Toán</string>
+    <string name="default_string_empty">-</string>
 
 </resources>

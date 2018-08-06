@@ -3,6 +3,7 @@ package vn.homecredit.hcvn.ui.contract.scheduleDetail;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,12 +76,14 @@ public class InstalmentAdapter extends RecyclerView.Adapter<InstalmentAdapter.Vi
         public void bind(ScheduleDetailResp.Instalment model) {
             if (!TextUtils.isEmpty(model.getInstalmentDate())) {
                 dueDateTextView.setText(DateUtils.convertDateFromUTCToSimple(model.getInstalmentDate()));
-            }
-            else {
+            } else {
                 dueDateTextView.setVisibility(View.INVISIBLE);
             }
             paymentTypeTextView.setText(model.getRegularityTextVn());
-            amountDueTextView.setText(StringUtils.getCurrencyMaskValue(model.getAmount()));
+            if (model.getAmount() != null) {
+                amountDueTextView.setText(Html.fromHtml(paymentTypeTextView.getContext()
+                        .getString(R.string.currency, StringUtils.getCurrencyMaskValue(model.getAmount()))));
+            }
             passImageView.setVisibility(model.getInstalmentStatus() == 1 ? View.VISIBLE : View.INVISIBLE);
             vContent.setOnClickListener(view -> listener.onItemNotificationClicked(model));
         }
