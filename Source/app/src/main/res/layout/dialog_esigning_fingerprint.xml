@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent">
+    android:background="@drawable/rounded_dialog"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/fingerprint_icon"
@@ -18,15 +19,27 @@
         android:src="@drawable/ic_finger_print_red"
         android:contentDescription="@string/fingerprint_description_icon"
         />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/fingerprint_description"
+        app:layout_constraintTop_toBottomOf="@+id/fingerprint_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:gravity="center_horizontal"
+        android:text="@string/fingerprint_description"
+        android:textColor="?android:attr/textColorSecondary" />
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fingerprint_icon"
+        app:layout_constraintTop_toBottomOf="@+id/fingerprint_description"
         android:gravity="center"
         android:padding="@dimen/padding_small"
         android:textStyle="bold"
-        tools:text="@string/dialog_esigning_title"
+        android:text="@string/dialog_esigning_title"
         style="@style/AppTheme.Title"
         />
 
@@ -37,7 +50,7 @@
         android:padding="@dimen/padding_small"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         android:gravity="center"
-        tools:text="@string/dialog_esigning_message"
+        android:text="@string/dialog_esigning_message"
         style="@style/AppTheme.Content"
         />
 
@@ -77,24 +90,31 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_high"
-        android:padding="@dimen/padding_small"
-        android:text="@string/use_password"
+        android:padding="@dimen/padding_normal"
+        android:text="@string/cancel"
         android:textColor="@color/colorPrimary"
         android:gravity="center"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintRight_toLeftOf="@+id/btnOK"
+        android:background="?android:attr/selectableItemBackground"
         style="@style/AppTheme.Title"
         />
 
     <TextView
         android:id="@+id/btnOK"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_high"
-        android:padding="@dimen/padding_small"
+        android:padding="@dimen/padding_normal"
         android:text="@string/use_password"
         android:textColor="@color/colorPrimary"
         android:gravity="center"
+        app:layout_constraintLeft_toRightOf="@+id/btnCancel"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
+        android:background="?android:attr/selectableItemBackground"
         style="@style/AppTheme.Title"
         />
 

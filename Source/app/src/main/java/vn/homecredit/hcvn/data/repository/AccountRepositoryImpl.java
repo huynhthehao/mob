@@ -182,10 +182,9 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public boolean isExpired() {
-        return false;
-//        long lastLoginTime = preferencesHelper.getTimeLogin();
-//        if (lastLoginTime == 0) return true;
-//        long currentTime = Calendar.getInstance().getTimeInMillis();
-//        return currentTime - lastLoginTime > 5 * DateUtils.MINUTE_IN_MILLIS;
+        long lastLoginTime = preferencesHelper.getTimeLogin();
+        if (lastLoginTime == 0) return true;
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        return currentTime - lastLoginTime > 5 * DateUtils.MINUTE_IN_MILLIS;
     }
 }

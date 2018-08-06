@@ -221,6 +221,15 @@ public class SummaryContractViewModel extends BaseViewModel {
     }
 
 
+    public void doLoginWithPassword(String password){
+        LoginInformation loginInformation = accountRepository.getCurrentLoginInfo();
+        if(loginInformation == null || StringUtils.isNullOrWhiteSpace(loginInformation.phoneNumber)
+                || StringUtils.isNullOrWhiteSpace(loginInformation.password)){
+            showMessage(R.string.fingerprint_login_info_not_found);
+            return;
+        }
+        login(loginInformation.phoneNumber, password);
+    }
     public void autoLogin(){
         LoginInformation loginInformation = accountRepository.getCurrentLoginInfo();
         if(loginInformation == null || StringUtils.isNullOrWhiteSpace(loginInformation.phoneNumber)

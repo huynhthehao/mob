@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import org.parceler.Parcels;
 
@@ -19,6 +20,7 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.databinding.ActivityContractSummaryBinding;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
+import vn.homecredit.hcvn.ui.custom.ESigningLoginDialogFragment;
 import vn.homecredit.hcvn.ui.custom.FingerprintAuthenticationDialogFragment;
 
 import static java.lang.Boolean.TRUE;
@@ -58,6 +60,7 @@ public class SummaryContractActivity extends BaseActivity< ActivityContractSumma
             hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT));
             getViewModel().setContractsId(hcContract.getContractNumber());
         }
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         getViewModel().getModelViewDoc().observe(this, aBoolean -> {
             if (aBoolean != null && aBoolean == TRUE) {
@@ -66,30 +69,29 @@ public class SummaryContractActivity extends BaseActivity< ActivityContractSumma
         });
         getViewModel().getModelShowFingerprintDialog().observe(this, isShowFingerprint -> {
             if (isShowFingerprint != null && isShowFingerprint == TRUE) {
-                showFingerDialogLogin();
+                showFingerDialogLogin(true);
             }
         });
         getViewModel().getModelShowPasswordDialog().observe(this, isShowPasswordDialog -> {
             if (isShowPasswordDialog != null && isShowPasswordDialog == TRUE) {
-                showPasswordDialogLogin();
+                showFingerDialogLogin(false);
             }
         });
 
     }
 
-    private void showFingerDialogLogin() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            FingerprintManager fingerprintManager = getSystemService(FingerprintManager.class);
-            FingerprintAuthenticationDialogFragment fragment = new FingerprintAuthenticationDialogFragment(fingerprintManager);
-            fragment.setOnValidateSuccess(this::onValidatedSuccess);
-            fragment.setOnDismiss(this::onFingerprintDialogDismissed);
-            fragment.setCryptoObject(null);
-            fragment.show(getFragmentManager(), "FingerPrintDialog");
-        }
+    private void showFingerDialogLogin(boolean userFingerprint) {
+        ESigningLoginDialogFragment.showDialog(getSupportFragmentManager(), userFingerprint, new ESigningLoginDialogFragment.OnESingingListener() {
+            @Override
+            public void onFingerprint() {
+                onValidatedSuccess();
+            }
 
-    }
-
-    private void onFingerprintDialogDismissed() {
+            @Override
+            public void onPassword(String password) {
+                getViewModel().doLoginWithPassword(password);
+            }
+        });
 
     }
 
@@ -97,9 +99,6 @@ public class SummaryContractActivity extends BaseActivity< ActivityContractSumma
         getViewModel().autoLogin();
     }
 
-    private void showPasswordDialogLogin() {
-
-    }
 
     private void showMasterContractDocActivity(MasterContract masterContract) {
         MasterContractDocActivity.start(this, masterContract);

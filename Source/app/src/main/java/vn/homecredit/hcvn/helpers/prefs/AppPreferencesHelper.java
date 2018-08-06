@@ -207,7 +207,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setTimeLogin(long time) {
-        mPrefs.edit().putLong(PREF_KEY_LOGIN_TIMESTAMP, time);
+        mPrefs.edit().putLong(PREF_KEY_LOGIN_TIMESTAMP, time).commit();
     }
 
     @Override
