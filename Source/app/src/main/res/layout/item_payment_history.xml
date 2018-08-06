@@ -28,6 +28,7 @@
             android:gravity="end"
             android:textAlignment="textEnd"
             android:textSize="@dimen/text_size_big"
+            android:text="@string/default_string_empty"
             tools:text="100.000.000" />
     </LinearLayout>
 

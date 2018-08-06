@@ -3,6 +3,7 @@ package vn.homecredit.hcvn.ui.contract.paymentHistory;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +73,11 @@ public class PaymentHistoryAdapter extends RecyclerView.Adapter<PaymentHistoryAd
             } else {
                 dueDateTextView.setVisibility(View.INVISIBLE);
             }
-            paymentTypeTextView.setText(StringUtils.getCurrencyMaskValue(model.getPaidAmount()));
+            if (model.getPaidAmount() != null) {
+                paymentTypeTextView.setText(Html.fromHtml(paymentTypeTextView.getContext()
+                        .getString(R.string.currency, StringUtils.getCurrencyMaskValue(model.getPaidAmount()))));
+            }
+
 
         }
     }
