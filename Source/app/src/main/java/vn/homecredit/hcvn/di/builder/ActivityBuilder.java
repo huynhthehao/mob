@@ -35,6 +35,8 @@ import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivityModule;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
+import vn.homecredit.hcvn.ui.contract.statement.StatementActivity;
+import vn.homecredit.hcvn.ui.contract.statement.StatementActivityModule;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
@@ -136,5 +138,8 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = PaymentHistoryActivityModule.class)
     abstract PaymentHistoryActivity bindPaymentHistoryActivity();
+
+    @ContributesAndroidInjector(modules = StatementActivityModule.class)
+    abstract StatementActivity bindStatementActivity();
 
 }

@@ -100,6 +100,9 @@
         <activity
             android:name=".ui.map.PayMapActivity"
             android:label="@string/title_activity_pay_map"></activity>
+        <activity
+            android:name=".ui.contract.statement.StatementActivity"
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

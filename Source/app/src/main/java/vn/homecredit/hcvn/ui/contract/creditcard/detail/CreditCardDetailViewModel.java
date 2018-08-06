@@ -62,26 +62,26 @@ public class CreditCardDetailViewModel extends BaseViewModel {
 
     public void onStatementTapped() {
         if (listener != null)
-            listener.onStatementTapped();
+            listener.onStatementTapped(cardData.get().refContract.getContractNumber());
     }
 
     public void onTransactionHistoryTapped() {
         if (listener != null)
-            listener.onTransactionHistoryTapped();
+            listener.onTransactionHistoryTapped(cardData.get().refContract);
     }
 
     public void onRepaymentHistoryTapped() {
         if (listener != null)
-            listener.onRepaymentHistoryTapped();
+            listener.onRepaymentHistoryTapped(cardData.get().refContract);
     }
 
     public void onHoldTransactionTapped() {
         if (listener != null)
-            listener.onHoldTransactionTapped();
+            listener.onHoldTransactionTapped(cardData.get().refContract);
     }
 
     public void onPaymentLocationTapped() {
         if (listener != null)
-            listener.onPaymentLocationTapped();
+            listener.onPaymentLocationTapped(cardData.get().refContract);
     }
 }

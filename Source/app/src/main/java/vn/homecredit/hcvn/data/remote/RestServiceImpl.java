@@ -9,6 +9,7 @@
 
 package vn.homecredit.hcvn.data.remote;
 
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
 
@@ -39,6 +40,7 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
+import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 @Singleton
@@ -296,6 +298,19 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(PaymentHistoryResp.class);
+    }
+
+    @Override
+    public Single<StatementResp> getStatements(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/statements", contractId));
+        // test on debug environment
+        if (BuildConfig.DEBUG)
+            url = url + "&isMock=true";
+        // end test
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(StatementResp.class);
     }
 
     @Override
