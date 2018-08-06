@@ -8,6 +8,7 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
+        <import type="vn.homecredit.hcvn.data.model.api.HcCreditCard" />
         <variable
             name="card"
             type="vn.homecredit.hcvn.data.model.api.HcCreditCard"/>
@@ -22,7 +23,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:padding="10dp"
-        android:background="@{card.getBackgroundType()}">
+        android:background="@{card.status.equalsIgnoreCase(HcCreditCard.ActiveStatusLabel) ? @drawable/shadow_no_border : @drawable/card_rounded_corner}">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

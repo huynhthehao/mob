@@ -16,29 +16,33 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.MDButton;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 
 public class UiHelper {
 
-    public static final String getVietnameseMoneyFormat(long number) {
+    public static String getCurrencyFormat(long number) {
         return getDecimalFormatCore(number);
     }
 
-    public static final String getVietnameseMoneyFormat(String number) {
+    public static String getCurrencyFormat(String number) {
         double numberValue = parseDouble(number);
         return getDecimalFormatCore(numberValue);
     }
 
-    public static final String getVietnameseMoneyFormat(double number) {
+    public static String getCurrencyFormat(double number) {
         return getDecimalFormatCore(number);
     }
 
-    // TODO: Will implement English extending
     private static String getDecimalFormatCore(Object number) {
-        DecimalFormat formatter = new DecimalFormat("#,###.00");
-        String formatValue = formatter.format(number);
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        DecimalFormat decimalFormat = (DecimalFormat)numberFormat;
+        decimalFormat.applyPattern("#,###.00");
+        String formatValue = decimalFormat.format(number);
+
         formatValue = formatValue.replace(".00", "")
                 .replace(".0", "");
 
@@ -60,7 +64,7 @@ public class UiHelper {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
     }
 
-    public static float getDpValue(Context context, int dp){
+    public static float getDpValue(Context context, int dp) {
         return context.getResources().getDimension(dp);
     }
 

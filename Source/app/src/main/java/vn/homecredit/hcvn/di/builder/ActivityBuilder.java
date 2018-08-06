@@ -23,6 +23,8 @@ import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
+import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailViewModel;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivityModule;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
@@ -94,6 +96,9 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = CreditCardListViewModel.class)
     abstract CreditCardListActivity bindCreditCardListActivity();
+
+    @ContributesAndroidInjector(modules = CreditCardDetailViewModel.class)
+    abstract CreditCardDetailActivity bindCreditCardDetailActivity();
 
     @ContributesAndroidInjector()
     abstract HomeActivity bindHomeActivity();

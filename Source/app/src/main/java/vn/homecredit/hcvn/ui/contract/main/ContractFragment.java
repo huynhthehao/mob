@@ -76,7 +76,6 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
         if (selectedItem.isCreditCard()) {
             Intent intent = CreditCardListActivity.getNewIntent(getContext(), selectedItem);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             return;
         }

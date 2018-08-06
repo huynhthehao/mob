@@ -24,6 +24,7 @@ public class TestData {
     public static HcContract pendingContract(String type) {
         return hcContract(ContractStatus.Approved, type);
     }
+
     public static HcContract activeCreditCardContract() {
         HcContract contract = hcContract(ContractStatus.Active, ContractType.CreditCard);
         contract.isCreditCard(true);
@@ -35,6 +36,7 @@ public class TestData {
         card1.statusDescriptionVn = "Còn ngon";
         card1.availableBalance = 123456;
         card1.holdBalance = 3333;
+        card1.limit = 4444;
         card1.cardType = "Cá nhân";
         card1.cardNumber = "xxxx xxxx xxxx 1357";
 
@@ -43,6 +45,7 @@ public class TestData {
         card2.statusDescriptionVn = "Quăng sọt";
         card2.availableBalance = 123456;
         card2.holdBalance = 3333;
+        card2.limit = 4444;
         card2.cardType = "Tổ chức";
         card2.cardNumber = "xxxx xxxx xxxx 9999";
 
@@ -51,6 +54,7 @@ public class TestData {
         card3.statusDescriptionVn = "Quăng sọt";
         card3.availableBalance = 566778888;
         card3.holdBalance = 55555;
+        card3.limit = 4444;
         card3.cardType = "Tổ chức";
         card3.cardNumber = "xxxx xxxx xxxx 7777";
 
@@ -62,10 +66,11 @@ public class TestData {
     }
     public static HcContract hcContract(String status, String type) {
         HcContract hcContract = new HcContract();
-        hcContract.setClientName(UUID.randomUUID().toString());
+        hcContract.setClientName("Lê Văn Tèo");
         hcContract.setContractNumber("3800589883");
-        hcContract.setSignedDate("2018-07-20T00:00:00");
+        hcContract.setSignedDate("10-10-2017");
         hcContract.setAmtCreditTotal(35409000);
+        hcContract.setStatusTextVn("Ngon lành");
         hcContract.setStatus(status);
         hcContract.setProductCode(type);
         hcContract.setNextPayment(nextPayment());

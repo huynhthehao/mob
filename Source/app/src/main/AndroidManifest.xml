@@ -58,6 +58,10 @@
             android:label="@string/card_list_title"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.contract.creditcard.detail.CreditCardDetailActivity"
+            android:label="@string/card_detail_title"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".ui.welcome.WelcomeActivity"

@@ -27,6 +27,7 @@ import vn.homecredit.hcvn.data.model.api.HcCreditCard;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.ActivityCreditcardListBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
 
 public class CreditCardListActivity extends BaseActivity<ActivityCreditcardListBinding, CreditCardListViewModel> implements CreditCardContractListener {
 
@@ -75,7 +76,7 @@ public class CreditCardListActivity extends BaseActivity<ActivityCreditcardListB
         initDataAdapter(viewModel.getData());
     }
 
-    private void initDataAdapter(List<HcCreditCard> cards){
+    private void initDataAdapter(List<HcCreditCard> cards) {
         contractRecyclerViewAdapter = new CreditCardListViewAdapter(this);
 
         RecyclerView recyclerView = getViewDataBinding().getRoot().findViewById(R.id.lvCreditCards);
@@ -89,6 +90,12 @@ public class CreditCardListActivity extends BaseActivity<ActivityCreditcardListB
 
     @Override
     public void onCardClicked(HcCreditCard card) {
-        showMessage(card.cardNumber);
+        if (card == null) {
+            showMessage(R.string.data_not_found);
+            return;
+        }
+
+        Intent intent = CreditCardDetailActivity.getNewIntent(this, card);
+        startActivity(intent);
     }
 }

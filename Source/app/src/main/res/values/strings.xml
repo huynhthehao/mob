@@ -225,11 +225,35 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="payment_type">Loại thanh toán</string>
     <string name="amount_due">Số tiền cần thanh toán</string>
 
+    <!-- For Credit card -->
     <string name="card_detail_title">Thông Tin Thẻ</string>
     <string name="card_list_title">Danh Sách Thẻ</string>
     <string name="card_number">Số thẻ</string>
     <string name="card_status">Trạng thái thẻ</string>
     <string name="card_type">Loại thẻ</string>
     <string name="data_not_found">Dữ liệu không tìm thấy</string>
+
+    <string name="total_outstanding">Tổng dư nợ</string>
+    <string name="total_hold_transaction">Tổng g.d chưa hạch toán</string>
+
+    <string name="credit_limit">Hạn mức</string>
+    <string name="available_balance">Hạn mức khả dụng</string>
+
+    <string name="statement_list">Danh sách sao kê</string>
+    <string name="statement_list_title">Danh Sách Sao Kê</string>
+    <string name="transaction_history">Lịch sử giao dịch</string>
+    <string name="transaction_history_title">Lịch Sử Giao Dịch</string>
+    <string name="transaction_detail_title">Chi Tiết Giao Dịch</string>
+
+    <string name="repayment_history">Lịch sử thanh toán</string>
+    <string name="repayment_detail_title">Chi Tiết Thanh Toán</string>
+    <string name="repayment_history_title">Lịch Sử Thanh Toán</string>
+
+    <string name="show_more">Xem thêm</string>
+    <string name="show_less">Ẩn</string>
+
+    <string name="hold_transactions">Giao dịch chưa hạch toán</string>
+    <string name="hold_transactions_title">Giao Dịch Chưa Hạch Toán</string>
+    <string name="hold_transactions_detail_title">Chi Tiết Giao Dịch Chưa Hạch Toán</string>
 
 </resources>

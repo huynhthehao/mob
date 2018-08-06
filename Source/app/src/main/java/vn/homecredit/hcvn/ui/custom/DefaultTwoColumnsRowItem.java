@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.helpers.UiHelper;
+import vn.homecredit.hcvn.utils.StringUtils;
 
 public class DefaultTwoColumnsRowItem extends LinearLayout {
     private String leftDisplayText = "";
@@ -47,7 +48,7 @@ public class DefaultTwoColumnsRowItem extends LinearLayout {
         init(context, attrs);
     }
 
-    @BindingAdapter("textValue")
+    @BindingAdapter("rightText")
     public static void setTextValue(DefaultTwoColumnsRowItem rowItem, String value) {
         if (value != null) {
             rowItem.textViewRight.setText(value);
@@ -59,10 +60,6 @@ public class DefaultTwoColumnsRowItem extends LinearLayout {
         rowItem.textViewRight.setTextColor(value);
     }
 
-    @BindingAdapter("textValue")
-    public static void setTextValue(DefaultTwoColumnsRowItem rowItem, int value) {
-        rowItem.textViewRight.setText(String.format("%d", value));
-    }
 
     private void init(Context context, AttributeSet attrs) {
         final int totalWeightSum = 100;
@@ -72,8 +69,10 @@ public class DefaultTwoColumnsRowItem extends LinearLayout {
 
         leftDisplayText = typedArray.getString(R.styleable.DefaultTwoColumnsRowItem_leftText);
         String rightDisplayText = typedArray.getString(R.styleable.DefaultTwoColumnsRowItem_rightText);
+        if(rightDisplayText == null)
+            rightDisplayText = "--";
 
-        int verticalPadding = typedArray.getDimensionPixelOffset(R.styleable.DefaultTwoColumnsRowItem_verticalPadding, 10);
+        int verticalPadding = typedArray.getDimensionPixelOffset(R.styleable.DefaultTwoColumnsRowItem_verticalPadding, 8);
         int leftLayoutPercent = typedArray.getInteger(R.styleable.DefaultTwoColumnsRowItem_leftColumnWeightPercent, 40);
         int rightLayoutPercent = totalWeightSum - leftLayoutPercent;
 

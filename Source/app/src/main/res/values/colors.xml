@@ -317,6 +317,7 @@
 
     <color name="brownishGrey">#666666</color>
     <color name="greyish">#b7b7b7</color>
+    <color name="lightGrey">#c9c9c9</color>
 
     <color name="colorPrimary">#E21838</color>
     <color name="colorPrimaryDark">#D32F2F</color>

@@ -40,20 +40,13 @@ public class CreditCardListViewModel extends BaseViewModel {
 
         for (HcCreditCard card : contract.getCards()){
             card.refContract = contract;
-            Drawable type;
-            if(HcCreditCard.ActiveStatusLabel.equalsIgnoreCase(card.status)){
-                type = context.getResources().getDrawable(R.drawable.shadow_no_border);
+            if(HcCreditCard.ActiveStatusLabel.equalsIgnoreCase(card.status))
                 activeCards.add(card);
-            }
-            else {
-                type = context.getResources().getDrawable(R.drawable.card_rounded_corner);
+            else
                 nonActiveCards.add(card);
-            }
-            card.setBackgroundTypeId(type);
         }
 
         activeCards.addAll(nonActiveCards);
-
         this.cards = activeCards;
     }
 
