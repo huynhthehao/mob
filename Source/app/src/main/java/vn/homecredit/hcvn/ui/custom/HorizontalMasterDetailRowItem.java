@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.databinding.BindingAdapter;
 import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
@@ -51,11 +50,6 @@ public class HorizontalMasterDetailRowItem extends LinearLayout {
     @BindingAdapter("textColor")
     public static void setTextColorValue(HorizontalMasterDetailRowItem horizontalMasterDetailRowItem, int value) {
         horizontalMasterDetailRowItem.tvValue.setTextColor(value);
-    }
-
-    @BindingAdapter("textValue")
-    public static void setTextValue(HorizontalMasterDetailRowItem horizontalMasterDetailRowItem, int value) {
-        horizontalMasterDetailRowItem.tvValue.setText(String.format("%d", value));
     }
 
     private void init(Context context, AttributeSet attrs) {

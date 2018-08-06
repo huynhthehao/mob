@@ -4,9 +4,11 @@ import android.arch.lifecycle.MutableLiveData;
 
 import javax.inject.Inject;
 
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.DateUtils;
+import vn.homecredit.hcvn.utils.ResourcesUtil;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class ContractDetailViewModel extends BaseViewModel {
@@ -15,6 +17,23 @@ public class ContractDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> modelPaymentSchedule = new MutableLiveData<>();
     private MutableLiveData<String> modelPaymentHistory = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
+    public static final String Approved = "S";
+    public static final String Active = "A";
+    public static final String PaidOff = "L";
+    public static final String Cancelled = "T";
+    public static final String Finished = "K";
+    public static final String WrittenOff = "H";
+    public static final String Rejected = "D";
+
+    public MutableLiveData<String> getModelStatusColor() {
+        return modelStatusColor;
+    }
+
+    public void setModelStatusColor(MutableLiveData<String> modelStatusColor) {
+        this.modelStatusColor = modelStatusColor;
+    }
+
+    private MutableLiveData<String> modelStatusColor = new MutableLiveData<>();
 
     @Inject
     public ContractDetailViewModel(SchedulerProvider schedulerProvider) {
@@ -107,7 +126,23 @@ public class ContractDetailViewModel extends BaseViewModel {
         public Integer getTenor() {
             return tenor;
         }
-    }
 
+
+        public int getStatusTextColor() {
+            switch (status) {
+                case Active:
+                    return ResourcesUtil.getColor(R.color.success);
+                case Approved:
+                case PaidOff:
+                case Cancelled:
+                case Finished:
+                case WrittenOff:
+                case Rejected:
+                    return ResourcesUtil.getColor(R.color.colorPrimary);
+                default:
+                    return ResourcesUtil.getColor(R.color.textGray);
+            }
+        }
+    }
 
 }
