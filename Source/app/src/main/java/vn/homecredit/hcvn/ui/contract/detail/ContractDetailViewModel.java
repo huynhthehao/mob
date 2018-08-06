@@ -11,19 +11,20 @@ import vn.homecredit.hcvn.utils.DateUtils;
 import vn.homecredit.hcvn.utils.ResourcesUtil;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Active;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Approved;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Cancelled;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Finished;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.PaidOff;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.Rejected;
+import static vn.homecredit.hcvn.data.model.api.contract.ContractStatus.WrittenOff;
+
 public class ContractDetailViewModel extends BaseViewModel {
 
     private HcContract hcContract;
     private MutableLiveData<String> modelPaymentSchedule = new MutableLiveData<>();
     private MutableLiveData<String> modelPaymentHistory = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
-    public static final String Approved = "S";
-    public static final String Active = "A";
-    public static final String PaidOff = "L";
-    public static final String Cancelled = "T";
-    public static final String Finished = "K";
-    public static final String WrittenOff = "H";
-    public static final String Rejected = "D";
 
     public MutableLiveData<String> getModelStatusColor() {
         return modelStatusColor;
