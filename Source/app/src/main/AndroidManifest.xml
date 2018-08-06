@@ -98,6 +98,7 @@
         <activity android:name=".ui.contract.summaryContract.SummaryContractActivity" />
         <activity android:name=".ui.contract.masterContractDoc.MasterContractDocActivity" />
         <activity android:name=".ui.contract.detail.ContractDetailActivity"></activity>
+        <activity android:name=".ui.contract.masterContractSuccess.MasterContractSuccessActivity" />
 
     </application>
 

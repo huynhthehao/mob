@@ -122,11 +122,9 @@ public class SummaryContractViewModel extends BaseViewModel {
             return;
         }
         if (masterContract.isMaterialPrepared()) {
-            // TODO: 8/1/2018 Load Master Contract Doc
             modelViewDoc.setValue(true);
         }else {
-//            prepare();
-            modelViewDoc.setValue(true);
+            prepare();
         }
     }
 

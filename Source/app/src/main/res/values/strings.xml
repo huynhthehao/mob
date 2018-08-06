@@ -219,5 +219,16 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="master_contract_wait">Vui lòng chờ giây lát để chúng tôi hoàn tất quá trình ký hồ sơ của bạn</string>
     <string name="master_contract_sign_error">Ký hợp đồng bị lỗi</string>
     <string name="master_contract_sign_contact">Vui lòng thử lại hoặc gọi vào trung tâm hỗ trợ %s để được trợ giúp</string>
+    <string name="done">Kết thúc</string>
+
+    <string name="master_contract_success">"Bạn đã ký hợp đồng %s
+        thành công với Home Credit
+        Ghi chú: Vui lòng chờ 2 tiếng trước khi nhận tiền vay của bạn tại Vietinbank hay Bưu điện Việt Nam Thời gian nhận tiền từ Thứ 2 - Thứ 6 8:30 - 16:30
+        "</string>
+    <string name="master_contract_credit_success">"Bạn đã ký hợp đồng %s
+        thành công với Home Credit
+
+        Ghi chú: Thẻ tín dụng của bạn sẽ được chuyển đến địa chỉ liên lạc trong vòng 5-7 ngày. Khi nhận được thẻ, vui lòng gọi %s để kích hoạt thẻ và đặt mã PIN
+        Vui lòng bỏ qua lưu ý trên nếu bạn đã nhận được thẻ"</string>
 
 </resources>
