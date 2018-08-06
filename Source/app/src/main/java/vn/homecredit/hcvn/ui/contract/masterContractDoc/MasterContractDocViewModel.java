@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.data.ObservableString;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
@@ -45,7 +46,7 @@ public class MasterContractDocViewModel extends BaseViewModel {
 
     public void getMasterContractDoc(String contractId) {
         setIsLoading(true);
-        contractRepository.masterContractDoc(contractId)
+        Disposable disposable = contractRepository.masterContractDoc(contractId)
                 .subscribe(masterContractDocResp -> {
                             setIsLoading(false);
                             modelMasterContractsDocs.setValue(masterContractDocResp.getImages());
@@ -54,11 +55,12 @@ public class MasterContractDocViewModel extends BaseViewModel {
                             setIsLoading(false);
                             handleError(throwable);
                         });
+        getCompositeDisposable().add(disposable);
     }
 
     public void doApprove() {
         setIsLoading(true);
-        contractRepository.masterContractApproved(masterContract.getContractNumber())
+        Disposable disposable = contractRepository.masterContractApproved(masterContract.getContractNumber())
                 .subscribe(otpTimerResp -> {
                     setIsLoading(false);
                     processOtpTimer(otpTimerResp);
@@ -66,6 +68,7 @@ public class MasterContractDocViewModel extends BaseViewModel {
                     setIsLoading(false);
                     handleError(throwable);
                 });
+        getCompositeDisposable().add(disposable);
     }
 
     private void processOtpTimer(OtpTimerResp otpTimerResp) {

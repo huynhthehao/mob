@@ -1,5 +1,6 @@
 package vn.homecredit.hcvn.ui.contract.masterContractSign;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ public class MasterContractSignViewModel extends BaseViewModel {
     private ObservableField<Boolean> isErrorSign = new ObservableField<>();
     private OtpPassParam otpParam;
     private ContractRepository contractRepository;
+    private MutableLiveData<Boolean> modelSuccess = new MutableLiveData<>();
 
     @Inject
     public MasterContractSignViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository) {
@@ -27,6 +29,10 @@ public class MasterContractSignViewModel extends BaseViewModel {
         return isErrorSign;
     }
 
+    public MutableLiveData<Boolean> getModelSuccess() {
+        return modelSuccess;
+    }
+
     public void onDoneClicked() {
 
     }
@@ -34,6 +40,7 @@ public class MasterContractSignViewModel extends BaseViewModel {
 
     public void setOtpParam(OtpPassParam otpParam) {
         this.otpParam = otpParam;
+        checkMasterContractVerified();
     }
 
     public OtpPassParam getOtpParam() {
@@ -49,7 +56,7 @@ public class MasterContractSignViewModel extends BaseViewModel {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
                         if (aBoolean != null && aBoolean == Boolean.TRUE) {
-                            showSuccessPage();
+                            modelSuccess.setValue(true);
                         }else {
                             isErrorSign.set(true);
                         }
@@ -63,7 +70,4 @@ public class MasterContractSignViewModel extends BaseViewModel {
 
     }
 
-    private void showSuccessPage() {
-
-    }
 }

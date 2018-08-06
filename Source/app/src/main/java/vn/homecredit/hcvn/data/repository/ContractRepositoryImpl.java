@@ -32,8 +32,8 @@ import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.TestData;
 
 public class ContractRepositoryImpl implements ContractRepository {
-    public static final int MASTERCONTRACT_PREPARE_TIMEOUT = 6;
-    public static final int MASTERCONTRACT_PREPARE_INTERVAL = 2;
+    public static final int MASTERCONTRACT_PREPARE_TIMEOUT = 60;
+    public static final int MASTERCONTRACT_PREPARE_INTERVAL = 20;
 
     private final RestService restService;
 
@@ -83,13 +83,10 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public Single<MasterContractDocResp> masterContractDoc(String contractId) {
         return restService.masterContractDoc(contractId)
-                .doOnSuccess(new Consumer<MasterContractDocResp>() {
-                    @Override
-                    public void accept(MasterContractDocResp masterContractDocResp) throws Exception {
-                        String image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3J63zkgb86xW7ejMWk4TcEo0EEcRHX16akchPHmHo4WmW5Ys";
-                        List<String> images = Arrays.asList(image, image, image);
-                        masterContractDocResp.getImages().addAll(images);
-                    }
+                .doOnSuccess(masterContractDocResp -> {
+                    String image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3J63zkgb86xW7ejMWk4TcEo0EEcRHX16akchPHmHo4WmW5Ys";
+                    List<String> images = Arrays.asList(image, image, image);
+                    masterContractDocResp.getImages().addAll(images);
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

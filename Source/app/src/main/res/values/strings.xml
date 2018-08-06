@@ -167,7 +167,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="status">Status</string>
     <string name="please_sign">Vui lòng ký</string>
     <string name="pending">Đang chờ</string>
-    <string name="approved">Đã kích hoạt</string>
+    <string name="approved">Hoạt động</string>
     <string name="closed">Đã đóng</string>
 
     <string name="nextpayment">Lần thanh toán kế tiếp của bạn &lt;b>%s&lt;/b> là vào ngày &lt;b>%s&lt;/b>.</string>

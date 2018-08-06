@@ -11,6 +11,7 @@ import java.text.NumberFormat;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
@@ -130,7 +131,7 @@ public class SummaryContractViewModel extends BaseViewModel {
 
     private void prepare() {
         isPreparing.set(true);
-        contractRepository.startPrepare(masterContract.getContractNumber())
+        Disposable disposable = contractRepository.startPrepare(masterContract.getContractNumber())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(masterContractResp -> {
@@ -143,11 +144,12 @@ public class SummaryContractViewModel extends BaseViewModel {
                             isPreparing.set(false);
                             showMessage(R.string.master_contract_approve_retry);
                         });
+        getCompositeDisposable().add(disposable);
     }
 
     public void setContractsId(String contractsId) {
         setIsLoading(true);
-        contractRepository.masterContract(contractsId)
+        Disposable disposable = contractRepository.masterContract(contractsId)
                 .subscribe(masterContract -> {
                     setIsLoading(false);
                     if (masterContract == null) {
@@ -158,6 +160,7 @@ public class SummaryContractViewModel extends BaseViewModel {
                     setIsLoading(false);
                     handleError(throwable);
                 });
+       getCompositeDisposable().add(disposable);
     }
 
     private void updateData(MasterContract masterContract) {
