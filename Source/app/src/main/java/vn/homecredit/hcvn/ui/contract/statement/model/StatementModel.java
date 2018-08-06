@@ -3,6 +3,9 @@ package vn.homecredit.hcvn.ui.contract.statement.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class StatementModel {
     @SerializedName("statementId")
     @Expose

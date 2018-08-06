@@ -17,7 +17,9 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
+import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
+import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 public interface RestService {
@@ -44,4 +46,6 @@ public interface RestService {
     Single<PaymentHistoryResp> viewPaymentsv1(String contractId);
 
     Single<StatementResp> getStatements(String contractId);
+
+    Single<StatementDetailsResp> getStatementDetails(String contractId,StatementModel statementModel);
 }

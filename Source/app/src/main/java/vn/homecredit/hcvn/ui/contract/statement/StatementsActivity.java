@@ -8,17 +8,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import org.parceler.Parcels;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.databinding.ActivityEStatementBinding;
+import vn.homecredit.hcvn.databinding.ActivityEStatementsBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.contract.statement.statementdetails.StatementDetailsActivity;
 import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 
-public class StatementActivity extends BaseActivity<ActivityEStatementBinding, StatementViewModel> {
+public class StatementsActivity extends BaseActivity<ActivityEStatementsBinding, StatementViewModel> {
     public static final String CONTRACT_ID = "contract_id";
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -28,6 +31,7 @@ public class StatementActivity extends BaseActivity<ActivityEStatementBinding, S
     AppDataView appDataView;
     StatementAdapter statementAdapter;
     RecyclerView rvStatements;
+    String contractId = "";
 
     @Override
     public int getBindingVariable() {
@@ -36,7 +40,7 @@ public class StatementActivity extends BaseActivity<ActivityEStatementBinding, S
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_e_statement;
+        return R.layout.activity_e_statements;
     }
 
     @Override
@@ -47,7 +51,7 @@ public class StatementActivity extends BaseActivity<ActivityEStatementBinding, S
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String contractId = getData();
+        contractId = getData();
         appDataView = getViewDataBinding().advStatements;
         rvStatements = new RecyclerView(this);
         initAdapter();
@@ -75,7 +79,10 @@ public class StatementActivity extends BaseActivity<ActivityEStatementBinding, S
 
     private void initAdapter() {
         statementAdapter = new StatementAdapter(model -> {
-            //TODO
+            Intent intent = new Intent(StatementsActivity.this, StatementDetailsActivity.class);
+            intent.putExtra(StatementDetailsActivity.CONTRACT_ID, contractId);
+            intent.putExtra(StatementDetailsActivity.STATEMENT_OBJECT, Parcels.wrap(model));
+            startActivity(intent);
         }, preferencesHelper);
         rvStatements.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rvStatements.setAdapter(statementAdapter);

@@ -40,7 +40,9 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
+import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
+import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 @Singleton
@@ -311,6 +313,20 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(StatementResp.class);
+    }
+
+    @Override
+    public Single<StatementDetailsResp> getStatementDetails(String contractId, StatementModel statementModel) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/statementimages", contractId) + "?key=" + statementModel.getKey()
+                + "&id=" + statementModel.getId());
+        // test on debug environment
+        if (BuildConfig.DEBUG)
+            url = url + "&isMock=true";
+        // end test
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(StatementDetailsResp.class);
     }
 
     @Override

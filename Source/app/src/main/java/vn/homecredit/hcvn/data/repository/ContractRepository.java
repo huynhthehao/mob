@@ -8,16 +8,28 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
+import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
+import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 
 public interface ContractRepository {
     Single<ContractResp> contracts();
+
     Single<MasterContractResp> masterContract(String contractId);
+
     Single<MasterContractDocResp> masterContractDoc(String contractId);
+
     Observable<MasterContractResp> startPrepare(String contractId);
+
     Single<OtpTimerResp> masterContractApproved(String contractId);
-    Single<OtpTimerResp> masterContractVerify(String contractId, String otp,  boolean hasDisbursementBankAccount, boolean isCreditCardContract);
+
+    Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract);
+
     Single<ScheduleDetailResp> viewInstalmentsv1(String contractId);
+
     Single<PaymentHistoryResp> viewPaymentsv1(String contractId);
+
     Single<StatementResp> getStatements(String contractId);
+
+    Single<StatementDetailsResp> getStatementDetails(String contractId, StatementModel statementModel);
 }
