@@ -58,4 +58,8 @@ public interface PreferencesHelper {
     void setFingerprintEnableStatus();
 
     String getFingerprintEnableStatus();
+
+    void setTimeLogin(long time);
+
+    long getTimeLogin();
 }

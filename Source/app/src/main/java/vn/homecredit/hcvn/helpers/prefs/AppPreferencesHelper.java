@@ -43,6 +43,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
     private static final String PREF_KEY_DEVICE_INFO = "PREF_KEY_DEVICE_INFO";
+    private static final String PREF_KEY_LOGIN_TIMESTAMP = "PREF_KEY_LOGIN_TIMESTAMP";
 
     private final SharedPreferences mPrefs;
 
@@ -202,5 +203,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
         String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
         String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
         return getObject(key, String.class);
+    }
+
+    @Override
+    public void setTimeLogin(long time) {
+        mPrefs.edit().putLong(PREF_KEY_LOGIN_TIMESTAMP, time);
+    }
+
+    @Override
+    public long getTimeLogin() {
+        return mPrefs.getLong(PREF_KEY_LOGIN_TIMESTAMP, 0);
     }
 }

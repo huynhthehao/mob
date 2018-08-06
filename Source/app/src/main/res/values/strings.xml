@@ -230,5 +230,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
 
         Ghi chú: Thẻ tín dụng của bạn sẽ được chuyển đến địa chỉ liên lạc trong vòng 5-7 ngày. Khi nhận được thẻ, vui lòng gọi %s để kích hoạt thẻ và đặt mã PIN
         Vui lòng bỏ qua lưu ý trên nếu bạn đã nhận được thẻ"</string>
+    <string name="dialog_esigning_title">Kiểm tra bảo mật</string>
+    <string name="dialog_esigning_message">Bạn không tương tác trong vòng 5 phút, vui lòng nhập mật khẩu để tiếp tục</string>
 
 </resources>

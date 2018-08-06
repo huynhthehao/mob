@@ -166,7 +166,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     }
 
     private void bindModelErrorAuthenticate() {
-        getViewModel().getErrorAuthenticate().observe(this, o -> {
+        getViewModel().getModelReLogin().observe(this, o -> {
             if (o != null && o == Boolean.TRUE) {
                 startWelcome();
             }

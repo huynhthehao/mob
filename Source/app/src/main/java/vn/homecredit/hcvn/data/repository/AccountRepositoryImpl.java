@@ -2,6 +2,12 @@ package vn.homecredit.hcvn.data.repository;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.text.format.DateUtils;
+
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -158,6 +164,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public void saveLoginInfo(String phoneNumber, String password) {
         preferencesHelper.saveObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, phoneNumber);
+        preferencesHelper.setTimeLogin(Calendar.getInstance().getTimeInMillis());
         updatePassword(password);
     }
 
@@ -171,5 +178,14 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     public String getCurrentUser(){
         return preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+    }
+
+    @Override
+    public boolean isExpired() {
+        return false;
+//        long lastLoginTime = preferencesHelper.getTimeLogin();
+//        if (lastLoginTime == 0) return true;
+//        long currentTime = Calendar.getInstance().getTimeInMillis();
+//        return currentTime - lastLoginTime > 5 * DateUtils.MINUTE_IN_MILLIS;
     }
 }

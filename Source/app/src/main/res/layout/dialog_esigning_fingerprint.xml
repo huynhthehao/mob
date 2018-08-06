@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/fingerprint_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_below="@+id/fingerprint_description"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_finger_print_red"
+        android:contentDescription="@string/fingerprint_description_icon"
+        />
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/fingerprint_icon"
+        android:gravity="center"
+        android:padding="@dimen/padding_small"
+        android:textStyle="bold"
+        tools:text="@string/dialog_esigning_title"
+        style="@style/AppTheme.Title"
+        />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        android:gravity="center"
+        tools:text="@string/dialog_esigning_message"
+        style="@style/AppTheme.Content"
+        />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilPassword"
+        app:layout_constraintTop_toBottomOf="@id/tvContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:theme="@style/AppTheme.TextLabel">
+
+        <EditText
+            android:id="@+id/passwordTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_lock_red"
+            android:drawablePadding="@dimen/padding_small"
+            android:hint="@string/prompt_password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <View
+        android:layout_marginTop="5dp"
+        android:id="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/tilPassword"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        />
+
+    <TextView
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_high"
+        android:padding="@dimen/padding_small"
+        android:text="@string/use_password"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        style="@style/AppTheme.Title"
+        />
+
+    <TextView
+        android:id="@+id/btnOK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_high"
+        android:padding="@dimen/padding_small"
+        android:text="@string/use_password"
+        android:textColor="@color/colorPrimary"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        style="@style/AppTheme.Title"
+        />
+
+</android.support.constraint.ConstraintLayout>

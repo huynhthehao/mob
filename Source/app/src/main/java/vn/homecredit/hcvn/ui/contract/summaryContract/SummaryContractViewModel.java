@@ -14,16 +14,25 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.LoginInformation;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
+import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.ui.custom.ContractSummaryItem;
+import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.Log;
+import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SummaryContractViewModel extends BaseViewModel {
 
     private ContractRepository contractRepository;
+    private AccountRepository accountRepository;
+    private FingerPrintHelper fingerPrintHelper;
+    private PreferencesHelper preferencesHelper;
 
     private ObservableField<String> customerName = new ObservableField<>("");
     private ObservableField<String> contractNumber = new ObservableField<>("");
@@ -41,17 +50,26 @@ public class SummaryContractViewModel extends BaseViewModel {
     private ObservableField<Boolean> isPreparing = new ObservableField<>(false);
     private MasterContract masterContract;
     private MutableLiveData<Boolean> modelViewDoc = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelShowFingerprintDialog = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelShowPasswordDialog = new MutableLiveData<>();
 
     @Inject
-    public SummaryContractViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository) {
+    public SummaryContractViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository, AccountRepository accountRepository, FingerPrintHelper fingerPrintHelper, PreferencesHelper preferencesHelper) {
         super(schedulerProvider);
         this.contractRepository = contractRepository;
+        this.accountRepository = accountRepository;
+        this.fingerPrintHelper = fingerPrintHelper;
+        this.preferencesHelper = preferencesHelper;
     }
 
     @Override
     public void init() {
         super.init();
         modelViewDoc.setValue(false);
+    }
+
+    public MutableLiveData<Boolean> getModelShowFingerprintDialog() {
+        return modelShowFingerprintDialog;
     }
 
     public MutableLiveData<Boolean> getModelViewDoc() {
@@ -118,14 +136,35 @@ public class SummaryContractViewModel extends BaseViewModel {
         return masterContract;
     }
 
+    public MutableLiveData<Boolean> getModelShowPasswordDialog() {
+        return modelShowPasswordDialog;
+    }
+
+    public boolean fingerPrintEnable(){
+        FingerPrintAuthValue fingerSupportStatus = fingerPrintHelper.getFingerPrintAuthValue();
+        if(fingerSupportStatus != FingerPrintAuthValue.SUPPORT_AND_ENABLED) {
+            return false;
+        }
+
+        return preferencesHelper.getFingerPrintSetting();
+    }
     public void onNextClicked() {
         if (masterContract == null) {
             return;
         }
-        if (masterContract.isMaterialPrepared()) {
-            modelViewDoc.setValue(true);
+        if (accountRepository.isExpired()) {
+            if (fingerPrintEnable()) {
+                modelShowFingerprintDialog.setValue(true);
+            }else {
+                modelShowPasswordDialog.setValue(true);
+
+            }
         }else {
-            prepare();
+            if (masterContract.isMaterialPrepared()) {
+                modelViewDoc.setValue(true);
+            } else {
+                prepare();
+            }
         }
     }
 
@@ -179,6 +218,36 @@ public class SummaryContractViewModel extends BaseViewModel {
         bankBranch.set(masterContract.getDisbursementBankBranchname());
         btnNextText.set(masterContract.isMaterialPrepared() ? R.string.master_contract_approved : R.string.master_contract_prepare_data);
         insurance.set(masterContract.isHasInsurance());
+    }
+
+
+    public void autoLogin(){
+        LoginInformation loginInformation = accountRepository.getCurrentLoginInfo();
+        if(loginInformation == null || StringUtils.isNullOrWhiteSpace(loginInformation.phoneNumber)
+                || StringUtils.isNullOrWhiteSpace(loginInformation.password)){
+            showMessage(R.string.fingerprint_login_info_not_found);
+            return;
+        }
+        login(loginInformation.phoneNumber, loginInformation.password);
+    }
+
+    private void login(String phoneNumber, String password) {
+        setIsLoading(true);
+        Disposable subscribe = accountRepository.signIn(phoneNumber, password)
+                .subscribe(profileResp -> {
+                    setIsLoading(false);
+                    if (profileResp == null) return;
+                    if (profileResp.getResponseCode() != 0) {
+                        showMessage(profileResp.getResponseMessage());
+                    } else {
+                        accountRepository.saveLoginInfo(phoneNumber, password);
+                    }
+                }, throwable -> {
+                    setIsLoading(false);
+                    handleError(throwable);
+                });
+
+        startSafeProcess(subscribe);
     }
 
     @BindingAdapter({"interest"})

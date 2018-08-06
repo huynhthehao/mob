@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -18,6 +19,9 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.databinding.ActivityContractSummaryBinding;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
+import vn.homecredit.hcvn.ui.custom.FingerprintAuthenticationDialogFragment;
+
+import static java.lang.Boolean.TRUE;
 
 public class SummaryContractActivity extends BaseActivity< ActivityContractSummaryBinding, SummaryContractViewModel>{
 
@@ -56,10 +60,45 @@ public class SummaryContractActivity extends BaseActivity< ActivityContractSumma
         }
 
         getViewModel().getModelViewDoc().observe(this, aBoolean -> {
-            if (aBoolean) {
+            if (aBoolean != null && aBoolean == TRUE) {
                 showMasterContractDocActivity(getViewModel().getMasterContract());
             }
         });
+        getViewModel().getModelShowFingerprintDialog().observe(this, isShowFingerprint -> {
+            if (isShowFingerprint != null && isShowFingerprint == TRUE) {
+                showFingerDialogLogin();
+            }
+        });
+        getViewModel().getModelShowPasswordDialog().observe(this, isShowPasswordDialog -> {
+            if (isShowPasswordDialog != null && isShowPasswordDialog == TRUE) {
+                showPasswordDialogLogin();
+            }
+        });
+
+    }
+
+    private void showFingerDialogLogin() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            FingerprintManager fingerprintManager = getSystemService(FingerprintManager.class);
+            FingerprintAuthenticationDialogFragment fragment = new FingerprintAuthenticationDialogFragment(fingerprintManager);
+            fragment.setOnValidateSuccess(this::onValidatedSuccess);
+            fragment.setOnDismiss(this::onFingerprintDialogDismissed);
+            fragment.setCryptoObject(null);
+            fragment.show(getFragmentManager(), "FingerPrintDialog");
+        }
+
+    }
+
+    private void onFingerprintDialogDismissed() {
+
+    }
+
+    private void onValidatedSuccess() {
+        getViewModel().autoLogin();
+    }
+
+    private void showPasswordDialogLogin() {
+
     }
 
     private void showMasterContractDocActivity(MasterContract masterContract) {

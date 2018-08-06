@@ -176,7 +176,6 @@ public class ContractRepositoryImpl implements ContractRepository {
                 }
                 closeContractList.add(hcContract);
             }
-
         }
         List<HcContract> contractList = new ArrayList<>();
         contractList.addAll(activeContractList);

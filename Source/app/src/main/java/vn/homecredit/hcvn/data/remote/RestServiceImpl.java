@@ -260,6 +260,7 @@ public class RestServiceImpl implements RestService {
         requestBody.put("contractNumber", contractId);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/sign/accept?v=2");
         return Rx2AndroidNetworking.post(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(OtpTimerResp.class);

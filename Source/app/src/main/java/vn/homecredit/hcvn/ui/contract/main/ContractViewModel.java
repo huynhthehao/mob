@@ -39,7 +39,7 @@ public class ContractViewModel extends BaseViewModel {
         return listMutableLiveData;
     }
 
-    public MutableLiveData<Boolean> getErrorAuthenticate() {
+    public MutableLiveData<Boolean> getModelReLogin() {
         return errorAuthenticate;
     }
 
