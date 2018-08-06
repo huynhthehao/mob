@@ -57,6 +57,7 @@ public class NotificationViewModel extends BaseViewModel {
     }
 
     private void saveCurrentBadgeCount(List<NotificationModel> notificationModels) {
+        if (notificationModels == null) return;
         int count = 0;
         for (int i = 0; i < notificationModels.size(); i++) {
             if (!notificationModels.get(i).isRead()) {
