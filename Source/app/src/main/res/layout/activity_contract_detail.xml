@@ -65,7 +65,7 @@
                             app:textValue="@{hcContractModel.clientName}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:textTitle="@string/full_name"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+                            app:textTitle="@string/full_name" />
 
 
                         <View
@@ -76,7 +76,7 @@
                             app:textValue="@{hcContractModel.contractNumber}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:textTitle="@string/contract_no"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+                            app:textTitle="@string/contract_no" />
 
                         <View
                             style="@style/Separator_Horizontal"
@@ -86,7 +86,7 @@
                             app:textValue="@{hcContractModel.signedDate}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:textTitle="@string/signed_date"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+                            app:textTitle="@string/signed_date" />
 
                         <View
                             style="@style/Separator_Horizontal"
@@ -96,7 +96,7 @@
                             app:textValue="@{hcContractModel.productType}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:textTitle="@string/product_type"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+                            app:textTitle="@string/product_type" />
 
                         <View
                             style="@style/Separator_Horizontal"
@@ -106,18 +106,20 @@
                             app:textValue="@{hcContractModel.tenor != null ? String.format(@string/tenor_month, hcContractModel.tenor) : `-`}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:textTitle="@string/tenor"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+                            app:textTitle="@string/tenor" />
 
                         <View
                             style="@style/Separator_Horizontal"
-                            android:layout_marginHorizontal="@dimen/margin_normal" />
+                            android:layout_marginHorizontal="@dimen/margin_normal"
+                            tools:ignore="UnusedAttribute" />
 
                         <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
+                            android:id="@+id/txtViewStatus"
                             app:textValue="@{hcContractModel.statusTextVn}"
-                            app:textColor="@{hcContractModel.status == `A` ? @color/success : @color/colorPrimary}"
+                            app:textColor="@{hcContractModel.statusTextColor}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:textTitle="@string/contract_status"></vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem>
+                            app:textTitle="@string/contract_status" />
 
 
                     </LinearLayout>
@@ -140,7 +142,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:src="@drawable/ic_payment_schedule"
                             android:onClick="@{() -> viewModel.onPaymentScheduleClicked()}"
-                            android:text="@string/payment_schedule"></vn.homecredit.hcvn.ui.custom.MenuRowItem>
+                            android:text="@string/payment_schedule" />
 
                         <View
                             style="@style/Separator_Horizontal"
@@ -153,7 +155,7 @@
                             android:background="?android:attr/selectableItemBackground"
                             android:src="@drawable/ic_payment_history"
                             android:onClick="@{() -> viewModel.onPaymentHistoryClicked()}"
-                            android:text="@string/payment_history"></vn.homecredit.hcvn.ui.custom.MenuRowItem>
+                            android:text="@string/payment_history" />
 
                         <View
                             style="@style/Separator_Horizontal"

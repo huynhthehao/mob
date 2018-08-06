@@ -271,5 +271,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="hold_transactions">Giao dịch chưa hạch toán</string>
     <string name="hold_transactions_title">Giao Dịch Chưa Hạch Toán</string>
     <string name="hold_transactions_detail_title">Chi Tiết Giao Dịch Chưa Hạch Toán</string>
+    <string name="default_string_empty">-</string>
 
 </resources>

@@ -62,7 +62,6 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
         super.onCreate(savedInstanceState);
         getViewModel().init();
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
-
         if (getIntent().hasExtra(BUNDLE_CONTRACT_PARAM)) {
             HcContract hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT_PARAM));
             getViewModel().setHcContract(hcContract);
