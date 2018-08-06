@@ -8,4 +8,5 @@ package vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType;
 
 public interface AclSelectLoanTypeNavigator {
     void goACLO();
+    void goPos();
 }
