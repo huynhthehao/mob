@@ -12,8 +12,8 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 public class ContractDetailViewModel extends BaseViewModel {
 
     private HcContract hcContract;
-    private MutableLiveData<Boolean> modelPaymentSchedule = new MutableLiveData<>();
-    private MutableLiveData<Boolean> modelPaymentHistory = new MutableLiveData<>();
+    private MutableLiveData<String> modelPaymentSchedule = new MutableLiveData<>();
+    private MutableLiveData<String> modelPaymentHistory = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
 
     @Inject
@@ -25,8 +25,8 @@ public class ContractDetailViewModel extends BaseViewModel {
     public void init() {
         super.init();
         modelLocation.setValue(false);
-        modelPaymentHistory.setValue(false);
-        modelPaymentSchedule.setValue(false);
+        modelPaymentHistory.setValue(null);
+        modelPaymentSchedule.setValue(null);
     }
 
     public HcContract getHcContract() {
@@ -37,11 +37,11 @@ public class ContractDetailViewModel extends BaseViewModel {
         this.hcContract = hcContract;
     }
 
-    public MutableLiveData<Boolean> getModelPaymentSchedule() {
+    public MutableLiveData<String> getModelPaymentSchedule() {
         return modelPaymentSchedule;
     }
 
-    public MutableLiveData<Boolean> getModelPaymentHistory() {
+    public MutableLiveData<String> getModelPaymentHistory() {
         return modelPaymentHistory;
     }
 
@@ -50,11 +50,11 @@ public class ContractDetailViewModel extends BaseViewModel {
     }
 
     public void onPaymentScheduleClicked() {
-        modelPaymentSchedule.setValue(true);
+        modelPaymentSchedule.setValue(this.hcContract.getContractNumber());
     }
 
     public void onPaymentHistoryClicked() {
-        modelPaymentHistory.setValue(true);
+        modelPaymentHistory.setValue(this.hcContract.getContractNumber());
     }
 
     public void onLocationClicked() {

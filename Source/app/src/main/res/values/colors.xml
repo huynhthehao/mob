@@ -6,6 +6,10 @@
     <color name="success_color">#009688</color>
     <color name="success">#56bc3e</color>
 
+    <!-- For Credit Contract -->
+    <color name="activeDisplay">#559D44</color>
+    <color name="textGray">#666666</color>
+
     <color name="red">#FF0000</color>
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>
@@ -313,6 +317,7 @@
 
     <color name="brownishGrey">#666666</color>
     <color name="greyish">#b7b7b7</color>
+    <color name="lightGrey">#c9c9c9</color>
 
     <color name="colorPrimary">#E21838</color>
     <color name="colorPrimaryDark">#D32F2F</color>

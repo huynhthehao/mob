@@ -43,6 +43,15 @@ public class ContractViewModel extends BaseViewModel {
         return errorAuthenticate;
     }
 
+    public HcContract getDataAtIndex(int index){
+        try {
+            List<HcContract> contracts = listMutableLiveData.getValue();
+            return contracts.get(index);
+        } catch (Exception ex){
+            return null;
+        }
+    }
+
     @Override
     public void init() {
         super.init();

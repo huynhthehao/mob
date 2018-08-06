@@ -1,11 +1,13 @@
 package vn.homecredit.hcvn.data.model.api.contract;
 
-public class ContractStatus {
-    public static String Approved = "S";
-    public static String Active = "A";
-    public static String PaidOff = "L";
-    public static String Cancelled = "T";
-    public static String Finished = "K";
-    public static String WrittenOff = "H";
-    public static String Rejected = "D";
+public final class ContractStatus {
+    private ContractStatus(){}
+
+    public final static String Approved = "S";
+    public final static String Active = "A";
+    public final static String PaidOff = "L";
+    public final static String Cancelled = "T";
+    public final static String Finished = "K";
+    public final static String WrittenOff = "H";
+    public final static String Rejected = "D";
 }

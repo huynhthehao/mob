@@ -11,7 +11,7 @@ import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
-import vn.homecredit.hcvn.utils.LanguageValue;
+import vn.homecredit.hcvn.utils.CountryValue;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SettingsViewModel extends BaseViewModel {
@@ -39,7 +39,7 @@ public class SettingsViewModel extends BaseViewModel {
     @Override
     public void init() {
         appVersion.set(BuildConfig.VERSION_NAME);
-        languageValue.set(LanguageValue.getDisplayNameResIdFromCode(dataManager.getLanguageCode()));
+        languageValue.set(CountryValue.getDisplayNameResIdFromCode(dataManager.getLanguageCode()));
         checkToShowOrHideFingerPrintLayout();
         modelBack.setValue(false);
         fingerPrintChecked.set(dataManager.getFingerPrintSetting());
@@ -68,13 +68,13 @@ public class SettingsViewModel extends BaseViewModel {
 
     public void onChangeLanguageClicked() {
         String languageCode = "";
-        if (languageValue.get() == LanguageValue.VIETNAMESE.getDisplayNameResId()) {
-            languageValue.set(LanguageValue.ENGLISH.getDisplayNameResId());
-            languageCode = LanguageValue.ENGLISH.getCode();
+        if (languageValue.get() == CountryValue.VIETNAMESE.getDisplayNameResId()) {
+            languageValue.set(CountryValue.ENGLISH.getDisplayNameResId());
+            languageCode = CountryValue.ENGLISH.getLanguageCode();
             modelLanguage.setValue(languageCode);
         } else {
-            languageValue.set(LanguageValue.VIETNAMESE.getDisplayNameResId());
-            languageCode = LanguageValue.VIETNAMESE.getCode();
+            languageValue.set(CountryValue.VIETNAMESE.getDisplayNameResId());
+            languageCode = CountryValue.VIETNAMESE.getLanguageCode();
             modelLanguage.setValue(languageCode);
         }
         dataManager.setLanguageCode(languageCode);

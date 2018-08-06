@@ -7,6 +7,7 @@
 package vn.homecredit.hcvn.ui.more;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 import android.databinding.ObservableField;
 
 import javax.inject.Inject;

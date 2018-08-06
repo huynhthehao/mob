@@ -97,10 +97,6 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
         startActivity(intent);
     }
 
-    @Override
-    public void startIntro() {
-        animateLogo();
-    }
 
     @Override
     public void changeLanguage() {
@@ -141,11 +137,12 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
             mHasAnimationStarted = true;
 
             final Handler handler = new Handler();
-            handler.postDelayed(() -> getViewModel().startIntro(), 600);
+            handler.postDelayed(() -> animateLogo(), 600);
         }
     }
 
-    public void animateLogo() {
+
+    private void animateLogo() {
         ImageView logoWelcomeImageViewFront = getViewDataBinding().logoWelcomeImageViewFront;
         ImageView logoWelcomeImageView = getViewDataBinding().logoWelcomeImageView;
         RelativeLayout root = getViewDataBinding().animateViewHolder;

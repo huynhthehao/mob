@@ -15,17 +15,56 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.MDButton;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 
 public class UiHelper {
+
+    public static String getCurrencyFormat(long number) {
+        return getDecimalFormatCore(number);
+    }
+
+    public static String getCurrencyFormat(String number) {
+        double numberValue = parseDouble(number);
+        return getDecimalFormatCore(numberValue);
+    }
+
+    public static String getCurrencyFormat(double number) {
+        return getDecimalFormatCore(number);
+    }
+
+    private static String getDecimalFormatCore(Object number) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        DecimalFormat decimalFormat = (DecimalFormat)numberFormat;
+        decimalFormat.applyPattern("#,###.00");
+        String formatValue = decimalFormat.format(number);
+
+        formatValue = formatValue.replace(".00", "")
+                .replace(".0", "");
+
+        formatValue += "₫";
+        return formatValue;
+    }
+
+
+    private static double parseDouble(String number) {
+        try {
+            return Double.parseDouble(number);
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
 
     public static int dpToPx(Context context, int dp) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
     }
 
-    public static float getDpValue(Context context, int dp){
+    public static float getDpValue(Context context, int dp) {
         return context.getResources().getDimension(dp);
     }
 

@@ -19,6 +19,12 @@ import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionAct
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragmentProvider;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
+import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
+import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
+import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailViewModel;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivityModule;
 import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivity;
@@ -26,6 +32,10 @@ import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActiv
 import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignViewModel;
 import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivity;
 import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivityModule;
+import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
+import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivityModule;
+import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
+import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivityModule;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
@@ -87,6 +97,12 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = OtpViewModel.class)
     abstract OtpActivity bindOtpActivity();
 
+    @ContributesAndroidInjector(modules = CreditCardListViewModel.class)
+    abstract CreditCardListActivity bindCreditCardListActivity();
+
+    @ContributesAndroidInjector(modules = CreditCardDetailViewModel.class)
+    abstract CreditCardDetailActivity bindCreditCardDetailActivity();
+
     @ContributesAndroidInjector()
     abstract HomeActivity bindHomeActivity();
 
@@ -120,4 +136,11 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = MasterContractSignActivityModule.class)
     abstract MasterContractSignActivity bindMasterContractSignActivity();
+
+    @ContributesAndroidInjector(modules = ScheduleDetailActivityModule.class)
+    abstract ScheduleDetailActivity bindScheduleDetailActivity();
+
+    @ContributesAndroidInjector(modules = PaymentHistoryActivityModule.class)
+    abstract PaymentHistoryActivity bindPaymentHistoryActivity();
+
 }

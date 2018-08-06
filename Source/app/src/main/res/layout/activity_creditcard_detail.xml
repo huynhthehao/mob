@@ -1,0 +1,309 @@
+<!--
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 8/3/18 9:20 AM, by Hien.NguyenM
+  -->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.contract.creditcard.detail.CreditCardDetailActivity">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="vn.homecredit.hcvn.helpers.UiHelper" />
+        <import type="vn.homecredit.hcvn.data.model.api.contract.ContractStatus" />
+        <import type="vn.homecredit.hcvn.data.model.api.HcCreditCard" />
+
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/appbar_padding_top"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                app:layout_scrollFlags="enterAlways"
+                app:navigationIcon="?android:attr/homeAsUpIndicator"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/card_detail_title">
+
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/mainView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp">
+
+                            <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:leftColumnWeightPercent="40"
+                                app:leftText="@string/card_number"
+                                app:rightText="@{viewModel.cardData.cardNumber}"
+                                tools:rightText="XXXX XXXX XXXX 1234" />
+
+                            <View style="@style/Separator_Horizontal" />
+
+                            <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:leftColumnWeightPercent="50"
+
+                                app:leftText="@string/credit_limit"
+                                app:rightText="@{UiHelper.getCurrencyFormat(viewModel.cardData.limit)}"
+                                tools:rightText="1,234₫" />
+
+                            <View style="@style/Separator_Horizontal" />
+
+                            <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:leftColumnWeightPercent="50"
+                                app:leftText="@string/available_balance"
+                                app:rightText="@{UiHelper.getCurrencyFormat(viewModel.cardData.availableBalance)}"
+                                tools:rightText="1,234₫" />
+
+                            <View style="@style/Separator_Horizontal" />
+
+                            <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:leftColumnWeightPercent="50"
+                                app:leftText="@string/total_outstanding"
+                                app:rightText="@{UiHelper.getCurrencyFormat(viewModel.cardData.totalOutStandingDebt)}"
+                                tools:rightText="1,234₫" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="0dp"
+                                android:id="@+id/showMorePanel"
+                                android:visibility="@{viewModel.morePanelVisible ? View.VISIBLE : View.GONE}"
+                                tools:visibility="@{View.VISIBLE}">
+
+                                <View style="@style/Separator_Horizontal" />
+
+                                <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:leftColumnWeightPercent="50"
+                                    app:leftText="@string/total_hold_transaction"
+                                    app:rightText="@{UiHelper.getCurrencyFormat(viewModel.cardData.holdBalance)}"
+                                    tools:rightText="1,234₫" />
+
+                                <View style="@style/Separator_Horizontal" />
+
+
+                                <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:leftColumnWeightPercent="50"
+                                    app:leftText="@string/full_name"
+                                    app:rightText="@{viewModel.cardData.refContract.clientName}"
+                                    tools:rightText="Lê Văn Tèo" />
+
+                                <View style="@style/Separator_Horizontal" />
+
+                                <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:leftColumnWeightPercent="50"
+                                    app:leftText="@string/contract_no"
+                                    app:rightText="@{viewModel.cardData.refContract.contractNumber}"
+                                    tools:rightText="0123456789" />
+
+                                <View style="@style/Separator_Horizontal" />
+
+                                <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:leftColumnWeightPercent="50"
+                                    app:leftText="@string/signed_date"
+                                    app:rightText="@{viewModel.cardData.refContract.signedDate}"
+                                    tools:rightText="01/01/2001" />
+
+                                <View style="@style/Separator_Horizontal" />
+
+                                <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:leftColumnWeightPercent="50"
+                                    app:leftText="@string/contract_status"
+                                    app:rightText="@{viewModel.cardData.refContract.statusTextVn}"
+                                    app:textColor="@{viewModel.cardData.refContract.status.equalsIgnoreCase(ContractStatus.Active) ? @color/activeDisplay : @color/colorPrimary}"
+                                    tools:rightText="Ngon lành, đẹp chai" />
+                                <View style="@style/Separator_Horizontal" />
+
+                                <vn.homecredit.hcvn.ui.custom.DefaultTwoColumnsRowItem
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:leftColumnWeightPercent="50"
+                                    app:leftText="@string/card_status"
+                                    app:rightText="@{viewModel.cardData.getStatusText()}"
+                                    app:textColor="@{viewModel.cardData.status.equalsIgnoreCase(HcCreditCard.ActiveStatusLabel) ? @color/activeDisplay : @color/colorPrimary}"
+                                    tools:rightText="Ngon" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View style="@style/Separator_Horizontal" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:onClick="@{() -> viewModel.onMorePanelToggled()}"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:onClick="@{() -> viewModel.onMorePanelToggled()}"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/text_margin"
+
+                                android:text="@{viewModel.morePanelText}"
+                                tools:text="@string/show_more"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/colorPrimary" />
+
+                            <ImageView
+                                android:id="@+id/showMoreIcon"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_show_arrow" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/actionPanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <vn.homecredit.hcvn.ui.custom.MenuRowItem
+                            android:id="@+id/statementList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:onClick="@{() -> viewModel.onStatementTapped()}"
+                            android:src="@drawable/ic_statement"
+                            android:text="@string/statement_list" />
+
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.MenuRowItem
+                            android:id="@+id/transactionHistory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:onClick="@{() -> viewModel.onTransactionHistoryTapped()}"
+                            android:src="@drawable/ic_payment_history"
+                            android:text="@string/transaction_history" />
+
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.MenuRowItem
+                            android:id="@+id/repaymentHistory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:onClick="@{() -> viewModel.onRepaymentHistoryTapped()}"
+                            android:src="@drawable/ic_payment_history"
+                            android:text="@string/repayment_history" />
+
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.MenuRowItem
+                            android:id="@+id/holdTransaction"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:onClick="@{() -> viewModel.onHoldTransactionTapped()}"
+                            android:src="@drawable/ic_hold_transaction"
+                            android:text="@string/hold_transactions" />
+
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.MenuRowItem
+                            android:id="@+id/paymentLocations"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:onClick="@{() -> viewModel.onPaymentLocationTapped()}"
+                            android:src="@drawable/ic_payment_location"
+                            android:text="@string/payment_locations"/>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

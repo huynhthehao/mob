@@ -34,7 +34,8 @@ public class DefaultAndroidNetworking {
         if(header != null)
             builder.addHeaders(header);
 
-        return builder.build().getObjectSingle(dataType)
+        return builder.build()
+                .getObjectSingle(dataType)
                 .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -48,7 +49,8 @@ public class DefaultAndroidNetworking {
         if(body != null)
             builder.addBodyParameter(body);
 
-        return builder.build().getObjectSingle(dataType)
+        return builder.build()
+                .getObjectSingle(dataType)
                 .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

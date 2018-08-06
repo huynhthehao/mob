@@ -9,6 +9,9 @@
 
 package vn.homecredit.hcvn.data;
 
+import android.app.NotificationManager;
+import android.content.Context;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 

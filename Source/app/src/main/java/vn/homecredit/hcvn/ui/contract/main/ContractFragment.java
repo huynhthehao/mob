@@ -15,8 +15,10 @@ import android.support.v7.widget.RecyclerView;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
@@ -64,6 +66,18 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     @Override
     public void onClicked(int position) {
+        HcContract selectedItem = getViewModel().getDataAtIndex(position);
+        if (selectedItem == null) {
+            showMessage(R.string.data_not_found);
+            return;
+        }
+
+        if (selectedItem.isCreditCard()) {
+            Intent intent = CreditCardListActivity.getNewIntent(getContext(), selectedItem);
+            startActivity(intent);
+            return;
+        }
+
         ContractDetailActivity.start(getContext(), contractRecyclerViewAdapter.getItem(position));
     }
 
