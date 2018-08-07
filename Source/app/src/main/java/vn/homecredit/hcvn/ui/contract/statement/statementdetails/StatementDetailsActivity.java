@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import org.parceler.Parcel;
 import org.parceler.Parcels;
@@ -18,12 +19,14 @@ import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.custom.SimpleRecyclerViewFragment;
+import vn.homecredit.hcvn.utils.imageLoader.ImageLoader;
 
 public class StatementDetailsActivity extends BaseActivity<ActivityStatementDetailsBinding, StatementDetailsViewModel> {
     public static final String CONTRACT_ID = "contract_id";
     public static final String STATEMENT_OBJECT = "STATEMENT_OBJECT";
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+
     StatementModel statementModel;
     String contractId = "";
     private SimpleRecyclerViewFragment fragmentImages;

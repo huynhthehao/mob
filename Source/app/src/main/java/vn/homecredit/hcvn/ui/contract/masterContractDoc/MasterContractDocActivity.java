@@ -31,11 +31,13 @@ import vn.homecredit.hcvn.databinding.ActivityMasterContractDocBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.SimpleRecyclerViewFragment;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
+import vn.homecredit.hcvn.utils.imageLoader.ImageLoader;
 
 public class MasterContractDocActivity extends BaseActivity<ActivityMasterContractDocBinding, MasterContractDocViewModel> {
     private static final String BUNDLE_MASTER_CONTRACT = "BUNDLE_MASTER_CONTRACT";
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+
     private SimpleRecyclerViewFragment fragmentMasterDoc;
 
     public static void start(Context context, MasterContract masterContract) {

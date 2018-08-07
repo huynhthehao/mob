@@ -78,4 +78,7 @@ ext {
 
     parceler = '1.1.11'
     roomVersion='1.1.1'
+
+    frescoimageviewerVersion='0.5.0'
+    facebookFrescoVersion='1.2.0'
 }
