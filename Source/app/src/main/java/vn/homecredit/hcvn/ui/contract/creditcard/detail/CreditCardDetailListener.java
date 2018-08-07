@@ -10,7 +10,7 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 
 public interface CreditCardDetailListener {
     void onShowMoreToggled(boolean isShown);
-    void onStatementTapped();
+    void onStatementTapped(String contractId);
 
     void onTransactionHistoryTapped(HcContract contract);
     void onRepaymentHistoryTapped(HcContract contract);

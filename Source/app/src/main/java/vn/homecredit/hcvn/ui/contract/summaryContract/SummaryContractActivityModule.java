@@ -4,7 +4,7 @@
  * Last modified 10/07/18 4:21 PM, by An.NguyenN1
  */
 
-package vn.homecredit.hcvn.ui.contract.signing;
+package vn.homecredit.hcvn.ui.contract.summaryContract;
 
 import android.arch.lifecycle.ViewModelProvider;
 
@@ -13,11 +13,11 @@ import dagger.Provides;
 import vn.homecredit.hcvn.di.ViewModelProviderFactory;
 
 @Module
-public class SigningActivityModule {
+public class SummaryContractActivityModule {
 
     @Provides
-    ViewModelProvider.Factory moreViewModelFactory(SigningViewModel signingViewModel) {
-        return new ViewModelProviderFactory<>(signingViewModel);
+    ViewModelProvider.Factory moreViewModelFactory(SummaryContractViewModel summaryContractViewModel) {
+        return new ViewModelProviderFactory<>(summaryContractViewModel);
     }
 
 }

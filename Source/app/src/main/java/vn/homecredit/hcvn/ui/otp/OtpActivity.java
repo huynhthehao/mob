@@ -25,6 +25,8 @@ import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivityOtpBinding;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivity;
+import vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSuccessActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 
 
@@ -95,6 +97,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     @Override
     public void next(OtpPassParam data) {
         switch (currentOtpFlow){
+            case MASTER_CONTRACT:
+            case MASTER_CONTRACT_CREDIT_CARD:
+                openMasterContractSign(data);
+                break;
             case SIGN_UP:
             case FORGOT_PASSWORD:
                 openSetPassword(data);
@@ -104,6 +110,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
             }
         }
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -119,6 +126,10 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
         Intent intent = AclApplicationFormActivity.newIntent(this);
         startActivity(intent);
         finish();
+    }
+
+    private void openMasterContractSign(OtpPassParam data) {
+        MasterContractSuccessActivity.start(this, data);
     }
 }
 

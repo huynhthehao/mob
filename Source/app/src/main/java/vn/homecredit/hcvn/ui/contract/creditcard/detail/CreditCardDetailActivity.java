@@ -32,6 +32,7 @@ import vn.homecredit.hcvn.data.model.enums.TransactionListType;
 import vn.homecredit.hcvn.databinding.ActivityCreditcardDetailBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionListActivity;
+import vn.homecredit.hcvn.ui.contract.statement.StatementsActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDetailBinding, CreditCardDetailViewModel> implements CreditCardDetailListener {
@@ -115,10 +116,11 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
         view.startAnimation(rotateAni);
     }
 
-
     @Override
-    public void onStatementTapped() {
-        showMessage("Statement Tapped");
+    public void onStatementTapped(String contractId) {
+        Intent intent = new Intent(this, StatementsActivity.class);
+        intent.putExtra(StatementsActivity.CONTRACT_ID, contractId);
+        startActivity(intent);
     }
 
     @Override

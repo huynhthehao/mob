@@ -5,7 +5,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="vn.homecredit.hcvn.ui.contract.signing.SigningViewModel"
+            type="vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractViewModel"
             />
     </data>
 

@@ -39,6 +39,10 @@ public class ContractViewModel extends BaseViewModel {
         return listMutableLiveData;
     }
 
+    public MutableLiveData<Boolean> getModelReLogin() {
+        return errorAuthenticate;
+    }
+
     public HcContract getDataAtIndex(int index){
         try {
             List<HcContract> contracts = listMutableLiveData.getValue();
@@ -46,10 +50,6 @@ public class ContractViewModel extends BaseViewModel {
         } catch (Exception ex){
             return null;
         }
-    }
-
-    public MutableLiveData<Boolean> getErrorAuthenticate() {
-        return errorAuthenticate;
     }
 
     @Override

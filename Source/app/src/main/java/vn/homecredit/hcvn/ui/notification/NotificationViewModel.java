@@ -45,6 +45,13 @@ public class NotificationViewModel extends BaseViewModel {
                         notificationResp ->
                         {
                             modelIsRefreshing.setValue(false);
+                            if (notificationResp == null) {
+                                return;
+                            }
+                            if (notificationResp.getResponseCode() != 0) {
+                                showMessage(notificationResp.getResponseMessage());
+                                return;
+                            }
                             cacheNotification(notificationResp);
                             loadAndDisplayCachedNotifications();
                             saveCurrentBadgeCount(notificationResp.getData());
@@ -57,6 +64,7 @@ public class NotificationViewModel extends BaseViewModel {
     }
 
     private void saveCurrentBadgeCount(List<NotificationModel> notificationModels) {
+        if (notificationModels == null) return;
         int count = 0;
         for (int i = 0; i < notificationModels.size(); i++) {
             if (!notificationModels.get(i).isRead()) {

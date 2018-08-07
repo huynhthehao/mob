@@ -7,6 +7,8 @@ import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 import vn.homecredit.hcvn.data.model.api.contract.ContractStatus;
 import vn.homecredit.hcvn.data.model.api.contract.ContractType;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyDataResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.NextPayment;
 
 public class TestData {
@@ -81,5 +83,15 @@ public class TestData {
         nextPayment.setDateNextDue("2018-07-20T00:00:00");
         nextPayment.setTotal(35409000);
         return nextPayment;
+    }
+
+    public static MasterContractVerifyResp masterContractVerifyResp() {
+        MasterContractVerifyDataResp masterContractVerifyDataResp = new MasterContractVerifyDataResp();
+        masterContractVerifyDataResp.setTimeOut(6000);
+        masterContractVerifyDataResp.setLoadInterval(3000);
+        MasterContractVerifyResp masterContractVerifyResp = new MasterContractVerifyResp();
+        masterContractVerifyResp.setResponseCode(0);
+        masterContractVerifyResp.setMasterContractVerifyDataResp(masterContractVerifyDataResp);
+        return masterContractVerifyResp;
     }
 }

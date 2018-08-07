@@ -104,16 +104,21 @@
         <activity
             android:name=".ui.map.PayMapActivity"
             android:label="@string/title_activity_pay_map"></activity>
+        <activity
+            android:name=".ui.contract.statement.StatementsActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.contract.statement.statementdetails.StatementDetailsActivity"
+            android:theme="@style/AppTheme" />
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.contract.signing.SigningActivity" />
+        <activity android:name=".ui.contract.summaryContract.SummaryContractActivity" />
         <activity android:name=".ui.contract.masterContractDoc.MasterContractDocActivity" />
         <activity android:name=".ui.contract.detail.ContractDetailActivity"></activity>
+        <activity android:name=".ui.contract.masterContractSuccess.MasterContractSuccessActivity" />
         <activity android:name=".ui.contract.scheduleDetail.ScheduleDetailActivity"></activity>
         <activity android:name=".ui.contract.paymentHistory.PaymentHistoryActivity" />
+        <activity android:name=".ui.contract.masterContractSign.MasterContractSignActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

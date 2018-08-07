@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.contract.masterContractDoc.MasterContractDocActivity"
+    >
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_scrollFlags="enterAlways"
+            app:navigationIcon="?android:attr/homeAsUpIndicator"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/contract_detail">
+
+        </android.support.v7.widget.Toolbar>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:padding="@dimen/padding_small"
+            app:layout_constraintBottom_toTopOf="@+id/tvMesssage"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:indeterminateOnly="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_in"
+            android:maxHeight="10dip"
+            android:minHeight="10dip"
+            android:visibility="@{viewModel.isErrorSign ? View.GONE : View.VISIBLE}"
+            style="?android:attr/progressBarStyleHorizontal"
+            />
+
+        <TextView
+            android:id="@+id/tvMesssage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@+id/progressbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:padding="@dimen/padding_normal"
+            android:text="@string/master_contract_wait"
+            android:visibility="@{viewModel.isErrorSign ? View.GONE : View.VISIBLE}"
+            style="@style/AppTheme.DescriptionLabel"
+            />
+
+        <TextView
+            android:id="@+id/tvErrorTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintBottom_toTopOf="@+id/tvErrorMessage"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:padding="@dimen/padding_small"
+            android:gravity="center"
+            android:text="@string/master_contract_sign_error"
+            android:visibility="@{viewModel.isErrorSign ? View.VISIBLE : View.GONE}"
+            style="@style/AppTheme.DescriptionLabel"
+            />
+
+        <TextView
+            android:id="@+id/tvErrorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@+id/tvErrorTitle"
+            app:layout_constraintBottom_toTopOf="@id/btnDone"
+            android:padding="@dimen/padding_small"
+            android:gravity="center"
+            android:text="@string/master_contract_sign_contact"
+            android:visibility="@{viewModel.isErrorSign ? View.VISIBLE : View.GONE}"
+            style="@style/AppTheme.DescriptionLabel"
+            />
+
+
+        <Button
+            android:id="@+id/btnDone"
+            style="@style/PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:imeOptions="actionDone"
+            android:text="@string/action_next"
+            android:onClick="@{() -> viewModel.onDoneClicked()}"
+            android:visibility="@{viewModel.isErrorSign ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvErrorMessage"
+            />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

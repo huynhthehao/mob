@@ -56,7 +56,7 @@ android {
             applicationId "vn.homecredit.hcvn.beta"
             versionCode 8
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
-            buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
+            buildConfigField "String", "BASE_URL", '"https://mobileapp-uat.homecredit.vn"'
         }
         uat {
             dimension "mode"
@@ -150,4 +150,6 @@ dependencies {
 
     //google map direction router
     implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
+    implementation "com.github.stfalcon:frescoimageviewer:$rootProject.frescoimageviewerVersion"
+    implementation "com.facebook.fresco:fresco:$rootProject.facebookFrescoVersion"
 }

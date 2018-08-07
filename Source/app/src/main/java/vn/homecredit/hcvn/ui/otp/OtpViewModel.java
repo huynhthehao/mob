@@ -25,6 +25,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
@@ -168,16 +169,23 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         boolean hasDisbursementBankAccount = otpPassParam.getMasterContract().isHasDisbursementBankAccount();
         boolean creditCardContract = otpPassParam.getMasterContract().isCreditCardContract();
         contractRepository.masterContractVerify(contractId, inputOtp, hasDisbursementBankAccount, creditCardContract)
-                .subscribe(new Consumer<OtpTimerResp>() {
-                    @Override
-                    public void accept(OtpTimerResp otpTimerResp) throws Exception {
-                        setIsLoading(false);
+                .subscribe(masterContractVerifyResp -> {
+                    setIsLoading(false);
+                    if (masterContractVerifyResp ==  null) {
+                        showMessage(R.string.error_system);
+                        return;
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        setIsLoading(false);
+                    if (masterContractVerifyResp.isSuccess()) {
+                        stopTimer();
+                        otpPassParam.setMasterContractVerifyDataResp(masterContractVerifyResp.getMasterContractVerifyDataResp());
+                        getNavigator().next(otpPassParam);
+                    }else {
+                        showMessage(masterContractVerifyResp.getResponseMessage());
                     }
+
+                }, throwable -> {
+                    setIsLoading(false);
+                    handleError(throwable);
                 });
     }
 

@@ -9,6 +9,7 @@
 
 package vn.homecredit.hcvn.data.remote;
 
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
 
@@ -21,12 +22,15 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Function;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.model.api.creditcard.TransactionResp;
@@ -40,7 +44,11 @@ import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
+import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
+import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
+import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
+import vn.homecredit.hcvn.utils.TestData;
 
 @Singleton
 public class RestServiceImpl implements RestService {
@@ -91,11 +99,14 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<TokenResp> getToken(String phoneNumber, String password) {
-
+        if (mMemoryHelper.getVersionRespData() == null ||
+                mMemoryHelper.getVersionRespData().getSettings() == null ||
+                mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId() == null ) {
+            return Single.error(new Throwable("System Error"));
+        }
         String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
         byte[] b = s.getBytes(Charset.forName("UTF-8"));
         String authCode = Base64.encodeToString(b, android.util.Base64.DEFAULT);
-
         HashMap<String, String> requestHeader = new HashMap<>();
         requestHeader.put("Authorization", String.format("Basic %s", authCode.trim()));
 
@@ -277,13 +288,15 @@ public class RestServiceImpl implements RestService {
         requestBody.put("contractNumber", contractId);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/sign/accept?v=2");
         return Rx2AndroidNetworking.post(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addBodyParameter(requestBody)
                 .build()
-                .getObjectSingle(OtpTimerResp.class);
+                .getObjectSingle(OtpTimerResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
     }
 
     @Override
-    public Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
+    public Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/master/sign/verify?v=2");
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("ContractNumber", contractId);
@@ -291,10 +304,23 @@ public class RestServiceImpl implements RestService {
         requestBody.put("HasDisbursementBankAccount", hasDisbursementBankAccount ? "true" : "false");
         requestBody.put("IsCreditCardContract", isCreditCardContract ? "true" : "false");
         return Rx2AndroidNetworking.post(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addBodyParameter(requestBody)
                 .build()
-                .getObjectSingle(OtpTimerResp.class)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)))
+                .getObjectSingle(MasterContractVerifyResp.class)
+                .map(masterContractVerifyResp -> {
+                    if (BuildConfig.DEBUG) {
+                        return TestData.masterContractVerifyResp();
+                    }else {
+                        return masterContractVerifyResp;
+                    }
+                })
+                .onErrorResumeNext(throwable -> {
+                    if (BuildConfig.DEBUG) {
+                        return Single.just(TestData.masterContractVerifyResp());
+                    }
+                    return Single.error(new HcApiException(throwable, MasterContractVerifyResp.class));
+                })
                 ;
     }
 
@@ -314,6 +340,25 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(PaymentHistoryResp.class);
+    }
+
+    @Override
+    public Single<StatementResp> getStatements(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/statements", contractId));
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(StatementResp.class);
+    }
+
+    @Override
+    public Single<StatementDetailsResp> getStatementDetails(String contractId, StatementModel statementModel) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/statementimages", contractId) + "?key=" + statementModel.getKey()
+                + "&id=" + statementModel.getId());
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(StatementDetailsResp.class);
     }
 
     @Override
