@@ -4,7 +4,10 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.text.Html;
+import android.text.util.Linkify;
 import android.widget.TextView;
+
+import javax.inject.Inject;
 
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
@@ -23,6 +26,7 @@ public class MasterContractSuccessViewModel extends BaseViewModel {
     private OtpPassParam otpParam;
     private PreferencesHelper preferencesHelper;
 
+    @Inject
     public MasterContractSuccessViewModel(SchedulerProvider schedulerProvider, PreferencesHelper preferencesHelper) {
         super(schedulerProvider);
         this.preferencesHelper = preferencesHelper;
@@ -88,9 +92,11 @@ public class MasterContractSuccessViewModel extends BaseViewModel {
     public static void setMasterContractSuccess(TextView textView, String contractId, boolean isCreditMc, String phone) {
         if (contractId == null) return;
         if (isCreditMc) {
-            textView.setText(Html.fromHtml(textView.getContext().getString(R.string.master_contract_success, contractId)));
+            textView.setText(Html.fromHtml(textView.getContext().getString(R.string.master_contract_credit_success, contractId,phone)));
         } else {
-            textView.setText(Html.fromHtml(textView.getContext().getString(R.string.master_contract_credit_success, contractId, phone)));
+            textView.setText(Html.fromHtml(textView.getContext().getString(R.string.master_contract_success, contractId )));
         }
+        Linkify.addLinks(textView, Linkify.PHONE_NUMBERS);
+        textView.setLinkTextColor(textView.getContext().getResources().getColor(R.color.colorPrimary));
     }
 }

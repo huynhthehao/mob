@@ -30,6 +30,8 @@ import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivit
 import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivityModule;
 import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignViewModel;
+import vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSuccessActivity;
+import vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSuccessActivityModule;
 import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivity;
 import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivityModule;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
@@ -142,5 +144,9 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = PaymentHistoryActivityModule.class)
     abstract PaymentHistoryActivity bindPaymentHistoryActivity();
+
+    @ContributesAndroidInjector(modules = MasterContractSuccessActivityModule.class)
+    abstract MasterContractSuccessActivity bindMasterContractSuccessActivity();
+
 
 }

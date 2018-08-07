@@ -23,7 +23,7 @@
             android:adjustViewBounds="true"
             android:padding="@dimen/margin_highest"
             android:layout_margin="@dimen/margin_highest"
-            android:src="@drawable/ic_smile"
+            android:src="@drawable/ic_thanks"
             />
 
         <TextView

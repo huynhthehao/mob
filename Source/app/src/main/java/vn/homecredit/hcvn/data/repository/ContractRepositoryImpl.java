@@ -127,13 +127,16 @@ public class ContractRepositoryImpl implements ContractRepository {
     public Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval) {
         int numberRequest = timeout / interval;
         return Observable.interval(interval, TimeUnit.MILLISECONDS)
+                .takeWhile(aLong -> aLong < numberRequest)
                 .flatMap((Function<Long, Observable<MasterContractResp>>) aLong -> {
-                    if (aLong >= numberRequest) {
-                        return Observable.error(new Throwable("Timeout"));
-                    }else {
-                        return restService.masterContract(contractId)
-                                .toObservable();
-                    }
+//                    if (aLong >= numberRequest) {
+//                        return Observable.error(new Throwable("Timeout"));
+//                    }else {
+//                        return restService.masterContract(contractId)
+//                                .toObservable();
+//                    }
+                    return restService.masterContract(contractId)
+                            .toObservable();
                 })
                 .filter(masterContractResp -> {
                     if (masterContractResp == null || masterContractResp.isSuccess() || masterContractResp.getMasterContract() == null) {
