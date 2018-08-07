@@ -6,11 +6,13 @@
 
 package vn.homecredit.hcvn.ui.contract.creditcard.detail;
 
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+
 public interface CreditCardDetailListener {
     void onShowMoreToggled(boolean isShown);
-    void onStatementTapped();
-    void onTransactionHistoryTapped();
-    void onRepaymentHistoryTapped();
-    void onHoldTransactionTapped();
-    void onPaymentLocationTapped();
+    void onStatementTapped(String contractId);
+    void onTransactionHistoryTapped(HcContract hcContract);
+    void onRepaymentHistoryTapped(HcContract hcContract);
+    void onHoldTransactionTapped(HcContract hcContract);
+    void onPaymentLocationTapped(HcContract hcContract);
 }

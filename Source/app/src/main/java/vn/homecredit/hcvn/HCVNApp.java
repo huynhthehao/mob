@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.onesignal.OneSignal;
 
 import javax.inject.Inject;
@@ -131,6 +132,7 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
             }
         });
+        Fresco.initialize(this);
     }
 
     public static Context getContext() {
