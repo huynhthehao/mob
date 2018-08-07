@@ -60,22 +60,12 @@ public class StatementDetailsViewModel extends BaseViewModel {
     }
 
     private List<String> getImages(List<StatementDetailModel> listData) {
-        // test
-        String image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3J63zkgb86xW7ejMWk4TcEo0EEcRHX16akchPHmHo4WmW5Ys";
-        List<String> testList = new ArrayList<>();
-        testList.add(image);
-        testList.add(image);
-        testList.add(image);
-        return testList;
-        // end test
-
-        // will open when release
-//        List<String> listImages = new ArrayList<>();
-//        if (listData == null)
-//            return listImages;
-//        for (int i = 0; i < listData.size(); i++) {
-//            listImages.add(listData.get(i).getImageUrl());
-//        }
-//        return listImages;
+        List<String> listImages = new ArrayList<>();
+        if (listData == null)
+            return listImages;
+        for (int i = 0; i < listData.size(); i++) {
+            listImages.add(listData.get(i).getImageUrl());
+        }
+        return listImages;
     }
 }

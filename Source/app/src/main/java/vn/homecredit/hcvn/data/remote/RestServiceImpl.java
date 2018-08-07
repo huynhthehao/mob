@@ -305,10 +305,6 @@ public class RestServiceImpl implements RestService {
     @Override
     public Single<StatementResp> getStatements(String contractId) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/statements", contractId));
-        // test on debug environment
-        if (BuildConfig.DEBUG)
-            url = url + "&isMock=true";
-        // end test
         return Rx2AndroidNetworking.get(url)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
@@ -319,10 +315,6 @@ public class RestServiceImpl implements RestService {
     public Single<StatementDetailsResp> getStatementDetails(String contractId, StatementModel statementModel) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/statementimages", contractId) + "?key=" + statementModel.getKey()
                 + "&id=" + statementModel.getId());
-        // test on debug environment
-        if (BuildConfig.DEBUG)
-            url = url + "&isMock=true";
-        // end test
         return Rx2AndroidNetworking.get(url)
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
