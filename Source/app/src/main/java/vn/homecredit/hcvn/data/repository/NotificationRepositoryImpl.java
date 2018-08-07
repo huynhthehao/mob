@@ -41,7 +41,7 @@ public class NotificationRepositoryImpl implements NotificationRepository {
 
     @Override
     public void cacheNotifications(List<NotificationModel> notificationModels) {
-//        notificationDao.insert(notificationModels);
+        notificationDao.insert(notificationModels);
     }
 
     @Override
