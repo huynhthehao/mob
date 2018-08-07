@@ -44,19 +44,6 @@ public class ContractRepositoryImpl implements ContractRepository {
     public Single<ContractResp> contracts() {
         return restService.contract()
                 .map(contractResp -> {
-                    if (BuildConfig.DEBUG) {
-//                        contractResp.getData().getContracts().add(TestData.activeContract());
-//                        contractResp.getData().getContracts().add(TestData.pendingContract());
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CashLoan));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.ConsumerDurables));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CreditCard));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.TwoWheels));
-//                        contractResp.getData().getContracts().add(TestData.closeContract());
-//                        contractResp.getData().getContracts().add(TestData.closeContract());
-                    }
-                    return contractResp;
-                })
-                .map(contractResp -> {
                     List<HcContract> contractMasterList = convertMasterToHcContract(contractResp.getData().getMasterContracts());
                     if (contractResp.getData().getContracts() != null) {
                         contractResp.getData().getContracts().addAll(contractMasterList);
@@ -81,11 +68,6 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public Single<MasterContractDocResp> masterContractDoc(String contractId) {
         return restService.masterContractDoc(contractId)
-                .doOnSuccess(masterContractDocResp -> {
-                    String image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3J63zkgb86xW7ejMWk4TcEo0EEcRHX16akchPHmHo4WmW5Ys";
-                    List<String> images = Arrays.asList(image, image, image);
-                    masterContractDocResp.getImages().addAll(images);
-                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
