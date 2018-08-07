@@ -54,7 +54,8 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     //Maker type
     public static final String MAKER_MOMO = "momo";
     public static final String MAKER_PAYOO = "payoo";
-    public static final String MAKER_EBAY = "epaydisbursement";
+    public static final String MAKER_EPAY_POS = "epay";
+    public static final String MAKER_EPAY = "epaydisbursement";
     public static final String MAKER_DEFAULT = "";
     public static final String MODE_KEY = "Mode";
 
@@ -71,7 +72,7 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     private LatLng mCenterLocation;
     Toolbar toolbar;
     private Marker marker = null;
-    static LatLng defaultLocation = new LatLng(10.787273, 106.749810);
+    static LatLng defaultLocation = new LatLng(10.797972, 106.7149262);
 
     public static void start(Context context, int modeMap) {
         Intent intent = new Intent(context, PayMapActivity.class);
@@ -290,7 +291,6 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
         switch (currentMode) {
             case PAYMENT_MODE:
                 payMapViewModel.loadPayment(mMap, getApplicationContext(), mCenterLocation);
-                payMapViewModel.loadMapPayoo(mMap, getApplicationContext(), mCenterLocation);
                 break;
             case DISBURSEMENT_MODE:
                 payMapViewModel.loadDisbursement(mMap, getApplicationContext(), mCenterLocation);
@@ -305,9 +305,27 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        getDeviceLocation();
-        if (mLastKnownLocation != null) {
-            payMapViewModel.drawDirection(mMap, mLastKnownLocation, marker.getPosition(), getApplicationContext());
+        try {
+            if (mLocationPermissionGranted) {
+                Task locationResult = mFusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Set the map's camera position to the current location of the device.
+                        mLastKnownLocation = (Location) task.getResult();
+                        try {
+                            mCenterLocation = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+                            if (mLastKnownLocation != null) {
+                                payMapViewModel.drawDirection(mMap, mLastKnownLocation, marker.getPosition(), getApplicationContext());
+                            }
+                        } catch (Exception ignored) {
+                        }
+
+                    } else {
+                        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                    }
+                });
+            }
+        } catch (SecurityException ignored) {
         }
         this.marker = marker;
         return false;
@@ -341,7 +359,8 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
             image.setVisibility(View.VISIBLE);
 
             switch (Objects.requireNonNull((String) marker.getTag())) {
-                case MAKER_EBAY:
+                case MAKER_EPAY:
+                case MAKER_EPAY_POS:
                     image.setImageResource(R.drawable.ic_epay);
                     break;
                 case PayMapActivity.MAKER_MOMO:

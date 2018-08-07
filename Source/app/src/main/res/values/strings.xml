@@ -167,7 +167,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="status">Status</string>
     <string name="please_sign">Vui lòng ký</string>
     <string name="pending">Đang chờ</string>
-    <string name="approved">Đã kích hoạt</string>
+    <string name="approved">Hoạt động</string>
     <string name="closed">Đã đóng</string>
 
     <string name="nextpayment">Lần thanh toán kế tiếp của bạn &lt;b>%s&lt;/b> là vào ngày &lt;b>%s&lt;/b>.</string>
@@ -198,7 +198,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="master_contract_detail">Chi Tiết Hợp Đồng</string>
     <string name="contract_detail_hint">Tôi đã đọc, hiểu và đồng ý với toàn bộ nội dung của các tài liệu trên đây</string>
     <string name="agreeandsign">Đồng ý và ký xác nhận</string>
-    <string name="error_system">Lỗi hệ thống, vui lòng thử lại sau.</string>
+    <string name="error_system">Lỗi hệ thống, vui lòng thử lại sau...</string>
     <string name="map_payment_location">Địa điểm giao dịch</string>
     <string name="map_disbursement_location">Địa Điểm Nhận Tiền</string>
     <string name="map_cash_loan_location">Địa Điểm Vay</string>
@@ -216,6 +216,22 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="loading_data">Đang tải dữ liệu...</string>
     <string name="tap_to_reload">Thử lại</string>
     <string name="see_details">Xem chi tiết</string>
+    <string name="master_contract_wait">Vui lòng chờ giây lát để chúng tôi hoàn tất quá trình ký hồ sơ của bạn</string>
+    <string name="master_contract_sign_error">Ký hợp đồng bị lỗi</string>
+    <string name="master_contract_sign_contact">Vui lòng thử lại hoặc gọi vào trung tâm hỗ trợ %s để được trợ giúp</string>
+    <string name="done">Kết thúc</string>
+
+    <string name="master_contract_success">"Bạn đã ký hợp đồng %s
+        thành công với Home Credit
+        Ghi chú: Vui lòng chờ 2 tiếng trước khi nhận tiền vay của bạn tại Vietinbank hay Bưu điện Việt Nam Thời gian nhận tiền từ Thứ 2 - Thứ 6 8:30 - 16:30
+        "</string>
+    <string name="master_contract_credit_success">"Bạn đã ký hợp đồng %s
+        thành công với Home Credit
+
+        Ghi chú: Thẻ tín dụng của bạn sẽ được chuyển đến địa chỉ liên lạc trong vòng 5-7 ngày. Khi nhận được thẻ, vui lòng gọi %s để kích hoạt thẻ và đặt mã PIN
+        Vui lòng bỏ qua lưu ý trên nếu bạn đã nhận được thẻ"</string>
+    <string name="dialog_esigning_title">Kiểm tra bảo mật</string>
+    <string name="dialog_esigning_message">Bạn không tương tác trong vòng 5 phút, vui lòng nhập mật khẩu để tiếp tục</string>
     <!--payment history-->
     <string name="paid_date">Ngày thanh toán</string>
     <string name="amount">Số tiền</string>
@@ -255,6 +271,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="hold_transactions">Giao dịch chưa hạch toán</string>
     <string name="hold_transactions_title">Giao Dịch Chưa Hạch Toán</string>
     <string name="hold_transactions_detail_title">Chi Tiết Giao Dịch Chưa Hạch Toán</string>
+    <string name="default_string_empty">-</string>
 
     <string name="statement_details">Chi tiết sao kê</string>
 

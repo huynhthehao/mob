@@ -135,6 +135,7 @@
                     app:total="@{contract.getNextPaymentTotal}"
                     app:duedate="@{contract.getNextPaymentDueDate}"
                     style="@style/Contact.Title"
+                    android:visibility="gone"
                     />
 
                 <TextView

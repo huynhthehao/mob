@@ -199,7 +199,7 @@ public class PayMapViewModel extends BaseViewModel {
     public void loadPaymentMap(GoogleMap map, LatLng position, Context context) {
         map.clear();
         loadPayment(map, context, position);
-        loadMapPayoo(map, context, position);
+//        loadMapPayoo(map, context, position);
     }
 
     public void loadDisbursementMap(GoogleMap map, LatLng position, Context context) {
@@ -214,9 +214,9 @@ public class PayMapViewModel extends BaseViewModel {
 
     private void drawMaker(String makerType, GoogleMap googleMap, Context context, LatLng latLng, String title, String address) {
         Bitmap icon = null;
-
         switch (makerType) {
-            case PayMapActivity.MAKER_EBAY:
+            case PayMapActivity.MAKER_EPAY:
+            case PayMapActivity.MAKER_EPAY_POS:
                 icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_epay);
                 break;
             case PayMapActivity.MAKER_MOMO:

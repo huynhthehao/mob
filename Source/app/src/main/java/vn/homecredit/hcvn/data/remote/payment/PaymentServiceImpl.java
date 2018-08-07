@@ -5,7 +5,6 @@ import com.rx2androidnetworking.Rx2AndroidNetworking;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
-import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.data.remote.ApiEndPoint;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
@@ -23,7 +22,7 @@ public class PaymentServiceImpl implements PaymentService {
         String url = ApiEndPoint.ENDPOINT_APP +
                 "/pos/payment?" +
                 "lng=" + lon +
-                "&lat=" + lat;
+                "&lat=" + lat + "&v=2";
         return Rx2AndroidNetworking.get(url)
                 .addHeaders(mApiHeader.getDisbursementApiHeader())
                 .build()

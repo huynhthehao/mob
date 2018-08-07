@@ -21,8 +21,7 @@ import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
-import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
-import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 import javax.inject.Inject;
@@ -91,6 +90,6 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     @Override
     public void onSignClicked(int position) {
-        SigningActivity.start(getActivity(), contractRecyclerViewAdapter.getItem(position));
+        SummaryContractActivity.start(getActivity(), contractRecyclerViewAdapter.getItem(position));
     }
 }

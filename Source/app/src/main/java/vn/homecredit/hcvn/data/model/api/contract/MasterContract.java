@@ -404,4 +404,7 @@ public class MasterContract {
     public boolean canApproved() {
         return contractStatus.equals("approved");
     }
+    public boolean isSigned() {
+        return contractStatus.equals("signed");
+    }
 }

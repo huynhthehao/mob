@@ -25,12 +25,15 @@ import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailViewModel;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivityModule;
+import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivity;
+import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivityModule;
+import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignViewModel;
+import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivity;
+import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivityModule;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivityModule;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivityModule;
-import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
-import vn.homecredit.hcvn.ui.contract.signing.SigningActivityModule;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
 import vn.homecredit.hcvn.ui.contract.statement.StatementsActivity;
@@ -90,8 +93,8 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = ForgetPasswordActivityModule.class)
     abstract ForgetPasswordActivity bindForgetPasswordActivity();
 
-    @ContributesAndroidInjector(modules = SigningActivityModule.class)
-    abstract SigningActivity bindSigningActivity();
+    @ContributesAndroidInjector(modules = SummaryContractActivityModule.class)
+    abstract SummaryContractActivity bindSigningActivity();
 
     @ContributesAndroidInjector(modules = OtpViewModel.class)
     abstract OtpActivity bindOtpActivity();
@@ -132,6 +135,9 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = ContractDetailActivityModule.class)
     abstract ContractDetailActivity bindContractDetailActivity();
+
+    @ContributesAndroidInjector(modules = MasterContractSignActivityModule.class)
+    abstract MasterContractSignActivity bindMasterContractSignActivity();
 
     @ContributesAndroidInjector(modules = ScheduleDetailActivityModule.class)
     abstract ScheduleDetailActivity bindScheduleDetailActivity();

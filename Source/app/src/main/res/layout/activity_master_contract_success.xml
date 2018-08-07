@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.contract.masterContractDoc.MasterContractDocActivity"
+    >
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSuccessViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/margin_highest"
+            android:layout_margin="@dimen/margin_highest"
+            android:src="@drawable/ic_smile"
+            />
+
+        <TextView
+            android:id="@+id/tvThankyou"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ivLogo"
+            android:text="@string/thankyou"
+            android:gravity="center"
+            android:textAllCaps="true"
+            style="@style/AppTheme.SectionLabel"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvThankyou"
+            android:padding="@dimen/padding_small"
+            android:gravity="center"
+            android:text="@string/master_contract_success"
+            app:mcId="@{viewModel.filedContractId}"
+            app:phone="@{viewModel.fieldSupportPhone}"
+            app:isCreditMc="@{viewModel.fieldIsCreditMaster}"
+            style="@style/AppTheme.Title"
+            />
+
+        <TextView
+            android:id="@+id/tvPaymentLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:drawableLeft="@drawable/ic_location"
+            android:drawablePadding="@dimen/padding_small"
+            android:text="@string/map_disbursement_location"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{() -> viewModel.onDisbursementClicked()}"
+            style="@style/Contact.Content"
+            />
+
+
+        <Button
+            android:id="@+id/btnDone"
+            style="@style/PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:imeOptions="actionDone"
+            android:text="@string/done"
+            android:onClick="@{() -> viewModel.onDoneClicked()}"
+            app:layout_constraintTop_toBottomOf="@+id/tvPaymentLocation"
+            />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

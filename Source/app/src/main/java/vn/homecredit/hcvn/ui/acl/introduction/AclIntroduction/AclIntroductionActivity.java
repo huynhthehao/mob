@@ -26,6 +26,7 @@ import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTyp
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeNavigator;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductionBinding, AclIntroductionViewModel> implements AclSelectLoanTypeNavigator, HasSupportFragmentInjector, AclSelectLoanTypeFragment.OnFragmentInteractionListener, View.OnClickListener, ViewPager.OnPageChangeListener {
 
@@ -92,11 +93,16 @@ public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductio
 
     @Override
     public void onSelectPOS() {
-
+        PayMapActivity.start(this, PayMapActivity.PAYMENT_MODE);
     }
 
     @Override
     public void goACLO() {
+
+    }
+
+    @Override
+    public void goPos() {
 
     }
 

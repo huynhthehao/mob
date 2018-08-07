@@ -11,7 +11,6 @@ package vn.homecredit.hcvn.ui.base;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,12 +29,14 @@ import android.view.inputmethod.InputMethodManager;
 import dagger.android.AndroidInjection;
 import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.NetworkUtils;
 
+import static java.lang.Boolean.TRUE;
 import static vn.homecredit.hcvn.HCVNApp.getContext;
 
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel> extends AppCompatActivity
@@ -176,9 +177,13 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     }
 
     private void bindModelErrorAuthenticate() {
-        getViewModel().getErrorAuthenticate().observe(this, o -> {
-            if (o != null && o == Boolean.TRUE) {
-                startWelcome();
+        getViewModel().getModelReLogin().observe(this, o -> {
+            if (o != null && o == TRUE) {
+                showConfirmMessage(null, getString(R.string.token_expired), aBoolean -> {
+                    if (aBoolean != null && aBoolean == TRUE) {
+                        startWelcome();
+                    }
+                });
             }
         });
     }
