@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -25,6 +26,8 @@ import android.view.MenuItem;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.google.android.gms.maps.model.Dash;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -100,6 +103,17 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // force set locale flow the app setting, for get relative time span in notification list.
+        String languageToLoad  = preferencesHelper.getLanguageCode(); // your language
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+        // end set locale
+
         setSupportActionBar(getViewDataBinding().toolbar);
         getViewModel().setNavigator(this);
         // Create the adapter that will return a fragment for each of the three
