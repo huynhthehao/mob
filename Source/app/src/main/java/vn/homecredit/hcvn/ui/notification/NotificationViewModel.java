@@ -45,6 +45,13 @@ public class NotificationViewModel extends BaseViewModel {
                         notificationResp ->
                         {
                             modelIsRefreshing.setValue(false);
+                            if (notificationResp == null) {
+                                return;
+                            }
+                            if (notificationResp.getResponseCode() != 0) {
+                                showMessage(notificationResp.getResponseMessage());
+                                return;
+                            }
                             cacheNotification(notificationResp);
                             loadAndDisplayCachedNotifications();
                             saveCurrentBadgeCount(notificationResp.getData());

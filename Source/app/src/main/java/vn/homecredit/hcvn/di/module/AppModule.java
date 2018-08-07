@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.onesignal.NotificationExtenderService;
 
 import javax.inject.Singleton;
 
@@ -51,7 +50,6 @@ import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactoryImpl;
-import vn.homecredit.hcvn.service.AppNotificationExtenderService;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.DeviceInfoImpl;
 import vn.homecredit.hcvn.service.OneSignalService;
@@ -61,7 +59,6 @@ import vn.homecredit.hcvn.service.ResourceServiceImpl;
 import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.service.VersionServiceImpl;
 import vn.homecredit.hcvn.utils.AppConstants;
-import vn.homecredit.hcvn.utils.imageLoader.GlideImageLoaderImpl;
 import vn.homecredit.hcvn.utils.imageLoader.ImageLoader;
 import vn.homecredit.hcvn.utils.rx.AppSchedulerProvider;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
@@ -276,11 +273,5 @@ public class AppModule {
     @Singleton
     ContractRepository provideContractRepository(ContractRepositoryImpl contractRepositoryImpl) {
         return contractRepositoryImpl;
-    }
-
-    @Provides
-    @Singleton
-    ImageLoader provideImageLoader(GlideImageLoaderImpl glideImageLoader) {
-        return glideImageLoader;
     }
 }

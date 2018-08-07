@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,6 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.utils.imageLoader.ImageLoader;
 
 public class SimpleRecyclerViewFragment extends Fragment {
-
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefresh;
     private View footerView;
@@ -47,7 +46,9 @@ public class SimpleRecyclerViewFragment extends Fragment {
         if (images == null) {
             images = new ArrayList<>();
         }
-        ImageAdapter imageAdapter = new ImageAdapter(images, footerView);
+        ImageAdapter imageAdapter = new ImageAdapter(images, footerView, (items, startPosition) -> new ImageViewer.Builder(getActivity(), items)
+                .setStartPosition(startPosition)
+                .show());
         recyclerView.setAdapter(imageAdapter);
     }
 
@@ -60,13 +61,16 @@ public class SimpleRecyclerViewFragment extends Fragment {
         public static final int TYPE_FOOTER = 2;
         private List<String> items = new ArrayList<>();
         private View footerView;
+        OnImageClickListener listener;
 
         public ImageAdapter(List<String> items) {
             this.items = items;
         }
-        public ImageAdapter(List<String> items, View footerView) {
+
+        public ImageAdapter(List<String> items, View footerView, OnImageClickListener listener) {
             this.items = items;
             this.footerView = footerView;
+            this.listener = listener;
         }
 
         @NonNull
@@ -75,7 +79,7 @@ public class SimpleRecyclerViewFragment extends Fragment {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             if (viewType == TYPE_FOOTER) {
                 return new FooterViewHolder(footerView);
-            }else {
+            } else {
                 View view = layoutInflater.inflate(R.layout.item_image, parent, false);
                 return new ImageViewHolder(view);
             }
@@ -84,7 +88,7 @@ public class SimpleRecyclerViewFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             if (holder instanceof ImageViewHolder) {
-                ((ImageViewHolder) holder).bind(items.get(position));
+                ((ImageViewHolder) holder).bind(items.get(position), position);
             }
         }
 
@@ -108,21 +112,22 @@ public class SimpleRecyclerViewFragment extends Fragment {
             this.items = items;
             notifyDataSetChanged();
         }
+
+        public class ImageViewHolder extends RecyclerView.ViewHolder {
+            ImageView iv;
+
+            public ImageViewHolder(View itemView) {
+                super(itemView);
+                iv = itemView.findViewById(R.id.iv);
+            }
+
+            public void bind(String url, int position) {
+                ImageLoader.loadImage(getContext(), iv, url);
+                iv.setOnClickListener(view -> listener.onImageClick(items, position));
+            }
+        }
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder {
-        @Inject ImageLoader imageLoader;
-        ImageView iv;
-
-        public ImageViewHolder(View itemView) {
-            super(itemView);
-            iv = itemView.findViewById(R.id.iv);
-        }
-        public void bind(String url) {
-//            imageLoader.loadImage(getContext(), iv, url);
-            Glide.with(getContext()).load(url).into(iv);
-        }
-    }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
@@ -131,6 +136,9 @@ public class SimpleRecyclerViewFragment extends Fragment {
         }
     }
 
+    public interface OnImageClickListener {
+        void onImageClick(List<String> items, int startPosition);
+    }
 
 
 }

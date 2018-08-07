@@ -21,8 +21,6 @@ import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
-import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListActivity;
-import vn.homecredit.hcvn.ui.contract.creditcard.CreditCardListViewModel;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailViewModel;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
@@ -40,6 +38,10 @@ import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivityModule;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
+import vn.homecredit.hcvn.ui.contract.statement.StatementsActivity;
+import vn.homecredit.hcvn.ui.contract.statement.StatementActivityModule;
+import vn.homecredit.hcvn.ui.contract.statement.statementdetails.StatementDetailsActivity;
+import vn.homecredit.hcvn.ui.contract.statement.statementdetails.StatementDetailsModule;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
@@ -148,5 +150,11 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = MasterContractSuccessActivityModule.class)
     abstract MasterContractSuccessActivity bindMasterContractSuccessActivity();
 
+
+    @ContributesAndroidInjector(modules = StatementActivityModule.class)
+    abstract StatementsActivity bindStatementActivity();
+
+    @ContributesAndroidInjector(modules = StatementDetailsModule.class)
+    abstract StatementDetailsActivity bindStatementDetailsActivity();
 
 }

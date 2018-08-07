@@ -71,4 +71,6 @@
 
     <dimen name="tab_icon_size">20dp</dimen>
     <dimen name="text_size_notification_count">8sp</dimen>
+
+    <dimen name="row_item_height">54dp</dimen>
 </resources>

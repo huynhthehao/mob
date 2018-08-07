@@ -13,12 +13,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -29,9 +26,10 @@ import javax.inject.Inject;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.ActivityCreditcardDetailBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
-import vn.homecredit.hcvn.ui.custom.BouncingInterpolator;
+import vn.homecredit.hcvn.ui.contract.statement.StatementsActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDetailBinding, CreditCardDetailViewModel> implements CreditCardDetailListener {
@@ -122,27 +120,29 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
     }
 
     @Override
-    public void onStatementTapped() {
-        showMessage("Statement Tapped");
+    public void onStatementTapped(String contractId) {
+        Intent intent = new Intent(this, StatementsActivity.class);
+        intent.putExtra(StatementsActivity.CONTRACT_ID, contractId);
+        startActivity(intent);
     }
 
     @Override
-    public void onTransactionHistoryTapped() {
+    public void onTransactionHistoryTapped(HcContract hcContract) {
         showMessage("Transaction History Tapped");
     }
 
     @Override
-    public void onRepaymentHistoryTapped() {
+    public void onRepaymentHistoryTapped(HcContract hcContract) {
         showMessage("Repayment History Tapped");
     }
 
     @Override
-    public void onHoldTransactionTapped() {
+    public void onHoldTransactionTapped(HcContract hcContract) {
         showMessage("Hold Transaction Tapped");
     }
 
     @Override
-    public void onPaymentLocationTapped() {
+    public void onPaymentLocationTapped(HcContract hcContract) {
         PayMapActivity.start(this, PayMapActivity.PAYMENT_MODE);
     }
 }

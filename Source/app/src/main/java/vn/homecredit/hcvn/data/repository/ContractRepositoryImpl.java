@@ -27,6 +27,9 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
+import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
+import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.utils.TestData;
 
 public class ContractRepositoryImpl implements ContractRepository {
@@ -73,13 +76,13 @@ public class ContractRepositoryImpl implements ContractRepository {
     }
 
     @Override
-    public Observable<MasterContractResp> startPrepare(String contractId ) {
+    public Observable<MasterContractResp> startPrepare(String contractId) {
         int numberRequest = MASTERCONTRACT_PREPARE_TIMEOUT / MASTERCONTRACT_PREPARE_INTERVAL;
         return Observable.interval(MASTERCONTRACT_PREPARE_INTERVAL, TimeUnit.SECONDS)
                 .flatMap(aLong -> {
                     if (aLong >= numberRequest) {
                         return Observable.error(new Throwable("Timeout"));
-                    }else {
+                    } else {
                         return restService.masterContract(contractId)
                                 .toObservable();
                     }
@@ -124,11 +127,30 @@ public class ContractRepositoryImpl implements ContractRepository {
     }
 
     @Override
+    public Single<StatementResp> getStatements(String contractId) {
+        return restService.getStatements(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<StatementDetailsResp> getStatementDetails(String contractId, StatementModel statementModel) {
+        return restService.getStatementDetails(contractId, statementModel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval) {
         int numberRequest = timeout / interval;
         return Observable.interval(interval, TimeUnit.MILLISECONDS)
                 .takeWhile(aLong -> aLong < numberRequest)
                 .flatMap((Function<Long, Observable<MasterContractResp>>) aLong -> {
+//                    if (aLong >= numberRequest) {
+//                        return Observable.error(new Throwable("Timeout"));
+//                    } else {
+//                        return restService.masterContract(contractId)
+//                                .toObservable();
+//                    }
 //                    if (aLong >= numberRequest) {
 //                        return Observable.error(new Throwable("Timeout"));
 //                    }else {
