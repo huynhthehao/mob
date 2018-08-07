@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import dagger.Module;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;

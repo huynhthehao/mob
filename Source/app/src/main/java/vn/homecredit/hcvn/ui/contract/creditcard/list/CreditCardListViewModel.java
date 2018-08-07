@@ -7,15 +7,13 @@
 package vn.homecredit.hcvn.ui.contract.creditcard.list;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
 import dagger.Module;
-import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;

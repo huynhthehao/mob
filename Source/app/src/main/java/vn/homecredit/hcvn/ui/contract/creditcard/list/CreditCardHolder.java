@@ -10,7 +10,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 import vn.homecredit.hcvn.databinding.ItemCreditCardBinding;
 
 public class CreditCardHolder extends RecyclerView.ViewHolder {

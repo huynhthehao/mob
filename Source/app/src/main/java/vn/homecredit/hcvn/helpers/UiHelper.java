@@ -25,6 +25,7 @@ import java.util.Locale;
 
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.utils.StringUtils;
 
 public class UiHelper {
 
@@ -58,9 +59,13 @@ public class UiHelper {
         formatValue = formatValue.replace(".00", "")
                 .replace(".0", "");
 
+        if(StringUtils.isNullOrEmpty(formatValue))
+            formatValue = "0";
+
         formatValue += "₫";
         return formatValue;
     }
+
 
     private static double parseDouble(String number) {
         try {

@@ -13,12 +13,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -28,14 +25,13 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.HcCreditCard;
-import vn.homecredit.hcvn.data.model.api.Transaction;
+import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.creditcard.TransactionsLoading;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.enums.TransactionListType;
 import vn.homecredit.hcvn.databinding.ActivityCreditcardDetailBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionListActivity;
-import vn.homecredit.hcvn.ui.custom.BouncingInterpolator;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
 
 public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDetailBinding, CreditCardDetailViewModel> implements CreditCardDetailListener {
@@ -101,13 +97,9 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
         Animation rotateAni = AnimationUtils.loadAnimation(this, R.anim.rotate);
         rotateAni.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
+            public void onAnimationStart(Animation animation) { }
             @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-
+            public void onAnimationRepeat(Animation animation) { }
             @Override
             public void onAnimationEnd(Animation animation) {
                 int degrees = isShown ? 0 : 180;
@@ -115,7 +107,6 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
                 Bitmap myImg = BitmapFactory.decodeResource(getResources(), R.drawable.ic_show_arrow);
                 Matrix matrix = new Matrix();
                 matrix.postRotate(degrees);
-
                 Bitmap rotated = Bitmap.createBitmap(myImg, 0, 0, myImg.getWidth(), myImg.getHeight(), matrix, true);
 
                 imageView.setImageBitmap(rotated);
@@ -124,6 +115,7 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
         view.startAnimation(rotateAni);
     }
 
+
     @Override
     public void onStatementTapped() {
         showMessage("Statement Tapped");
@@ -131,19 +123,23 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
 
     @Override
     public void onTransactionHistoryTapped(HcContract contract) {
-        Transaction.TransactionsLoading loadingData = new Transaction.TransactionsLoading(contract, TransactionListType.History);
+        TransactionsLoading loadingData = new TransactionsLoading(contract, TransactionListType.History);
         Intent intent = TransactionListActivity.getNewIntent(this, loadingData);
         startActivity(intent);
     }
 
     @Override
     public void onRepaymentHistoryTapped(HcContract contract) {
-        showMessage("Repayment History Tapped");
+        TransactionsLoading loadingData = new TransactionsLoading(contract, TransactionListType.RePayment);
+        Intent intent = TransactionListActivity.getNewIntent(this, loadingData);
+        startActivity(intent);
     }
 
     @Override
     public void onHoldTransactionTapped(HcContract contract) {
-        showMessage("Hold Transaction Tapped");
+        TransactionsLoading loadingData = new TransactionsLoading(contract, TransactionListType.Holding);
+        Intent intent = TransactionListActivity.getNewIntent(this, loadingData);
+        startActivity(intent);
     }
 
     @Override

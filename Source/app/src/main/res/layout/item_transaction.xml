@@ -9,17 +9,19 @@
     android:padding="0dp">
 
     <data>
-        <import type="vn.homecredit.hcvn.helpers.UiHelper" />
+        <import type="vn.homecredit.hcvn.utils.DateUtils" />
+        <import type="vn.homecredit.hcvn.data.model.api.creditcard.Transaction"/>
 
         <variable
             name="transaction"
-            type="vn.homecredit.hcvn.data.model.api.Transaction" />
+            type="vn.homecredit.hcvn.data.model.api.creditcard.Transaction" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground">
         <View style="@style/Separator_Horizontal"/>
 
         <LinearLayout
@@ -30,8 +32,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:weightSum="100">
 
@@ -41,8 +43,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="30"
-                    android:text="@{UiHelper.getDateFormat(transaction.transactionDate)}"
+                    android:layout_weight="25"
+                    android:text="@{DateUtils.simplifyDateString(transaction.transactionDate)}"
                     tools:text="01/01/2011" />
 
                 <TextView
@@ -59,7 +61,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_weight="30"
+                    android:layout_weight="35"
                     android:orientation="horizontal">
 
                     <TextView
@@ -69,8 +71,9 @@
                         android:layout_gravity="center_vertical|end"
                         android:layout_weight="1"
                         android:text="@{transaction.getAmountDisplay()}"
+                        android:textColor="@{transaction.direction.equalsIgnoreCase(Transaction.CreditDirection) ? @color/activeDisplay : @color/colorPrimary}"
                         android:textAlignment="textEnd"
-                        tools:text="-900,000" />
+                        tools:text="-1,900,000d" />
 
                     <ImageView
                         android:id="@+id/cardIcon"

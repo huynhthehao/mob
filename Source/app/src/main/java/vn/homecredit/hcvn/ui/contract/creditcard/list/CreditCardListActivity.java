@@ -15,12 +15,11 @@ import android.support.v7.widget.RecyclerView;
 import org.parceler.Parcels;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.ActivityCreditcardListBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
@@ -42,7 +41,7 @@ public class CreditCardListActivity extends BaseActivity<ActivityCreditcardListB
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_transaction_list;
+        return R.layout.activity_creditcard_list;
     }
 
     @Override

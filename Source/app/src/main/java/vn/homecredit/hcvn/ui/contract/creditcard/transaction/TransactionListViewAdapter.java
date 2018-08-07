@@ -14,12 +14,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.homecredit.hcvn.data.model.api.HcCreditCard;
-import vn.homecredit.hcvn.data.model.api.Transaction;
-import vn.homecredit.hcvn.databinding.ItemCreditCardBinding;
+import vn.homecredit.hcvn.data.model.api.creditcard.Transaction;
 import vn.homecredit.hcvn.databinding.ItemTransactionBinding;
-import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardContractListener;
-import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardHolder;
 
 
 public class TransactionListViewAdapter extends RecyclerView.Adapter<TransactionHolder> {

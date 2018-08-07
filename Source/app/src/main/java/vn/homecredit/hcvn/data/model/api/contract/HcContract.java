@@ -9,7 +9,7 @@ import org.parceler.Parcel;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 
 @Parcel
 public class HcContract {

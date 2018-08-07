@@ -8,7 +8,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.contract.creditcard.list.CreditCardListActivity">
+    tools:context=".ui.contract.creditcard.transaction.TransactionListActivity">
 
     <data>
         <variable
@@ -45,13 +45,13 @@
                     android:id="@+id/filterMenu"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:padding="8dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_gravity="right"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="15dp"
                     android:onClick="@{()->viewModel.onFilterMenuTapped()}"
-                    android:src="@drawable/ic_filter"/>
+                    android:padding="8dp"
+                    android:src="@drawable/ic_filter" />
 
             </android.support.v7.widget.Toolbar>
 
@@ -68,8 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
                 android:orientation="horizontal"
                 android:weightSum="100">
 
@@ -109,7 +109,8 @@
                 android:layout_width="match_parent"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:onRefreshListener="@{() -> viewModel.onRefresh()}">
 
                 <android.support.v7.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
                     android:id="@+id/lvTransactions"
@@ -122,6 +123,7 @@
                     tools:listitem="@layout/item_transaction" />
 
             </android.support.v4.widget.SwipeRefreshLayout>
+
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -10,17 +10,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
 import org.parceler.Parcels;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.Transaction;
+import vn.homecredit.hcvn.data.model.api.creditcard.Transaction;
+import vn.homecredit.hcvn.data.model.api.creditcard.TransactionsLoading;
 import vn.homecredit.hcvn.data.model.enums.TransactionListType;
 import vn.homecredit.hcvn.databinding.ActivityTransactionListBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
@@ -31,6 +39,7 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
 
     TransactionListViewAdapter transactionListViewAdapter;
     private PopupMenu filterMenu;
+    private int currentMenuId = R.id.menuItemInOneMonth;
 
     @Inject
     TransactionListViewModel viewModel;
@@ -50,7 +59,7 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
         return viewModel;
     }
 
-    public static Intent getNewIntent(Context context, Transaction.TransactionsLoading transactionsLoading) {
+    public static Intent getNewIntent(Context context, TransactionsLoading transactionsLoading) {
         Intent newInstance = new Intent(context, TransactionListActivity.class);
         if (transactionsLoading != null) {
             Bundle currentBundle = new Bundle();
@@ -67,7 +76,7 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
         viewModel.setListener(this);
 
         if (getIntent().hasExtra(BUNDLE_TRANSACTION_LOADING)) {
-            Transaction.TransactionsLoading loadingData = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_TRANSACTION_LOADING));
+            TransactionsLoading loadingData = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_TRANSACTION_LOADING));
             viewModel.setData(this, loadingData);
             //TODO: use this
 
@@ -76,8 +85,9 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
         }
     }
 
-    private void initFilterMenu(Transaction.TransactionsLoading loadingData){
+    private void initFilterMenu(TransactionsLoading loadingData){
         ImageView menuIcon = findViewById(R.id.filterMenu);
+
         if(loadingData.getListType() != TransactionListType.History){
             if(loadingData.getListType() == TransactionListType.Holding)
                 getViewDataBinding().toolbar.setTitle(R.string.hold_transactions_title);
@@ -91,26 +101,34 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
         }
 
         filterMenu = new PopupMenu(this, menuIcon);
-        filterMenu.inflate(R.menu.menu_transaction_filter);
+        filterMenu.getMenuInflater().inflate(R.menu.menu_transaction_filter, filterMenu.getMenu());
         filterMenu.setOnMenuItemClickListener(item -> {
-
-            //TODO: TBI
-            showMessage(item.getItemId());
-            return false;
+            this.currentMenuId = item.getItemId();
+            viewModel.setSearchRange(currentMenuId);
+            return true;
         });
     }
 
 
     private void initDataAdapter() {
         transactionListViewAdapter = new TransactionListViewAdapter(this);
-        RecyclerView recyclerView = getViewDataBinding().getRoot().findViewById(R.id.lvCreditCards);
+        RecyclerView recyclerView = getViewDataBinding().getRoot().findViewById(R.id.lvTransactions);
         recyclerView.setAdapter(transactionListViewAdapter);
+
         transactionListViewAdapter.setListener(this);
-        //transactionListViewAdapter.setNewData(transactions);
-        SwipeRefreshLayout fresher = findViewById(R.id.fsCreditCardList);
-        fresher.setEnabled(false);
     }
 
+
+    @Override
+    public void setLoadingStatus(boolean isShown) {
+        SwipeRefreshLayout fresher = findViewById(R.id.fsTransactionList);
+        fresher.setRefreshing(isShown);
+    }
+
+    @Override
+    public void onDataRefreshed(List<Transaction> transactions) {
+        transactionListViewAdapter.setNewData(transactions);
+    }
 
     @Override
     public void onTransactionTapped(Transaction transaction) {
@@ -119,15 +137,27 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
             return;
         }
 
+        showMessage(transaction.description);
         //Intent intent = CreditCardDetailActivity.getNewIntent(this, card);
         //startActivity(intent);
-
     }
 
     @Override
     public void onFilterMenuTapped() {
         if(filterMenu != null){
-            filterMenu.show();
+            ImageView menuIcon = findViewById(R.id.filterMenu);
+            MenuPopupHelper menuHelper = new MenuPopupHelper(this, (MenuBuilder) filterMenu.getMenu(), menuIcon);
+            menuHelper.setForceShowIcon(true);
+            menuHelper.setGravity(Gravity.END);
+
+            for (MenuItem item:((MenuBuilder) filterMenu.getMenu()).getVisibleItems()){
+                if(item.getItemId() == currentMenuId)
+                    item.setIcon(R.drawable.ic_check_red);
+                else
+                    item.setIcon(null);
+            }
+
+            menuHelper.show();
         }
     }
 }

@@ -11,9 +11,15 @@ public class DateUtils {
     public static String convertDateFromUTCToSimple(String date) {
         return convertDate(date, FORMAT_UTC, FORMAT_SIMPLE);
     }
+
+    public static String simplifyDateString(String utcDateString) {
+        return convertDate(utcDateString, FORMAT_UTC, FORMAT_SIMPLE);
+    }
+
     public static String convertDateFromUTC(String date, String newFormat) {
        return convertDate(date, FORMAT_UTC, newFormat);
     }
+
     public static String convertDate(String date, String oldFormat, String newFormat) {
         if (oldFormat == null || newFormat == null) {
             return "";

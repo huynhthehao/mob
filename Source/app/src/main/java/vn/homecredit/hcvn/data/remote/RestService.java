@@ -17,6 +17,7 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
+import vn.homecredit.hcvn.data.model.api.creditcard.TransactionResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 public interface RestService {
@@ -34,6 +35,7 @@ public interface RestService {
     Single<NotificationResp> getNotifications();
     Single<BaseApiResponse> markNotificationAsRead(String notificationId);
 
+    Single<TransactionResp> getTransactions(String contractId, boolean isHold, boolean isRepay, int withinMonths);
     Single<ContractResp> contract();
     Single<MasterContractResp> masterContract(String contractId);
     Single<MasterContractDocResp> masterContractDoc(String contractId);

@@ -19,6 +19,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
 import vn.homecredit.hcvn.ui.contract.signing.SigningActivity;
@@ -67,15 +68,20 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
 
     @Override
     public void onClicked(int position) {
-        HcContract selectedItem = getViewModel().getDataAtIndex(position);
-        if (selectedItem == null) {
+        HcContract selectedContract = getViewModel().getDataAtIndex(position);
+        if (selectedContract == null) {
             showMessage(R.string.data_not_found);
             return;
         }
 
-        if (selectedItem.isCreditCard()) {
-            Intent intent = CreditCardListActivity.getNewIntent(getContext(), selectedItem);
-            startActivity(intent);
+        if (selectedContract.isCreditCard()) {
+            if (selectedContract.getCards() != null && selectedContract.getCards().size() > 1) {
+                Intent intent = CreditCardListActivity.getNewIntent(getContext(), selectedContract);
+                startActivity(intent);
+            } else {
+                Intent intent = CreditCardDetailActivity.getNewIntent(getContext(), selectedContract.getCards().get(0));
+                startActivity(intent);
+            }
             return;
         }
 

@@ -1,10 +1,10 @@
 /*
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 7/6/18 4:15 PM, by Hien.NguyenM
+ * Last modified 8/7/18 3:38 PM, by Hien.NguyenM
  */
 
-package vn.homecredit.hcvn.data.model.api;
+package vn.homecredit.hcvn.data.model.api.creditcard;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -16,6 +16,7 @@ import vn.homecredit.hcvn.data.model.LanguageCode;
 import vn.homecredit.hcvn.data.model.api.contract.ContractStatus;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
+import vn.homecredit.hcvn.utils.DateUtils;
 
 @Parcel
 public class HcCreditCard {
@@ -60,6 +61,13 @@ public class HcCreditCard {
 
     public HcContract refContract;
 
+    public String getSignedDate(){
+        if(this.refContract != null){
+            return DateUtils.simplifyDateString(this.refContract.getSignedDate());
+        }
+
+        return "";
+    }
 
     public String getStatusText(){
         String currentLangeCode = AppPreferencesHelper.getCurrentLanguageCode();

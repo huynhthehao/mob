@@ -29,6 +29,7 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
+import vn.homecredit.hcvn.data.model.api.creditcard.TransactionResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
@@ -220,6 +221,23 @@ public class RestServiceImpl implements RestService {
         return DefaultAndroidNetworking.get(url,
                 mApiHeader.getProtectedApiHeader(),
                 BaseApiResponse.class);
+    }
+
+    public Single<TransactionResp> getTransactions(String contractId, boolean isHold, boolean isRepay, int withinMonths) {
+        String requestUrl = ApiEndPoint.ENDPOINT_APP + "/contracts/" + contractId + "/transactions?";
+
+        if (isRepay)
+            requestUrl += "isRepay=true";
+        else if (isHold)
+            requestUrl += "isHold=true";
+        else {
+            if (withinMonths < 1)
+                withinMonths = 1;
+            requestUrl += "withinMonths=" + String.valueOf(withinMonths);
+        }
+
+        requestUrl = buildUrl(requestUrl);
+        return DefaultAndroidNetworking.get(requestUrl, mApiHeader.getProtectedApiHeader(), TransactionResp.class);
     }
 
     public Single<ContractResp> contract() {

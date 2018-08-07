@@ -23,6 +23,8 @@ import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListViewModel;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailViewModel;
+import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionListActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionListViewModel;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivityModule;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
@@ -37,10 +39,8 @@ import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
-//import vn.homecredit.hcvn.ui.login.LoginActivityModule;
 import vn.homecredit.hcvn.ui.login.LoginViewModel;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
-//import vn.homecredit.hcvn.ui.otp.OtpActivityModule;
 import vn.homecredit.hcvn.ui.otp.OtpViewModel;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
@@ -59,12 +59,6 @@ import vn.homecredit.hcvn.ui.welcome.WelcomeActivityModule;
 @Module
 public abstract class ActivityBuilder {
 
-//    @ContributesAndroidInjector(modules = {
-//            MainActivityModule.class,
-//            AboutFragmentProvider.class,
-//            RateUsDialogProvider.class})
-//    abstract MainActivity bindMainActivity();
-//
     @ContributesAndroidInjector(modules = SplashActivityModule.class)
     abstract SplashActivity bindSplashActivity();
 
@@ -97,6 +91,9 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = CreditCardDetailViewModel.class)
     abstract CreditCardDetailActivity bindCreditCardDetailActivity();
+
+    @ContributesAndroidInjector(modules = TransactionListViewModel.class)
+    abstract TransactionListActivity bindTransactionListActivity();
 
     @ContributesAndroidInjector()
     abstract HomeActivity bindHomeActivity();
@@ -134,5 +131,4 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = PaymentHistoryActivityModule.class)
     abstract PaymentHistoryActivity bindPaymentHistoryActivity();
-
 }

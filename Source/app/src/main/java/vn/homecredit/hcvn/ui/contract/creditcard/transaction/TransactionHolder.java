@@ -10,7 +10,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import vn.homecredit.hcvn.data.model.api.Transaction;
+import vn.homecredit.hcvn.data.model.api.creditcard.Transaction;
 import vn.homecredit.hcvn.databinding.ItemTransactionBinding;
 
 public class TransactionHolder extends RecyclerView.ViewHolder {

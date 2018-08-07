@@ -6,7 +6,7 @@
 
 package vn.homecredit.hcvn.ui.contract.creditcard.list;
 
-import vn.homecredit.hcvn.data.model.api.HcCreditCard;
+import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 
 public interface CreditCardContractListener {
     void onCardTapped(HcCreditCard card);
