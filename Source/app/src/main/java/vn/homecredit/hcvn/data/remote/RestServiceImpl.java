@@ -22,6 +22,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Function;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
@@ -45,6 +47,7 @@ import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
+import vn.homecredit.hcvn.utils.TestData;
 
 @Singleton
 public class RestServiceImpl implements RestService {
@@ -95,11 +98,14 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<TokenResp> getToken(String phoneNumber, String password) {
-
+        if (mMemoryHelper.getVersionRespData() == null ||
+                mMemoryHelper.getVersionRespData().getSettings() == null ||
+                mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId() == null ) {
+            return Single.error(new Throwable("System Error"));
+        }
         String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
         byte[] b = s.getBytes(Charset.forName("UTF-8"));
         String authCode = Base64.encodeToString(b, android.util.Base64.DEFAULT);
-
         HashMap<String, String> requestHeader = new HashMap<>();
         requestHeader.put("Authorization", String.format("Basic %s", authCode.trim()));
 
@@ -267,7 +273,8 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addBodyParameter(requestBody)
                 .build()
-                .getObjectSingle(OtpTimerResp.class);
+                .getObjectSingle(OtpTimerResp.class)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
     }
 
     @Override
@@ -279,10 +286,23 @@ public class RestServiceImpl implements RestService {
         requestBody.put("HasDisbursementBankAccount", hasDisbursementBankAccount ? "true" : "false");
         requestBody.put("IsCreditCardContract", isCreditCardContract ? "true" : "false");
         return Rx2AndroidNetworking.post(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(MasterContractVerifyResp.class)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractVerifyResp.class)))
+                .map(masterContractVerifyResp -> {
+                    if (BuildConfig.DEBUG) {
+                        return TestData.masterContractVerifyResp();
+                    }else {
+                        return masterContractVerifyResp;
+                    }
+                })
+                .onErrorResumeNext(throwable -> {
+                    if (BuildConfig.DEBUG) {
+                        return Single.just(TestData.masterContractVerifyResp());
+                    }
+                    return Single.error(new HcApiException(throwable, MasterContractVerifyResp.class));
+                })
                 ;
     }
 

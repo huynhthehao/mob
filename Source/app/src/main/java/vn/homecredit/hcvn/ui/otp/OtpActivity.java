@@ -25,6 +25,8 @@ import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivityOtpBinding;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivity;
+import vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSuccessActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 
 
@@ -127,7 +129,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     }
 
     private void openMasterContractSign(OtpPassParam data) {
-
+        MasterContractSuccessActivity.start(this, data);
     }
 }
 

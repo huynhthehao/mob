@@ -52,20 +52,14 @@ public class MasterContractSignViewModel extends BaseViewModel {
         MasterContractVerifyDataResp masterContractVerifyDataResp = otpParam.getMasterContractVerifyDataResp();
         if (masterContractVerifyDataResp == null) return;
         contractRepository.checkMasterContractVerified(otpParam.getContractId(), masterContractVerifyDataResp.getTimeOut(), masterContractVerifyDataResp.getLoadInterval())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean != null && aBoolean == Boolean.TRUE) {
-                            modelSuccess.setValue(true);
-                        }else {
-                            isErrorSign.set(true);
-                        }
+                .subscribe(aBoolean -> {
+                    if (aBoolean != null && aBoolean == Boolean.TRUE) {
+                        modelSuccess.setValue(true);
+                    }else {
+                        isErrorSign.set(true);
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        handleError(throwable);
-                    }
+                }, throwable -> {
+                    handleError(throwable);
                 });
 
     }
