@@ -89,10 +89,12 @@ public class MasterContractDocActivity extends BaseActivity<ActivityMasterContra
         Button btnAgree = footer.findViewById(R.id.btnAgree);
         SwitchCompat switchAgree = footer.findViewById(R.id.switchAgree);
         btnAgree.setOnClickListener(v -> {
-            showMessage("aaa" + switchAgree.isChecked());
             getViewModel().doApprove();
         });
-        switchAgree.setOnCheckedChangeListener((buttonView, isChecked) -> btnAgree.setEnabled(switchAgree.isEnabled()));
+        switchAgree.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            btnAgree.setEnabled(switchAgree.isChecked());
+        });
+        btnAgree.setEnabled(switchAgree.isChecked());
         fragmentMasterDoc.addFooterView(footer);
     }
 

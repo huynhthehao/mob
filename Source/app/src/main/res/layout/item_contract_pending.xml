@@ -109,9 +109,6 @@
                     app:layout_constraintRight_toRightOf="parent"
                     android:text="@string/please_sign"
                     android:textColor="@color/red"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?android:attr/selectableItemBackground"
                     style="@style/Contact.Content"
                     />
 

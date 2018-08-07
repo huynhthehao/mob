@@ -46,6 +46,9 @@ public class HcApiException extends Throwable {
             }else if (errorObject instanceof BaseApiResponse){
                 errorResponseCode = ((BaseApiResponse) errorObject).getResponseCode();
                 errorResponseMessage = ((BaseApiResponse) errorObject).getResponseMessage();
+            }else {
+                errorResponseCode = ((ANError) throwable).getErrorCode();
+                errorResponseMessage = ((ANError) throwable).getErrorBody();
             }
         }else {
             errorResponseCode = ERROR_UNKNOWN;

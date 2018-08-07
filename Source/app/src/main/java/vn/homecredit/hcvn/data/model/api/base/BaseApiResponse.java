@@ -15,6 +15,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class BaseApiResponse {
 
+    public static final int RESPONSE_CODE_SUCCESS = 0;
+
     @SerializedName("response_code")
     @Expose
     private Integer responseCode;
@@ -37,5 +39,12 @@ public class BaseApiResponse {
 
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
+    }
+
+    public boolean isSuccess() {
+        if (responseCode == null) {
+            return false;
+        }
+        return responseCode == RESPONSE_CODE_SUCCESS;
     }
 }

@@ -13,6 +13,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
@@ -22,14 +23,15 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.utils.TestData;
 
 public class ContractRepositoryImpl implements ContractRepository {
-    public static final int MASTERCONTRACT_PREPARE_TIMEOUT = 6;
-    public static final int MASTERCONTRACT_PREPARE_INTERVAL = 2;
+    public static final int MASTERCONTRACT_PREPARE_TIMEOUT = 60;
+    public static final int MASTERCONTRACT_PREPARE_INTERVAL = 20;
 
     private final RestService restService;
 
@@ -41,19 +43,6 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public Single<ContractResp> contracts() {
         return restService.contract()
-                .map(contractResp -> {
-                    if (BuildConfig.DEBUG) {
-                        contractResp.getData().getContracts().add(TestData.activeContract());
-                        contractResp.getData().getContracts().add(TestData.pendingContract());
-                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CashLoan));
-                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.ConsumerDurables));
-                        contractResp.getData().getContracts().add(TestData.activeCreditCardContract());
-                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.TwoWheels));
-                        contractResp.getData().getContracts().add(TestData.closeContract());
-                        contractResp.getData().getContracts().add(TestData.closeContract());
-                    }
-                    return contractResp;
-                })
                 .map(contractResp -> {
                     List<HcContract> contractMasterList = convertMasterToHcContract(contractResp.getData().getMasterContracts());
                     if (contractResp.getData().getContracts() != null) {
@@ -79,14 +68,6 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public Single<MasterContractDocResp> masterContractDoc(String contractId) {
         return restService.masterContractDoc(contractId)
-                .doOnSuccess(new Consumer<MasterContractDocResp>() {
-                    @Override
-                    public void accept(MasterContractDocResp masterContractDocResp) throws Exception {
-                        String image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3J63zkgb86xW7ejMWk4TcEo0EEcRHX16akchPHmHo4WmW5Ys";
-                        List<String> images = Arrays.asList(image, image, image);
-                        masterContractDocResp.getImages().addAll(images);
-                    }
-                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -122,7 +103,7 @@ public class ContractRepositoryImpl implements ContractRepository {
     }
 
     @Override
-    public Single<OtpTimerResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
+    public Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract) {
         return restService.masterContractVerify(contractId, otp, hasDisbursementBankAccount, isCreditCardContract)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
@@ -140,6 +121,28 @@ public class ContractRepositoryImpl implements ContractRepository {
         return restService.viewPaymentsv1(contractId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval) {
+        int numberRequest = timeout / interval;
+        return Observable.interval(interval, TimeUnit.MILLISECONDS)
+                .flatMap((Function<Long, Observable<MasterContractResp>>) aLong -> {
+                    if (aLong >= numberRequest) {
+                        return Observable.error(new Throwable("Timeout"));
+                    }else {
+                        return restService.masterContract(contractId)
+                                .toObservable();
+                    }
+                })
+                .filter(masterContractResp -> {
+                    if (masterContractResp == null || masterContractResp.isSuccess() || masterContractResp.getMasterContract() == null) {
+                        return false;
+                    }
+                    return masterContractResp.getMasterContract().isSigned();
+
+                })
+                .map(masterContractResp -> true);
     }
 
     @NonNull
@@ -167,7 +170,6 @@ public class ContractRepositoryImpl implements ContractRepository {
                 }
                 closeContractList.add(hcContract);
             }
-
         }
         List<HcContract> contractList = new ArrayList<>();
         contractList.addAll(activeContractList);

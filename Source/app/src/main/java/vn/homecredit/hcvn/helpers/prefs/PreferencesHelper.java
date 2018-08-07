@@ -62,4 +62,8 @@ public interface PreferencesHelper {
     void setCurrentBadgeCount(int currentBadgeCount);
 
     int getCurrentBadgeCount();
+
+    void setTimeLogin(long time);
+
+    long getTimeLogin();
 }

@@ -11,6 +11,7 @@ import org.parceler.ParcelConstructor;
 
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
+import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyDataResp;
 import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 
 @Parcel
@@ -22,6 +23,7 @@ public class OtpPassParam {
     private String contractId;
     private String otp;
     private OtpFlow otpFlow;
+    private MasterContractVerifyDataResp masterContractVerifyDataResp;
 
     @ParcelConstructor
     public OtpPassParam(OtpTimerResp otpTimerResp, String phoneNumber, String contractId, OtpFlow otpFlow, String otp) {
@@ -84,6 +86,14 @@ public class OtpPassParam {
 
     public MasterContract getMasterContract() {
         return masterContract;
+    }
+
+    public MasterContractVerifyDataResp getMasterContractVerifyDataResp() {
+        return masterContractVerifyDataResp;
+    }
+
+    public void setMasterContractVerifyDataResp(MasterContractVerifyDataResp masterContractVerifyDataResp) {
+        this.masterContractVerifyDataResp = masterContractVerifyDataResp;
     }
 }
 

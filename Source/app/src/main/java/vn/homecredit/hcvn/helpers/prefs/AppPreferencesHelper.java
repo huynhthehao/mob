@@ -42,6 +42,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_NOTIFICATION_SETTING = "PREF_KEY_NOTIFICATION_SETTING";
     private static final String PREF_KEY_LANGUAGE_CODE = "PREF_KEY_LANGUAGE_CODE";
     private static final String PREF_KEY_DEVICE_INFO = "PREF_KEY_DEVICE_INFO";
+    private static final String PREF_KEY_LOGIN_TIMESTAMP = "PREF_KEY_LOGIN_TIMESTAMP";
     private static final String PREF_KEY_CURRENT_BADGE_COUNT = "PREF_KEY_CURRENT_BADGE_COUNT";
 
     private final SharedPreferences mPrefs;
@@ -230,5 +231,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public int getCurrentBadgeCount() {
         return mPrefs.getInt(PREF_KEY_CURRENT_BADGE_COUNT, 0);
+    }
+
+    @Override
+    public void setTimeLogin(long time) {
+        mPrefs.edit().putLong(PREF_KEY_LOGIN_TIMESTAMP, time).commit();
+    }
+
+    @Override
+    public long getTimeLogin() {
+        return mPrefs.getLong(PREF_KEY_LOGIN_TIMESTAMP, 0);
     }
 }
