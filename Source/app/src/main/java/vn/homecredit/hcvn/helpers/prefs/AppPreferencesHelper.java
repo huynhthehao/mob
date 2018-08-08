@@ -141,8 +141,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
         return LanguageCode.VIETNAMESE;
     }
 
-    public static String getCurrentLanguageCode(){
-        if(initContext == null || StringUtils.isNullOrEmpty(initFileName))
+    public static String getCurrentLanguageCode() {
+        if (initContext == null || StringUtils.isNullOrEmpty(initFileName))
             return LanguageCode.VIETNAMESE;
 
         SharedPreferences preferences = initContext.getSharedPreferences(initFileName, Context.MODE_PRIVATE);
@@ -151,14 +151,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public boolean getNotificationSetting() {
-        return mPrefs.getBoolean(PREF_KEY_NOTIFICATION_SETTING, true);
+        String currentUserPhoneNumber = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        return mPrefs.getBoolean(PREF_KEY_NOTIFICATION_SETTING + currentUserPhoneNumber, true);
     }
 
     @Override
     public void setNotificationSetting(boolean isEnable) {
-        mPrefs.edit().putBoolean(PREF_KEY_NOTIFICATION_SETTING, isEnable).commit();
+        String currentUserPhoneNumber = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        mPrefs.edit().putBoolean(PREF_KEY_NOTIFICATION_SETTING + currentUserPhoneNumber, isEnable).commit();
     }
-
 
     @Override
     public void saveObject(String key, Object obj) {

@@ -16,6 +16,7 @@ import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.ServerSettings;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -33,11 +34,13 @@ public class MoreViewModel extends BaseViewModel {
     private ObservableField<String> usernameField = new ObservableField<>("");
     private ObservableField<String> phoneField = new ObservableField<>("");
     private final DataManager dataManager;
+    private final AccountRepository accountRepository;
 
     @Inject
-    public MoreViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
+    public MoreViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, AccountRepository accountRepository) {
         super(schedulerProvider);
         this.dataManager = dataManager;
+        this.accountRepository = accountRepository;
     }
 
     public ObservableField<String> getPhoneField() {
@@ -119,25 +122,30 @@ public class MoreViewModel extends BaseViewModel {
         return serverSettings.getGuidanceForInternetBankingServiceUrl();
     }
 
-    public void logout() {
-        dataManager.logout();
+    public void logout(Context context) {
+        accountRepository.logout(context);
     }
 
     public void clickedProfile() {
         modelProfile.setValue(true);
     }
+
     public void clickedPassword() {
         modelPassword.setValue(true);
     }
+
     public void clickedSetting() {
         modelSetting.setValue(true);
     }
+
     public void clickedLocation() {
         modelLocation.setValue(true);
     }
+
     public void clickedMomo() {
         modelMomo.setValue(true);
     }
+
     public void clickedTerm() {
         modelUrlTerm.setValue(getUrlTerm());
     }
@@ -145,6 +153,7 @@ public class MoreViewModel extends BaseViewModel {
     public void clickedUserGuide() {
         modelUrlUserGuide.setValue(getUrlUserGuide());
     }
+
     public void clickedLogout() {
         modelLogout.setValue(true);
     }

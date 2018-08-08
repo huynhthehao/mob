@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
+import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 
 /*
     Wrapper Of Rx2AndroidNetworking Class
@@ -30,30 +31,36 @@ public class DefaultAndroidNetworking {
     }
 
     public static <T> Single<T> get(String url, Object header, Class<T> dataType) {
-        Rx2ANRequest.GetRequestBuilder builder = new Rx2ANRequest.GetRequestBuilder(url);
-        if(header != null)
-            builder.addHeaders(header);
-
-        return builder.build()
-                .getObjectSingle(dataType)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)))
-                .subscribeOn(Schedulers.io())
+        return getWithoutSubscribeOn(url, header, dataType).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static <T> Single<T> post(String url, Object header, Object body, Class<T> dataType) {
-        Rx2ANRequest.PostRequestBuilder builder = new Rx2ANRequest.PostRequestBuilder(url);
-        if(header != null)
+        return postWithoutSubscribeOn(url, header, body, dataType).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static <T> Single<T> getWithoutSubscribeOn(String url, Object header, Class<T> dataType) {
+        Rx2ANRequest.GetRequestBuilder builder = new Rx2ANRequest.GetRequestBuilder(url);
+        if (header != null)
             builder.addHeaders(header);
 
-        if(body != null)
+        return builder.build()
+                .getObjectSingle(dataType)
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)));
+    }
+
+    public static <T> Single<T> postWithoutSubscribeOn(String url, Object header, Object body, Class<T> dataType) {
+        Rx2ANRequest.PostRequestBuilder builder = new Rx2ANRequest.PostRequestBuilder(url);
+        if (header != null)
+            builder.addHeaders(header);
+
+        if (body != null)
             builder.addBodyParameter(body);
 
         return builder.build()
                 .getObjectSingle(dataType)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)));
     }
 
     public static <T> Single<T> post(String url, Object body, Class<T> dataType) {

@@ -181,7 +181,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             if (o != null && o == TRUE) {
                 showConfirmMessage(null, getString(R.string.token_expired), aBoolean -> {
                     if (aBoolean != null && aBoolean == TRUE) {
-                        startWelcome();
+                        startWelcomeAfterSessionExpired();
                     }
                 });
             }
@@ -234,10 +234,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             }
         });
     }
-    private void startWelcome() {
+    private void startWelcomeAfterSessionExpired() {
         Intent intent = WelcomeActivity.newIntent(getContext());
+        intent.putExtra(WelcomeActivity.IS_FORCE_LOGOUT, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
     }
 }

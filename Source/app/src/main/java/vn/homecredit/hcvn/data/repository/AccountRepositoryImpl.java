@@ -1,5 +1,7 @@
 package vn.homecredit.hcvn.data.repository;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.text.format.DateUtils;
@@ -22,10 +24,12 @@ import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.database.AppDatabase;
 import vn.homecredit.hcvn.helpers.CryptoHelper;
 import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.OneSignalService;
+import vn.homecredit.hcvn.utils.AppUtils;
 
 public class AccountRepositoryImpl implements AccountRepository {
 
@@ -33,13 +37,15 @@ public class AccountRepositoryImpl implements AccountRepository {
     private final PreferencesHelper preferencesHelper;
     private final ApiHeader apiHeader;
     private OneSignalService oneSignalService;
+    private AppDatabase appDatabase;
 
     @Inject
-    public AccountRepositoryImpl(RestService restService, PreferencesHelper preferencesHelper, ApiHeader apiHeader, OneSignalService oneSignalService) {
+    public AccountRepositoryImpl(RestService restService, PreferencesHelper preferencesHelper, ApiHeader apiHeader, OneSignalService oneSignalService, AppDatabase appDatabase) {
         this.restService = restService;
         this.preferencesHelper = preferencesHelper;
         this.apiHeader = apiHeader;
         this.oneSignalService = oneSignalService;
+        this.appDatabase = appDatabase;
     }
 
     @Override
@@ -53,7 +59,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Single<OtpTimerResp> changePassword(String password, String newPassword) {
         return restService.changePassword(password, newPassword)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()) ;
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -176,7 +182,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         return CryptoHelper.decryptObject(savedLoginInfo, LoginInformation.class);
     }
 
-    public String getCurrentUser(){
+    public String getCurrentUser() {
         return preferencesHelper.getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
     }
 
@@ -186,5 +192,21 @@ public class AccountRepositoryImpl implements AccountRepository {
         if (lastLoginTime == 0) return true;
         long currentTime = Calendar.getInstance().getTimeInMillis();
         return currentTime - lastLoginTime > 5 * DateUtils.MINUTE_IN_MILLIS;
+    }
+
+    @Override
+    public void logout(Context context) {
+        preferencesHelper.logout();
+        // delete tags notification
+        oneSignalService.deleteTag("UserId");
+        oneSignalService.deleteTag("UserName");
+
+        // delete all tables in database
+        Thread t = new Thread(() -> appDatabase.clearAllTables());
+        t.start();
+
+        // clear all current push notifications on status bar
+        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.cancelAll();
     }
 }
