@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.contract.detail.ContractDetailViewModel" />
@@ -99,11 +100,13 @@
                             app:textTitle="@string/product_type" />
 
                         <View
+                            android:visibility="@{hcContractModel.tenor == 0 ? View.GONE : View.VISIBLE}"
                             style="@style/Separator_Horizontal"
                             android:layout_marginHorizontal="@dimen/margin_normal" />
 
                         <vn.homecredit.hcvn.ui.custom.HorizontalMasterDetailRowItem
                             app:textValue="@{hcContractModel.tenor != null ? String.format(@string/tenor_month, hcContractModel.tenor) : `-`}"
+                            android:visibility="@{hcContractModel.tenor == 0 ? View.GONE : View.VISIBLE}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:textTitle="@string/tenor" />
