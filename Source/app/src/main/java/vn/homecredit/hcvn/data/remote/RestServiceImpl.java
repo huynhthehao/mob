@@ -267,7 +267,7 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(MasterContractResp.class)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractResp.class)));
     }
 
     @Override
@@ -277,7 +277,7 @@ public class RestServiceImpl implements RestService {
                 .addHeaders(mApiHeader.getProtectedApiHeader())
                 .build()
                 .getObjectSingle(MasterContractDocResp.class)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractDocResp.class)));
 
 
     }
@@ -292,7 +292,7 @@ public class RestServiceImpl implements RestService {
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(OtpTimerResp.class)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, ContractResp.class)));
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, OtpTimerResp.class)));
     }
 
     @Override

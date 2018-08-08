@@ -136,7 +136,7 @@
                     android:imeOptions="actionDone"
                     android:text="@{viewModel.btnNextText}"
                     android:onClick="@{() -> viewModel.onNextClicked()}"
-                    android:visibility="@{viewModel.isPreparing ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{viewModel.modelVisibleApproveButton ? View.VISIBLE : View.GONE}"
                     style="@style/PrimaryButton"
                     />
 

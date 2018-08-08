@@ -64,6 +64,7 @@ public class MasterContractDocViewModel extends BaseViewModel {
                 .subscribe(otpTimerResp -> {
                     setIsLoading(false);
                     processOtpTimer(otpTimerResp);
+
                 }, throwable -> {
                     setIsLoading(false);
                     handleError(throwable);

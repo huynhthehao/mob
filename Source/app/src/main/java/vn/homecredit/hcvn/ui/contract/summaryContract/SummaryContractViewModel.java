@@ -50,6 +50,7 @@ public class SummaryContractViewModel extends BaseViewModel {
     private MutableLiveData<Boolean> modelViewDoc = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelShowFingerprintDialog = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelShowPasswordDialog = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelVisibleApproveButton = new MutableLiveData<>();
     private Disposable disposablePrepare;
 
     @Inject
@@ -65,6 +66,10 @@ public class SummaryContractViewModel extends BaseViewModel {
     public void init() {
         super.init();
         modelViewDoc.setValue(false);
+    }
+
+    public MutableLiveData<Boolean> getModelVisibleApproveButton() {
+        return modelVisibleApproveButton;
     }
 
     public MutableLiveData<Boolean> getModelShowFingerprintDialog() {
@@ -215,6 +220,7 @@ public class SummaryContractViewModel extends BaseViewModel {
         bankName.set(masterContract.getDisbursementBankName());
         bankAccount.set(masterContract.getDisbursementBankAccountNumber());
         bankBranch.set(masterContract.getDisbursementBankBranchname());
+        modelVisibleApproveButton.setValue(!masterContract.isMaterialPrepared() && masterContract.canApproved());
         btnNextText.set(masterContract.isMaterialPrepared() ? R.string.master_contract_approved : R.string.master_contract_prepare_data);
         insurance.set(masterContract.isHasInsurance());
     }
