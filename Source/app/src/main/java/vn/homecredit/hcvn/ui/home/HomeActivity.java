@@ -167,13 +167,15 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkToShowDialog() {
-        if (!homeViewModel.canShowFingerprintGuiding())
-            return;
 
-        if (getIntent().getBooleanExtra(BUNDLE_SHOW_DASHBOARD, false) ||
-                preferencesHelper.getIsShowDashboard()) {
+        boolean key1 = getIntent().getBooleanExtra(BUNDLE_SHOW_DASHBOARD, false);
+        boolean key2 = preferencesHelper.getIsShowDashboard();
+        if (key1 || key2) {
             showDashboard(getString(R.string.hello), homeViewModel.getUserName());
         }
+
+        if (!homeViewModel.canShowFingerprintGuiding())
+            return;
 
         int bundleValue = getIntent().getIntExtra(BUNDLE_SHOW_FIRSTCOME, FirstComeFlow.AFTER_LOGIN.getValue());
         FirstComeFlow firstComeFlow = FirstComeFlow.parse(bundleValue);

@@ -45,7 +45,7 @@ public class HomeViewModel extends BaseViewModel {
 
         String keyValue = preferencesHelper.getFingerprintEnableStatus();
         preferencesHelper.setFingerprintEnableStatus();
-        return StringUtils.isNullOrWhiteSpace(keyValue);
+        return StringUtils.isNullOrEmpty(keyValue);
     }
 
 
