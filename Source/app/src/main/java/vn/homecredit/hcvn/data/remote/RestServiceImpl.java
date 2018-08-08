@@ -125,7 +125,7 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
                 mApiHeader.getProtectedApiHeader(),
                 ProfileResp.class);
     }
@@ -221,7 +221,7 @@ public class RestServiceImpl implements RestService {
     @Override
     public Single<NotificationResp> getNotifications() {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/notifications");
-        return DefaultAndroidNetworking.get(url,
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
                 mApiHeader.getProtectedApiHeader(),
                 NotificationResp.class);
     }
@@ -229,7 +229,7 @@ public class RestServiceImpl implements RestService {
     @Override
     public Single<BaseApiResponse> markNotificationAsRead(String notificationId) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/notifications/read/" + notificationId);
-        return DefaultAndroidNetworking.get(url,
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
                 mApiHeader.getProtectedApiHeader(),
                 BaseApiResponse.class);
     }

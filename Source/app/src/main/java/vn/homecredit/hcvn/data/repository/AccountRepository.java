@@ -1,5 +1,7 @@
 package vn.homecredit.hcvn.data.repository;
 
+import android.content.Context;
+
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.model.LoginInformation;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
@@ -38,4 +40,6 @@ public interface AccountRepository {
     String getCurrentUser();
 
     boolean isExpired();
+
+    void logout(Context context);
 }
