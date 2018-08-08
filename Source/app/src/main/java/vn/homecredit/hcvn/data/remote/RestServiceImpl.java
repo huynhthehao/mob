@@ -125,7 +125,7 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return DefaultAndroidNetworking.getWithoutSubscribeOn(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
+        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
                 mApiHeader.getProtectedApiHeader(),
                 ProfileResp.class);
     }

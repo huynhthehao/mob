@@ -208,8 +208,5 @@ public class AccountRepositoryImpl implements AccountRepository {
         // clear all current push notifications on status bar
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.cancelAll();
-
-        // restart app
-        AppUtils.restartApp(context);
     }
 }

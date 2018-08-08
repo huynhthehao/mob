@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.ui.contract.main;
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -217,7 +218,7 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @BindingAdapter({"total", "duedate"})
     public static void setNextPayment(TextView tv, int total, String duedate) {
-        if (duedate == null) {
+        if (TextUtils.isEmpty(duedate)) {
             return;
         }
         NumberFormat formatter = new DecimalFormat("#,###");

@@ -90,10 +90,7 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding, MoreViewMode
         if (clickedLogout) {
             showConfirmMessage(R.string.log_out, R.string.logout_question, (yes) -> {
                 if (yes) {
-                    getViewModel().logout();
-                    // clear all current push notifications on status bar
-                    NotificationManager nm = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                    nm.cancelAll();
+                    getViewModel().logout(getActivity());
                     // restart app
                     AppUtils.restartApp(getActivity());
                 }
