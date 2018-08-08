@@ -23,8 +23,11 @@ public interface ContractRepository {
     Observable<MasterContractResp> startPrepare(String contractId);
 
     Single<OtpTimerResp> masterContractApproved(String contractId);
+
     Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract);
+
     Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval);
+
     Single<ScheduleDetailResp> viewInstalmentsv1(String contractId);
 
     Single<PaymentHistoryResp> viewPaymentsv1(String contractId);

@@ -10,9 +10,7 @@ import java.text.NumberFormat;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.LoginInformation;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
@@ -52,6 +50,7 @@ public class SummaryContractViewModel extends BaseViewModel {
     private MutableLiveData<Boolean> modelViewDoc = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelShowFingerprintDialog = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelShowPasswordDialog = new MutableLiveData<>();
+    private Disposable disposablePrepare;
 
     @Inject
     public SummaryContractViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository, AccountRepository accountRepository, FingerPrintHelper fingerPrintHelper, PreferencesHelper preferencesHelper) {
@@ -170,20 +169,19 @@ public class SummaryContractViewModel extends BaseViewModel {
 
     private void prepare() {
         isPreparing.set(true);
-        Disposable disposable = contractRepository.startPrepare(masterContract.getContractNumber())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        disposablePrepare = contractRepository.startPrepare(masterContract.getContractNumber())
                 .subscribe(masterContractResp -> {
                             Log.debug("" + masterContractResp.getMasterContract().isMaterialPrepared());
                             isPreparing.set(false);
                             updateData(masterContractResp.getMasterContract());
+                            if (disposablePrepare != null) disposablePrepare.dispose();
                         },
                         throwable -> {
                             throwable.printStackTrace();
                             isPreparing.set(false);
                             showMessage(R.string.master_contract_approve_retry);
                         });
-        getCompositeDisposable().add(disposable);
+        getCompositeDisposable().add(disposablePrepare);
     }
 
     public void setContractsId(String contractsId) {
@@ -203,6 +201,7 @@ public class SummaryContractViewModel extends BaseViewModel {
     }
 
     private void updateData(MasterContract masterContract) {
+        masterContract.setMaterialPrepared(false);
         this.masterContract = masterContract;
         if (masterContract == null) return;
         customerName.set(masterContract.getCustomerFullname());

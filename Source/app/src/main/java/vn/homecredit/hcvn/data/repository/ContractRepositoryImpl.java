@@ -93,6 +93,8 @@ public class ContractRepositoryImpl implements ContractRepository {
                     }
                     return masterContractResp.getMasterContract().isMaterialPrepared();
                 })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 ;
 
     }
@@ -143,10 +145,12 @@ public class ContractRepositoryImpl implements ContractRepository {
     public Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval) {
         int numberRequest = timeout / interval;
         return Observable.interval(interval, TimeUnit.MILLISECONDS)
-                .takeWhile(aLong -> aLong < numberRequest)
                 .flatMap((Function<Long, Observable<MasterContractResp>>) aLong -> {
-                    return restService.masterContract(contractId)
-                            .toObservable();
+                    if (aLong >= numberRequest) {
+                        return Observable.error(new Throwable("Timeout"));
+                    } else {
+                        return restService.masterContract(contractId).toObservable();
+                    }
                 })
                 .filter(masterContractResp -> {
                     if (masterContractResp == null || masterContractResp.isSuccess() || masterContractResp.getMasterContract() == null) {
@@ -155,7 +159,9 @@ public class ContractRepositoryImpl implements ContractRepository {
                     return masterContractResp.getMasterContract().isSigned();
 
                 })
-                .map(masterContractResp -> true);
+                .map(masterContractResp -> true)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @NonNull
