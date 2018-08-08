@@ -101,8 +101,8 @@ public class TransactionListViewModel extends BaseViewModel {
             if (listener != null)
                 listener.onDataRefreshed(resp.getData());
 
-            if (resp.getData() == null || resp.getData().size() < 1)
-                showMessage(R.string.data_not_found);
+            /*if (resp.getData() == null || resp.getData().size() < 1)
+                showMessage(R.string.data_not_found);*/
         }, throwable -> {
             updateLoadingStatus(false);
             handleError(throwable);
