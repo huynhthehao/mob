@@ -83,7 +83,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void initKeyInfo(){
+    private void initKeyInfo() {
         try {
             keyStore = KeyStore.getInstance("AndroidKeyStore");
         } catch (KeyStoreException e) {
@@ -107,7 +107,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     public void onStart() {
         super.onStart();
 
-        if(viewModel.fingerPrintEnable()){
+        if (viewModel.fingerPrintEnable()) {
             showFingerPrintAuthDialog();
         }
     }
@@ -131,18 +131,18 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void showFingerPrintAuthDialog() {
-        if(isShowingFingerprintDialog)
+        if (isShowingFingerprintDialog)
             return;
         isShowingFingerprintDialog = true;
         try {
-            if(!keyValid)
+            if (!keyValid)
                 initKeyInfo();
 
             Cipher mCipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/"
                     + KeyProperties.BLOCK_MODE_CBC + "/"
                     + KeyProperties.ENCRYPTION_PADDING_PKCS7);
 
-            if(!initCipher(mCipher, DEFAULT_KEY_NAME))
+            if (!initCipher(mCipher, DEFAULT_KEY_NAME))
                 return;
 
             FingerprintManager fingerprintManager = getSystemService(FingerprintManager.class);
@@ -151,18 +151,18 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
             fragment.setOnDismiss(this::onFingerprintDialogDismissed);
             fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
             fragment.show(getFragmentManager(), "FingerPrintDialog");
-        }catch(Exception ex){
+        } catch (Exception ex) {
             showMessage(ex.getMessage());
         }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void onValidatedSuccess(){
+    private void onValidatedSuccess() {
         //showMessage("success");
         viewModel.autoLogin();
     }
 
-    private void onFingerprintDialogDismissed(){
+    private void onFingerprintDialogDismissed() {
         this.isShowingFingerprintDialog = false;
     }
 
