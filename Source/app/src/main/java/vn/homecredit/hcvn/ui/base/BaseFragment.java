@@ -27,9 +27,13 @@ import android.view.ViewGroup;
 
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.helpers.UiHelper;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+
+import static java.lang.Boolean.TRUE;
+import static vn.homecredit.hcvn.HCVNApp.getContext;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
 
@@ -167,8 +171,12 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
 
     private void bindModelErrorAuthenticate() {
         getViewModel().getModelReLogin().observe(this, o -> {
-            if (o != null && o == Boolean.TRUE) {
-                startWelcome();
+            if (o != null && o == TRUE) {
+                showConfirmMessage(null, getString(R.string.token_expired), aBoolean -> {
+                    if (aBoolean != null && aBoolean == TRUE) {
+                        startWelcomeAfterSessionExpired();
+                    }
+                });
             }
         });
     }
@@ -187,8 +195,9 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         mProgressDialog = CommonUtils.showLoadingDialog(getContext());
     }
 
-    private void startWelcome() {
+    private void startWelcomeAfterSessionExpired() {
         Intent intent = WelcomeActivity.newIntent(getContext());
+        intent.putExtra(WelcomeActivity.IS_FORCE_LOGOUT, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

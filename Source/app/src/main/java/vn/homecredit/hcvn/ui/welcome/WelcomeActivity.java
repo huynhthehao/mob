@@ -34,6 +34,7 @@ import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 
 public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeNavigator {
+    public static final String IS_FORCE_LOGOUT = "is_force_logout";
 
     boolean mHasAnimationStarted = false;
     @Inject
@@ -101,7 +102,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     @Override
     public void changeLanguage() {
         String langCode = viewModel.getCurrentLanguageCode();
-        LocaleHelper.setLocale(getBaseContext(),langCode);
+        LocaleHelper.setLocale(getBaseContext(), langCode);
 
         ImageView flagImage = findViewById(R.id.languageFlag);
 
@@ -111,7 +112,6 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
             flagImage.setImageResource(R.drawable.ic_flag_vn);
         }
     }
-
 
 
     @Override
@@ -127,6 +127,14 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
             flagImage.setImageResource(R.drawable.ic_flag_en);
         } else {
             flagImage.setImageResource(R.drawable.ic_flag_vn);
+        }
+
+        Intent intent = getIntent();
+        if (intent.hasExtra(IS_FORCE_LOGOUT)) {
+            boolean isForceLogout = intent.getBooleanExtra(IS_FORCE_LOGOUT, false);
+            if (!isForceLogout)
+                return;
+            viewModel.processLogout(this);
         }
     }
 

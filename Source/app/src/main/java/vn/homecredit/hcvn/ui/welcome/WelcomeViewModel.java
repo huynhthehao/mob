@@ -9,11 +9,13 @@
 
 package vn.homecredit.hcvn.ui.welcome;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.data.acl.AclDataManager;
+import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
@@ -21,12 +23,14 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
     private final AclDataManager mAclDataManager;
     private final PreferencesHelper preferencesHelper;
+    private final AccountRepository accountRepository;
 
     @Inject
-    public WelcomeViewModel(SchedulerProvider schedulerProvider, AclDataManager aclDataManager, PreferencesHelper preferencesHelper) {
+    public WelcomeViewModel(SchedulerProvider schedulerProvider, AclDataManager aclDataManager, PreferencesHelper preferencesHelper, AccountRepository accountRepository) {
         super(schedulerProvider);
         mAclDataManager = aclDataManager;
         this.preferencesHelper = preferencesHelper;
+        this.accountRepository = accountRepository;
     }
 
 
@@ -34,12 +38,12 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
         this.getNavigator().openLoginActivity();
     }
 
-    public void onLanguageFlagClick(){
+    public void onLanguageFlagClick() {
         preferencesHelper.changeLanguage();
         getNavigator().changeLanguage();
     }
 
-    public String getCurrentLanguageCode(){
+    public String getCurrentLanguageCode() {
         return preferencesHelper.getLanguageCode();
     }
 
@@ -57,5 +61,9 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
         } else {
             this.getNavigator().openAclApplicationForm();
         }
+    }
+
+    public void processLogout(Context context) {
+        accountRepository.logout(context);
     }
 }

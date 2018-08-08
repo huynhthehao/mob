@@ -5,7 +5,7 @@ import android.databinding.ObservableField;
 
 import javax.inject.Inject;
 
-import io.reactivex.functions.Consumer;
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyDataResp;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
@@ -18,6 +18,7 @@ public class MasterContractSignViewModel extends BaseViewModel {
     private OtpPassParam otpParam;
     private ContractRepository contractRepository;
     private MutableLiveData<Boolean> modelSuccess = new MutableLiveData<>();
+    private Disposable disposableVerifyMasterContract;
 
     @Inject
     public MasterContractSignViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository) {
@@ -51,16 +52,20 @@ public class MasterContractSignViewModel extends BaseViewModel {
         if (otpParam == null) return;
         MasterContractVerifyDataResp masterContractVerifyDataResp = otpParam.getMasterContractVerifyDataResp();
         if (masterContractVerifyDataResp == null) return;
-        contractRepository.checkMasterContractVerified(otpParam.getContractId(), masterContractVerifyDataResp.getTimeOut(), masterContractVerifyDataResp.getLoadInterval())
+        disposableVerifyMasterContract = contractRepository.checkMasterContractVerified(otpParam.getContractId(), masterContractVerifyDataResp.getTimeOut(), masterContractVerifyDataResp.getLoadInterval())
                 .subscribe(aBoolean -> {
                     if (aBoolean != null && aBoolean == Boolean.TRUE) {
                         modelSuccess.setValue(true);
-                    }else {
+                    } else {
                         isErrorSign.set(true);
+                    }
+                    if (disposableVerifyMasterContract != null){
+                        disposableVerifyMasterContract.dispose();
                     }
                 }, throwable -> {
                     handleError(throwable);
                 });
+        getCompositeDisposable().add(disposableVerifyMasterContract);
 
     }
 

@@ -121,7 +121,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
             // Update notification unread count at tab
             ((HomeActivity) getActivity()).updateNotificationCount(count);
             // Update badge number
-            ShortcutBadger.applyCount(getActivity(), count);
+            ShortcutBadger.applyCount(getActivity().getApplicationContext(), count);
         });
         getViewModel().getModelOpenNotificationMarketingType().observe(this, marketingUrl -> {
             AppUtils.openExternalBrowser(getActivity(), marketingUrl);
