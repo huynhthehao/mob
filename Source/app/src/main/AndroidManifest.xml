@@ -66,6 +66,10 @@
             android:label="@string/transaction_history_title"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".ui.contract.creditcard.transaction.TransactionDetailActivity"
+            android:label="@string/transaction_detail_title"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".ui.welcome.WelcomeActivity"

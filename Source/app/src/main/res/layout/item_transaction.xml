@@ -11,7 +11,6 @@
     <data>
         <import type="vn.homecredit.hcvn.utils.DateUtils" />
         <import type="vn.homecredit.hcvn.data.model.api.creditcard.Transaction"/>
-
         <variable
             name="transaction"
             type="vn.homecredit.hcvn.data.model.api.creditcard.Transaction" />
@@ -44,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="25"
-                    android:text="@{DateUtils.simplifyDateString(transaction.transactionDate)}"
+                    android:text="@{transaction.getTransactionDate()}"
                     tools:text="01/01/2011" />
 
                 <TextView
@@ -84,6 +83,8 @@
                         android:src="@drawable/ic_arrow_right" />
                 </LinearLayout>
             </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 </layout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 8/8/18 10:30 AM, by Hien.NguyenM
+  -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.contract.creditcard.transaction.TransactionDetailActivity">
+
+    <data>
+        <import type="vn.homecredit.hcvn.utils.DateUtils" />
+        <import type="vn.homecredit.hcvn.data.model.api.creditcard.Transaction"/>
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionDetailViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/appbar_padding_top"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:layout_scrollFlags="enterAlways"
+                app:navigationIcon="?android:attr/homeAsUpIndicator"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/transaction_detail_title"></android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/lbTransactionDate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="30"
+                        android:text="@string/transaction_date"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvCardNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="18dp"
+                        android:layout_weight="40"
+                        android:text="@string/posting_date"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_weight="30"
+                        android:text="@string/amount"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        style="@style/CreditCard.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="30"
+                        android:text="@{viewModel.transaction.getTransactionDate()}"
+                        tools:text="01/01/2011" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="18dp"
+                        android:layout_weight="40"
+                        android:text="@{viewModel.transaction.getPostingDate()}"
+                        tools:text="02/02/2222" />
+
+                    <TextView
+                        android:id="@+id/lbCardStatus"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:text="@{viewModel.transaction.getAmountDisplay()}"
+                        android:textColor="@{viewModel.transaction.direction.equalsIgnoreCase(Transaction.CreditDirection) ? @color/activeDisplay : @color/colorPrimary}"
+                        tools:text="+1,900,000d"
+                        tools:textColor="@color/activeDisplay" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/description"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="5dp"
+                    android:text="@{viewModel.transaction.fullDescription}"
+                    tools:text="This is a very long text. This is a very long text. This is a very long text. This is a very long text" />
+
+            </LinearLayout>
+
+            <View style="@style/Separator_Horizontal" android:layout_marginTop="15dp" />
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

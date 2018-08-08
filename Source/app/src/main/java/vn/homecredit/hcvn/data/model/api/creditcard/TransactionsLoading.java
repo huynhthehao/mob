@@ -26,12 +26,4 @@ public class TransactionsLoading {
         this.listType = listType;
         this.contract = contract;
     }
-
-    public TransactionListType getListType() {
-        return listType;
-    }
-
-    public HcContract getContract() {
-        return contract;
-    }
 }

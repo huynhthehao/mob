@@ -43,14 +43,15 @@
 
                 <ImageView
                     android:id="@+id/filterMenu"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_gravity="right"
                     android:layout_marginRight="15dp"
                     android:onClick="@{()->viewModel.onFilterMenuTapped()}"
-                    android:padding="8dp"
+                    android:padding="10dp"
+                    style="?android:borderlessButtonStyle"
                     android:src="@drawable/ic_filter" />
 
             </android.support.v7.widget.Toolbar>

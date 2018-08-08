@@ -28,6 +28,7 @@ import javax.inject.Inject;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.creditcard.Transaction;
+import vn.homecredit.hcvn.data.model.api.creditcard.TransactionDetailLoading;
 import vn.homecredit.hcvn.data.model.api.creditcard.TransactionsLoading;
 import vn.homecredit.hcvn.data.model.enums.TransactionListType;
 import vn.homecredit.hcvn.databinding.ActivityTransactionListBinding;
@@ -39,6 +40,7 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
 
     TransactionListViewAdapter transactionListViewAdapter;
     private PopupMenu filterMenu;
+    private TransactionsLoading loadingData;
     private int currentMenuId = R.id.menuItemInOneMonth;
 
     @Inject
@@ -76,7 +78,7 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
         viewModel.setListener(this);
 
         if (getIntent().hasExtra(BUNDLE_TRANSACTION_LOADING)) {
-            TransactionsLoading loadingData = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_TRANSACTION_LOADING));
+            loadingData = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_TRANSACTION_LOADING));
             viewModel.setData(this, loadingData);
             //TODO: use this
 
@@ -88,8 +90,8 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
     private void initFilterMenu(TransactionsLoading loadingData){
         ImageView menuIcon = findViewById(R.id.filterMenu);
 
-        if(loadingData.getListType() != TransactionListType.History){
-            if(loadingData.getListType() == TransactionListType.Holding)
+        if(loadingData.listType != TransactionListType.History){
+            if(loadingData.listType == TransactionListType.Holding)
                 getViewDataBinding().toolbar.setTitle(R.string.hold_transactions_title);
             else
                 getViewDataBinding().toolbar.setTitle(R.string.repayment_history_title);
@@ -132,15 +134,16 @@ public class TransactionListActivity extends BaseActivity<ActivityTransactionLis
 
     @Override
     public void onTransactionTapped(Transaction transaction) {
-        if (transaction == null) {
+        if (transaction == null || loadingData == null) {
             showMessage(R.string.data_not_found);
             return;
         }
 
-        showMessage(transaction.description);
-        //Intent intent = CreditCardDetailActivity.getNewIntent(this, card);
-        //startActivity(intent);
+        TransactionDetailLoading detailLoadingData = new TransactionDetailLoading(transaction,loadingData.listType);
+        Intent intent = TransactionDetailActivity.getNewIntent(this, detailLoadingData);
+        startActivity(intent);
     }
+
 
     @Override
     public void onFilterMenuTapped() {

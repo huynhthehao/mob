@@ -275,7 +275,9 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
 
     <string name="statement_details">Chi tiết sao kê</string>
 
+    <string name="posting_date">Ngày hạch toán</string>
     <string name="transaction_date">Ngày giao dịch</string>
+
     <string name="description">Ghi chú</string>
     <string name="last_1_month">Trong 1 tháng</string>
     <string name="last_3_months">Trong 3 tháng</string>

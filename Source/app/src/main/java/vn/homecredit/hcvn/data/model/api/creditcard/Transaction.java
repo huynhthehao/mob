@@ -13,6 +13,7 @@ import org.parceler.Parcel;
 import java.util.Date;
 
 import vn.homecredit.hcvn.helpers.UiHelper;
+import vn.homecredit.hcvn.utils.DateUtils;
 
 @Parcel
 public class Transaction {
@@ -54,5 +55,13 @@ public class Transaction {
     public String getAmountDisplay() {
         String headSign = direction.equalsIgnoreCase(CreditDirection) ? "+" : "-";
         return headSign + UiHelper.getCurrencyFormat(amount);
+    }
+
+    public String getTransactionDate(){
+        return DateUtils.simplifyDateString(transactionDate);
+    }
+
+    public String getPostingDate(){
+        return DateUtils.simplifyDateString(postingDate);
     }
 }

@@ -32,8 +32,8 @@
             android:background="?android:attr/selectableItemBackground"  >
             <ImageView
                 android:id="@+id/cardIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_small"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -57,13 +57,13 @@
                 app:layout_constraintLeft_toRightOf="@+id/barrier"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/lbCardNumber"
-                tools:text="xxxx xxxx xxxx 9786"
+                tools:text="1234xxxxxxxx9786"
                 android:text="@{card.cardNumber}"
                 style="@style/CreditCard.BindingContent" />
 
             <TextView
                 android:id="@+id/lbCardStatus"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="9dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="@+id/lbCardNumber"
@@ -90,7 +90,8 @@
                 app:layout_constraintLeft_toLeftOf="@+id/lbCardNumber"
                 app:layout_constraintTop_toBottomOf="@+id/lbCardStatus"
                 android:text="@string/card_type"
-                style="@style/CreditCard.Label" />
+                style="@style/CreditCard.Label"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvCardType"
@@ -101,7 +102,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:text="@{card.cardType}"
                 tools:text="Personal"
-                style="@style/CreditCard.BindingContent" />
+                style="@style/CreditCard.BindingContent"
+                android:visibility="gone"/>
 
             <android.support.constraint.Barrier
                 android:id="@+id/barrier"
