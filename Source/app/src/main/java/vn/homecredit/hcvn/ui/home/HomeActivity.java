@@ -248,7 +248,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedMomo() {
-        AppUtils.openPlayStoreForApp(this, getString(R.string.momo_app_package));
+        AppUtils.openAppMomo(this);
     }
 
     @Override

@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.utils;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.net.Uri;
 import android.os.Build;
@@ -23,14 +24,15 @@ import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 public final class AppUtils {
+    public static final String MOMO_PACKAGE = "com.mservice.momotransfer";
+    public static final String HCVN_PACKAGE = "vn.homecredit.hcvn";
 
     private AppUtils() {
         // This class is not publicly instantiable
     }
 
     public static void openPlayStoreForApp(Context context) {
-        final String appPackageName = context.getPackageName();
-        openPlayStoreForApp(context, appPackageName);
+        openPlayStoreForApp(context, HCVN_PACKAGE);
     }
 
     public static void restartApp(Context context) {
@@ -39,12 +41,26 @@ public final class AppUtils {
         context.startActivity(intent);
     }
 
+    public static void openAppMomo(Context context) {
+       openApp(context, MOMO_PACKAGE);
+    }
+    public static void openApp(Context context, String appPackageName) {
+        PackageManager packageManager = context.getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(appPackageName);
+        if (intent.resolveActivity(packageManager) != null) {
+            context.startActivity(intent);
+        } else {
+            openPlayStoreForApp(context, appPackageName);
+        }
+
+    }
+
     public static void openPlayStoreForApp(Context context, String appPackageName) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(context
                             .getResources()
-                            .getString(R.string.app_market_link) + "vn.homecredit.hcvn")));
+                            .getString(R.string.app_market_link) + appPackageName)));
         } catch (android.content.ActivityNotFoundException e) {
             context.startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse(context

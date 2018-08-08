@@ -100,14 +100,14 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding, MoreViewMode
 
     private void showMomo(Boolean clickedMomo) {
         if (clickedMomo) {
-            showToast("clicked Momo");
+            AppUtils.openAppMomo(getContext());
         }
     }
 
     private void showLocation(Boolean clickedLocation) {
         if (clickedLocation) {
 //            showToast("clicked Location");
-            PayMapActivity.start(getContext(),PayMapActivity.PAYMENT_MODE);
+            PayMapActivity.start(getContext(), PayMapActivity.PAYMENT_MODE);
         }
     }
 
