@@ -92,6 +92,7 @@ public class ESigningLoginDialogFragment extends HcDialogFragment implements Fin
             ivFingerIcon.setVisibility(View.VISIBLE);
             btnOK.setText(R.string.use_password);
             tvTitle.setText(R.string.dialog_esigning_title);
+            btnOK.setText(R.string.action_next);
         }else {
             btnCancel.setVisibility(View.VISIBLE);
             edtPassword.setVisibility(View.VISIBLE);
