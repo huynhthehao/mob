@@ -179,7 +179,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     private void bindModelErrorAuthenticate() {
         getViewModel().getModelReLogin().observe(this, o -> {
             if (o != null && o == TRUE) {
-                showConfirmMessage(null, getString(R.string.token_expired), aBoolean -> {
+                UiHelper.showConfirmMessageNoCancel(this,null, getString(R.string.token_expired), aBoolean -> {
                     if (aBoolean != null && aBoolean == TRUE) {
                         startWelcomeAfterSessionExpired();
                     }

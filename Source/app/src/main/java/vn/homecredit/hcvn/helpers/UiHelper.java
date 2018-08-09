@@ -101,12 +101,20 @@ public class UiHelper {
     }
 
     public static void showConfirmMessage(Context context, String title, String message, final Consumer<Boolean> onCompleted) {
-        MaterialDialog dialog = new MaterialDialog.Builder(context)
+        showConfirmMessage(context, title, message, context.getString(R.string.cancel), onCompleted);
+    }
+
+    public static void showConfirmMessageNoCancel(Context context, String title, String message, final Consumer<Boolean> onCompleted) {
+        showConfirmMessage(context, title, message, null , onCompleted);
+    }
+
+    public static void showConfirmMessage(Context context, String title, String message, String negativeButtonText,  final Consumer<Boolean> onCompleted) {
+
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
                 .title(title)
                 .content(message)
                 .positiveText(R.string.ok)
                 .negativeColor(context.getResources().getColor(R.color.my_secondary_text))
-                .negativeText(R.string.cancel)
                 .canceledOnTouchOutside(false)
                 .cancelListener(d -> {
                     try {
@@ -121,7 +129,13 @@ public class UiHelper {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }).build();
+                });
+
+        if (negativeButtonText != null) {
+           dialogBuilder.negativeText(negativeButtonText);
+        }
+
+        MaterialDialog dialog = dialogBuilder.build();
 
         MDButton negativeButton = dialog.getActionButton(DialogAction.NEGATIVE);
         MDButton positiveButton = dialog.getActionButton(DialogAction.POSITIVE);
@@ -135,4 +149,5 @@ public class UiHelper {
 
         dialog.show();
     }
+
 }
