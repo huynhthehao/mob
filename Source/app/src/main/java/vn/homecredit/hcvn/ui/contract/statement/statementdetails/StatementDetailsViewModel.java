@@ -59,6 +59,10 @@ public class StatementDetailsViewModel extends BaseViewModel {
         return dataStatementDetails;
     }
 
+    public MutableLiveData<Boolean> getModelRefreshing(){
+        return modelRefreshing;
+    }
+
     private List<String> getImages(List<StatementDetailModel> listData) {
         List<String> listImages = new ArrayList<>();
         if (listData == null)
