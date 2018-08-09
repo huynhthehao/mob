@@ -56,6 +56,12 @@ public class StatementDetailsActivity extends BaseActivity<ActivityStatementDeta
         fragmentImages = (SimpleRecyclerViewFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentImages);
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
         getViewModel().init(contractId, statementModel);
+        getViewModel().getModelRefreshing().observe(this, isRefreshing -> {
+            if (fragmentImages == null) {
+                return;
+            }
+            fragmentImages.showSwipeRefresh(isRefreshing);
+        });
         getViewModel().getDataStatementDetails().observe(this, statementImages -> {
             fragmentImages.updateImages(statementImages);
         });

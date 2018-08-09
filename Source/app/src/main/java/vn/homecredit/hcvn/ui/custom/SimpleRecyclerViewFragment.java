@@ -42,6 +42,13 @@ public class SimpleRecyclerViewFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
+    public void showSwipeRefresh(boolean isShowRefresh) {
+        if (swipeRefresh == null) {
+            return;
+        }
+        swipeRefresh.setRefreshing(isShowRefresh);
+    }
+
     public void updateImages(List<String> images) {
         if (images == null) {
             images = new ArrayList<>();

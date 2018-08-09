@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
@@ -79,7 +80,9 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
                 Intent intent = CreditCardListActivity.getNewIntent(getContext(), selectedContract);
                 startActivity(intent);
             } else {
-                Intent intent = CreditCardDetailActivity.getNewIntent(getContext(), selectedContract.getCards().get(0));
+                HcCreditCard currentCard = selectedContract.getCards().get(0);
+                currentCard.refContract = selectedContract;
+                Intent intent = CreditCardDetailActivity.getNewIntent(getContext(), currentCard);
                 startActivity(intent);
             }
             return;
