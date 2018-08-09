@@ -16,6 +16,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import vn.homecredit.hcvn.R;
@@ -35,7 +36,11 @@ public abstract class FullscreenDialogFragment extends DialogFragment {
         View view = inflater.inflate(getLayoutId(), null);
         initView(view);
         builder.setView(view);
-        return builder.create();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        return alertDialog;
+
     }
 
     @Override
@@ -53,6 +58,8 @@ public abstract class FullscreenDialogFragment extends DialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null && dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            WindowManager.LayoutParams layoutParams = getDialog().getWindow().getAttributes();
+            layoutParams.dimAmount = 0;
             dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         }
     }

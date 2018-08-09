@@ -5,7 +5,10 @@ import com.androidnetworking.error.ANError;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
 public class HcApiException extends Throwable {
+
     public static final int ERROR_CODE_UNAUTHORIZED = 401;
+    public static final int ERROR_CODE_BAD_REQUEST = 400;
+    public static final int ERROR_CODE_INTERNAL = 500;
     public static final int ERROR_UNKNOWN = 1;
     private int errorResponseCode;
     private String errorResponseMessage;
@@ -46,10 +49,6 @@ public class HcApiException extends Throwable {
             }else if (errorObject instanceof BaseApiResponse){
                 errorResponseCode = ((BaseApiResponse) errorObject).getResponseCode();
                 errorResponseMessage = ((BaseApiResponse) errorObject).getResponseMessage();
-                if (errorResponseMessage == null) {
-                    errorResponseCode = ((ANError) throwable).getErrorCode();
-                    errorResponseMessage = ((ANError) throwable).getErrorBody();
-                }
             }else {
                 errorResponseCode = ((ANError) throwable).getErrorCode();
                 errorResponseMessage = ((ANError) throwable).getErrorBody();
@@ -58,5 +57,9 @@ public class HcApiException extends Throwable {
             errorResponseCode = ERROR_UNKNOWN;
             errorResponseMessage = throwable.getMessage();
         }
+    }
+
+    public boolean isErrorResponseEmpty() {
+        return errorResponseMessage == null;
     }
 }

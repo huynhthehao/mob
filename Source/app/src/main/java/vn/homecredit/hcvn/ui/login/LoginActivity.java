@@ -35,6 +35,7 @@ import vn.homecredit.hcvn.databinding.ActivityLoginBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.FingerprintAuthenticationDialogFragment;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
+import vn.homecredit.hcvn.ui.home.DashBoardDialogFragment;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 
 /**

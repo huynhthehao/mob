@@ -16,6 +16,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.message.MessageQuestion;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
@@ -123,7 +124,11 @@ public abstract class BaseViewModel<N> extends ViewModel {
             if (((HcApiException) throwable).getErrorResponseCode() == HcApiException.ERROR_CODE_UNAUTHORIZED) {
                 modelReLogin.setValue(true);
             }else {
-                messageData.setValue(((HcApiException) throwable).getErrorResponseMessage());
+                if (((HcApiException) throwable).isErrorResponseEmpty()) {
+                    messageResourceData.setValue(R.string.error_unexpected);
+                }else {
+                    messageData.setValue(((HcApiException) throwable).getErrorResponseMessage());
+                }
             }
         }else {
             messageData.setValue(throwable.getMessage());
