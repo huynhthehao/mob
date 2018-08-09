@@ -43,7 +43,7 @@ public class CreditCardDetailViewModel extends BaseViewModel {
         this.cardData.set(card);
     }
 
-    public void setListener(CreditCardDetailListener listener){
+    public void setListener(CreditCardDetailListener listener) {
         this.listener = listener;
     }
 
@@ -61,14 +61,20 @@ public class CreditCardDetailViewModel extends BaseViewModel {
     }
 
     public void onStatementTapped() {
-        if (listener != null)
-            listener.onStatementTapped(cardData.get().refContract.getContractNumber());
+        if (listener != null) {
+            HcCreditCard currentCard = cardData.get();
+            if (currentCard == null || currentCard.refContract == null) {
+                showMessage(R.string.data_not_found);
+                return;
+            }
+            listener.onStatementTapped(currentCard.refContract.getContractNumber());
+        }
     }
 
     public void onTransactionHistoryTapped() {
         if (listener != null) {
             HcCreditCard currentCard = cardData.get();
-            if(currentCard == null || currentCard.refContract == null){
+            if (currentCard == null || currentCard.refContract == null) {
                 showMessage(R.string.data_not_found);
                 return;
             }
@@ -80,7 +86,7 @@ public class CreditCardDetailViewModel extends BaseViewModel {
     public void onRepaymentHistoryTapped() {
         if (listener != null) {
             HcCreditCard currentCard = cardData.get();
-            if(currentCard == null || currentCard.refContract == null){
+            if (currentCard == null || currentCard.refContract == null) {
                 showMessage(R.string.data_not_found);
                 return;
             }
@@ -90,9 +96,9 @@ public class CreditCardDetailViewModel extends BaseViewModel {
     }
 
     public void onHoldTransactionTapped() {
-        if (listener != null){
+        if (listener != null) {
             HcCreditCard currentCard = cardData.get();
-            if(currentCard == null || currentCard.refContract == null){
+            if (currentCard == null || currentCard.refContract == null) {
                 showMessage(R.string.data_not_found);
                 return;
             }
