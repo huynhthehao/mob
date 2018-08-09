@@ -282,5 +282,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="last_1_month">Trong 1 tháng</string>
     <string name="last_3_months">Trong 3 tháng</string>
     <string name="last_6_months">Trong 6 tháng</string>
+    <string name="error_unexpected">Lỗi không mong đợi. Vui lòng thử lại sau.</string>
 
 </resources>

@@ -70,7 +70,9 @@
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="60dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/ic_log_in_grey" />
+                        android:src="@drawable/ic_log_in_grey"
+
+                        />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"

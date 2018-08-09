@@ -220,7 +220,7 @@ public class SummaryContractViewModel extends BaseViewModel {
         bankName.set(masterContract.getDisbursementBankName());
         bankAccount.set(masterContract.getDisbursementBankAccountNumber());
         bankBranch.set(masterContract.getDisbursementBankBranchname());
-        modelVisibleApproveButton.setValue(!masterContract.isMaterialPrepared() && masterContract.canApproved());
+        modelVisibleApproveButton.setValue(!isPreparing.get() && masterContract.canApproved());
         btnNextText.set(masterContract.isMaterialPrepared() ? R.string.master_contract_approved : R.string.master_contract_prepare_data);
         insurance.set(masterContract.isHasInsurance());
     }
