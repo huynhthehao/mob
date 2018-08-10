@@ -11,6 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
 
         manifestPlaceholders = [
                 onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
