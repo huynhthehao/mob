@@ -10,7 +10,10 @@ import android.support.v4.app.Fragment;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
+import com.androidnetworking.internal.InternalNetworking;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.onesignal.OneSignal;
 
 import javax.inject.Inject;
@@ -77,8 +80,11 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
         context = getApplicationContext();
 
         AppLogger.init();
-
-        AndroidNetworking.initialize(getApplicationContext());
+        Stetho.initializeWithDefaults(this);
+        AndroidNetworking.initialize(getApplicationContext(), InternalNetworking.getClient()
+                .newBuilder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build());
         if (BuildConfig.DEBUG) {
             AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY);
         }
