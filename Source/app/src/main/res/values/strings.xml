@@ -290,5 +290,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="clear">Xóa</string>
     <string name="submit">Gởi</string>
     <string name="tap_to_call_message">Bấm nút bên dưới để gọi</string>
+    <string name="please_enter_subject">Vui lòng nhập tiêu đề</string>
+    <string name="please_enter_feedback">Vui lòng nhập phản hồi</string>
+    <string name="please_enter_phone_number">Vui lòng nhập số điện thoại</string>
 
 </resources>

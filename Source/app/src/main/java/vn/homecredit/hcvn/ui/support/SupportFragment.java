@@ -53,6 +53,12 @@ public class SupportFragment extends BaseFragment<FragmentSupportBinding, Suppor
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         getViewModel().init();
         getViewModel().getCallSupportCenterClickEvent().observe(this, mPhone -> {
             if (!TextUtils.isEmpty(mPhone)) {
@@ -64,13 +70,5 @@ public class SupportFragment extends BaseFragment<FragmentSupportBinding, Suppor
                 //TODO Go to history activity
             }
         });
-        getViewModel().getClearClickEvent().observe(this, mBoolean -> {
-            if (mBoolean) {
-                getViewDataBinding().etSubject.setText("");
-                getViewDataBinding().etFeedbackMessage.setText("");
-            }
-        });
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
-
 }

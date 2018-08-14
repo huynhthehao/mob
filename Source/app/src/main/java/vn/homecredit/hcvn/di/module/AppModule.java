@@ -41,6 +41,8 @@ import vn.homecredit.hcvn.data.repository.MapRepository;
 import vn.homecredit.hcvn.data.repository.MapRepositoryImpl;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.data.repository.NotificationRepositoryImpl;
+import vn.homecredit.hcvn.data.repository.SupportRepository;
+import vn.homecredit.hcvn.data.repository.SupportRepositoryImpl;
 import vn.homecredit.hcvn.di.PreferenceInfo;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelperImpl;
@@ -273,5 +275,11 @@ public class AppModule {
     @Singleton
     ContractRepository provideContractRepository(ContractRepositoryImpl contractRepositoryImpl) {
         return contractRepositoryImpl;
+    }
+
+    @Provides
+    @Singleton
+    SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
+        return supportRepositoryImpl;
     }
 }

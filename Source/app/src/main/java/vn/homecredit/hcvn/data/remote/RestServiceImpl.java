@@ -48,6 +48,7 @@ import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
+import vn.homecredit.hcvn.ui.support.model.SupportResp;
 import vn.homecredit.hcvn.utils.TestData;
 
 @Singleton
@@ -101,7 +102,7 @@ public class RestServiceImpl implements RestService {
     public Single<TokenResp> getToken(String phoneNumber, String password) {
         if (mMemoryHelper.getVersionRespData() == null ||
                 mMemoryHelper.getVersionRespData().getSettings() == null ||
-                mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId() == null ) {
+                mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId() == null) {
             return Single.error(new Throwable("System Error"));
         }
         String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
@@ -311,7 +312,7 @@ public class RestServiceImpl implements RestService {
                 .map(masterContractVerifyResp -> {
                     if (BuildConfig.DEBUG) {
                         return TestData.masterContractVerifyResp();
-                    }else {
+                    } else {
                         return masterContractVerifyResp;
                     }
                 })
@@ -322,6 +323,22 @@ public class RestServiceImpl implements RestService {
                     return Single.error(new HcApiException(throwable, MasterContractVerifyResp.class));
                 })
                 ;
+    }
+
+    @Override
+    public Single<SupportResp> submitFeedback(String subject, String description, String phoneNumber, String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/tickets/send");
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("Subject", subject);
+        requestBody.put("Description", description);
+        requestBody.put("PhoneNumber", phoneNumber);
+        if (!TextUtils.isEmpty(contractId))
+            requestBody.put("ContractNumber", contractId);
+
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(),
+                requestBody,
+                SupportResp.class);
     }
 
     @Override

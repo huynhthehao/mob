@@ -6,8 +6,11 @@ import android.text.TextUtils;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
+import vn.homecredit.hcvn.data.repository.SupportRepository;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.Log;
@@ -15,19 +18,21 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SupportViewModel extends BaseViewModel {
     private final PreferencesHelper preferencesHelper;
+    private final SupportRepository supportRepository;
     private ObservableField<String> customerSupportPhoneField = new ObservableField<>("");
     private ObservableField<String> subjectFeedback = new ObservableField<>("");
     private ObservableField<String> messageFeedback = new ObservableField<>("");
     private ObservableField<String> userPhone = new ObservableField<>("");
+    private ObservableField<String> userPhoneHint = new ObservableField<>("");
     private MutableLiveData<Boolean> historyClickEvent = new MutableLiveData<>();
-    private MutableLiveData<Boolean> clearClickEvent = new MutableLiveData<>();
     private MutableLiveData<String> callSupportCenterClickEvent = new MutableLiveData<>();
-    String customerSupportPhone = "";
+    String customerSupportPhone = "", contractId = "";
 
     @Inject
-    public SupportViewModel(SchedulerProvider schedulerProvider, PreferencesHelper preferencesHelper) {
+    public SupportViewModel(SchedulerProvider schedulerProvider, PreferencesHelper preferencesHelper, SupportRepository supportRepository) {
         super(schedulerProvider);
         this.preferencesHelper = preferencesHelper;
+        this.supportRepository = supportRepository;
     }
 
     @Override
@@ -39,7 +44,9 @@ public class SupportViewModel extends BaseViewModel {
         }
         ProfileResp.ProfileRespData profileResp = preferencesHelper.getProfile();
         if (profileResp != null) {
-            userPhone.set(profileResp.getPhoneNumber());
+            userPhoneHint.set(profileResp.getPhoneNumber());
+
+            contractId = profileResp.getContractNumber();
         }
     }
 
@@ -52,11 +59,41 @@ public class SupportViewModel extends BaseViewModel {
     }
 
     public void onClearClicked() {
-        clearClickEvent.setValue(true);
+        subjectFeedback.set("");
+        messageFeedback.set("");
+        userPhone.set("");
     }
 
     public void onSubmitClicked() {
+        if (TextUtils.isEmpty(subjectFeedback.get())) {
+            showMessage(R.string.please_enter_subject);
+            return;
+        }
+        if (TextUtils.isEmpty(messageFeedback.get())) {
+            showMessage(R.string.please_enter_feedback);
+            return;
+        }
+        if (TextUtils.isEmpty(userPhone.get())) {
+            showMessage(R.string.please_enter_phone_number);
+            return;
+        }
 
+        setIsLoading(true);
+        Disposable disposableMarkAsRead = supportRepository.submitFeedback(subjectFeedback.get(), messageFeedback.get(), userPhone.get(), contractId)
+                .subscribe(
+                        supportResp -> {
+                            setIsLoading(false);
+                            if (supportResp.getResponseCode() == 0) {
+                                //TODO
+                            } else {
+                                showMessage(supportResp.getResponseMessage());
+                            }
+                        },
+                        throwable -> {
+                            setIsLoading(false);
+                            handleError(throwable);
+                        });
+        getCompositeDisposable().add(disposableMarkAsRead);
     }
 
     public void onCallSupportCenterClicked() {
@@ -83,7 +120,7 @@ public class SupportViewModel extends BaseViewModel {
         return historyClickEvent;
     }
 
-    public MutableLiveData<Boolean> getClearClickEvent() {
-        return clearClickEvent;
+    public ObservableField<String> getUserPhoneHint() {
+        return userPhoneHint;
     }
 }

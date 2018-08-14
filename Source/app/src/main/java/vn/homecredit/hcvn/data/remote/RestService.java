@@ -23,6 +23,7 @@ import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
+import vn.homecredit.hcvn.ui.support.model.SupportResp;
 
 public interface RestService {
     Single<VersionResp> checkUpdate();
@@ -50,4 +51,6 @@ public interface RestService {
     Single<StatementResp> getStatements(String contractId);
     Single<StatementDetailsResp> getStatementDetails(String contractId,StatementModel statementModel);
     Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract);
+
+    Single<SupportResp> submitFeedback(String subject, String description, String phoneNumber, String contractId);
 }
