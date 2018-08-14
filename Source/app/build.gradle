@@ -119,8 +119,8 @@ dependencies {
 
     // dependency injection
     implementation "com.google.dagger:dagger:$rootProject.dagger2Version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
     // reactive
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
@@ -129,7 +129,7 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
     // view model
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycle"
+    kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
     // appCenter
     implementation "com.microsoft.appcenter:appcenter-analytics:$rootProject.appCenterSdkVersion"
     implementation "com.microsoft.appcenter:appcenter-crashes:$rootProject.appCenterSdkVersion"
@@ -144,10 +144,10 @@ dependencies {
     implementation 'com.annimon:stream:1.2.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation "org.parceler:parceler-api:$rootProject.parceler"
-    annotationProcessor "org.parceler:parceler:$rootProject.parceler"
+    kapt "org.parceler:parceler:$rootProject.parceler"
     //Room
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
-    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
