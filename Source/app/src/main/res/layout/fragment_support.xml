@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <LinearLayout
@@ -33,9 +34,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical|right"
+                android:onClick="@{()-> viewModel.onHistoryClicked()}"
                 android:orientation="horizontal"
-                android:padding="@dimen/padding_normal">
+                android:padding="@dimen/padding_medium">
 
                 <ImageView
                     android:layout_width="18dp"
@@ -88,7 +91,7 @@
                         android:layout_marginLeft="@dimen/margin_small"
                         android:theme="@style/AppTheme.TextLabel">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/etSubject"
                             style="@style/AppTheme.TextView"
                             android:layout_width="match_parent"
@@ -96,6 +99,7 @@
                             android:hint="@string/enter_subject"
                             android:maxLines="1"
                             android:singleLine="true"
+                            android:text="@{viewModel.subjectFeedback}"
                             android:textSize="@dimen/text_size_normal" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -120,13 +124,14 @@
                         android:layout_marginLeft="@dimen/margin_small"
                         android:theme="@style/AppTheme.TextLabel">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/etFeedbackMessage"
                             style="@style/AppTheme.TextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/enter_feedback"
                             android:maxLines="4"
+                            android:text="@{viewModel.messageFeedback}"
                             android:textSize="@dimen/text_size_normal" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -151,19 +156,21 @@
                         android:layout_marginLeft="@dimen/margin_small"
                         android:theme="@style/AppTheme.TextLabel">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/etPhoneNumber"
                             style="@style/AppTheme.TextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_normal" />
+                            android:text="@{viewModel.userPhone}"
+                            android:textSize="@dimen/text_size_normal"
+                            android:enabled="false"/>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/button_submit_height"
-                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_normal"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -173,6 +180,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/round_button_clear"
                         android:gravity="center"
+                        android:onClick="@{()-> viewModel.onClearClicked()}"
                         android:text="@string/clear"
                         android:textColor="@color/primary_red"
                         android:textSize="@dimen/text_size_big" />
@@ -184,6 +192,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/round_button_submit"
                         android:gravity="center"
+                        android:onClick="@{()-> viewModel.onSubmitClicked()}"
                         android:text="@string/submit"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_big" />
@@ -208,7 +217,7 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center_horizontal"
                 android:text="@string/tap_to_call_message"
-                android:textSize="@dimen/text_size_medium" />
+                android:textSize="@dimen/text_size_normal" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -217,6 +226,7 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:background="@drawable/round_button_submit"
                 android:gravity="center"
+                android:onClick="@{()-> viewModel.onCallSupportCenterClicked()}"
                 android:orientation="horizontal">
 
                 <ImageView

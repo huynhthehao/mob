@@ -14,6 +14,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentSupportBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.utils.AppUtils;
 
 public class SupportFragment extends BaseFragment<FragmentSupportBinding, SupportViewModel> {
     @Inject
@@ -52,6 +54,22 @@ public class SupportFragment extends BaseFragment<FragmentSupportBinding, Suppor
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getViewModel().init();
+        getViewModel().getCallSupportCenterClickEvent().observe(this, mPhone -> {
+            if (!TextUtils.isEmpty(mPhone)) {
+                AppUtils.openDeviceCallDialog(getActivity(), mPhone);
+            }
+        });
+        getViewModel().getHistoryClickEvent().observe(this, mBoolean -> {
+            if (mBoolean) {
+                //TODO Go to history activity
+            }
+        });
+        getViewModel().getClearClickEvent().observe(this, mBoolean -> {
+            if (mBoolean) {
+                getViewDataBinding().etSubject.setText("");
+                getViewDataBinding().etFeedbackMessage.setText("");
+            }
+        });
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
