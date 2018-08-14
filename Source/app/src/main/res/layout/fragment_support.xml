@@ -11,6 +11,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.support.SupportFragment">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.support.SupportViewModel" />
+    </data>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -82,14 +89,14 @@
                         android:theme="@style/AppTheme.TextLabel">
 
                         <AutoCompleteTextView
-                            style="@style/AppTheme.TextView"
                             android:id="@+id/etSubject"
+                            style="@style/AppTheme.TextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/enter_subject"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:textSize="@dimen/text_size_normal"/>
+                            android:textSize="@dimen/text_size_normal" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
@@ -114,13 +121,13 @@
                         android:theme="@style/AppTheme.TextLabel">
 
                         <AutoCompleteTextView
-                            style="@style/AppTheme.TextView"
                             android:id="@+id/etFeedbackMessage"
+                            style="@style/AppTheme.TextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/enter_feedback"
-                            android:textSize="@dimen/text_size_normal"
-                            android:maxLines="4"/>
+                            android:maxLines="4"
+                            android:textSize="@dimen/text_size_normal" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
@@ -145,11 +152,11 @@
                         android:theme="@style/AppTheme.TextLabel">
 
                         <AutoCompleteTextView
-                            style="@style/AppTheme.TextView"
                             android:id="@+id/etPhoneNumber"
+                            style="@style/AppTheme.TextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/text_size_normal"/>
+                            android:textSize="@dimen/text_size_normal" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
@@ -225,7 +232,7 @@
                     android:layout_marginLeft="@dimen/margin_small"
                     android:layout_marginRight="@dimen/margin_average"
                     android:gravity="center"
-                    android:text="@string/customer_service_phone"
+                    android:text="@{viewModel.customerSupportPhoneField}"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_big" />
             </LinearLayout>
