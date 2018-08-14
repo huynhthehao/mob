@@ -20,6 +20,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.message.MessageQuestion;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
+import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public abstract class BaseViewModel<N> extends ViewModel {

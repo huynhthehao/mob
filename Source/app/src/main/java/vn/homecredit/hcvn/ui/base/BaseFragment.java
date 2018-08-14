@@ -111,6 +111,8 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
                 }
             }
         });
+        bindModelResourceMessageDialog();
+        bindModelMessageDialog();
         this.init();
     }
 
@@ -200,5 +202,21 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         intent.putExtra(WelcomeActivity.IS_FORCE_LOGOUT, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private void bindModelResourceMessageDialog() {
+        getViewModel().getMessageResourceData().observe(this, o -> {
+            if ( o instanceof Integer) {
+                showMessage(getString((Integer) o));
+            }
+        });
+    }
+
+    private void bindModelMessageDialog() {
+        getViewModel().getMessageData().observe(this, o -> {
+            if (o != null && o instanceof String) {
+                showMessage((String) o);
+            }
+        });
     }
 }
