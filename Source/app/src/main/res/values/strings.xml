@@ -284,6 +284,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="last_6_months">Trong 6 tháng</string>
     <string name="error_unexpected">Lỗi không mong đợi. Vui lòng thử lại sau.</string>
 
+    <!-- Support -->
     <string name="history">Lịch sử</string>
     <string name="enter_subject">Nhập tiêu đề</string>
     <string name="enter_feedback">Nhập phản hồi</string>
@@ -293,5 +294,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="please_enter_subject">Vui lòng nhập tiêu đề</string>
     <string name="please_enter_feedback">Vui lòng nhập phản hồi</string>
     <string name="please_enter_phone_number">Vui lòng nhập số điện thoại</string>
+    <string name="feedback_done_title">Phản hồi của bạn đã được gửi thành công</string>
+    <string name="feedback_done_content">Nhân viên hỗ trợ sẽ liên lạc bạn trong thời gian sớm nhất</string>
+    <string name="feedback_done">Hoàn tất</string>
 
 </resources>

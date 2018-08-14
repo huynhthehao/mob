@@ -26,6 +26,7 @@ public class SupportViewModel extends BaseViewModel {
     private ObservableField<String> userPhoneHint = new ObservableField<>("");
     private MutableLiveData<Boolean> historyClickEvent = new MutableLiveData<>();
     private MutableLiveData<String> callSupportCenterClickEvent = new MutableLiveData<>();
+    private MutableLiveData<Boolean> feedbackDoneEvent = new MutableLiveData<>();
     String customerSupportPhone = "", contractId = "";
 
     @Inject
@@ -59,6 +60,10 @@ public class SupportViewModel extends BaseViewModel {
     }
 
     public void onClearClicked() {
+        resetData();
+    }
+
+    private void resetData() {
         subjectFeedback.set("");
         messageFeedback.set("");
         userPhone.set("");
@@ -84,7 +89,8 @@ public class SupportViewModel extends BaseViewModel {
                         supportResp -> {
                             setIsLoading(false);
                             if (supportResp.getResponseCode() == 0) {
-                                //TODO
+                                resetData();
+                                feedbackDoneEvent.setValue(true);
                             } else {
                                 showMessage(supportResp.getResponseMessage());
                             }
@@ -122,5 +128,9 @@ public class SupportViewModel extends BaseViewModel {
 
     public ObservableField<String> getUserPhoneHint() {
         return userPhoneHint;
+    }
+
+    public MutableLiveData<Boolean> getFeedbackDoneEvent() {
+        return feedbackDoneEvent;
     }
 }

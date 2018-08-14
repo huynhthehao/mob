@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.ui.support;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -68,6 +69,12 @@ public class SupportFragment extends BaseFragment<FragmentSupportBinding, Suppor
         getViewModel().getHistoryClickEvent().observe(this, mBoolean -> {
             if (mBoolean) {
                 //TODO Go to history activity
+            }
+        });
+        getViewModel().getFeedbackDoneEvent().observe(this, mBoolean -> {
+            if (mBoolean) {
+                Intent intent = new Intent(getActivity(), SupportDoneActivity.class);
+                startActivity(intent);
             }
         });
     }
