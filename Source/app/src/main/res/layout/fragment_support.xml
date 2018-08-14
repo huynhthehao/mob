@@ -176,6 +176,7 @@
                     android:weightSum="2">
 
                     <TextView
+                        style="@style/AppTheme.TextView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -187,11 +188,12 @@
                         android:textSize="@dimen/text_size_big" />
 
                     <TextView
+                        style="@style/AppTheme.TextView"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/margin_high"
                         android:layout_weight="1"
-                        android:background="@drawable/round_button_submit"
+                        android:background="@drawable/rounded_button"
                         android:gravity="center"
                         android:onClick="@{()-> viewModel.onSubmitClicked()}"
                         android:text="@string/submit"
@@ -218,14 +220,14 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center_horizontal"
                 android:text="@string/tap_to_call_message"
-                android:textSize="@dimen/text_size_normal" />
+                android:textSize="@dimen/text_size_medium" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_submit_height"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:background="@drawable/round_button_submit"
+                android:background="@drawable/rounded_button"
                 android:gravity="center"
                 android:onClick="@{()-> viewModel.onCallSupportCenterClicked()}"
                 android:orientation="horizontal">
