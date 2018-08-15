@@ -25,15 +25,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.helpers.UiHelper;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 import static java.lang.Boolean.TRUE;
-import static vn.homecredit.hcvn.HCVNApp.getContext;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
 
@@ -42,6 +44,8 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private T mViewDataBinding;
     private V mViewModel;
     protected ProgressDialog mProgressDialog;
+    @Inject
+    TrackingService trackService;
 
     /**
      * Override for set binding variable
@@ -114,6 +118,12 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         bindModelResourceMessageDialog();
         bindModelMessageDialog();
         this.init();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        trackService.sendView(this);
     }
 
     protected void init() {

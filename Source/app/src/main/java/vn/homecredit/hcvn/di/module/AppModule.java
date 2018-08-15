@@ -60,8 +60,10 @@ import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.service.ResourceServiceImpl;
 import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.service.VersionServiceImpl;
+import vn.homecredit.hcvn.service.tracking.FBAnalyticsServiceImpl;
+import vn.homecredit.hcvn.service.tracking.GAAnalyticsServiceImpl;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.utils.AppConstants;
-import vn.homecredit.hcvn.utils.imageLoader.ImageLoader;
 import vn.homecredit.hcvn.utils.rx.AppSchedulerProvider;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -281,5 +283,11 @@ public class AppModule {
     @Singleton
     SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
         return supportRepositoryImpl;
+    }
+
+    @Provides
+    @Singleton
+    TrackingService provideTrackService(Context context, GAAnalyticsServiceImpl gaTrackService, FBAnalyticsServiceImpl fbTrackService) {
+        return new TrackingService(context, gaTrackService, fbTrackService);
     }
 }
