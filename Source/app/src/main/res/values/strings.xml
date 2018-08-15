@@ -284,4 +284,5 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="last_6_months">Trong 6 tháng</string>
     <string name="error_unexpected">Lỗi không mong đợi. Vui lòng thử lại sau.</string>
 
+    <string name="support_history_title">Lịch sử (%d)</string>
 </resources>

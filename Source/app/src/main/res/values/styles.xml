@@ -57,6 +57,15 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:height">?android:attr/actionBarSize</item>
+        <item name="android:background">?android:attr/colorPrimary</item>
+        <item name="layout_scrollFlags">enterAlways</item>
+        <item name="navigationIcon">?android:attr/homeAsUpIndicator</item>
+        <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
+    </style>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.TextView" parent="android:Widget.TextView">
