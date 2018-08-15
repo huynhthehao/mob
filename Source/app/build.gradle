@@ -151,4 +151,7 @@ dependencies {
     implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
     implementation "com.github.stfalcon:frescoimageviewer:$rootProject.frescoimageviewerVersion"
     implementation "com.facebook.fresco:fresco:$rootProject.facebookFrescoVersion"
+
+    //Google Analytics
+    implementation "com.google.android.gms:play-services-analytics:$rootProject.googleAnalytics"
 }
