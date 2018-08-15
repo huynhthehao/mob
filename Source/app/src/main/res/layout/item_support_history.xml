@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.support.history.SupportHistoryAdapterViewModel" />
     </data>
 
     <LinearLayout
@@ -15,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginRight="@dimen/margin_normal"
-            android:src="@drawable/ic_support_pending" />
+            android:src="@{viewModel.statusImageRes}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{viewModel.title}"
                 android:textStyle="bold"
                 tools:text="I can not receive SMS code, I try to resend but not works" />
 
@@ -39,6 +45,7 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:ellipsize="end"
                 android:maxLines="2"
+                android:text="@{viewModel.description}"
                 android:textStyle="italic"
                 tools:text="I want to change my password, but I can not receive SMS code. I try to send 5 times but still can not receive SMS code" />
 
@@ -49,6 +56,7 @@
                 android:drawableLeft="@drawable/ic_support_date"
                 android:drawablePadding="@dimen/padding_small"
                 android:gravity="center_vertical"
+                android:text="@{viewModel.date}"
                 tools:text="22/07/2016" />
         </LinearLayout>
     </LinearLayout>

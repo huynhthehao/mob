@@ -5,10 +5,7 @@ import dagger.Provides
 import vn.homecredit.hcvn.di.ViewModelProviderFactory
 
 @Module
-class SupportHistoryActivityModule {
-    @Provides
-    fun providesSupportHistoryModule(supportHistoryViewModel: SupportHistoryViewModel) = ViewModelProviderFactory<SupportHistoryViewModel>(supportHistoryViewModel)
-
+class SupportHistoryAdapterModule {
     @Provides
     fun providesAdapterModule(supportAdapterModule: SupportHistoryAdapterModule) = ViewModelProviderFactory<SupportHistoryAdapterModule>(supportAdapterModule)
 }

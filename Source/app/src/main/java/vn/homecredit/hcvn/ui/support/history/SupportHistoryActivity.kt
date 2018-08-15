@@ -1,5 +1,6 @@
 package vn.homecredit.hcvn.ui.support.history
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -23,6 +24,9 @@ class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, Suppo
     override fun init() {
         super.init()
         refreshTitle(0)
+        viewModel.histories.observe(this, Observer {
+
+        })
     }
 
     private fun refreshTitle(total: Int) {

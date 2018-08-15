@@ -19,11 +19,12 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.model.api.creditcard.TransactionResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportHistoryResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportResp;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
-import vn.homecredit.hcvn.ui.support.model.SupportResp;
 
 public interface RestService {
     Single<VersionResp> checkUpdate();
@@ -53,4 +54,5 @@ public interface RestService {
     Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract);
 
     Single<SupportResp> submitFeedback(String subject, String description, String phoneNumber, String contractId);
+    Single<SupportHistoryResp> getSupportHistories();
 }

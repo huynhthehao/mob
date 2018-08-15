@@ -1,7 +1,7 @@
 package vn.homecredit.hcvn.data.repository;
 
 import io.reactivex.Single;
-import vn.homecredit.hcvn.ui.support.model.SupportResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportResp;
 
 public interface SupportRepository {
 

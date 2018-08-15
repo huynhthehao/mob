@@ -5,8 +5,8 @@ import javax.inject.Inject;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import vn.homecredit.hcvn.data.model.api.support.SupportResp;
 import vn.homecredit.hcvn.data.remote.RestService;
-import vn.homecredit.hcvn.ui.support.model.SupportResp;
 
 public class SupportRepositoryImpl implements SupportRepository {
     private final RestService restService;
