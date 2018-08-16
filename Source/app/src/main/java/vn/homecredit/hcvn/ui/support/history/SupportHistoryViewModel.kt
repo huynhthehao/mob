@@ -12,13 +12,16 @@ import javax.inject.Inject
 
 class SupportHistoryViewModel @Inject constructor(provider: SchedulerProvider, private val supportRepo: SupportRepository) : BaseViewModel<Any>(provider) {
 
+    @Inject
+    lateinit var repo: SupportRepository
     val histories = MutableLiveData<MutableList<Support>>()
     val modelLoading = MutableLiveData<Boolean>()
     val title = ObservableField<String>(HCVNApp.getContext().getString(R.string.support_history_title, histories.value?.count()
             ?: 0))
 
     fun refreshHistories() {
-        val query = supportRepo.histories
+//        val query = supportRepo.histories
+        val query = repo.histories
                 .doAfterTerminate { modelLoading.value = false }
                 .subscribe({
                     histories.value = it.data.toMutableList()

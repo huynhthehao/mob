@@ -59,7 +59,7 @@
 
     <style name="Toolbar">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:height">?android:attr/actionBarSize</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
         <item name="android:background">?android:attr/colorPrimary</item>
         <item name="layout_scrollFlags">enterAlways</item>
         <item name="navigationIcon">?android:attr/homeAsUpIndicator</item>

@@ -26,6 +26,7 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentSupportBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
+import vn.homecredit.hcvn.ui.support.history.SupportHistoryActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
 
 public class SupportFragment extends BaseFragment<FragmentSupportBinding, SupportViewModel> {
@@ -68,7 +69,7 @@ public class SupportFragment extends BaseFragment<FragmentSupportBinding, Suppor
         });
         getViewModel().getHistoryClickEvent().observe(this, mBoolean -> {
             if (mBoolean) {
-                //TODO Go to history activity
+                startActivity(new Intent(getContext(), SupportHistoryActivity.class));
             }
         });
         getViewModel().getFeedbackDoneEvent().observe(this, mBoolean -> {

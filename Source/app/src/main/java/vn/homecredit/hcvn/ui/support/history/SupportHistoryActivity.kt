@@ -37,10 +37,12 @@ class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, Suppo
             refreshHistories.isRefreshing = it ?: false
         })
         refreshHistories.setOnRefreshListener(this)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
         onRefresh()
     }
 
     override fun onItemClicked(item: Support) {
+        //TODO: Open support history detail
     }
 
     override fun onRefresh() {
