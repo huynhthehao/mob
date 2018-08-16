@@ -101,7 +101,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected void onResume() {
         super.onResume();
         trackService.sendView(this);
-        trackService.sendEvent(R.string.ga_event_support_call_category, R.string.ga_event_support_call_action, R.string.ga_event_support_call_label);
     }
 
     protected void init() {

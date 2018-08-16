@@ -42,7 +42,6 @@
     <string name="ga_screen_cl_intro3">CashLoanPage3</string>
     <string name="ga_screen_cl_intro4">CashLoanPage4</string>
 
-
     <!--Event-->
     <string name="ga_event_support_call_category">SupportCall</string>
     <string name="ga_event_support_call_action">Call</string>
