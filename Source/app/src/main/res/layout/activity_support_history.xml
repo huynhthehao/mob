@@ -13,20 +13,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context="vn.homecredit.hcvn.ui.support.history.SupportHistoryActivity">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            style="@style/Toolbar" />
+            style="@style/Toolbar"
+            app:title="@{viewModel.title}" />
 
         <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshHistories"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="vn.homecredit.hcvn.ui.support.history.SupportHistoryActivity">
+            android:layout_height="match_parent">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvHistories"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
                 <TextView
                     android:layout_width="match_parent"

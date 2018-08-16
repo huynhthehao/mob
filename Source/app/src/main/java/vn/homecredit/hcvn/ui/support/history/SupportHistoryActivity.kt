@@ -3,15 +3,19 @@ package vn.homecredit.hcvn.ui.support.history
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_support_history.*
 import vn.homecredit.hcvn.BR
 import vn.homecredit.hcvn.R
+import vn.homecredit.hcvn.data.model.api.support.Support
 import vn.homecredit.hcvn.databinding.ActivitySupportHistoryBinding
 import vn.homecredit.hcvn.ui.base.BaseActivity
+import vn.homecredit.hcvn.ui.base.BaseRecyclerAdapter
 import javax.inject.Inject
 
-class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, SupportHistoryViewModel>() {
+class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, SupportHistoryViewModel>(),
+        BaseRecyclerAdapter.OnItemClickListener<Support>,
+        SwipeRefreshLayout.OnRefreshListener {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -19,17 +23,27 @@ class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, Suppo
 
     override fun getLayoutId(): Int = R.layout.activity_support_history
 
-    override fun getViewModel(): SupportHistoryViewModel = ViewModelProviders.of(this, viewModelFactory).get(SupportHistoryViewModel::class.java)
+    override fun getViewModel() = ViewModelProviders.of(this, viewModelFactory).get(SupportHistoryViewModel::class.java)
 
     override fun init() {
         super.init()
-        refreshTitle(0)
         viewModel.histories.observe(this, Observer {
-
+            refreshHistories.isRefreshing = false
+            it?.let {
+                rvHistories.adapter = SupportHistoryAdapter(it, this)
+            }
         })
+        viewModel.modelLoading.observe(this, Observer {
+            refreshHistories.isRefreshing = it ?: false
+        })
+        refreshHistories.setOnRefreshListener(this)
+        onRefresh()
     }
 
-    private fun refreshTitle(total: Int) {
-        toolbar.title = getString(R.string.support_history_title, total)
+    override fun onItemClicked(item: Support) {
+    }
+
+    override fun onRefresh() {
+        viewModel.refreshHistories()
     }
 }
