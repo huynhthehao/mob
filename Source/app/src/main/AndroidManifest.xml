@@ -113,6 +113,10 @@
         <activity android:name=".ui.contract.scheduleDetail.ScheduleDetailActivity"></activity>
         <activity android:name=".ui.contract.paymentHistory.PaymentHistoryActivity" />
         <activity android:name=".ui.contract.masterContractSign.MasterContractSignActivity" />
+        <activity
+            android:name=".ui.support.SupportDoneActivity"
+            android:theme="@style/AppTheme" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

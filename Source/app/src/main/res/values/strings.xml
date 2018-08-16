@@ -29,7 +29,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="login_by_touch_id">Đăng nhập bằng vân tay</string>
-    <string name="Support_FormTitle">Nếu bạn có bất kỳ thắc mắc nào hoặc cần hỗ trợ, xin vui lòng gửi theo mẫu dưới. Chúng tôi sẽ phản hồi bạn sớm</string>
+    <string name="support_form_title">Nếu bạn có bất kỳ thắc mắc nào hoặc cần hỗ trợ, xin vui lòng gửi theo mẫu dưới. Chúng tôi sẽ phản hồi bạn sớm</string>
     <string name="my_profile">Hồ sơ của tôi</string>
     <string name="log_out">Đăng xuất</string>
     <string name="change_password">Đổi mật khẩu</string>
@@ -283,5 +283,19 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="last_3_months">Trong 3 tháng</string>
     <string name="last_6_months">Trong 6 tháng</string>
     <string name="error_unexpected">Lỗi không mong đợi. Vui lòng thử lại sau.</string>
+
+    <!-- Support -->
+    <string name="history">Lịch sử</string>
+    <string name="enter_subject">Nhập tiêu đề</string>
+    <string name="enter_feedback">Nhập phản hồi</string>
+    <string name="clear">Xóa</string>
+    <string name="submit">Gởi</string>
+    <string name="tap_to_call_message">Bấm nút bên dưới để gọi</string>
+    <string name="please_enter_subject">Vui lòng nhập tiêu đề</string>
+    <string name="please_enter_feedback">Vui lòng nhập phản hồi</string>
+    <string name="please_enter_phone_number">Vui lòng nhập số điện thoại</string>
+    <string name="feedback_done_title">Phản hồi của bạn đã được gửi thành công</string>
+    <string name="feedback_done_content">Nhân viên hỗ trợ sẽ liên lạc bạn trong thời gian sớm nhất</string>
+    <string name="feedback_done">Hoàn tất</string>
 
 </resources>
