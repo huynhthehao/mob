@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -60,6 +61,16 @@ public class SupportFragment extends BaseFragment<FragmentSupportBinding, Suppor
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getViewDataBinding().etFeedbackMessage.setOnTouchListener((v, event) -> {
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_SCROLL:
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    break;
+            }
+            return false;
+        });
+
         getViewModel().init();
         getViewModel().getCallSupportCenterClickEvent().observe(this, mPhone -> {
             if (!TextUtils.isEmpty(mPhone)) {
