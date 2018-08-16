@@ -11,6 +11,7 @@ import vn.homecredit.hcvn.data.model.api.support.Support
 import vn.homecredit.hcvn.databinding.ActivitySupportHistoryBinding
 import vn.homecredit.hcvn.ui.base.BaseActivity
 import vn.homecredit.hcvn.ui.base.BaseRecyclerAdapter
+import vn.homecredit.hcvn.utils.Log
 import javax.inject.Inject
 
 class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, SupportHistoryViewModel>(),
@@ -43,6 +44,7 @@ class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, Suppo
 
     override fun onItemClicked(item: Support) {
         //TODO: Open support history detail
+        Log.debug("Open support detail!")
     }
 
     override fun onRefresh() {

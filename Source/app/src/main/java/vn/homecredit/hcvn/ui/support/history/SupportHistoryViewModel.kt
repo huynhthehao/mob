@@ -10,21 +10,23 @@ import vn.homecredit.hcvn.ui.base.BaseViewModel
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider
 import javax.inject.Inject
 
-class SupportHistoryViewModel @Inject constructor(provider: SchedulerProvider, private val supportRepo: SupportRepository) : BaseViewModel<Any>(provider) {
+class SupportHistoryViewModel @Inject constructor(provider: SchedulerProvider,
+                                                  private val repo: SupportRepository)
+    : BaseViewModel<Any>(provider) {
 
-    @Inject
-    lateinit var repo: SupportRepository
-    val histories = MutableLiveData<MutableList<Support>>()
+    val histories = MutableLiveData<List<Support>>()
     val modelLoading = MutableLiveData<Boolean>()
-    val title = ObservableField<String>(HCVNApp.getContext().getString(R.string.support_history_title, histories.value?.count()
-            ?: 0))
+    val title = ObservableField<String>(getTitle(histories.value?.count() ?: 0))
+
+    private fun getTitle(total: Int) = HCVNApp.getContext().getString(R.string.support_history_title, total)
 
     fun refreshHistories() {
 //        val query = supportRepo.histories
         val query = repo.histories
                 .doAfterTerminate { modelLoading.value = false }
                 .subscribe({
-                    histories.value = it.data.toMutableList()
+                    histories.value = it.data
+                    title.set(getTitle(it.data.count()))
                 }, {
                     handleError(it)
                 })

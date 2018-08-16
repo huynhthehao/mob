@@ -61,7 +61,6 @@ import vn.homecredit.hcvn.service.ResourceServiceImpl;
 import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.service.VersionServiceImpl;
 import vn.homecredit.hcvn.utils.AppConstants;
-import vn.homecredit.hcvn.utils.imageLoader.ImageLoader;
 import vn.homecredit.hcvn.utils.rx.AppSchedulerProvider;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -280,6 +279,7 @@ public class AppModule {
     @Provides
     @Singleton
     SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
+//    SupportRepository provideSupportRepository(MockSupportRepository supportRepositoryImpl) {
         return supportRepositoryImpl;
     }
 }
