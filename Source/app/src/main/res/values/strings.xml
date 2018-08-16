@@ -286,6 +286,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
 
     <!-- Support -->
     <string name="support_history_title">Lịch sử (%d)</string>
+    <string name="support_detail_title">Chi tiết phản hồi</string>
     <string name="history">Lịch sử</string>
     <string name="enter_subject">Nhập tiêu đề</string>
     <string name="enter_feedback">Nhập phản hồi</string>

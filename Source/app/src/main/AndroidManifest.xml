@@ -106,6 +106,7 @@
             android:theme="@style/AppTheme" />
 
         <activity android:name=".ui.support.history.SupportHistoryActivity" />
+        <activity android:name=".ui.support.detail.SupportDetailActivity" />
         <activity android:name=".ui.contract.summaryContract.SummaryContractActivity" />
         <activity android:name=".ui.contract.masterContractDoc.MasterContractDocActivity" />
         <activity android:name=".ui.contract.detail.ContractDetailActivity"></activity>
