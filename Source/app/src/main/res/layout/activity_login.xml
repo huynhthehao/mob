@@ -86,7 +86,6 @@
                             android:drawableLeft="@drawable/ic_phone"
                             android:drawablePadding="@dimen/padding_small"
                             android:hint="@string/prompt_phone_number"
-                            android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:text="@={viewModel.username}" />
