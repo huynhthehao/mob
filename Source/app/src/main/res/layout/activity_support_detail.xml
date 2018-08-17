@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_normal"
                 android:adjustViewBounds="true"
-                android:src="@drawable/ic_email" />
+                android:src="@drawable/ic_support_detail_message" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,6 +76,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_small"
                 android:text="@string/support_detail_subject"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold" />
@@ -89,6 +90,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_normal"
                 android:text="@string/support_detail_message"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold" />
