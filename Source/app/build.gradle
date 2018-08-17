@@ -160,4 +160,9 @@ dependencies {
 
     //Google Analytics
     implementation "com.google.android.gms:play-services-analytics:$rootProject.googleAnalytics"
+
+
+    testCompile 'org.mockito:mockito-core:2.8.47'
+    testCompile "org.mockito:mockito-inline:2.8.47"
+    testCompile 'com.github.fabioCollini.daggermock:daggermock:0.8.2'
 }
