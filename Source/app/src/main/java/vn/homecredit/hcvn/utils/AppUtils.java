@@ -47,7 +47,7 @@ public final class AppUtils {
     public static void openApp(Context context, String appPackageName) {
         PackageManager packageManager = context.getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(appPackageName);
-        if (intent.resolveActivity(packageManager) != null) {
+        if (intent != null && intent.resolveActivity(packageManager) != null) {
             context.startActivity(intent);
         } else {
             openPlayStoreForApp(context, appPackageName);
