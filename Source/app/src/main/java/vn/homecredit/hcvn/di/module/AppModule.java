@@ -279,7 +279,6 @@ public class AppModule {
     @Provides
     @Singleton
     SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
-//    SupportRepository provideSupportRepository(MockSupportRepository supportRepositoryImpl) {
         return supportRepositoryImpl;
     }
 }
