@@ -3,15 +3,17 @@ package vn.homecredit.hcvn.ui.support.history
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.support.v4.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_support_history.*
+import org.parceler.Parcels
 import vn.homecredit.hcvn.BR
 import vn.homecredit.hcvn.R
 import vn.homecredit.hcvn.data.model.api.support.Support
 import vn.homecredit.hcvn.databinding.ActivitySupportHistoryBinding
 import vn.homecredit.hcvn.ui.base.BaseActivity
 import vn.homecredit.hcvn.ui.base.BaseRecyclerAdapter
-import vn.homecredit.hcvn.utils.Log
+import vn.homecredit.hcvn.ui.support.detail.SupportDetailActivity
 import javax.inject.Inject
 
 class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, SupportHistoryViewModel>(),
@@ -43,8 +45,9 @@ class SupportHistoryActivity : BaseActivity<ActivitySupportHistoryBinding, Suppo
     }
 
     override fun onItemClicked(item: Support) {
-        //TODO: Open support history detail
-        Log.debug("Open support detail!")
+        val detailIntent = Intent(this, SupportDetailActivity::class.java)
+        detailIntent.putExtra(SupportDetailActivity.PARAM_SUPPORT_DETAIL_OBJECT, Parcels.wrap(item))
+        startActivity(detailIntent)
     }
 
     override fun onRefresh() {
