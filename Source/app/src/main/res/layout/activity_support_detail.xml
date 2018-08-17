@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="vn.homecredit.hcvn.ui.support.history.SupportHistoryViewModel" />
+            type="vn.homecredit.hcvn.ui.support.detail.SupportDetailViewModel" />
     </data>
 
     <LinearLayout
@@ -21,28 +21,83 @@
             style="@style/Toolbar"
             app:title="@string/support_detail_title" />
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/refreshHistories"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_normal">
 
-            <FrameLayout
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_email" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rvHistories"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_support_date"
+                    android:drawablePadding="@dimen/padding_small"
+                    android:drawableStart="@drawable/ic_support_date"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.date}"
+                    android:textStyle="italic" />
 
-            </FrameLayout>
-        </android.support.v4.widget.SwipeRefreshLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@{android.support.v4.content.ContextCompat.getDrawable(context, viewModel.statusResource)}"
+                    android:drawablePadding="@dimen/padding_small"
+                    android:drawableStart="@{android.support.v4.content.ContextCompat.getDrawable(context, viewModel.statusResource)}"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.statusText}"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:background="@color/brownishGrey" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/support_detail_subject"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.title}"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/support_detail_message"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.description}"
+                android:textStyle="italic" />
+        </LinearLayout>
     </LinearLayout>
 </layout>
