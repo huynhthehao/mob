@@ -12,36 +12,6 @@ import javax.inject.Singleton
 class TrackingService @Inject
 constructor(private val context: Context, private val gaAnalyticsServiceImpl: AnalyticsService, private val fbAnalyticsService: AnalyticsService) {
 
-    private val listServiceImpl = arrayListOf(gaAnalyticsServiceImpl, fbAnalyticsService)
-
-    fun sendEvent(category: Int, action: Int, label: Int) {
-        sendEvent(context.getString(category), context.getString(action), context.getString(label))
-    }
-
-    fun sendEvent(category: String, action: String, label: String?) {
-        Log.debug("GA Event $category $action $label")
-        listServiceImpl.forEach { it.sendEvent(category, action, label ?: "") }
-    }
-
-    fun sendView(screen: String?) {
-        Log.debug("GA View $screen")
-        listServiceImpl.forEach { it.sendView(screen ?: "") }
-    }
-
-    fun sendView(screenResc: Int) {
-        sendView(context.getString(screenResc))
-    }
-
-    fun sendView(activity: Activity) {
-        val screenResc = mapScreen[activity.javaClass.simpleName]
-        screenResc?.let { sendView(screenResc) }
-    }
-
-    fun sendView(fragment: Fragment) {
-        val screenResc = mapScreen[fragment.javaClass.simpleName]
-        screenResc?.let { sendView(screenResc) }
-    }
-
     private val mapScreen: HashMap<String, Int> = hashMapOf(
             //Home
             "WelcomeActivity" to R.string.ga_screen_welcome,
@@ -81,8 +51,37 @@ constructor(private val context: Context, private val gaAnalyticsServiceImpl: An
             "AclIntroductionBFragment" to R.string.ga_screen_cl_intro2,
             "AclIntroductionCFragment" to R.string.ga_screen_cl_intro3,
             "AclSelectLoanTypeFragment" to R.string.ga_screen_cl_intro4
-
     )
 
+
+    private val listServiceImpl = arrayListOf(gaAnalyticsServiceImpl, fbAnalyticsService)
+
+    fun sendEvent(category: Int, action: Int, label: Int) {
+        sendEvent(context.getString(category), context.getString(action), context.getString(label))
+    }
+
+    fun sendEvent(category: String, action: String, label: String?) {
+        Log.debug("GA Event $category $action $label")
+        listServiceImpl.forEach { it.sendEvent(category, action, label ?: "") }
+    }
+
+    fun sendView(screen: String?) {
+        Log.debug("GA View $screen")
+        listServiceImpl.forEach { it.sendView(screen ?: "") }
+    }
+
+    fun sendView(screenResc: Int) {
+        sendView(context.getString(screenResc))
+    }
+
+    fun sendView(activity: Activity) {
+        val screenResc = mapScreen[activity.javaClass.simpleName]
+        screenResc?.let { sendView(screenResc) }
+    }
+
+    fun sendView(fragment: Fragment) {
+        val screenResc = mapScreen[fragment.javaClass.simpleName]
+        screenResc?.let { sendView(screenResc) }
+    }
 
 }

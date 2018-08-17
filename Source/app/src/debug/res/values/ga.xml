@@ -2,5 +2,6 @@
 <resources>
     <!--test-->
     <!--<string name="ga_trackingId" translatable="false">UA-123983608-1</string>-->
+
     <string name="ga_trackingId" translatable="false">UA-55135171-3</string>
 </resources>
