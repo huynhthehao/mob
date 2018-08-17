@@ -43,7 +43,6 @@ import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.data.repository.NotificationRepositoryImpl;
 import vn.homecredit.hcvn.data.repository.SupportRepository;
 import vn.homecredit.hcvn.data.repository.SupportRepositoryImpl;
-import vn.homecredit.hcvn.data.repository.mock.MockSupportRepository;
 import vn.homecredit.hcvn.di.PreferenceInfo;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelperImpl;
@@ -279,8 +278,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-//    SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
-    SupportRepository provideSupportRepository(MockSupportRepository supportRepositoryImpl) {
+    SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
         return supportRepositoryImpl;
     }
 }
