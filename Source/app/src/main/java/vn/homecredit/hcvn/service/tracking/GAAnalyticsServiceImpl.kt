@@ -21,6 +21,7 @@ class GAAnalyticsServiceImpl @Inject constructor(private val context: Context, p
         get() = context.getString(R.string.ga_trackingId)
     private val profile = preferencesHelper.profile
 
+
     init {
         tracker = newTracker()
     }

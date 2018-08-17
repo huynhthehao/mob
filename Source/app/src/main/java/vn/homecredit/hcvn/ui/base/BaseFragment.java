@@ -123,7 +123,9 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     @Override
     public void onResume() {
         super.onResume();
-        trackService.sendView(this);
+        if (trackService != null) {
+            trackService.sendView(this);
+        }
     }
 
     protected void init() {
