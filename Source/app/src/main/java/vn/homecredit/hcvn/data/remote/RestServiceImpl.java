@@ -9,7 +9,6 @@
 
 package vn.homecredit.hcvn.data.remote;
 
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
 
@@ -22,10 +21,13 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
-import io.reactivex.functions.Function;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
+import vn.homecredit.hcvn.data.model.api.HcApiException;
+import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
+import vn.homecredit.hcvn.data.model.api.TokenResp;
+import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractDocResp;
@@ -34,13 +36,10 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.model.api.creditcard.TransactionResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportHistoryResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.data.model.api.HcApiException;
-import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
-import vn.homecredit.hcvn.data.model.api.ProfileResp;
-import vn.homecredit.hcvn.data.model.api.TokenResp;
-import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
@@ -48,11 +47,10 @@ import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
-import vn.homecredit.hcvn.ui.support.model.SupportResp;
 import vn.homecredit.hcvn.utils.TestData;
 
 @Singleton
-public class RestServiceImpl implements RestService {
+public class RestServiceImpl implements RestService, RestUrl {
 
     public static final String RUNTIME_PLATFORM = "Android";
     private final boolean useMock;
@@ -342,6 +340,13 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
+    public Single<SupportHistoryResp> getSupportHistories() {
+        return DefaultAndroidNetworking.get(buildUrl(SUPPORT_HISTORY),
+                mApiHeader.getProtectedApiHeader(),
+                SupportHistoryResp.class);
+    }
+
+    @Override
     public Single<ScheduleDetailResp> viewInstalmentsv1(String contractId) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/contracts/%s/instalments", contractId));
         return Rx2AndroidNetworking.get(url)
@@ -398,6 +403,7 @@ public class RestServiceImpl implements RestService {
         } else {
             url += "?lang=" + preferencesHelper.getLanguageCode();
         }
+        // platform = 2: Android
         url += "&platform=2";
         return url;
     }

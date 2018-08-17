@@ -285,6 +285,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="error_unexpected">Lỗi không mong đợi. Vui lòng thử lại sau.</string>
 
     <!-- Support -->
+    <string name="support_history_title">Lịch sử (%d)</string>
     <string name="history">Lịch sử</string>
     <string name="enter_subject">Nhập tiêu đề</string>
     <string name="enter_feedback">Nhập phản hồi</string>
@@ -297,5 +298,4 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="feedback_done_title">Phản hồi của bạn đã được gửi thành công</string>
     <string name="feedback_done_content">Nhân viên hỗ trợ sẽ liên lạc bạn trong thời gian sớm nhất</string>
     <string name="feedback_done">Hoàn tất</string>
-
 </resources>
