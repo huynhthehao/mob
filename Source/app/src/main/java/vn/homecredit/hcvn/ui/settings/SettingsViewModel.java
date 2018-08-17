@@ -9,6 +9,7 @@ import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.service.OneSignalService;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.CountryValue;
@@ -17,6 +18,7 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 public class SettingsViewModel extends BaseViewModel {
     private final DataManager dataManager;
     private final OneSignalService oneSignalService;
+    private final TrackingService trackingService;
     private ObservableField<String> appVersion = new ObservableField<>("");
     private ObservableField<Integer> languageValue = new ObservableField<>(R.string.english);
     private ObservableField<Boolean> fingerPrintVisibility = new ObservableField<>(true);
@@ -30,10 +32,11 @@ public class SettingsViewModel extends BaseViewModel {
 
 
     @Inject
-    public SettingsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, OneSignalService oneSignalService) {
+    public SettingsViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, OneSignalService oneSignalService, TrackingService trackingService) {
         super(schedulerProvider);
         this.dataManager = dataManager;
         this.oneSignalService = oneSignalService;
+        this.trackingService = trackingService;
     }
 
     @Override
@@ -92,6 +95,7 @@ public class SettingsViewModel extends BaseViewModel {
 
     public void onAppRatingClicked() {
         modelAppRating.setValue(true);
+        trackingService.sendEvent(R.string.ga_event_rate_category, R.string.ga_event_rate_action, R.string.ga_event_rate_label);
     }
 
     public MutableLiveData<Boolean> getModelBack() {

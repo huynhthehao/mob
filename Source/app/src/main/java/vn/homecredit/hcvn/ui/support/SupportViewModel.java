@@ -12,13 +12,14 @@ import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.repository.SupportRepository;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SupportViewModel extends BaseViewModel {
     private final PreferencesHelper preferencesHelper;
     private final SupportRepository supportRepository;
+    private final TrackingService trackService;
     private ObservableField<String> customerSupportPhoneField = new ObservableField<>("");
     private ObservableField<String> subjectFeedback = new ObservableField<>("");
     private ObservableField<String> messageFeedback = new ObservableField<>("");
@@ -30,10 +31,11 @@ public class SupportViewModel extends BaseViewModel {
     String customerSupportPhone = "", contractId = "";
 
     @Inject
-    public SupportViewModel(SchedulerProvider schedulerProvider, PreferencesHelper preferencesHelper, SupportRepository supportRepository) {
+    public SupportViewModel(SchedulerProvider schedulerProvider, PreferencesHelper preferencesHelper, SupportRepository supportRepository, TrackingService trackService) {
         super(schedulerProvider);
         this.preferencesHelper = preferencesHelper;
         this.supportRepository = supportRepository;
+        this.trackService = trackService;
     }
 
     @Override
@@ -104,6 +106,7 @@ public class SupportViewModel extends BaseViewModel {
 
     public void onCallSupportCenterClicked() {
         callSupportCenterClickEvent.setValue(customerSupportPhone);
+        trackService.sendEvent(R.string.ga_event_support_call_category, R.string.ga_event_support_call_action, R.string.ga_event_support_call_label);
     }
 
     public ObservableField<String> getSubjectFeedback() {
