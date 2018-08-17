@@ -130,6 +130,7 @@ dependencies {
     // view model
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
     kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
+    kapt "com.android.databinding:compiler:$gradleVersion"
     // appCenter
     implementation "com.microsoft.appcenter:appcenter-analytics:$rootProject.appCenterSdkVersion"
     implementation "com.microsoft.appcenter:appcenter-crashes:$rootProject.appCenterSdkVersion"
