@@ -12,20 +12,20 @@ import javax.inject.Singleton
 class TrackingService @Inject
 constructor(private val context: Context, private val gaAnalyticsServiceImpl: AnalyticsService, private val fbAnalyticsService: AnalyticsService) {
 
+    private val listServiceImpl = arrayListOf(gaAnalyticsServiceImpl, fbAnalyticsService)
+
     fun sendEvent(category: Int, action: Int, label: Int) {
         sendEvent(context.getString(category), context.getString(action), context.getString(label))
     }
 
-    fun sendEvent(category: String, action: String, label: String) {
+    fun sendEvent(category: String, action: String, label: String?) {
         Log.debug("GA Event $category $action $label")
-        gaAnalyticsServiceImpl.sendEvent(category, action, label)
-        fbAnalyticsService.sendEvent(category, action, label)
+        listServiceImpl.forEach { it.sendEvent(category, action, label ?: "") }
     }
 
-    fun sendView(screen: String) {
+    fun sendView(screen: String?) {
         Log.debug("GA View $screen")
-        gaAnalyticsServiceImpl.sendView(screen)
-        fbAnalyticsService.sendView(screen)
+        listServiceImpl.forEach { it.sendView(screen ?: "") }
     }
 
     fun sendView(screenResc: Int) {
