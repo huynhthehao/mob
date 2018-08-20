@@ -8,35 +8,37 @@
   ~ Last modified 6/20/18 11:05 AM
   -->
 <merge>
-<LinearLayout android:paddingVertical="@dimen/activity_vertical_margin"
+<LinearLayout android:paddingVertical="14dp"
     android:paddingHorizontal="@dimen/activity_horizontal_margin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:gravity="center_vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:src="@drawable/ic_sign_up"
         android:scaleType="centerInside"
         />
 
     <TextView
         android:id="@+id/menuTitleView"
-        style="@style/TextAppearance.AppCompat.Medium"
+        style="@style/AppTheme.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/text_margin"
         android:layout_weight="1"
         android:text="@string/welcome_sign_up"
+        android:textSize="@dimen/text_size_medium"
         android:textColor="@color/my_primary" />
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_gravity="center_vertical"
         android:src="@drawable/ic_chevron_right_black_24dp"
         android:tint="@color/my_primary"
