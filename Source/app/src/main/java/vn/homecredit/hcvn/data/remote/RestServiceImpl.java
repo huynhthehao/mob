@@ -124,7 +124,8 @@ public class RestServiceImpl implements RestService, RestUrl {
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/profile");
+        return DefaultAndroidNetworking.get(url,
                 mApiHeader.getProtectedApiHeader(),
                 ProfileResp.class);
     }
