@@ -11,6 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 import vn.homecredit.hcvn.R
+import vn.homecredit.hcvn.data.model.api.ProfileResp
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper
 
 @Singleton
@@ -19,11 +20,18 @@ class GAAnalyticsServiceImpl @Inject constructor(private val context: Context, p
     private val tracker: Tracker?
     private val trackerId: String
         get() = context.getString(R.string.ga_trackingId)
-    private val profile = preferencesHelper.profile
+    private var profile : ProfileResp.ProfileRespData? = preferencesHelper.profile
 
 
     init {
         tracker = newTracker()
+        getProfile()
+    }
+
+    private fun getProfile() {
+        if (profile == null) {
+            profile = preferencesHelper.profile
+        }
     }
 
     private fun newTracker(): Tracker {
@@ -36,11 +44,10 @@ class GAAnalyticsServiceImpl @Inject constructor(private val context: Context, p
         if (tracker == null) {
             return
         }
-        if (profile != null) {
-            if (TextUtils.isEmpty(profile.userTrackingId)) {
-                tracker.set("&uid", profile.userTrackingId)
-                tracker.set("&cd1", profile.userTrackingId)
-            }
+        getProfile()
+        if (profile != null && !TextUtils.isEmpty(profile?.userTrackingId)) {
+            tracker.set("&uid", profile?.userTrackingId)
+            tracker.set("&cd1", profile?.userTrackingId)
         }
         val eventBuilder = HitBuilders.EventBuilder(category, action)
         eventBuilder.setLabel(label)
@@ -51,11 +58,10 @@ class GAAnalyticsServiceImpl @Inject constructor(private val context: Context, p
         if (tracker == null) {
             return
         }
-        if (profile != null) {
-            if (TextUtils.isEmpty(profile.userTrackingId)) {
-                tracker.set("&uid", profile.userTrackingId)
-                tracker.set("&cd1", profile.userTrackingId)
-            }
+        getProfile()
+        if (profile != null && !TextUtils.isEmpty(profile?.userTrackingId)) {
+            tracker.set("&uid", profile?.userTrackingId)
+            tracker.set("&cd1", profile?.userTrackingId)
         }
         tracker.setScreenName(screen)
         tracker.send(HitBuilders.ScreenViewBuilder().build())

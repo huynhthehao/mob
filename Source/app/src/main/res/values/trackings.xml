@@ -2,40 +2,40 @@
 <resources>
     <!--Page-->
     <!--Home-->
-    <string name="ga_screen_welcome">WelcomePageXaml</string>
-    <string name="ga_screen_home_more">MorePageXaml</string>
-    <string name="ga_screen_home_contract">ContractsPageXaml</string>
-    <string name="ga_screen_home_notification">NotificationsPageXaml</string>
-    <string name="ga_screen_home_support">SupportPageXaml</string>
+    <string name="ga_screen_welcome">WelcomePage</string>
+    <string name="ga_screen_home_more">MorePage</string>
+    <string name="ga_screen_home_contract">ContractsPage</string>
+    <string name="ga_screen_home_notification">NotificationsPage</string>
+    <string name="ga_screen_home_support">SupportPage</string>
     <!--Login-->
-    <string name="ga_screen_login_success">SuccessPageXaml</string>
-    <string name="ga_screen_login_forgot">ForgotPageXaml</string>
-    <string name="ga_screen_login">LoginPageXaml</string>
-    <string name="ga_screen_signup">SignUpPageXaml</string>
-    <string name="ga_screen_otp">OtpPageXaml</string>
-    <string name="ga_screen_login_setpassword">SetPasswordPageXaml</string>
+    <string name="ga_screen_login_success">SuccessPage</string>
+    <string name="ga_screen_login_forgot">ForgotPage</string>
+    <string name="ga_screen_login">LoginPage</string>
+    <string name="ga_screen_signup">SignUpPage</string>
+    <string name="ga_screen_otp">OtpPage</string>
+    <string name="ga_screen_login_setpassword">SetPasswordPage</string>
     <!--Support-->
-    <string name="ga_screen_support_ticket_sent">TicketSentXaml</string>
-    <string name="ga_screen_support_ticket_detail">TicketDetailXaml</string>
-    <string name="ga_screen_support_ticket">SupportTicketsXaml</string>
+    <string name="ga_screen_support_ticket_sent">TicketSent</string>
+    <string name="ga_screen_support_ticket_detail">TicketDetail</string>
+    <string name="ga_screen_support_ticket">SupportTickets</string>
     <!--Contract-->
-    <string name="ga_screen_contract_detail">ContractDetailXaml</string>
-    <string name="ga_screen_creditcard_detail">CreditCardDetailXaml</string>
-    <string name="ga_screen_creditcard_list">CreditCardListXaml</string>
-    <string name="ga_screen_transaction_detail">TransactionDetailXaml</string>
-    <string name="ga_screen_mc_credit_summary">MasterContractCreditCardSummaryXaml</string>
-    <string name="ga_screen_mc">MasterContractXaml</string>
-    <string name="ga_screen_mc_sign">MasterContractSignXaml</string>
-    <string name="ga_screen_mc_summary">MasterContractSummaryXaml</string>
-    <string name="ga_screen_contract_payment_history">PaymentHistoryXaml</string>
-    <string name="ga_screen_contract_schedule_detail">ScheduleDetailXaml</string>
-    <string name="ga_screen_contract_statement_display">StatementDisplayXaml</string>
-    <string name="ga_screen_contract_statement">StatementsXaml</string>
-    <string name="ga_screen_contract_transaction">TransactionsXaml</string>
+    <string name="ga_screen_contract_detail">ContractDetail</string>
+    <string name="ga_screen_creditcard_detail">CreditCardDetail</string>
+    <string name="ga_screen_creditcard_list">CreditCardList</string>
+    <string name="ga_screen_transaction_detail">TransactionDetail</string>
+    <string name="ga_screen_mc_credit_summary">MasterContractCreditCardSummary</string>
+    <string name="ga_screen_mc">MasterContract</string>
+    <string name="ga_screen_mc_sign">MasterContractSign</string>
+    <string name="ga_screen_mc_summary">MasterContractSummary</string>
+    <string name="ga_screen_contract_payment_history">PaymentHistory</string>
+    <string name="ga_screen_contract_schedule_detail">ScheduleDetail</string>
+    <string name="ga_screen_contract_statement_display">StatementDisplay</string>
+    <string name="ga_screen_contract_statement">Statements</string>
+    <string name="ga_screen_contract_transaction">Transactions</string>
     <!--Setting-->
-    <string name="ga_screen_setting_changepass">ChangePasswordPageXaml</string>
-    <string name="ga_screen_setting_map">MapPageXaml</string>
-    <string name="ga_screen_setting_profile">ProfilePageXaml</string>
+    <string name="ga_screen_setting_changepass">ChangePasswordPage</string>
+    <string name="ga_screen_setting_map">MapPage</string>
+    <string name="ga_screen_setting_profile">ProfilePage</string>
     <!--CashLoan-->
     <string name="ga_screen_cl_intro1">CashLoanPage1</string>
     <string name="ga_screen_cl_intro2">CashLoanPage2</string>
