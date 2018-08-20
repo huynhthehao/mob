@@ -49,8 +49,10 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private OtpTimerRespData otpTimerInfo;
     private OtpFlow otpFlow = OtpFlow.CASH_LOAN_WALKIN;
 
+    // TODO: Should check why do we need static here? -->
     private static String remainingTimeText;
     private static long _remainingTime;
+    // <-------------------------------------------------
 
     private Timer timer;
     private boolean inffected = true;
@@ -364,6 +366,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     }
 
     private void resetDisplay() {
+        Log.debug("resetDisplay ~ Start: " + _remainingTime);
         try {
             _remainingTime -= interval;
             if (_remainingTime <= (otpTimerInfo.getOtpLiveTime() - otpTimerInfo.getOtpTimeResend())) {
@@ -385,6 +388,8 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                 return;
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
+        Log.debug("resetDisplay ~ End: " + _remainingTime);
     }
 }
