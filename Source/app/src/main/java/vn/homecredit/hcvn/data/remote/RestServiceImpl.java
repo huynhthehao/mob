@@ -307,20 +307,7 @@ public class RestServiceImpl implements RestService, RestUrl {
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(MasterContractVerifyResp.class)
-                .map(masterContractVerifyResp -> {
-                    if (BuildConfig.DEBUG) {
-                        return TestData.masterContractVerifyResp();
-                    } else {
-                        return masterContractVerifyResp;
-                    }
-                })
-                .onErrorResumeNext(throwable -> {
-                    if (BuildConfig.DEBUG) {
-                        return Single.just(TestData.masterContractVerifyResp());
-                    }
-                    return Single.error(new HcApiException(throwable, MasterContractVerifyResp.class));
-                })
-                ;
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractVerifyResp.class))) ;
     }
 
     @Override
