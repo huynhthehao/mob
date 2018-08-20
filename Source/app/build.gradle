@@ -164,5 +164,7 @@ dependencies {
 
     testCompile 'org.mockito:mockito-core:2.8.47'
     testCompile "org.mockito:mockito-inline:2.8.47"
-    testCompile 'com.github.fabioCollini.daggermock:daggermock:0.8.2'
+    testCompile 'com.github.fabioCollini.daggermock:daggermock:0.8.4'
+    androidTestCompile 'com.github.fabioCollini.daggermock:daggermock:0.8.4'
+
 }

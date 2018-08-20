@@ -25,6 +25,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
     }
 
     /*tasks.matching {it instanceof Test}.all {
