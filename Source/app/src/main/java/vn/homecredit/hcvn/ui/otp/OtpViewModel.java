@@ -71,7 +71,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                         AccountRepository accountRepository,
                         ContractRepository contractRepository,
                         AclDataManager aclDataManager) {
-        super( schedulerProvider);
+        super(schedulerProvider);
 
         this.resourceService = resourceService;
         this.deviceInfo = deviceInfo;
@@ -168,7 +168,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         contractRepository.masterContractVerify(contractId, inputOtp, hasDisbursementBankAccount, creditCardContract)
                 .subscribe(masterContractVerifyResp -> {
                     setIsLoading(false);
-                    if (masterContractVerifyResp ==  null) {
+                    if (masterContractVerifyResp == null) {
                         showMessage(R.string.error_system);
                         return;
                     }
@@ -176,7 +176,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                         stopTimer();
                         otpPassParam.setMasterContractVerifyDataResp(masterContractVerifyResp.getMasterContractVerifyDataResp());
                         getNavigator().next(otpPassParam);
-                    }else {
+                    } else {
                         showMessage(masterContractVerifyResp.getResponseMessage());
                     }
 
@@ -200,10 +200,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     }
                     if (response.isVerified()) {
                         initData(otpPassParam);
-                    }else {
+                    } else {
                         showMessage(response.getResponseMessage());
                     }
-                }, throwable -> setIsLoading(false));
+                }, throwable -> {
+                    setIsLoading(false);
+                    handleError(throwable);
+                });
 
         startSafeProcess(resendProcess);
     }
@@ -218,10 +221,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     }
                     if (response.isVerified()) {
                         initData(phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, response.getData());
-                    }else {
+                    } else {
                         showMessage(response.getResponseMessage());
                     }
-                }, throwable -> setIsLoading(false));
+                }, throwable -> {
+                    setIsLoading(false);
+                    handleError(throwable);
+                });
 
         startSafeProcess(resendProcess);
     }
@@ -242,12 +248,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, inputOtp ));
+                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, inputOtp));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                     Log.printStackTrace(throwable);
                 });
         startSafeProcess(disposableVerityOTPSignUp);
@@ -264,11 +271,12 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     }
                     if (response.isVerified()) {
                         initData(phoneNumber, contractId, OtpFlow.SIGN_UP, response.getData());
-                    }else {
+                    } else {
                         showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                 });
 
         startSafeProcess(resendProcess);
@@ -290,12 +298,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SIGN_UP, inputOtp ));
+                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SIGN_UP, inputOtp));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                     Log.printStackTrace(throwable);
                 });
         startSafeProcess(disposableVerityOTPSignUp);
@@ -315,6 +324,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     }
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                 });
 
         startSafeProcess(resendProcess);
@@ -341,7 +351,11 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     } else {
                         getNavigator().showMessage(response.getResponseMessage());
                     }
-                }, throwable -> setIsLoading(false));
+                }, throwable -> {
+                    setIsLoading(false);
+                    handleError(throwable);
+                });
+
         startSafeProcess(verifyProcess);
     }
 

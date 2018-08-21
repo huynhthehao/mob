@@ -1,13 +1,21 @@
 package vn.homecredit.hcvn.data.model.api;
 
+import android.content.Context;
+
 import com.androidnetworking.error.ANError;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import vn.homecredit.hcvn.HCVNApp;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
 public class HcApiException extends Throwable {
 
     public static final int ERROR_CODE_UNAUTHORIZED = 401;
     public static final int ERROR_CODE_BAD_REQUEST = 400;
+    public static final int ERROR_CODE_SERVICE_NOT_AVAILABLE = 503;
     public static final int ERROR_CODE_INTERNAL = 500;
     public static final int ERROR_UNKNOWN = 1;
     private int errorResponseCode;
@@ -18,7 +26,6 @@ public class HcApiException extends Throwable {
     }
 
     public HcApiException(int errorResponseCode, String errorResponseMessage) {
-
         this.errorResponseCode = errorResponseCode;
         this.errorResponseMessage = errorResponseMessage;
     }
@@ -52,6 +59,13 @@ public class HcApiException extends Throwable {
             }else {
                 errorResponseCode = ((ANError) throwable).getErrorCode();
                 errorResponseMessage = ((ANError) throwable).getErrorBody();
+            }
+
+            Throwable innerError = throwable.getCause();
+            if(innerError instanceof UnknownHostException){
+                Context currentContext = HCVNApp.getContext();
+                errorResponseCode = ERROR_CODE_SERVICE_NOT_AVAILABLE;
+                errorResponseMessage = currentContext.getString(R.string.unable_to_connect_message);
             }
         }else {
             errorResponseCode = ERROR_UNKNOWN;

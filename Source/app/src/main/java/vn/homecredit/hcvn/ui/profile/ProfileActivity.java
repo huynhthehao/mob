@@ -2,7 +2,6 @@ package vn.homecredit.hcvn.ui.profile;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 
@@ -38,20 +37,24 @@ public class ProfileActivity extends BaseActivity<ActivityProfileBinding, Profil
         super.onCreate(savedInstanceState);
         getViewDataBinding().tvProfileUpdateMessage.setMovementMethod(LinkMovementMethod.getInstance());
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
+
         profileViewModel.getModelCustomerServiceCall().observe(this, customerServicePhone -> {
             if (!TextUtils.isEmpty(customerServicePhone)) {
                 AppUtils.openDeviceCallDialog(this, customerServicePhone);
             }
         });
+
         profileViewModel.getModelProfileData().observe(this, profileModel -> {
             if (profileModel != null) {
                 getViewDataBinding().setProfileModel(profileModel);
-                getViewDataBinding().swiperefresh.setRefreshing(false);
             }
         });
+
         profileViewModel.getRefreshing().observe(this, aBoolean -> {
             getViewDataBinding().swiperefresh.setRefreshing(aBoolean);
         });
-        profileViewModel.init();
+
+
+        profileViewModel.initData();
     }
 }

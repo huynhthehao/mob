@@ -32,8 +32,7 @@ public class NotificationViewModel extends BaseViewModel {
         this.preferencesHelper = preferencesHelper;
     }
 
-    @Override
-    public void init() {
+    public void initData() {
         modelIsRefreshing.setValue(true);
         loadAndDisplayCachedNotifications();
         refreshNotifications();

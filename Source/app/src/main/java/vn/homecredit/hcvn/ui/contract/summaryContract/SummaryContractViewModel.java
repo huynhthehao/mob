@@ -184,6 +184,8 @@ public class SummaryContractViewModel extends BaseViewModel {
                         throwable -> {
                             throwable.printStackTrace();
                             isPreparing.set(false);
+                            // handleError(throwable);
+                            // TODO: Create specific exception for this case
                             showMessage(R.string.master_contract_approve_retry);
                         });
         getCompositeDisposable().add(disposablePrepare);

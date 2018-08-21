@@ -23,6 +23,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import vn.homecredit.hcvn.HCVNApp;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.helpers.UiHelper;
 

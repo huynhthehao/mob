@@ -18,15 +18,14 @@ import dagger.Module;
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.LoginInformation;
-import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
-import vn.homecredit.hcvn.utils.NetworkUtils;
 import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
+
 
 @Module
 public class LoginViewModel extends BaseViewModel<LoginNavigator> {
@@ -69,12 +68,8 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void onLoginClick() {
-        if (!validate()) {
+       if (!validate()) {
             showMessage(R.string.login_invalid_input);
-            return;
-        }
-        if (!NetworkUtils.isNetworkConnected(context)) {
-            showMessage(R.string.no_internet_connection);
             return;
         }
 

@@ -50,8 +50,8 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
                         getNavigator().showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
-                    handleError(throwable);
                     setIsLoading(false);
+                    handleError(throwable);
                 });
 
         startSafeProcess(newProcess);

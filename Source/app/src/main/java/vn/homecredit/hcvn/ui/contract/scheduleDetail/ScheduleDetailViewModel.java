@@ -26,7 +26,7 @@ public class ScheduleDetailViewModel extends BaseViewModel {
         this.contractRepository = contractRepository;
     }
 
-    public void init(String contractNumber) {
+    public void initData(String contractNumber) {
         super.init();
         setContractNumber(contractNumber);
         modelIsRefreshing.setValue(true);

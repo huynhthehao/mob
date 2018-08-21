@@ -87,6 +87,7 @@
                             android:drawablePadding="@dimen/padding_small"
                             android:hint="@string/prompt_phone_number"
                             android:maxLines="1"
+                            android:inputType="textVisiblePassword"
                             android:singleLine="true"
                             android:text="@={viewModel.username}" />
                     </android.support.design.widget.TextInputLayout>

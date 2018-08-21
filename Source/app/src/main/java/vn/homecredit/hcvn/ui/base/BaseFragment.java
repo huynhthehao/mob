@@ -30,10 +30,11 @@ import javax.inject.Inject;
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
-import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 
 import static java.lang.Boolean.TRUE;
 
@@ -86,6 +87,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         setHasOptionsMenu(false);
     }
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
@@ -115,9 +117,35 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
                 }
             }
         });
-        bindModelResourceMessageDialog();
-        bindModelMessageDialog();
         this.init();
+        bindModelConfirmDialog();
+        bindModelMessageDialog();
+        bindModelMessageByIdDialog();
+    }
+
+    private void bindModelMessageDialog() {
+        getViewModel().getMessageData().observe(this, o -> {
+            if (o != null && o instanceof String) {
+                showMessage((String) o);
+            }
+        });
+    }
+
+    private void bindModelMessageByIdDialog() {
+        getViewModel().getMessageIdData().observe(this, o -> {
+            if (o != null && o instanceof Integer) {
+                showMessage((Integer) o);
+            }
+        });
+    }
+
+    private void bindModelConfirmDialog() {
+        getViewModel().getConfirmMessageData().observe(this, o -> {
+            if (o != null && o instanceof BaseMessage) {
+                BaseMessage messageData =  (BaseMessage) o;
+                showConfirmMessage(messageData.getTitle(),messageData.getContent(),messageData.getOnCompleted());
+            }
+        });
     }
 
     @Override
@@ -214,21 +242,5 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         intent.putExtra(WelcomeActivity.IS_FORCE_LOGOUT, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-    }
-
-    private void bindModelResourceMessageDialog() {
-        getViewModel().getMessageResourceData().observe(this, o -> {
-            if ( o instanceof Integer) {
-                showMessage(getString((Integer) o));
-            }
-        });
-    }
-
-    private void bindModelMessageDialog() {
-        getViewModel().getMessageData().observe(this, o -> {
-            if (o != null && o instanceof String) {
-                showMessage((String) o);
-            }
-        });
     }
 }
