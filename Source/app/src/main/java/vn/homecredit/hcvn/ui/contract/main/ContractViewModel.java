@@ -68,6 +68,8 @@ public class ContractViewModel extends BaseViewModel {
         }, throwable -> {
             refreshing.setValue(false);
             handleError(throwable);
+
+            // TODO: Move this into handleError()
             if (throwable instanceof ANError) {
                 if (((ANError) throwable).getErrorCode() == HcApiException.ERROR_CODE_UNAUTHORIZED) {
                     errorAuthenticate.setValue(true);

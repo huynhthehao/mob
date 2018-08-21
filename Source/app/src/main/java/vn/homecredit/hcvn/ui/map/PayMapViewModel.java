@@ -67,8 +67,7 @@ public class PayMapViewModel extends BaseViewModel {
                                         payooData.getLong()), payooData.getDisplayName(), payooData.getAddress());
                             }
                         },
-                        throwable -> {
-                        }
+                        throwable -> handleError(throwable)
                 );
         getCompositeDisposable().add(disposable);
     }
@@ -85,9 +84,7 @@ public class PayMapViewModel extends BaseViewModel {
                                 drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
                                         data.getLongitude()), data.getTitle(), data.getAddress());
                             }
-                        }, throwable ->
-                        {
-                        });
+                        }, throwable -> handleError(throwable));
         getCompositeDisposable().add(disposable);
     }
 
@@ -102,8 +99,7 @@ public class PayMapViewModel extends BaseViewModel {
                                 drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
                                         data.getLongitude()), data.getTitle(), data.getAddress());
                             }
-                        }, throwable -> {
-                        }
+                        }, throwable -> handleError(throwable)
                 );
         getCompositeDisposable().add(disposable);
     }
@@ -120,8 +116,7 @@ public class PayMapViewModel extends BaseViewModel {
                                 drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
                                         data.getLongitude()), data.getTitle(), data.getAddress());
                             }
-                        }, throwable -> {
-                        }
+                        }, throwable -> handleError(throwable)
                 );
         getCompositeDisposable().add(disposable);
     }
@@ -138,8 +133,7 @@ public class PayMapViewModel extends BaseViewModel {
                                 drawMaker(data.getBrand(), googleMap, context, new LatLng(data.getLatitude(),
                                         data.getLongitude()), data.getTitle(), data.getAddress());
                             }
-                        }, throwable -> {
-                        }
+                        }, throwable -> handleError(throwable)
                 );
         getCompositeDisposable().add(disposable);
     }
@@ -156,8 +150,7 @@ public class PayMapViewModel extends BaseViewModel {
                                 drawMaker(data.getBrand(), googleMap, context, new LatLng(data.getLatitude(),
                                         data.getLongitude()), data.getTitle(), data.getAddress());
                             }
-                        }, throwable -> {
-                        }
+                        }, throwable -> handleError(throwable)
                 );
         getCompositeDisposable().add(disposable);
     }

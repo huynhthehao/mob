@@ -48,10 +48,7 @@ public class StatementViewModel extends BaseViewModel {
                     dataStatements.setValue(statementResp.getData());
                 }, throwable -> {
                     modelRefreshing.setValue(false);
-                    if (throwable instanceof HcApiException) {
-                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
-                    }
-
+                    handleError(throwable);
                 });
     }
 

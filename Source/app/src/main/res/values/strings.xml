@@ -44,7 +44,7 @@
     <string name="forgot_password">Bạn quên mật khẩu?</string>
     <string name="notice">Thông báo</string>
     <string name="ok">Đồng ý</string>
-    <string name="unable_to_connect_message">Không thể kết nối đến máy chủ, vui lòng thử lại</string>
+    <string name="unable_to_connect_message">Không thể kết nối đến máy chủ. Vui lòng thử lại</string>
     <string name="no_internet_connection">Không có kết nối mạng</string>
     <string name="title_activity_acl_validation">Đăng ký khoản vay</string>
     <string name="acl_register_legal_note"><html><i><b>Ghi chú: </b>Vui lòng đảm bảo rằng bạn nhập thông tin chính xác vì thông tin này được sử dụng như là một phần của quá trình duyệt khoản vay</i></html></string>
@@ -283,5 +283,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="last_3_months">Trong 3 tháng</string>
     <string name="last_6_months">Trong 6 tháng</string>
     <string name="error_unexpected">Lỗi không mong đợi. Vui lòng thử lại sau.</string>
+
 
 </resources>

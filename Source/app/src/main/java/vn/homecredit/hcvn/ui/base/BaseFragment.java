@@ -28,12 +28,12 @@ import android.view.ViewGroup;
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
-import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.utils.CommonUtils;
 
 import static java.lang.Boolean.TRUE;
-import static vn.homecredit.hcvn.HCVNApp.getContext;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
 
@@ -82,6 +82,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         setHasOptionsMenu(false);
     }
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
@@ -112,6 +113,34 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
             }
         });
         this.init();
+        bindModelConfirmDialog();
+        bindModelMessageDialog();
+        bindModelMessageByIdDialog();
+    }
+
+    private void bindModelMessageDialog() {
+        getViewModel().getMessageData().observe(this, o -> {
+            if (o != null && o instanceof String) {
+                showMessage((String) o);
+            }
+        });
+    }
+
+    private void bindModelMessageByIdDialog() {
+        getViewModel().getMessageIdData().observe(this, o -> {
+            if (o != null && o instanceof Integer) {
+                showMessage((Integer) o);
+            }
+        });
+    }
+
+    private void bindModelConfirmDialog() {
+        getViewModel().getConfirmMessageData().observe(this, o -> {
+            if (o != null && o instanceof BaseMessage) {
+                BaseMessage messageData =  (BaseMessage) o;
+                showConfirmMessage(messageData.getTitle(),messageData.getContent(),messageData.getOnCompleted());
+            }
+        });
     }
 
     protected void init() {
@@ -133,9 +162,6 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         }
     }
 
-    public boolean isNetworkConnected() {
-        return mActivity != null && mActivity.isNetworkConnected();
-    }
 
     public void openActivityOnTokenExpire() {
         if (mActivity != null) {
