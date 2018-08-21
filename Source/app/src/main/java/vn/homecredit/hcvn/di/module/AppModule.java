@@ -62,19 +62,19 @@ public class AppModule {
 
     @Provides
     @Singleton
-    RestService proviRestService(RestServiceImpl restService) {
+    public RestService proviRestService(RestServiceImpl restService) {
         return restService;
     }
 
     @Provides
     @Singleton
-    AclRestService provideAclRestService(AclRestServiceImpl aclRestService) {
+    public AclRestService provideAclRestService(AclRestServiceImpl aclRestService) {
         return aclRestService;
     }
 
     @Provides
     @Singleton
-    CalligraphyConfig provideCalligraphyDefaultConfig() {
+    public CalligraphyConfig provideCalligraphyDefaultConfig() {
         return new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/source-sans-pro/SourceSansPro-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -83,141 +83,141 @@ public class AppModule {
 
     @Provides
     @Singleton
-    Context provideContext(Application application) {
+    public Context provideContext(Application application) {
         return application;
     }
 
     @Provides
     @Singleton
-    DataManager provideDataManager(AppDataManager appDataManager) {
+    public DataManager provideDataManager(AppDataManager appDataManager) {
         return appDataManager;
     }
 
     @Provides
     @Singleton
-    Gson provideGson() {
+    public Gson provideGson() {
         return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
     }
 
     @Provides
     @Singleton
-    MemoryHelper provideMemoryHelper(MemoryHelperImpl memoryHelper) {
+    public MemoryHelper provideMemoryHelper(MemoryHelperImpl memoryHelper) {
         return memoryHelper;
     }
 
     @Provides
     @PreferenceInfo
-    String providePreferenceName() {
+    public String providePreferenceName() {
         return AppConstants.PREF_NAME;
     }
 
     @Provides
     @Singleton
-    PreferencesHelper providePreferencesHelper(AppPreferencesHelper appPreferencesHelper) {
+    public PreferencesHelper providePreferencesHelper(AppPreferencesHelper appPreferencesHelper) {
         return appPreferencesHelper;
     }
 
     @Provides
     @Singleton
-    ApiHeader.ProtectedApiHeader provideProtectedApiHeader(PreferencesHelper preferencesHelper) {
+    public ApiHeader.ProtectedApiHeader provideProtectedApiHeader(PreferencesHelper preferencesHelper) {
         return new ApiHeader.ProtectedApiHeader(
                 preferencesHelper.getAccessToken());
     }
 
     @Provides
     @Singleton
-    ApiHeader.AclApiHeader provACLApiHeader(AclDatabaseService aclDatabaseService) {
+    public ApiHeader.AclApiHeader provACLApiHeader(AclDatabaseService aclDatabaseService) {
         return new ApiHeader.AclApiHeader(
                 aclDatabaseService.getAclAccessToken());
     }
 
     @Provides
-    SchedulerProvider provideSchedulerProvider() {
+    public SchedulerProvider provideSchedulerProvider() {
         return new AppSchedulerProvider();
     }
 
     @Provides
     @Singleton
-    OneSignalService provideOneSignalService(OneSignalServiceImpl oneSignalService) {
+    public OneSignalService provideOneSignalService(OneSignalServiceImpl oneSignalService) {
         return oneSignalService;
     }
 
     @Provides
     @Singleton
-    AclRuleFactory provideAclRuleFactory(AclRuleFactoryImpl aclRuleFactory) {
+    public AclRuleFactory provideAclRuleFactory(AclRuleFactoryImpl aclRuleFactory) {
         return aclRuleFactory;
     }
 
     @Provides
     @Singleton
-    DeviceInfo provideDeviceInfo(DeviceInfoImpl deviceInfo) {
+    public DeviceInfo provideDeviceInfo(DeviceInfoImpl deviceInfo) {
         return deviceInfo;
     }
 
     @Provides
     @Singleton
-    VersionService provideVersionService(VersionServiceImpl versionService) {
+    public VersionService provideVersionService(VersionServiceImpl versionService) {
         return versionService;
     }
 
     @Provides
     @Singleton
-    ResourceService provideResourceService(ResourceServiceImpl resourceService) {
+    public ResourceService provideResourceService(ResourceServiceImpl resourceService) {
         return resourceService;
     }
 
     @Provides
     @Singleton
-    AclDatabaseService provideAclDatabaseService(AclDatabaseServiceImpl aclDatabaseService) {
+    public AclDatabaseService provideAclDatabaseService(AclDatabaseServiceImpl aclDatabaseService) {
         return aclDatabaseService;
     }
 
     @Provides
     @Singleton
-    AclDataManager provideAclDataManager(AclDataManagerImpl aclDataManager) {
+    public AclDataManager provideAclDataManager(AclDataManagerImpl aclDataManager) {
         return aclDataManager;
     }
 
     @Provides
     @Singleton
-    FingerPrintHelper provideFingerPrintHelper(FingerPrintHelperImpl fingerPrintHelperImpl) {
+    public FingerPrintHelper provideFingerPrintHelper(FingerPrintHelperImpl fingerPrintHelperImpl) {
         return fingerPrintHelperImpl;
     }
 
     @Provides
     @Singleton
-    AccountRepository provideAccountRepository(AccountRepositoryImpl accountRepositoryImpl) {
+    public AccountRepository provideAccountRepository(AccountRepositoryImpl accountRepositoryImpl) {
         return accountRepositoryImpl;
     }
 
     @Provides
     @Singleton
-    NotificationRepository provideNotificationRepository(NotificationRepositoryImpl notificationRepositoryImpl) {
+    public NotificationRepository provideNotificationRepository(NotificationRepositoryImpl notificationRepositoryImpl) {
         return notificationRepositoryImpl;
     }
 
     @Provides
     @Singleton
-    MapRepository provideMapRepository(MapRepositoryImpl mapRepository) {
+    public MapRepository provideMapRepository(MapRepositoryImpl mapRepository) {
         return mapRepository;
     }
 
 
     @Provides
     @Singleton
-    ContractRepository provideContractRepository(ContractRepositoryImpl contractRepositoryImpl) {
+    public ContractRepository provideContractRepository(ContractRepositoryImpl contractRepositoryImpl) {
         return contractRepositoryImpl;
     }
 
     @Provides
     @Singleton
-    SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
+    public SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
         return supportRepositoryImpl;
     }
 
     @Provides
     @Singleton
-    TrackingService provideTrackService(Context context, GAAnalyticsServiceImpl gaTrackService, FBAnalyticsServiceImpl fbTrackService) {
+    public TrackingService provideTrackService(Context context, GAAnalyticsServiceImpl gaTrackService, FBAnalyticsServiceImpl fbTrackService) {
         return new TrackingService(context, gaTrackService, fbTrackService);
     }
 }

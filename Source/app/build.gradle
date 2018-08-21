@@ -166,5 +166,6 @@ dependencies {
     testCompile "org.mockito:mockito-inline:2.11.0"
     testCompile 'com.github.fabioCollini.daggermock:daggermock:0.8.4'
     androidTestCompile 'com.github.fabioCollini.daggermock:daggermock:0.8.4'
+    testCompile "org.robolectric:robolectric:3.4.2"
 
 }
