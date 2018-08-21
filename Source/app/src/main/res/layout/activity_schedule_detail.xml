@@ -48,7 +48,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                style="@style/AppTheme.Title"
                 android:textStyle="bold"
                 android:text="@string/due_date" />
 
@@ -57,7 +56,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                style="@style/AppTheme.Title"
                 android:textStyle="bold"
                 android:text="@string/payment_type" />
 
@@ -68,7 +66,6 @@
                 android:layout_weight="0.4"
                 android:textAlignment="textEnd"
                 android:layout_gravity="end"
-                style="@style/AppTheme.Title"
                 android:textStyle="bold"
                 android:text="@string/amount_due" />
         </LinearLayout>
