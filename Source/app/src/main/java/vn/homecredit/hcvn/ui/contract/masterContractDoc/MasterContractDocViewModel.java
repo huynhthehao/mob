@@ -63,7 +63,11 @@ public class MasterContractDocViewModel extends BaseViewModel {
         Disposable disposable = contractRepository.masterContractApproved(masterContract.getContractNumber())
                 .subscribe(otpTimerResp -> {
                     setIsLoading(false);
-                    processOtpTimer(otpTimerResp);
+                    if (otpTimerResp.isVerified()) {
+                        processOtpTimer(otpTimerResp);
+                    }else {
+                        showMessage(otpTimerResp.getResponseMessage());
+                    }
 
                 }, throwable -> {
                     setIsLoading(false);

@@ -47,6 +47,9 @@ public class ContractRepositoryImpl implements ContractRepository {
     public Single<ContractResp> contracts() {
         return restService.contract()
                 .map(contractResp -> {
+                    if (contractResp.getData() == null) {
+                        return contractResp;
+                    }
                     List<HcContract> contractMasterList = convertMasterToHcContract(contractResp.getData().getMasterContracts());
                     if (contractResp.getData().getContracts() != null) {
                         contractResp.getData().getContracts().addAll(contractMasterList);
