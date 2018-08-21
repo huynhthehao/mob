@@ -38,8 +38,7 @@ public class SupportViewModel extends BaseViewModel {
         this.trackService = trackService;
     }
 
-    @Override
-    public void init() {
+    public void initData() {
         VersionResp.VersionRespData versionRespData = preferencesHelper.getVersionRespData();
         if (versionRespData != null && !TextUtils.isEmpty(versionRespData.getCustomerSupportPhone())) {
             customerSupportPhone = versionRespData.getCustomerSupportPhone();

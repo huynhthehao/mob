@@ -72,7 +72,7 @@ public class SupportFragment extends BaseFragment<FragmentSupportBinding, Suppor
             return false;
         });
 
-        getViewModel().init();
+        getViewModel().initData();
         getViewModel().getCallSupportCenterClickEvent().observe(this, mPhone -> {
             if (!TextUtils.isEmpty(mPhone)) {
                 AppUtils.openDeviceCallDialog(getActivity(), mPhone);
