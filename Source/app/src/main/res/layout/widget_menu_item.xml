@@ -33,7 +33,6 @@
         android:layout_marginLeft="@dimen/text_margin"
         android:layout_weight="1"
         android:text="@string/welcome_sign_up"
-        android:textSize="@dimen/text_size_medium"
         android:textColor="@color/my_primary" />
 
     <ImageView
