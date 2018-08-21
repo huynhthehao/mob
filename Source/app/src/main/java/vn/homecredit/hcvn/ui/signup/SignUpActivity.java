@@ -65,6 +65,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpVi
     private void showDialogContactHelp(String phoneSupport) {
         String title = getResources().getString(R.string.dialog_contact_help_title);
         String content = getResources().getString(R.string.dialog_contact_help_content, phoneSupport);
-        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content);
+        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content, phoneSupport);
     }
 }
