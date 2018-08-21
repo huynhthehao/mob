@@ -73,4 +73,9 @@
     <dimen name="text_size_notification_count">8sp</dimen>
 
     <dimen name="row_item_height">54dp</dimen>
+    <dimen name="ic_drawable_left_size">16dp</dimen>
+    <dimen name="ic_drawable_left_phone_height">22dp</dimen>
+    <dimen name="ic_drawable_left_margin_bottom">10dp</dimen>
+
+    <dimen name="button_submit_height">42dp</dimen>
 </resources>

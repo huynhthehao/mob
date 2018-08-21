@@ -36,7 +36,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case TAB_NOTIFICATION:
                 return NotificationsFragment.newInstance();
             case TAB_SUPPORT:
-                return SupportFragment.newInstance("A", "B");
+                return SupportFragment.newInstance();
             case TAB_MORE:
                 return MoreFragment.newInstance();
             default:

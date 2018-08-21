@@ -1,10 +1,7 @@
 /*
- * RestServiceImpl.java
- *
- * Created by quan.p@homecredit.vn
  * Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
  *
- * Last modified 6/12/18 1:12 PM
+ * Last modified 8/21/18 4:03 PM, by hien.nguyenm
  */
 
 package vn.homecredit.hcvn.data.remote;
@@ -34,6 +31,11 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.model.api.creditcard.TransactionResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportHistoryResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportResp;
+import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
+import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
+import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
@@ -43,10 +45,9 @@ import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
-import vn.homecredit.hcvn.utils.TestData;
 
 @Singleton
-public class RestServiceImpl implements RestService {
+public class RestServiceImpl implements RestService, RestUrl {
 
     public static final String RUNTIME_PLATFORM = "Android";
     private final boolean useMock;
@@ -97,7 +98,7 @@ public class RestServiceImpl implements RestService {
     public Single<TokenResp> getToken(String phoneNumber, String password) {
         if (mMemoryHelper.getVersionRespData() == null ||
                 mMemoryHelper.getVersionRespData().getSettings() == null ||
-                mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId() == null ) {
+                mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId() == null) {
             return Single.error(new Throwable("System Error"));
         }
         String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
@@ -121,7 +122,8 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/profile");
+        return DefaultAndroidNetworking.get(url,
                 mApiHeader.getProtectedApiHeader(),
                 ProfileResp.class);
     }
@@ -268,19 +270,64 @@ public class RestServiceImpl implements RestService {
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(MasterContractVerifyResp.class)
-                .map(masterContractVerifyResp -> {
-                    if (BuildConfig.DEBUG) {
-                        return TestData.masterContractVerifyResp();
-                    }else {
-                        return masterContractVerifyResp;
-                    }
-                })
-                .onErrorResumeNext(throwable -> {
-                    if (BuildConfig.DEBUG) {
-                        return Single.just(TestData.masterContractVerifyResp());
-                    }
-                    return Single.error(new HcApiException(throwable, MasterContractVerifyResp.class));
-                });
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractVerifyResp.class))) ;
+    }
+
+    @Override
+    public Single<SupportResp> submitFeedback(String subject, String description, String phoneNumber, String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/tickets/send");
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("Subject", subject);
+        requestBody.put("Description", description);
+        requestBody.put("PhoneNumber", phoneNumber);
+        if (!TextUtils.isEmpty(contractId))
+            requestBody.put("ContractNumber", contractId);
+
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(),
+                requestBody,
+                SupportResp.class);
+    }
+
+    @Override
+    public Single<SupportHistoryResp> getSupportHistories() {
+        return DefaultAndroidNetworking.get(buildUrl(SUPPORT_HISTORY),
+                mApiHeader.getProtectedApiHeader(),
+                SupportHistoryResp.class);
+    }
+
+    @Override
+    public Single<ClwModel> getClwNear(Double lat, Double lon) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP +
+                "/clw/pos?" +
+                "lng=" + lon +
+                "&lat=" + lat);
+        return DefaultAndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(ClwModel.class);
+    }
+
+    @Override
+    public Single<DisbursementModel> getDisbursementNear(Double lat, Double lon) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP +
+                "/pos/disbursement?" +
+                "lng=" + lon +
+                "&lat=" + lat);
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(),
+                DisbursementModel.class);
+    }
+
+    @Override
+    public Single<PaymentModel> getPaymenttNear(Double lat, Double lon) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP +
+                "/pos/payment?" +
+                "lng=" + lon +
+                "&lat=" + lat + "&v=2");
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(),
+                PaymentModel.class);
     }
 
     @Override
@@ -333,6 +380,7 @@ public class RestServiceImpl implements RestService {
         } else {
             url += "?lang=" + preferencesHelper.getLanguageCode();
         }
+        // platform = 2: Android
         url += "&platform=2";
         return url;
     }

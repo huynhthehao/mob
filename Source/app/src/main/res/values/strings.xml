@@ -10,7 +10,7 @@
     <string name="please_retry" translatable="false">Please Retry</string>
     <string name="retry" translatable="false">Thử lại</string>
     <string name="welcome_login">Đăng nhập</string>
-    <string name="welcome_sign_up">Đăng kí</string>
+    <string name="welcome_sign_up">Đăng ký</string>
     <string name="welcome_cash_loan">Vay tiền mặt</string>
     <string name="title_activity_home">Trang chủ</string>
 
@@ -29,13 +29,13 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="login_by_touch_id">Đăng nhập bằng vân tay</string>
-    <string name="Support_FormTitle">Nếu bạn có bất kỳ thắc mắc nào hoặc cần hỗ trợ, xin vui lòng gửi theo mẫu dưới. Chúng tôi sẽ phản hồi bạn sớm</string>
+    <string name="support_form_title">Nếu bạn có bất kỳ thắc mắc nào hoặc cần hỗ trợ, xin vui lòng gửi theo mẫu dưới. Chúng tôi sẽ phản hồi bạn sớm</string>
     <string name="my_profile">Hồ sơ của tôi</string>
     <string name="log_out">Đăng xuất</string>
     <string name="change_password">Đổi mật khẩu</string>
     <string name="settings">Cài đặt</string>
     <string name="locations">Địa điểm</string>
-    <string name="terms_and_conditions">Điều khoản sử dụng</string>
+    <string name="terms_and_conditions">Điều khoản và điều kiện</string>
     <string name="user_manual">Hướng dẫn sử dụng</string>
     <string name="contracts">Hợp đồng</string>
     <string name="notifications">Thông báo</string>
@@ -101,14 +101,7 @@
     <string name="signup_now">Đăng ký ngay</string>
     <string name="dialog_contact_help_title">Vui lòng điền mã hợp đồng có 10 chữ số của bạn</string>
     <string name="dialog_contact_help_content">Vui lòng gọi dịch vụ khách hàng của chúng tôi %s để được hỗ trợ thêm </string>
-    <string name="dialog_password_help_title">"Mật khẩu phải bao gồm ít nhất 8 ký tự (bao gồm chữ số, chữ viết, chữ hoa và chữ thường)
-
-        Mật khẩu sẽ có độ bảo mật cao hơn khi có các ký tự đặc biệt (@ # $ %% ^ “…)
-
-        Mật khẩu cần được thay đổi định kỳ (ít nhất 1 lần trong năm)
-
-        Không sử dụng các thông tin cá nhân đơn giản (ngày sinh, số điện thoại, tên của bạn, tên của người thân như vợ/chồng/con, các dãy số đơn giản như 1234567, 111111…)
-        để lập mật khẩu"
+    <string name="dialog_password_help_title">"- Mật khẩu phải bao gồm ít nhất 8 ký tự (bao gồm chữ số, chữ viết, chữ hoa và chữ thường)\n\n- Mật khẩu sẽ có độ bảo mật cao hơn khi có các ký tự đặc biệt (@ # $ %% ^ “…)\n\n- Mật khẩu cần được thay đổi định kỳ (ít nhất 1 lần trong năm)\n\n- Không sử dụng các thông tin cá nhân đơn giản (ngày sinh, số điện thoại, tên của bạn, tên của người thân như vợ/chồng/con, các dãy số đơn giản như 1234567, 111111… để lập mật khẩu"
     </string>
     <string name="dialog_password_help_content">Vui lòng gọi dịch vụ khách hàng của chúng tôi %s để được hỗ trợ thêm</string>
     <string name="dialog_fingersprint_announce">Tài khoản của bạn đã được tạo thành công. Để đăng nhập nhanh hơn, vui lòng kích hoạt chức năng Đăng nhập bằng vân tay  tại màn hình cài đặt</string>
@@ -175,7 +168,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="loan_amount">Khoản vay</string>
     <string name="signed_date">Ngày ký HĐ</string>
     <string name="contract_status">Trạng thái HĐ</string>
-    <string name="payment_locations">Địa điểm giao dịch</string>
+    <string name="payment_locations">Địa điểm thanh toán</string>
     <string name="master_contract_title">Tóm Lược Hợp Đồng</string>
     <string name="master_contract_name">Bên vay</string>
     <string name="master_contract_toal_loan">Tổng giá trị khoản vay</string>
@@ -284,5 +277,21 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="last_6_months">Trong 6 tháng</string>
     <string name="error_unexpected">Lỗi không mong đợi. Vui lòng thử lại sau.</string>
 
-
+    <!-- Support -->
+    <string name="support_history_title">Lịch sử (%d)</string>
+    <string name="support_detail_title">Chi tiết phản hồi</string>
+    <string name="support_detail_subject">Tiêu đề</string>
+    <string name="support_detail_message">Thông báo</string>
+    <string name="history">Lịch sử</string>
+    <string name="enter_subject">Nhập tiêu đề</string>
+    <string name="enter_feedback">Nhập phản hồi</string>
+    <string name="clear">Xóa</string>
+    <string name="submit">Gởi</string>
+    <string name="tap_to_call_message">Bấm nút bên dưới để gọi</string>
+    <string name="please_enter_subject">Vui lòng nhập tiêu đề</string>
+    <string name="please_enter_feedback">Vui lòng nhập phản hồi</string>
+    <string name="please_enter_phone_number">Vui lòng nhập số điện thoại</string>
+    <string name="feedback_done_title">Phản hồi của bạn đã được gửi thành công</string>
+    <string name="feedback_done_content">Nhân viên hỗ trợ sẽ liên lạc bạn trong thời gian sớm nhất</string>
+    <string name="feedback_done">Hoàn tất</string>
 </resources>

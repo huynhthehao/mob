@@ -29,8 +29,6 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwData;
 import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementData;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentData;
-import vn.homecredit.hcvn.data.model.mapdata.model.payoo.PayooData;
-import vn.homecredit.hcvn.data.model.mapdata.model.pos.PosData;
 import vn.homecredit.hcvn.data.repository.MapRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.BitmapUtils;
@@ -54,56 +52,6 @@ public class PayMapViewModel extends BaseViewModel {
         super.init();
     }
 
-    public void loadMapPayoo(GoogleMap mMap, Context context, LatLng latLng) {
-        Disposable disposable = mMapRepository.getPayooNear(latLng.latitude, latLng.longitude)
-                .toObservable().distinctUntilChanged()
-                .subscribe(
-                        payooDataList -> {
-                            if (payooDataList.isEmpty()) {
-                                return;
-                            }
-                            for (PayooData payooData : payooDataList) {
-                                drawMaker(PayMapActivity.MAKER_PAYOO, mMap, context, new LatLng(payooData.getLat(),
-                                        payooData.getLong()), payooData.getDisplayName(), payooData.getAddress());
-                            }
-                        },
-                        throwable -> handleError(throwable)
-                );
-        getCompositeDisposable().add(disposable);
-    }
-
-    public void loadMapPos(GoogleMap googleMap, Context context, LatLng latLng) {
-        Disposable disposable = mMapRepository.getPosNear(latLng.latitude, latLng.longitude)
-                .toObservable().distinctUntilChanged()
-                .subscribe(
-                        posModel -> {
-                            if (posModel.getData().isEmpty()) {
-                                return;
-                            }
-                            for (PosData data : posModel.getData()) {
-                                drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
-                                        data.getLongitude()), data.getTitle(), data.getAddress());
-                            }
-                        }, throwable -> handleError(throwable));
-        getCompositeDisposable().add(disposable);
-    }
-
-    public void loadMapVnPos(GoogleMap googleMap, Context context, LatLng latLng) {
-        Disposable disposable = mMapRepository.getVnPosNear(latLng.latitude, latLng.longitude)
-                .subscribe(
-                        posModel -> {
-                            if (posModel.getData().isEmpty()) {
-                                return;
-                            }
-                            for (PosData data : posModel.getData()) {
-                                drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
-                                        data.getLongitude()), data.getTitle(), data.getAddress());
-                            }
-                        }, throwable -> handleError(throwable)
-                );
-        getCompositeDisposable().add(disposable);
-    }
-
     public void loadClwData(GoogleMap googleMap, Context context, LatLng latLng) {
         Disposable disposable = mMapRepository.getClwModelNear(latLng.latitude, latLng.longitude)
                 .toObservable().distinctUntilChanged()
@@ -116,7 +64,8 @@ public class PayMapViewModel extends BaseViewModel {
                                 drawMaker(PayMapActivity.MAKER_DEFAULT, googleMap, context, new LatLng(data.getLatitude(),
                                         data.getLongitude()), data.getTitle(), data.getAddress());
                             }
-                        }, throwable -> handleError(throwable)
+                        }, throwable -> {
+                        }
                 );
         getCompositeDisposable().add(disposable);
     }
@@ -133,7 +82,8 @@ public class PayMapViewModel extends BaseViewModel {
                                 drawMaker(data.getBrand(), googleMap, context, new LatLng(data.getLatitude(),
                                         data.getLongitude()), data.getTitle(), data.getAddress());
                             }
-                        }, throwable -> handleError(throwable)
+                        }, throwable -> {
+                        }
                 );
         getCompositeDisposable().add(disposable);
     }
@@ -150,7 +100,8 @@ public class PayMapViewModel extends BaseViewModel {
                                 drawMaker(data.getBrand(), googleMap, context, new LatLng(data.getLatitude(),
                                         data.getLongitude()), data.getTitle(), data.getAddress());
                             }
-                        }, throwable -> handleError(throwable)
+                        }, throwable -> {
+                        }
                 );
         getCompositeDisposable().add(disposable);
     }

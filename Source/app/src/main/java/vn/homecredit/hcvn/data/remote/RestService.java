@@ -19,6 +19,11 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.model.api.creditcard.TransactionResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportHistoryResp;
+import vn.homecredit.hcvn.data.model.api.support.SupportResp;
+import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
+import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
+import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
@@ -50,4 +55,11 @@ public interface RestService {
     Single<StatementResp> getStatements(String contractId);
     Single<StatementDetailsResp> getStatementDetails(String contractId,StatementModel statementModel);
     Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract);
+
+    Single<SupportResp> submitFeedback(String subject, String description, String phoneNumber, String contractId);
+    Single<SupportHistoryResp> getSupportHistories();
+
+    Single<ClwModel> getClwNear(Double lat, Double lon);
+    Single<DisbursementModel> getDisbursementNear(Double lat, Double lon);
+    Single<PaymentModel> getPaymenttNear(Double lat, Double lon);
 }

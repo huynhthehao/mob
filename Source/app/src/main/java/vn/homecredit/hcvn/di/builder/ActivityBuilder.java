@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.di.builder;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+import vn.homecredit.hcvn.di.module.support.SupportDetailModule;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclAfSelectLoan.AclAfSelectLoanFragmentProvider;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormModule;
@@ -19,51 +20,53 @@ import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionAct
 import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragmentProvider;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivity;
 import vn.homecredit.hcvn.ui.acl.validation.AclValidationActivityModule;
-import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListActivity;
-import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListViewModel;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.detail.CreditCardDetailViewModel;
+import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListActivity;
+import vn.homecredit.hcvn.ui.contract.creditcard.list.CreditCardListViewModel;
 import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionDetailActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionDetailViewModel;
 import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionListActivity;
 import vn.homecredit.hcvn.ui.contract.creditcard.transaction.TransactionListViewModel;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
+import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractDoc.MasterContractDocActivityModule;
 import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivityModule;
-import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignViewModel;
 import vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSuccessActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSuccessActivityModule;
-import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivity;
-import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivityModule;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivityModule;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivityModule;
-import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivity;
-import vn.homecredit.hcvn.ui.contract.detail.ContractDetailActivityModule;
-import vn.homecredit.hcvn.ui.contract.statement.StatementsActivity;
 import vn.homecredit.hcvn.ui.contract.statement.StatementActivityModule;
+import vn.homecredit.hcvn.ui.contract.statement.StatementsActivity;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.StatementDetailsActivity;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.StatementDetailsModule;
+import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivity;
+import vn.homecredit.hcvn.ui.contract.summaryContract.SummaryContractActivityModule;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivityModule;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.login.LoginViewModel;
+import vn.homecredit.hcvn.ui.map.PayMapActivity;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
 import vn.homecredit.hcvn.ui.otp.OtpViewModel;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivityModule;
+import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.ChangePassActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.ChangePassActivityModule;
 import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 import vn.homecredit.hcvn.ui.signup.SignUpActivityModule;
-import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivity;
 import vn.homecredit.hcvn.ui.splash.SplashActivityModule;
-import vn.homecredit.hcvn.ui.map.PayMapActivity;
+import vn.homecredit.hcvn.ui.support.detail.SupportDetailActivity;
+import vn.homecredit.hcvn.ui.support.history.SupportHistoryActivity;
+import vn.homecredit.hcvn.ui.support.history.SupportHistoryActivityModule;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivityModule;
 
@@ -154,6 +157,12 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = PaymentHistoryActivityModule.class)
     abstract PaymentHistoryActivity bindPaymentHistoryActivity();
+
+    @ContributesAndroidInjector(modules = SupportHistoryActivityModule.class)
+    abstract SupportHistoryActivity bindSupportHistoryActivity();
+
+    @ContributesAndroidInjector(modules = SupportDetailModule.class)
+    abstract SupportDetailActivity bindSupportDetailActivity();
 
     @ContributesAndroidInjector(modules = MasterContractSuccessActivityModule.class)
     abstract MasterContractSuccessActivity bindMasterContractSuccessActivity();

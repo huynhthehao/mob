@@ -10,9 +10,7 @@ package vn.homecredit.hcvn.ui.otp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import org.parceler.Parcels;
 
@@ -20,12 +18,11 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
+import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.databinding.ActivityOtpBinding;
 import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicationFormActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
-import vn.homecredit.hcvn.ui.contract.masterContractSign.MasterContractSignActivity;
 import vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSuccessActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 
@@ -86,14 +83,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
-    @SuppressWarnings("TypeParameterUnusedInFormals")
-    @Override
-    public <T extends View> T getControlById(@IdRes int id) {
-        return findViewById(id);
-    }
-
-
     @Override
     public void next(OtpPassParam data) {
         switch (currentOtpFlow){
@@ -110,7 +99,6 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
             }
         }
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {

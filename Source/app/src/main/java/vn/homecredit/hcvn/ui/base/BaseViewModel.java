@@ -34,6 +34,7 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private MutableLiveData<BaseMessage> confirmMessageData = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelReLogin = new MutableLiveData<>();
 
+
     public BaseViewModel(SchedulerProvider schedulerProvider) {
         this.mSchedulerProvider = schedulerProvider;
         this.mCompositeDisposable = new CompositeDisposable();

@@ -89,6 +89,6 @@ public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding
     private void showDialogPasswordHelp(String phoneSupport) {
         String title = getResources().getString(R.string.dialog_password_help_title);
         String content = getResources().getString(R.string.dialog_password_help_content, phoneSupport);
-        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content);
+        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content, phoneSupport);
     }
 }

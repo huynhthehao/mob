@@ -1,5 +1,5 @@
 Source/app/.idea/
 Source/app/gradle/
-.idea/
+*/.idea/
 Source/app/gradlew
 Source/app/gradlew.bat

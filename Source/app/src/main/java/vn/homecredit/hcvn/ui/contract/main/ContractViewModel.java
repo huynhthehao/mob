@@ -2,19 +2,13 @@ package vn.homecredit.hcvn.ui.contract.main;
 
 import android.arch.lifecycle.MutableLiveData;
 
-import com.androidnetworking.error.ANError;
-
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.functions.Consumer;
-import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
-import vn.homecredit.hcvn.data.model.api.contract.MasterContract;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class ContractViewModel extends BaseViewModel {
@@ -64,17 +58,14 @@ public class ContractViewModel extends BaseViewModel {
         refreshing.setValue(true);
         contractRepository.contracts().subscribe(s -> {
             refreshing.setValue(false);
-            listMutableLiveData.setValue(s.getData().getContracts());
+            if (s.getData() != null) {
+                listMutableLiveData.setValue(s.getData().getContracts());
+            }else {
+                showMessage(s.getResponseMessage());
+            }
         }, throwable -> {
             refreshing.setValue(false);
             handleError(throwable);
-
-            // TODO: Move this into handleError()
-            if (throwable instanceof ANError) {
-                if (((ANError) throwable).getErrorCode() == HcApiException.ERROR_CODE_UNAUTHORIZED) {
-                    errorAuthenticate.setValue(true);
-                }
-            }
         });
     }
 

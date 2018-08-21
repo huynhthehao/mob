@@ -47,19 +47,9 @@ public class ContractRepositoryImpl implements ContractRepository {
     public Single<ContractResp> contracts() {
         return restService.contract()
                 .map(contractResp -> {
-//                    if (BuildConfig.DEBUG) {
-//                        contractResp.getData().getContracts().add(TestData.activeContract());
-//                        contractResp.getData().getContracts().add(TestData.pendingContract());
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CashLoan));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.ConsumerDurables));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.CreditCard));
-//                        contractResp.getData().getContracts().add(TestData.pendingContract(ContractType.TwoWheels));
-//                        contractResp.getData().getContracts().add(TestData.closeContract());
-//                        contractResp.getData().getContracts().add(TestData.closeContract());
-//                    }
-                    return contractResp;
-                })
-                .map(contractResp -> {
+                    if (contractResp.getData() == null) {
+                        return contractResp;
+                    }
                     List<HcContract> contractMasterList = convertMasterToHcContract(contractResp.getData().getMasterContracts());
                     if (contractResp.getData().getContracts() != null) {
                         contractResp.getData().getContracts().addAll(contractMasterList);

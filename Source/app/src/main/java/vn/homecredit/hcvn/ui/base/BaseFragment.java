@@ -25,13 +25,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
-import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
+import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 
 import static java.lang.Boolean.TRUE;
 
@@ -42,6 +45,8 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private T mViewDataBinding;
     private V mViewModel;
     protected ProgressDialog mProgressDialog;
+    @Inject
+    TrackingService trackService;
 
     /**
      * Override for set binding variable
@@ -143,6 +148,14 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (trackService != null) {
+            trackService.sendView(this);
+        }
+    }
+
     protected void init() {
         getViewModel().setNavigator(this);
         getViewModel().init();
@@ -162,6 +175,9 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         }
     }
 
+    public boolean isNetworkConnected() {
+        return mActivity != null && mActivity.isNetworkConnected();
+    }
 
     public void openActivityOnTokenExpire() {
         if (mActivity != null) {

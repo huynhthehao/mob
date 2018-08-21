@@ -107,7 +107,8 @@
             android:name=".ui.contract.statement.statementdetails.StatementDetailsActivity"
             android:theme="@style/AppTheme" />
 
-
+        <activity android:name=".ui.support.history.SupportHistoryActivity" />
+        <activity android:name=".ui.support.detail.SupportDetailActivity" />
         <activity android:name=".ui.contract.summaryContract.SummaryContractActivity" />
         <activity android:name=".ui.contract.masterContractDoc.MasterContractDocActivity" />
         <activity android:name=".ui.contract.detail.ContractDetailActivity"></activity>
@@ -115,6 +116,10 @@
         <activity android:name=".ui.contract.scheduleDetail.ScheduleDetailActivity"></activity>
         <activity android:name=".ui.contract.paymentHistory.PaymentHistoryActivity" />
         <activity android:name=".ui.contract.masterContractSign.MasterContractSignActivity" />
+        <activity
+            android:name=".ui.support.SupportDoneActivity"
+            android:theme="@style/AppTheme" />
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
