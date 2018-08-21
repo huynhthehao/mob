@@ -10,7 +10,7 @@
     <string name="please_retry" translatable="false">Please Retry</string>
     <string name="retry" translatable="false">Thử lại</string>
     <string name="welcome_login">Đăng nhập</string>
-    <string name="welcome_sign_up">Đăng kí</string>
+    <string name="welcome_sign_up">Đăng ký</string>
     <string name="welcome_cash_loan">Vay tiền mặt</string>
     <string name="title_activity_home">Trang chủ</string>
 
