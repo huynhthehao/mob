@@ -30,7 +30,7 @@ android {
     }
     buildTypes {
         debug {
-            applicationIdSuffix ".staging"
+            applicationIdSuffix ".dev"
             minifyEnabled false
             debuggable true
             signingConfig signingConfigs.config

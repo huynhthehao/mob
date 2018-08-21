@@ -20,6 +20,8 @@
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD9eyHNGtyB4O5Rpc3_ExEQhljln6vSE1o</string>
-    <string name="google_direction_key" templateMergeStrategy="preserve" translatable="false">AIzaSyARvrEdNOBOHlzTRTiPbh0rkZASCDzQUTY</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCHrsY7EhXieg_GgddJDw5D7lN-iMK2zNU</string>
+    <string name="google_direction_key" templateMergeStrategy="preserve" translatable="false">@string/google_maps_key</string>
+
+    <string name="ga_trackingId" translatable="false">UA-123983608-1</string>
 </resources>
