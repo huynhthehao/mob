@@ -64,15 +64,14 @@ public class ContractViewModel extends BaseViewModel {
         refreshing.setValue(true);
         contractRepository.contracts().subscribe(s -> {
             refreshing.setValue(false);
-            listMutableLiveData.setValue(s.getData().getContracts());
+            if (s.getData() != null) {
+                listMutableLiveData.setValue(s.getData().getContracts());
+            }else {
+                showMessage(s.getResponseMessage());
+            }
         }, throwable -> {
             refreshing.setValue(false);
             handleError(throwable);
-            if (throwable instanceof ANError) {
-                if (((ANError) throwable).getErrorCode() == HcApiException.ERROR_CODE_UNAUTHORIZED) {
-                    errorAuthenticate.setValue(true);
-                }
-            }
         });
     }
 
