@@ -108,7 +108,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         rvNotifications = new RecyclerView(getActivity());
         initAdapter();
         appDataView.initContentView(rvNotifications, 0, 0, null, () -> getViewModel().pullToRefreshNotifications());
-        getViewModel().init();
+        getViewModel().initData();
         getViewModel().getDataNotifications().observe(this, notificationModels -> notificationAdapter.swapData(notificationModels));
         getViewModel().getModelIsRefreshing().observe(this, isRefreshing -> {
                     if (!isRefreshing)

@@ -24,7 +24,7 @@ public class StatementViewModel extends BaseViewModel {
         this.contractRepository = contractRepository;
     }
 
-    public void init(String contractId) {
+    public void initData(String contractId) {
         this.contractId = contractId;
         modelRefreshing.setValue(true);
         refreshData();
