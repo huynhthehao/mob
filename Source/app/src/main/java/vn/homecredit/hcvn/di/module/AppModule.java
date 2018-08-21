@@ -220,4 +220,11 @@ public class AppModule {
     TrackingService provideTrackService(Context context, GAAnalyticsServiceImpl gaTrackService, FBAnalyticsServiceImpl fbTrackService) {
         return new TrackingService(context, gaTrackService, fbTrackService);
     }
+
+    @Provides
+    @Singleton
+    ApiHeader.PayooApiHeader provPayooApiHeader() {
+        return new ApiHeader.PayooApiHeader("YM_7fPw6xA", "Partner07");
+    }
+
 }
