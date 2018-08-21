@@ -100,7 +100,9 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     @Override
     protected void onResume() {
         super.onResume();
-        trackService.sendView(this);
+        if (trackService != null){
+            trackService.sendView(this);
+        }
     }
 
     protected void init() {

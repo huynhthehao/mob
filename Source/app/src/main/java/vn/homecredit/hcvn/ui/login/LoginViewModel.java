@@ -143,9 +143,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                     }
                 }, throwable -> {
                     setIsLoading(false);
-                    if (throwable instanceof HcApiException) {
-                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
-                    }
+                    handleError(throwable);
                 });
 
         startSafeProcess(subscribe);

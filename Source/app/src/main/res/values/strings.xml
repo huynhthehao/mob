@@ -35,7 +35,7 @@
     <string name="change_password">Đổi mật khẩu</string>
     <string name="settings">Cài đặt</string>
     <string name="locations">Địa điểm</string>
-    <string name="terms_and_conditions">Điều khoản sử dụng</string>
+    <string name="terms_and_conditions">Điều khoản và điều kiện</string>
     <string name="user_manual">Hướng dẫn sử dụng</string>
     <string name="contracts">Hợp đồng</string>
     <string name="notifications">Thông báo</string>
@@ -101,14 +101,7 @@
     <string name="signup_now">Đăng ký ngay</string>
     <string name="dialog_contact_help_title">Vui lòng điền mã hợp đồng có 10 chữ số của bạn</string>
     <string name="dialog_contact_help_content">Vui lòng gọi dịch vụ khách hàng của chúng tôi %s để được hỗ trợ thêm </string>
-    <string name="dialog_password_help_title">"Mật khẩu phải bao gồm ít nhất 8 ký tự (bao gồm chữ số, chữ viết, chữ hoa và chữ thường)
-
-        Mật khẩu sẽ có độ bảo mật cao hơn khi có các ký tự đặc biệt (@ # $ %% ^ “…)
-
-        Mật khẩu cần được thay đổi định kỳ (ít nhất 1 lần trong năm)
-
-        Không sử dụng các thông tin cá nhân đơn giản (ngày sinh, số điện thoại, tên của bạn, tên của người thân như vợ/chồng/con, các dãy số đơn giản như 1234567, 111111…)
-        để lập mật khẩu"
+    <string name="dialog_password_help_title">"- Mật khẩu phải bao gồm ít nhất 8 ký tự (bao gồm chữ số, chữ viết, chữ hoa và chữ thường)\n\n- Mật khẩu sẽ có độ bảo mật cao hơn khi có các ký tự đặc biệt (@ # $ %% ^ “…)\n\n- Mật khẩu cần được thay đổi định kỳ (ít nhất 1 lần trong năm)\n\n- Không sử dụng các thông tin cá nhân đơn giản (ngày sinh, số điện thoại, tên của bạn, tên của người thân như vợ/chồng/con, các dãy số đơn giản như 1234567, 111111… để lập mật khẩu"
     </string>
     <string name="dialog_password_help_content">Vui lòng gọi dịch vụ khách hàng của chúng tôi %s để được hỗ trợ thêm</string>
     <string name="dialog_fingersprint_announce">Tài khoản của bạn đã được tạo thành công. Để đăng nhập nhanh hơn, vui lòng kích hoạt chức năng Đăng nhập bằng vân tay  tại màn hình cài đặt</string>
@@ -175,7 +168,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="loan_amount">Khoản vay</string>
     <string name="signed_date">Ngày ký HĐ</string>
     <string name="contract_status">Trạng thái HĐ</string>
-    <string name="payment_locations">Địa điểm giao dịch</string>
+    <string name="payment_locations">Địa điểm thanh toán</string>
     <string name="master_contract_title">Tóm Lược Hợp Đồng</string>
     <string name="master_contract_name">Bên vay</string>
     <string name="master_contract_toal_loan">Tổng giá trị khoản vay</string>
@@ -286,6 +279,9 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
 
     <!-- Support -->
     <string name="support_history_title">Lịch sử (%d)</string>
+    <string name="support_detail_title">Chi tiết phản hồi</string>
+    <string name="support_detail_subject">Tiêu đề</string>
+    <string name="support_detail_message">Thông báo</string>
     <string name="history">Lịch sử</string>
     <string name="enter_subject">Nhập tiêu đề</string>
     <string name="enter_feedback">Nhập phản hồi</string>

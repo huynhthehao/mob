@@ -17,46 +17,21 @@ import javax.inject.Singleton;
 
 @Singleton
 public class ApiHeader {
-
     private ProtectedApiHeader mProtectedApiHeader;
-    private final AclApiHeader mAclApiHeader;
-
-    private PublicApiHeader mPublicApiHeader;
-    private PayooApiHeader mPayooApiHeader;
-    private PosApiHeader mPosApiHeader;
-    private ClwMapApiHeader mClwMapApiHeader;
-    private DisbursementApiHeader mDisbursementApiHeader;
+    private AclApiHeader aclApiHeader;
 
     @Inject
-    public ApiHeader(PublicApiHeader publicApiHeader, ProtectedApiHeader protectedApiHeader, AclApiHeader aclApiHeader, PayooApiHeader payooApiHeader) {
-        mPublicApiHeader = publicApiHeader;
+    public ApiHeader(ProtectedApiHeader protectedApiHeader, AclApiHeader aclApiHeader) {
         mProtectedApiHeader = protectedApiHeader;
-        mAclApiHeader = aclApiHeader;
-        mPayooApiHeader = payooApiHeader;
+        this.aclApiHeader = aclApiHeader;
     }
 
     public ProtectedApiHeader getProtectedApiHeader() {
         return mProtectedApiHeader;
     }
 
-    public PublicApiHeader getPublicApiHeader() {
-        return mPublicApiHeader;
-    }
-
     public AclApiHeader getAclApiHeader() {
-        return mAclApiHeader;
-    }
-
-    public PayooApiHeader getPayooApiHeader() {
-        return mPayooApiHeader;
-    }
-
-    public PosApiHeader getPosApiHeader() {
-        return mPosApiHeader;
-    }
-
-    public DisbursementApiHeader getDisbursementApiHeader() {
-        return mDisbursementApiHeader;
+        return aclApiHeader;
     }
 
     public static final class ProtectedApiHeader {
@@ -86,12 +61,6 @@ public class ApiHeader {
         }
     }
 
-    public static final class PublicApiHeader {
-        @Inject
-        public PublicApiHeader() {
-        }
-    }
-
     public static final class AclApiHeader {
 
         @Expose
@@ -118,66 +87,6 @@ public class ApiHeader {
 
         public String getAuthorization() {
             return mAuthorization;
-        }
-    }
-
-    public static final class PayooApiHeader {
-        @Expose
-        @SerializedName("token")
-        private String mToken;
-
-        @Expose
-        @SerializedName("user")
-        private String mUser;
-
-        @Inject
-        public PayooApiHeader(String token, String user) {
-            mToken = token;
-            mUser = user;
-        }
-    }
-
-    public static final class PosApiHeader {
-        @Expose
-        @SerializedName("Content-Type")
-        private String mContentType;
-
-        @Inject
-        public PosApiHeader() {
-            mContentType = "application/json";
-        }
-    }
-
-    public static final class ClwMapApiHeader {
-        @Expose
-        @SerializedName("Content-Type")
-        private String mContentType;
-
-        @Inject
-        public ClwMapApiHeader() {
-            mContentType = "application/json";
-        }
-    }
-
-    public static final class DisbursementApiHeader {
-        @Expose
-        @SerializedName("Content-Type")
-        private String mContentType;
-
-        @Inject
-        public DisbursementApiHeader() {
-            mContentType = "application/json";
-        }
-    }
-
-    public static final class PaymentApiHeader {
-        @Expose
-        @SerializedName("Content-Type")
-        private String mContentType;
-
-        @Inject
-        public PaymentApiHeader() {
-            mContentType = "application/json";
         }
     }
 

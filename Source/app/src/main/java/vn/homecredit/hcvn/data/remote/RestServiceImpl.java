@@ -38,6 +38,9 @@ import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
 import vn.homecredit.hcvn.data.model.api.creditcard.TransactionResp;
 import vn.homecredit.hcvn.data.model.api.support.SupportHistoryResp;
 import vn.homecredit.hcvn.data.model.api.support.SupportResp;
+import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
+import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
+import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
@@ -124,7 +127,8 @@ public class RestServiceImpl implements RestService, RestUrl {
 
     @Override
     public Single<ProfileResp> getProfile() {
-        return DefaultAndroidNetworking.get(ApiEndPoint.ENDPOINT_APP + "/customer/profile?",
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/profile");
+        return DefaultAndroidNetworking.get(url,
                 mApiHeader.getProtectedApiHeader(),
                 ProfileResp.class);
     }
@@ -307,20 +311,7 @@ public class RestServiceImpl implements RestService, RestUrl {
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(MasterContractVerifyResp.class)
-                .map(masterContractVerifyResp -> {
-                    if (BuildConfig.DEBUG) {
-                        return TestData.masterContractVerifyResp();
-                    } else {
-                        return masterContractVerifyResp;
-                    }
-                })
-                .onErrorResumeNext(throwable -> {
-                    if (BuildConfig.DEBUG) {
-                        return Single.just(TestData.masterContractVerifyResp());
-                    }
-                    return Single.error(new HcApiException(throwable, MasterContractVerifyResp.class));
-                })
-                ;
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractVerifyResp.class))) ;
     }
 
     @Override
@@ -344,6 +335,42 @@ public class RestServiceImpl implements RestService, RestUrl {
         return DefaultAndroidNetworking.get(buildUrl(SUPPORT_HISTORY),
                 mApiHeader.getProtectedApiHeader(),
                 SupportHistoryResp.class);
+    }
+
+    @Override
+    public Single<ClwModel> getClwNear(Double lat, Double lon) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP +
+                "/clw/pos?" +
+                "lng=" + lon +
+                "&lat=" + lat);
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(ClwModel.class);
+    }
+
+    @Override
+    public Single<DisbursementModel> getDisbursementNear(Double lat, Double lon) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP +
+                "/pos/disbursement?" +
+                "lng=" + lon +
+                "&lat=" + lat);
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(DisbursementModel.class);
+    }
+
+    @Override
+    public Single<PaymentModel> getPaymenttNear(Double lat, Double lon) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP +
+                "/pos/payment?" +
+                "lng=" + lon +
+                "&lat=" + lat + "&v=2");
+        return Rx2AndroidNetworking.get(url)
+                .addHeaders(mApiHeader.getProtectedApiHeader())
+                .build()
+                .getObjectSingle(PaymentModel.class);
     }
 
     @Override
