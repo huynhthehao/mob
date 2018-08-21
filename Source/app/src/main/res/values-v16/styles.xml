@@ -12,14 +12,4 @@
         <item name="android:background">@drawable/rounded_button</item>
         <item name="android:fontFamily">@font/myriadpro_regular</item>
     </style>
-
-    <style name="AppTheme.TextView" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/myriadpro_regular</item>
-        <item name="android:textColor">@color/brownishGrey</item>
-    </style>
-
-    <style name="AppTheme.TextView.Light" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/myriadpro_light</item>
-        <item name="android:textColor">@color/brownishGrey</item>
-    </style>
 </resources>
