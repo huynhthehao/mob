@@ -12,8 +12,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
-import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
-import vn.homecredit.hcvn.data.model.api.contract.ContractResp;
 
 /*
     Wrapper Of Rx2AndroidNetworking Class
@@ -36,9 +34,11 @@ public class DefaultAndroidNetworking {
     }
 
     public static <T> Single<T> post(String url, Object header, Object body, Class<T> dataType) {
-        return postWithoutSubscribeOn(url, header, body, dataType).subscribeOn(Schedulers.io())
+        return postWithoutSubscribeOn(url, header, body, dataType)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
+
 
     public static <T> Single<T> getWithoutSubscribeOn(String url, Object header, Class<T> dataType) {
         Rx2ANRequest.GetRequestBuilder builder = new Rx2ANRequest.GetRequestBuilder(url);
@@ -49,6 +49,7 @@ public class DefaultAndroidNetworking {
                 .getObjectSingle(dataType)
                 .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, dataType)));
     }
+
 
     public static <T> Single<T> postWithoutSubscribeOn(String url, Object header, Object body, Class<T> dataType) {
         Rx2ANRequest.PostRequestBuilder builder = new Rx2ANRequest.PostRequestBuilder(url);
@@ -65,6 +66,14 @@ public class DefaultAndroidNetworking {
 
     public static <T> Single<T> post(String url, Object body, Class<T> dataType) {
         return post(url, null, body, dataType);
+    }
+
+    public static Rx2ANRequest.PostRequestBuilder post(String url) {
+          return new Rx2ANRequest.PostRequestBuilder(url);
+    }
+
+    public static Rx2ANRequest.GetRequestBuilder get(String url) {
+        return new Rx2ANRequest.GetRequestBuilder(url);
     }
 
     public static Rx2ANRequest.PutRequestBuilder put(String url) {

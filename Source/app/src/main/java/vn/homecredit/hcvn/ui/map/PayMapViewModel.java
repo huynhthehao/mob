@@ -169,16 +169,6 @@ public class PayMapViewModel extends BaseViewModel {
             case PayMapActivity.MAKER_PAYOO:
                 icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_payoo);
                 break;
-            case PayMapActivity.MAKER_VN_POS:
-                icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_vnpost);
-                break;
-            case PayMapActivity.MAKER_VIETINBANK:
-                icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_vietinbank);
-                break;
-            case PayMapActivity.MAKER_POS_CD:
-            case PayMapActivity.MAKER_POS_TW:
-                icon = BitmapUtils.getBitmapFromVectorDrawable(context, R.drawable.ic_pos);
-                break;
             case PayMapActivity.MAKER_DEFAULT:
                 break;
             default:

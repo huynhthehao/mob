@@ -32,7 +32,7 @@ public class PaymentHistoryViewModel extends BaseViewModel {
         super.init();
     }
 
-    public void init(String contractNumber) {
+    public void initData(String contractNumber) {
         super.init();
         setContractNumber(contractNumber);
         modelIsRefreshing.setValue(true);

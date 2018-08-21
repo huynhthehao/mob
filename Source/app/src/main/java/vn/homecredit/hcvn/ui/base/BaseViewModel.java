@@ -85,10 +85,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
         return messageIdData;
     }
 
-    public MutableLiveData<Integer> getMessageResourceData() {
-        return messageResourceData;
-    }
-
     public MutableLiveData<BaseMessage> getConfirmMessageData() {
         return confirmMessageData;
     }
@@ -105,9 +101,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
         this.messageIdData.setValue(messageId);
     }
 
-    public void showMessage(int resId) {
-        this.messageResourceData.setValue(resId);
-    }
 
     public void showConfirmMessage(String title, String message, Consumer<Boolean> onCompleted) {
         confirmMessageData.setValue(new MessageQuestion(title, message, onCompleted));
@@ -134,6 +127,5 @@ public abstract class BaseViewModel<N> extends ViewModel {
         }else {
             messageData.setValue(throwable.getMessage());
         }
-
     }
 }
