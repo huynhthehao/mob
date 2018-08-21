@@ -117,7 +117,7 @@ public class RestServiceImpl implements RestService, RestUrl {
         if (useMock)
             requestBody.put("isMock", "true");
 
-        return DefaultAndroidNetworking.post(ApiEndPoint.ENDPOINT_TOKEN, requestHeader, requestBody, TokenResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(ApiEndPoint.ENDPOINT_TOKEN, requestHeader, requestBody, TokenResp.class);
     }
 
     @Override
