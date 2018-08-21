@@ -75,6 +75,12 @@
         <item name="android:textSize">@dimen/text_size_normal</item>
     </style>
 
+    <style name="AppTheme.TextView.Title" parent="android:Widget.TextView">
+        <item name="fontFamily">@font/myriadpro_regular</item>
+        <item name="android:textColor">@color/brownishGrey</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
     <style name="AppTheme.TextView.Light" parent="android:Widget.TextView">
         <item name="fontFamily">@font/myriadpro_light</item>
         <item name="android:textColor">@color/brownishGrey</item>

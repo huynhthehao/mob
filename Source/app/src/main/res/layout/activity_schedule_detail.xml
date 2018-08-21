@@ -40,33 +40,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_normal"
-            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
+                style="@style/AppTheme.TextView.Title"
                 android:id="@+id/dueDateTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:textStyle="bold"
+                android:gravity="center_horizontal"
                 android:text="@string/due_date" />
 
             <TextView
+                style="@style/AppTheme.TextView.Title"
                 android:id="@+id/paymentTypeTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:textStyle="bold"
+                android:gravity="center_horizontal"
                 android:text="@string/payment_type" />
 
             <TextView
+                style="@style/AppTheme.TextView.Title"
                 android:id="@+id/amountDueTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.4"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
                 android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:paddingLeft="@dimen/padding_medium"
                 android:text="@string/amount_due" />
         </LinearLayout>
         <View
