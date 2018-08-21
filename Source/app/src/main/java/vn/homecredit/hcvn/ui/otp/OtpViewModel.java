@@ -8,9 +8,7 @@ package vn.homecredit.hcvn.ui.otp;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.support.v4.provider.FontsContractCompat;
 import android.text.style.ForegroundColorSpan;
-import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,14 +20,12 @@ import javax.inject.Inject;
 
 import dagger.Module;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
-import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
-import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;
+import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.service.DeviceInfo;
@@ -49,10 +45,8 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private OtpTimerRespData otpTimerInfo;
     private OtpFlow otpFlow = OtpFlow.CASH_LOAN_WALKIN;
 
-    // TODO: Should check why do we need static here? -->
-    private static String remainingTimeText;
-    private static long _remainingTime;
-    // <-------------------------------------------------
+    private String remainingTimeText;
+    private long _remainingTime;
 
     private Timer timer;
     private boolean inffected = true;
@@ -66,6 +60,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     public ObservableBoolean resendVisibile = new ObservableBoolean(false);
     public ObservableBoolean agreementTermVisibile = new ObservableBoolean(false);
     public ObservableField<String> otp = new ObservableField("");
+    public ObservableField<CharSequence> timeCounter = new ObservableField<>();
     private OtpPassParam otpPassParam;
 
 
@@ -351,13 +346,14 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     }
 
     private void setCountingDisplay() {
-        TextView countingView = getNavigator().getControlById(R.id.countingText);
+//        TextView countingView = getNavigator().getControlById(R.id.countingText);
         SpanBuilder spanBuilder = new SpanBuilder();
         String otpHintRes = resourceService.getStringById(R.string.otp_hint);
         int primaryColor = resourceService.getColorById(R.color.colorPrimary);
         spanBuilder.appendWithSpace(String.format(otpHintRes, phonePrimary == null ? phoneNumber : phonePrimary));
         spanBuilder.append(remainingTimeText, new ForegroundColorSpan(primaryColor));
-        countingView.setText(spanBuilder.build());
+//        countingView.setText(spanBuilder.build());
+        timeCounter.set(spanBuilder.build());
     }
 
     private void stopTimer() {
@@ -366,30 +362,29 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     }
 
     private void resetDisplay() {
-        Log.debug("resetDisplay ~ Start: " + _remainingTime);
-        try {
-            _remainingTime -= interval;
-            if (_remainingTime <= (otpTimerInfo.getOtpLiveTime() - otpTimerInfo.getOtpTimeResend())) {
-                resendVisibile.set(true);
-            } else {
-                resendVisibile.set(false);
-            }
-            boolean isTimeout = false;
-            if (_remainingTime <= 0) {
-                isTimeout = true;
-                _remainingTime = 0;
-            }
-            Date date = new Date(_remainingTime);
-            DateFormat formatter = new SimpleDateFormat("mm:ss");
-            remainingTimeText = formatter.format(date);
-            setCountingDisplay();
-            if (isTimeout) {
-                stopTimer();
-                return;
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        _remainingTime -= interval;
+        if (_remainingTime <= (otpTimerInfo.getOtpLiveTime() - otpTimerInfo.getOtpTimeResend())) {
+            resendVisibile.set(true);
+        } else {
+            resendVisibile.set(false);
         }
-        Log.debug("resetDisplay ~ End: " + _remainingTime);
+        boolean isTimeout = false;
+        if (_remainingTime <= 0) {
+            isTimeout = true;
+            _remainingTime = 0;
+        }
+        Date date = new Date(_remainingTime);
+        DateFormat formatter = new SimpleDateFormat("mm:ss");
+        remainingTimeText = formatter.format(date);
+        setCountingDisplay();
+        if (isTimeout)
+            stopTimer();
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        stopTimer();
+        timer = null;
     }
 }
