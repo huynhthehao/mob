@@ -38,36 +38,28 @@ import static org.mockito.Mockito.when;
 
 public class SignUpViewModelTest {
 
-    @Rule
-    public DaggerMockRule<AppComponent> mockitoRule = new DaggerMockRule<>(AppComponent.class, new AppModule());
-    @Rule
-    public TestWatcher schedulerRule = new TrampolineSchedulerRule();
-    @Mock public RestService restService;
-    @Mock public AclRestService aclRestService;
-    @Mock public PayooRestService payooRestService;
-    @Mock public PosRestService posRestService;
-    @Mock public ClwMapService clwMapService;
-    @Mock public DisbursementService disbursementService;
-    @Mock public PaymentService paymentService;
+    @Rule public DaggerMockRule<AppComponent> mockitoRule = new DaggerMockRule<>(AppComponent.class, new AppModule());
 
+//    @Rule
+//    public TestWatcher schedulerRule = new TrampolineSchedulerRule();
+//    @Mock public RestService restService;
+//    @Mock public AclRestService aclRestService;
+//    @Mock public PayooRestService payooRestService;
+//    @Mock public PosRestService posRestService;
+//    @Mock public ClwMapService clwMapService;
+//    @Mock public DisbursementService disbursementService;
+//    @Mock public PaymentService paymentService;
     @Mock AccountRepository accountRepository;
+
     @InjectFromComponent SignUpViewModel signUpViewModel;
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void test() {
-        when(accountRepository.signupVerify("a", "b"))
-                .thenReturn(Single.just(new OtpTimerResp()));
-        when(signUpViewModel.username.get()).thenReturn("a");
-        when(signUpViewModel.contracts.get()).thenReturn("b");
-
-        signUpViewModel.onClickedSignUp();
+//        when(accountRepository.signupVerify("a", "b"))
+//                .thenReturn(Single.just(new OtpTimerResp()));
+//        when(signUpViewModel.username.get()).thenReturn("a");
+//        when(signUpViewModel.contracts.get()).thenReturn("b");
+//
+//        signUpViewModel.onClickedSignUp();
     }
 }
