@@ -75,7 +75,7 @@ public class PaymentHistoryActivity extends BaseActivity<ActivityPaymentHistoryB
                 appDataView.updateViewState(!isRefreshing ? AppDataViewState.HIDE_RELOADING : AppDataViewState.SHOW_RELOADING);
             });
             appDataView.updateViewState(AppDataViewState.SHOW_RELOADING);
-            getViewModel().init(contractNumber);
+            getViewModel().initData(contractNumber);
         }
 
     }

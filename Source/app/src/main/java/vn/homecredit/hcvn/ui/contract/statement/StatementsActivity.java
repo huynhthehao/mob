@@ -57,7 +57,7 @@ public class StatementsActivity extends BaseActivity<ActivityEStatementsBinding,
         initAdapter();
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
         appDataView.initContentView(rvStatements, 0, 0, null, () -> getViewModel().pullToRefresh());
-        getViewModel().init(contractId);
+        getViewModel().initData(contractId);
         getViewModel().getModelRefreshing().observe(this, mBoolean -> {
             if (mBoolean)
                 appDataView.updateViewState(AppDataViewState.SHOW_RELOADING);
