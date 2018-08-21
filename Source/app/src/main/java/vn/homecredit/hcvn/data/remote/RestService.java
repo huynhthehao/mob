@@ -29,7 +29,7 @@ import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
-public interface RestService {
+public interface RestService extends RestUrl {
     Single<VersionResp> checkUpdate();
     Single<TokenResp> getToken(String phoneNumber, String password);
     Single<ProfileResp> getProfile();

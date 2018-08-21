@@ -53,7 +53,7 @@ import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 import vn.homecredit.hcvn.utils.TestData;
 
 @Singleton
-public class RestServiceImpl implements RestService, RestUrl {
+public class RestServiceImpl implements RestService {
 
     public static final String RUNTIME_PLATFORM = "Android";
     private final boolean useMock;
