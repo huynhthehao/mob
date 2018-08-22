@@ -23,5 +23,6 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCHrsY7EhXieg_GgddJDw5D7lN-iMK2zNU</string>
     <string name="google_direction_key" templateMergeStrategy="preserve" translatable="false">@string/google_maps_key</string>
 
+    <!-- Google Analytics -->
     <string name="ga_trackingId" translatable="false">UA-123983608-1</string>
 </resources>
