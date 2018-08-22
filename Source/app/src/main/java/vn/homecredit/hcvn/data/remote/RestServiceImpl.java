@@ -123,7 +123,7 @@ public class RestServiceImpl implements RestService, RestUrl {
     @Override
     public Single<ProfileResp> getProfile() {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/profile");
-        return DefaultAndroidNetworking.get(url,
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
                 mApiHeader.getProtectedApiHeader(),
                 ProfileResp.class);
     }
