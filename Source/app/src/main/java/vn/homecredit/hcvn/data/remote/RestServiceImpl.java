@@ -302,10 +302,7 @@ public class RestServiceImpl implements RestService, RestUrl {
                 "/clw/pos?" +
                 "lng=" + lon +
                 "&lat=" + lat);
-        return DefaultAndroidNetworking.get(url)
-                .addHeaders(mApiHeader.getProtectedApiHeader())
-                .build()
-                .getObjectSingle(ClwModel.class);
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url, mApiHeader.getPayooApiHeader(), ClwModel.class);
     }
 
     @Override
