@@ -40,6 +40,12 @@ public class HcApiException extends Throwable {
 
     private<T> void mapException(Throwable throwable, Class<T> clazz) {
         if (throwable instanceof ANError) {
+            if (((ANError) throwable).getErrorCode() == ERROR_CODE_UNAUTHORIZED) {
+                errorResponseCode = ERROR_CODE_UNAUTHORIZED;
+                errorResponseMessage = ((ANError) throwable).getErrorBody();
+                return;
+            }
+
             T errorObject = ((ANError) throwable).getErrorAsObject(clazz);
             if (errorObject instanceof TokenResp) {
                 errorResponseCode = ((TokenResp) errorObject).getResponseCode();
