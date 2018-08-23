@@ -161,7 +161,6 @@ public class SummaryContractViewModel extends BaseViewModel {
                 modelShowFingerprintDialog.setValue(true);
             }else {
                 modelShowPasswordDialog.setValue(true);
-
             }
         }else {
             if (masterContract.isMaterialPrepared()) {
@@ -209,7 +208,6 @@ public class SummaryContractViewModel extends BaseViewModel {
     }
 
     private void updateData(MasterContract masterContract) {
-        masterContract.setMaterialPrepared(false);
         this.masterContract = masterContract;
         if (masterContract == null) return;
         customerName.set(masterContract.getCustomerFullname());
