@@ -184,7 +184,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="master_contract_approved">Xem chi tiết và xác nhận</string>
     <string name="master_contract_prepare_data">Tải dữ liệu hợp đồng</string>
     <string name="currency">"%s&lt;u>đ&lt;/u>"</string>
-    <string name="contract_summary_interest">"%s%% / năm"</string>
+    <string name="contract_summary_interest">"%s%% / tháng"</string>
     <string name="mastercontract_status">Trạng thái hợp đồng</string>
     <string name="master_contract_include_insurance">Có (đã bao gồm trong số tiền vay)</string>
     <string name="master_contract_wait_prepare">Vui lòng chờ giây lát để chúng tôi hoàn tất chuẩn bị dữ liệu hồ sơ của bạn</string>
