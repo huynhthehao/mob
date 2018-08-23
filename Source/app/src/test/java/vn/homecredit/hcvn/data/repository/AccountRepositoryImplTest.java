@@ -16,8 +16,11 @@ import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.RestServiceImpl;
 import vn.homecredit.hcvn.database.AppDatabase;
+import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
+import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.util.TestSchedulerProvider;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -27,12 +30,14 @@ import static org.mockito.Mockito.when;
 
 public class AccountRepositoryImplTest {
 
-    @Mock
     RestServiceImpl restService;
     @Mock PreferencesHelper preferencesHelper;
     @Mock ApiHeader apiHeader;
     @Mock OneSignalService oneSignalService;
     @Mock AppDatabase appDatabase;
+    @Mock MemoryHelper memoryHelper;
+    @Mock DeviceInfo deviceInfo;
+    @Mock VersionService versionService;
     TestSchedulerProvider schedulerProvider;
     TestScheduler testScheduler;
     AccountRepositoryImpl accountRepository;
@@ -41,6 +46,7 @@ public class AccountRepositoryImplTest {
     public void setUp() throws Exception {
         testScheduler = new TestScheduler();
         schedulerProvider = new TestSchedulerProvider(testScheduler);
+        restService = new RestServiceImpl(apiHeader, memoryHelper, deviceInfo, versionService, oneSignalService);
         accountRepository = new AccountRepositoryImpl(restService, preferencesHelper, apiHeader, oneSignalService, appDatabase, schedulerProvider);
     }
 
