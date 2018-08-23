@@ -25,8 +25,6 @@ public class SettingsViewModel extends BaseViewModel {
     private ObservableField<Boolean> notificationChecked = new ObservableField<>(false);
     private ObservableField<Boolean> fingerPrintChecked = new ObservableField<>(false);
 
-
-    private MutableLiveData<Boolean> modelBack = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelAppRating = new MutableLiveData<>();
     private MutableLiveData<String> modelLanguage = new MutableLiveData<>();
 
@@ -39,12 +37,10 @@ public class SettingsViewModel extends BaseViewModel {
         this.trackingService = trackingService;
     }
 
-    @Override
-    public void init() {
+    public void initData() {
         appVersion.set(BuildConfig.VERSION_NAME);
         languageValue.set(CountryValue.getDisplayNameResIdFromCode(dataManager.getLanguageCode()));
         checkToShowOrHideFingerPrintLayout();
-        modelBack.setValue(false);
         fingerPrintChecked.set(dataManager.getFingerPrintSetting());
         notificationChecked.set(dataManager.getNotificationSetting());
     }
@@ -63,10 +59,6 @@ public class SettingsViewModel extends BaseViewModel {
 
     public ObservableField<Integer> getLanguageValue() {
         return languageValue;
-    }
-
-    public void onBackClicked() {
-        modelBack.setValue(true);
     }
 
     public void onChangeLanguageClicked() {
@@ -96,10 +88,6 @@ public class SettingsViewModel extends BaseViewModel {
     public void onAppRatingClicked() {
         modelAppRating.setValue(true);
         trackingService.sendEvent(R.string.ga_event_rate_category, R.string.ga_event_rate_action, R.string.ga_event_rate_label);
-    }
-
-    public MutableLiveData<Boolean> getModelBack() {
-        return modelBack;
     }
 
     public MutableLiveData<Boolean> getModelAppRating() {
