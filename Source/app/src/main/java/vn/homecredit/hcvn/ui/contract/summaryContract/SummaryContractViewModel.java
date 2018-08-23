@@ -46,12 +46,12 @@ public class SummaryContractViewModel extends BaseViewModel {
     private ObservableField<Boolean> hasDisbursementBankAccount = new ObservableField<>(false);
     private ObservableField<Integer> btnNextText = new ObservableField<>(R.string.master_contract_approved);
     private ObservableField<Boolean> isPreparing = new ObservableField<>(false);
-    private MasterContract masterContract;
+    private ObservableField<Boolean> modelVisibleApproveButton = new ObservableField<>(true);
     private MutableLiveData<Boolean> modelViewDoc = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelShowFingerprintDialog = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelShowPasswordDialog = new MutableLiveData<>();
-    private MutableLiveData<Boolean> modelVisibleApproveButton = new MutableLiveData<>();
     private Disposable disposablePrepare;
+    private MasterContract masterContract;
 
     @Inject
     public SummaryContractViewModel(SchedulerProvider schedulerProvider, ContractRepository contractRepository, AccountRepository accountRepository, FingerPrintHelper fingerPrintHelper, PreferencesHelper preferencesHelper) {
@@ -68,7 +68,7 @@ public class SummaryContractViewModel extends BaseViewModel {
         modelViewDoc.setValue(false);
     }
 
-    public MutableLiveData<Boolean> getModelVisibleApproveButton() {
+    public ObservableField<Boolean> getModelVisibleApproveButton() {
         return modelVisibleApproveButton;
     }
 
@@ -178,6 +178,7 @@ public class SummaryContractViewModel extends BaseViewModel {
                 .subscribe(masterContractResp -> {
                             Log.debug("" + masterContractResp.getMasterContract().isMaterialPrepared());
                             isPreparing.set(false);
+                            modelViewDoc.setValue(true);
                             updateData(masterContractResp.getMasterContract());
                             if (disposablePrepare != null) disposablePrepare.dispose();
                         },
@@ -222,7 +223,7 @@ public class SummaryContractViewModel extends BaseViewModel {
         bankName.set(masterContract.getDisbursementBankName());
         bankAccount.set(masterContract.getDisbursementBankAccountNumber());
         bankBranch.set(masterContract.getDisbursementBankBranchname());
-        modelVisibleApproveButton.setValue(!isPreparing.get() && masterContract.canApproved());
+        modelVisibleApproveButton.set(!isPreparing.get() && masterContract.canApproved());
         btnNextText.set(masterContract.isMaterialPrepared() ? R.string.master_contract_approved : R.string.master_contract_prepare_data);
         insurance.set(masterContract.isHasInsurance());
     }
