@@ -18,7 +18,6 @@ import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 
 public interface DataManager  {
     Single<VersionResp> checkUpdate();
-    Single<TokenResp> getToken(String phoneNumber, String password);
     ApiHeader getApiHeader();
 
     VersionResp.VersionRespData getVersionRespData();

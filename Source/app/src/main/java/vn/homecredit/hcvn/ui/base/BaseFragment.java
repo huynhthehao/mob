@@ -10,6 +10,7 @@
 package vn.homecredit.hcvn.ui.base;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -214,7 +215,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private void bindModelErrorAuthenticate() {
         getViewModel().getModelReLogin().observe(this, o -> {
             if (o != null && o == TRUE) {
-                showConfirmMessage(null, getString(R.string.token_expired), aBoolean -> {
+                UiHelper.showConfirmMessageNoCancel(getActivity(), null, getString(R.string.token_expired), aBoolean -> {
                     if (aBoolean != null && aBoolean == TRUE) {
                         startWelcomeAfterSessionExpired();
                     }

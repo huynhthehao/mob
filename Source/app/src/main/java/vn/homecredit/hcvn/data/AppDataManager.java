@@ -55,11 +55,6 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<TokenResp> getToken(String phoneNumber, String password) {
-        return mRestService.getToken(phoneNumber, password);
-    }
-
-    @Override
     public ApiHeader getApiHeader() {
         return mRestService.getApiHeader();
     }

@@ -93,7 +93,8 @@ public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductio
 
     @Override
     public void onSelectPOS() {
-        PayMapActivity.start(this, PayMapActivity.PAYMENT_MODE);
+        PayMapActivity.start(this, PayMapActivity.CASH_LOAN_MODE);
+        finish();
     }
 
     @Override
@@ -130,11 +131,11 @@ public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductio
 
     @Override
     public void onPageSelected(int position) {
-        if (position == mSectionsPagerAdapter.getCount() - 1) {
+        /*if (position == mSectionsPagerAdapter.getCount() - 1) {
             hideNextButton();
         } else {
             showNextButton();
-        }
+        }*/
     }
 
     @Override
@@ -143,7 +144,13 @@ public class AclIntroductionActivity extends BaseActivity<ActivityAclIntroductio
     }
 
     private void next() {
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+        int lastPageIndex = mViewPager.getAdapter().getCount() - 1;
+
+        if(mViewPager.getCurrentItem() != lastPageIndex)
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+        else{
+            onSelectPOS();
+        }
     }
 
     private void previous() {

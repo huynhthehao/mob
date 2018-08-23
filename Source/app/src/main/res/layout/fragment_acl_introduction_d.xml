@@ -1,0 +1,50 @@
+<!--
+  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
+  ~
+  ~ Last modified 8/10/18 1:09 PM, by hien.nguyenm
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionDFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:orientation="vertical"
+        android:layout_centerInParent="true" >
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_goto_pos" />
+
+        <TextView
+            style="@style/AppTheme.SectionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="@string/cash_loan_d_header"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center" />
+
+        <TextView
+            style="@style/AppTheme.DescriptionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:lineSpacingExtra="8dp"
+            android:text="@string/cash_loan_d_desc"
+            android:textAlignment="viewStart"
+            android:gravity="start"
+            android:layout_gravity="start" />
+
+    </LinearLayout>
+
+</RelativeLayout>
