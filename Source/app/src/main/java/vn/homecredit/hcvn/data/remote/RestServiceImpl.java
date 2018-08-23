@@ -47,7 +47,7 @@ import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.Statement
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 @Singleton
-public class RestServiceImpl implements RestService, RestUrl {
+public class RestServiceImpl implements RestService {
 
     public static final String RUNTIME_PLATFORM = "Android";
     private final boolean useMock;
