@@ -73,12 +73,6 @@ import vn.homecredit.hcvn.ui.welcome.WelcomeActivityModule;
 @Module
 public abstract class ActivityBuilder {
 
-//    @ContributesAndroidInjector(modules = {
-//            MainActivityModule.class,
-//            AboutFragmentProvider.class,
-//            RateUsDialogProvider.class})
-//    abstract MainActivity bindMainActivity();
-//
     @ContributesAndroidInjector(modules = SplashActivityModule.class)
     abstract SplashActivity bindSplashActivity();
 
