@@ -2,13 +2,19 @@ package vn.homecredit.hcvn.data.repository;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import io.reactivex.Single;
 import io.reactivex.functions.Consumer;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
+import it.cosenonjaviste.daggermock.DaggerMockRule;
+import it.cosenonjaviste.daggermock.InjectFromComponent;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.TokenResp;
@@ -16,6 +22,8 @@ import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.RestServiceImpl;
 import vn.homecredit.hcvn.database.AppDatabase;
+import vn.homecredit.hcvn.di.component.AppComponent;
+import vn.homecredit.hcvn.di.module.AppModule;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
@@ -30,7 +38,9 @@ import static org.mockito.Mockito.when;
 
 public class AccountRepositoryImplTest {
 
-    RestServiceImpl restService;
+//    @Rule public final DaggerMockRule<AppComponent> rule = new DaggerMockRule<>(AppComponent.class, new AppModule());
+
+    @Rule public final MockitoRule mockitoRule = MockitoJUnit.rule();
     @Mock PreferencesHelper preferencesHelper;
     @Mock ApiHeader apiHeader;
     @Mock OneSignalService oneSignalService;
@@ -38,16 +48,20 @@ public class AccountRepositoryImplTest {
     @Mock MemoryHelper memoryHelper;
     @Mock DeviceInfo deviceInfo;
     @Mock VersionService versionService;
-    TestSchedulerProvider schedulerProvider;
-    TestScheduler testScheduler;
+    @Mock RestServiceImpl restService;
+    @Mock TestSchedulerProvider schedulerProvider;
+    @InjectMocks
     AccountRepositoryImpl accountRepository;
+
+    TestScheduler testScheduler;
+
+
 
     @Before
     public void setUp() throws Exception {
         testScheduler = new TestScheduler();
-        schedulerProvider = new TestSchedulerProvider(testScheduler);
-        restService = new RestServiceImpl(apiHeader, memoryHelper, deviceInfo, versionService, oneSignalService);
-        accountRepository = new AccountRepositoryImpl(restService, preferencesHelper, apiHeader, oneSignalService, appDatabase, schedulerProvider);
+//        schedulerProvider = new TestSchedulerProvider(testScheduler);
+//        accountRepository = new AccountRepositoryImpl(restService, preferencesHelper, apiHeader, oneSignalService, appDatabase, schedulerProvider);
     }
 
     @After
@@ -65,19 +79,17 @@ public class AccountRepositoryImplTest {
         tokenResp.setAccessToken("accesstoken");
 
         ProfileResp profileResp = new ProfileResp();
+        when(schedulerProvider.io()).thenReturn(testScheduler);
+        when(schedulerProvider.ui()).thenReturn(testScheduler);
 
         when(restService.getToken("aa", "bb"))
                 .thenReturn(Single.just(tokenResp));
+
         when(restService.getProfile())
                 .thenReturn(Single.just(profileResp));
 
         TestObserver<ProfileResp> testObserver = accountRepository.signIn("aa", "bb").test();
-
-        testObserver.assertOf(new Consumer<TestObserver<ProfileResp>>() {
-            @Override
-            public void accept(TestObserver<ProfileResp> profileRespTestObserver) throws Exception {
-                verify(preferencesHelper).setAccessToken("accesstoken");
-            }
-        });
+//        testObserver.assertOf(profileRespTestObserver -> verify(preferencesHelper).setAccessToken("accesstoken"));
+        testObserver.assertValue(profileResp);
     }
 }
