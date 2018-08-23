@@ -24,13 +24,10 @@ import vn.homecredit.hcvn.util.RobolectricMockTestRule;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
 public class SignUpViewModelTest {
 
 //    @Rule public DaggerMockRule<AppComponent> mockitoRule = new DaggerMockRule<>(AppComponent.class, new AppModule());
-    @Rule public RobolectricMockTestRule rule = new RobolectricMockTestRule();
-
+//    @Rule public RobolectricMockTestRule rule = new RobolectricMockTestRule();
 //    @Rule
 //    public TestWatcher schedulerRule = new TrampolineSchedulerRule();
 //    @Mock public RestService restService;
@@ -40,8 +37,8 @@ public class SignUpViewModelTest {
 //    @Mock public ClwMapService clwMapService;
 //    @Mock public DisbursementService disbursementService;
 //    @Mock public PaymentService paymentService;
-    @Mock AccountRepository accountRepository;
 
+    @Mock AccountRepository accountRepository;
     @InjectFromComponent SignUpViewModel signUpViewModel;
 
     @Test
