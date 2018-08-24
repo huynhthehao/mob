@@ -22,6 +22,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import okhttp3.OkHttpClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.di.component.AppComponent;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
@@ -80,14 +81,7 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
         context = getApplicationContext();
 
         AppLogger.init();
-        Stetho.initializeWithDefaults(this);
-        AndroidNetworking.initialize(getApplicationContext(), InternalNetworking.getClient()
-                .newBuilder()
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build());
-        if (BuildConfig.DEBUG) {
-            AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY);
-        }
+        initializeNetworkConfiguration();
 
         CalligraphyConfig.initDefault(mCalligraphyConfig);
 
@@ -139,6 +133,16 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
             }
         });
         Fresco.initialize(this);
+    }
+
+    private void initializeNetworkConfiguration() {
+        OkHttpClient.Builder clientBuilder = InternalNetworking.getClient().newBuilder();
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+            clientBuilder.addNetworkInterceptor(new StethoInterceptor());
+            clientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        }
+        AndroidNetworking.initialize(getApplicationContext(), clientBuilder.build());
     }
 
     public static Context getContext() {
