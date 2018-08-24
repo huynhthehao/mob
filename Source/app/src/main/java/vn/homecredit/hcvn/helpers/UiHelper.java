@@ -19,7 +19,6 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -100,6 +99,11 @@ public class UiHelper {
         dialog.show();
     }
 
+    public static void showMessage(Context context, int messageId) {
+        String message = context.getString(messageId);
+        showMessage(context, message);
+    }
+
     public static void showConfirmMessage(Context context, String title, String message, final Consumer<Boolean> onCompleted) {
         showConfirmMessage(context, title, message, context.getString(R.string.cancel), onCompleted);
     }
@@ -149,5 +153,4 @@ public class UiHelper {
 
         dialog.show();
     }
-
 }

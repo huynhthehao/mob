@@ -26,12 +26,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjection;
 import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.NetworkUtils;
@@ -48,6 +51,9 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected ProgressDialog mProgressDialog;
     private T mViewDataBinding;
     private V mViewModel;
+
+    @Inject
+    TrackingService trackService;
 
     protected boolean getLoadingEnable(){
         return true;
@@ -66,10 +72,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     @LayoutRes
     int getLayoutId();
 
-    /**
-     * Override for set view model
-     * @return view model instance
-     */
     public abstract V getViewModel();
 
     @Override
@@ -92,8 +94,15 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         performDependencyInjection();
         super.onCreate(savedInstanceState);
         performDataBinding();
-
         this.init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (trackService != null){
+            trackService.sendView(this);
+        }
     }
 
     protected void init() {
@@ -171,7 +180,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
         bindModelMessageDialog();
         bindModelMessageByIdDialog();
-        bindModelResourceMessageDialog();
         bindModelConfirmDialog();
         bindModelErrorAuthenticate();
     }
@@ -219,13 +227,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         });
     }
 
-    private void bindModelResourceMessageDialog() {
-        getViewModel().getMessageResourceData().observe(this, o -> {
-            if ( o instanceof Integer) {
-                showMessage(getString((Integer) o));
-            }
-        });
-    }
     private void bindModelConfirmDialog() {
         getViewModel().getConfirmMessageData().observe(this, o -> {
             if (o != null && o instanceof BaseMessage) {
@@ -234,6 +235,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             }
         });
     }
+
     private void startWelcomeAfterSessionExpired() {
         Intent intent = WelcomeActivity.newIntent(getContext());
         intent.putExtra(WelcomeActivity.IS_FORCE_LOGOUT, true);

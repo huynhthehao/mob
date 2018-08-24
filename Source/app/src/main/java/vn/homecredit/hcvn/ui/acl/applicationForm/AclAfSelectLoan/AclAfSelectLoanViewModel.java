@@ -84,6 +84,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
 
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                 }));
 
         getCompositeDisposable().add(AmountSliderChangedSubject
@@ -100,7 +101,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                     setupInvalidAmounts();
                     updateMonthlyPayment();
                 }, throwable -> {
-                    showMessage(throwable.getMessage());
+                    handleError(throwable);
                 }));
 
         getCompositeDisposable().add(TenorSliderChangedSubject
@@ -117,7 +118,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                     setupInvalidAmounts();
                     updateMonthlyPayment();
                 }, throwable -> {
-                    showMessage(throwable.getMessage());
+                    handleError(throwable);
                 }));
     }
 
@@ -255,6 +256,7 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                         updateWithProposeOffer(p, requestLoanAmount, requestLoanTenor);
                     }, throwable -> {
                         BusyLoading(false);
+                        handleError(throwable);
                     }));
         } else {
             updateWithProposeOffer(propose, requestLoanAmount, requestLoanTenor);

@@ -33,22 +33,25 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/Base.TextAppearance.AppCompat.Headline"
+                        style="@style/AppTheme.TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/text_margin"
+                        android:layout_marginTop="@dimen/margin_high"
                         android:text="@{moreviewmodel.usernameField}"
                         android:textAlignment="center"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_big"
+                        android:textStyle="bold"/>
 
                     <TextView
-                        style="@style/TextAppearance.AppCompat.Medium"
+                        style="@style/AppTheme.TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/text_margin"
+                        android:layout_marginBottom="@dimen/margin_high"
                         android:text="@{moreviewmodel.phoneField}"
                         android:textAlignment="center"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_medium_big"/>
 
                     <View
                         style="@style/Separator_Horizontal"

@@ -40,12 +40,7 @@ public class SettingsActivity extends BaseActivity<ActivitySettingsBinding, Sett
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        settingsViewModel.init();
-        settingsViewModel.getModelBack().observe(this, aBoolean -> {
-            if (aBoolean != null && aBoolean == true) {
-                finish();
-            }
-        });
+        settingsViewModel.initData();
         settingsViewModel.getModelAppRating().observe(this, aBoolean -> {
             if (aBoolean != null && aBoolean == true) {
                 AppUtils.openPlayStoreForApp(this);

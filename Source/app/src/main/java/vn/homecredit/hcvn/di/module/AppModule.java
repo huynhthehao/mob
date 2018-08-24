@@ -23,16 +23,6 @@ import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.data.remote.RestServiceImpl;
 import vn.homecredit.hcvn.data.remote.acl.AclRestService;
 import vn.homecredit.hcvn.data.remote.acl.AclRestServiceImpl;
-import vn.homecredit.hcvn.data.remote.clwmap.ClwMapService;
-import vn.homecredit.hcvn.data.remote.clwmap.ClwMapServiceImpl;
-import vn.homecredit.hcvn.data.remote.disbursement.DisbursementService;
-import vn.homecredit.hcvn.data.remote.disbursement.DisbursementServiceImpl;
-import vn.homecredit.hcvn.data.remote.payment.PaymentService;
-import vn.homecredit.hcvn.data.remote.payment.PaymentServiceImpl;
-import vn.homecredit.hcvn.data.remote.payoo.PayooRestService;
-import vn.homecredit.hcvn.data.remote.payoo.PayooRestServiceImpl;
-import vn.homecredit.hcvn.data.remote.pos.PosRestService;
-import vn.homecredit.hcvn.data.remote.pos.PosRestServiceImpl;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.data.repository.AccountRepositoryImpl;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
@@ -60,8 +50,10 @@ import vn.homecredit.hcvn.service.ResourceService;
 import vn.homecredit.hcvn.service.ResourceServiceImpl;
 import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.service.VersionServiceImpl;
+import vn.homecredit.hcvn.service.tracking.FBAnalyticsServiceImpl;
+import vn.homecredit.hcvn.service.tracking.GAAnalyticsServiceImpl;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.utils.AppConstants;
-import vn.homecredit.hcvn.utils.imageLoader.ImageLoader;
 import vn.homecredit.hcvn.utils.rx.AppSchedulerProvider;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -78,36 +70,6 @@ public class AppModule {
     @Singleton
     AclRestService provideAclRestService(AclRestServiceImpl aclRestService) {
         return aclRestService;
-    }
-
-    @Provides
-    @Singleton
-    PayooRestService providePayooRestService(PayooRestServiceImpl payooRestService) {
-        return payooRestService;
-    }
-
-    @Provides
-    @Singleton
-    PosRestService providePosRestService(PosRestServiceImpl posRestService) {
-        return posRestService;
-    }
-
-    @Provides
-    @Singleton
-    ClwMapService provideClwMapServiceImpl(ClwMapServiceImpl clwMapService) {
-        return clwMapService;
-    }
-
-    @Provides
-    @Singleton
-    DisbursementService provideDisbusermentServiceImpl(DisbursementServiceImpl disbursementService) {
-        return disbursementService;
-    }
-
-    @Provides
-    @Singleton
-    PaymentService providePaymentService(PaymentServiceImpl paymentService) {
-        return paymentService;
     }
 
     @Provides
@@ -167,36 +129,6 @@ public class AppModule {
     ApiHeader.AclApiHeader provACLApiHeader(AclDatabaseService aclDatabaseService) {
         return new ApiHeader.AclApiHeader(
                 aclDatabaseService.getAclAccessToken());
-    }
-
-    @Provides
-    @Singleton
-    ApiHeader.PayooApiHeader provPayooApiHeader() {
-        return new ApiHeader.PayooApiHeader("YM_7fPw6xA", "Partner07");
-    }
-
-    @Provides
-    @Singleton
-    ApiHeader.PosApiHeader provPosApiHeader() {
-        return new ApiHeader.PosApiHeader();
-    }
-
-    @Provides
-    @Singleton
-    ApiHeader.ClwMapApiHeader provClwMapApiHeader() {
-        return new ApiHeader.ClwMapApiHeader();
-    }
-
-    @Provides
-    @Singleton
-    ApiHeader.DisbursementApiHeader provDisbursementApiHeader() {
-        return new ApiHeader.DisbursementApiHeader();
-    }
-
-    @Provides
-    @Singleton
-    ApiHeader.PaymentApiHeader provPaymentApiHeader() {
-        return new ApiHeader.PaymentApiHeader();
     }
 
     @Provides
@@ -282,4 +214,17 @@ public class AppModule {
     SupportRepository provideSupportRepository(SupportRepositoryImpl supportRepositoryImpl) {
         return supportRepositoryImpl;
     }
+
+    @Provides
+    @Singleton
+    TrackingService provideTrackService(Context context, GAAnalyticsServiceImpl gaTrackService, FBAnalyticsServiceImpl fbTrackService) {
+        return new TrackingService(context, gaTrackService, fbTrackService);
+    }
+
+    @Provides
+    @Singleton
+    ApiHeader.PayooApiHeader provPayooApiHeader() {
+        return new ApiHeader.PayooApiHeader("YM_7fPw6xA", "Partner07");
+    }
+
 }

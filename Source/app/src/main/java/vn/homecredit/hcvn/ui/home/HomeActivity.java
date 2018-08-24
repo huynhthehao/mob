@@ -277,7 +277,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
                 setTitle(R.string.notifications);
                 break;
             case SectionsPagerAdapter.TAB_SUPPORT:
-                setTitle(R.string.offers);
+                setTitle(R.string.feedback);
                 break;
             case SectionsPagerAdapter.TAB_MORE:
                 setTitle(R.string.more);

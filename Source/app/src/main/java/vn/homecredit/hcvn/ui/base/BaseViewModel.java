@@ -20,7 +20,6 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.message.MessageQuestion;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public abstract class BaseViewModel<N> extends ViewModel {
@@ -34,6 +33,7 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private MutableLiveData<Integer> messageResourceData = new MutableLiveData<>();
     private MutableLiveData<BaseMessage> confirmMessageData = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelReLogin = new MutableLiveData<>();
+
 
     public BaseViewModel(SchedulerProvider schedulerProvider) {
         this.mSchedulerProvider = schedulerProvider;
@@ -85,10 +85,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
         return messageIdData;
     }
 
-    public MutableLiveData<Integer> getMessageResourceData() {
-        return messageResourceData;
-    }
-
     public MutableLiveData<BaseMessage> getConfirmMessageData() {
         return confirmMessageData;
     }
@@ -105,9 +101,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
         this.messageIdData.setValue(messageId);
     }
 
-    public void showMessage(int resId) {
-        this.messageResourceData.setValue(resId);
-    }
 
     public void showConfirmMessage(String title, String message, Consumer<Boolean> onCompleted) {
         confirmMessageData.setValue(new MessageQuestion(title, message, onCompleted));
@@ -134,6 +127,5 @@ public abstract class BaseViewModel<N> extends ViewModel {
         }else {
             messageData.setValue(throwable.getMessage());
         }
-
     }
 }

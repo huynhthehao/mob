@@ -10,7 +10,7 @@
     <string name="please_retry" translatable="false">Please Retry</string>
     <string name="retry" translatable="false">Thử lại</string>
     <string name="welcome_login">Đăng nhập</string>
-    <string name="welcome_sign_up">Đăng kí</string>
+    <string name="welcome_sign_up">Đăng ký</string>
     <string name="welcome_cash_loan">Vay tiền mặt</string>
     <string name="title_activity_home">Trang chủ</string>
 
@@ -35,7 +35,7 @@
     <string name="change_password">Đổi mật khẩu</string>
     <string name="settings">Cài đặt</string>
     <string name="locations">Địa điểm</string>
-    <string name="terms_and_conditions">Điều khoản sử dụng</string>
+    <string name="terms_and_conditions">Điều khoản và điều kiện</string>
     <string name="user_manual">Hướng dẫn sử dụng</string>
     <string name="contracts">Hợp đồng</string>
     <string name="notifications">Thông báo</string>
@@ -44,7 +44,7 @@
     <string name="forgot_password">Bạn quên mật khẩu?</string>
     <string name="notice">Thông báo</string>
     <string name="ok">Đồng ý</string>
-    <string name="unable_to_connect_message">Không thể kết nối đến máy chủ, vui lòng thử lại</string>
+    <string name="unable_to_connect_message">Không thể kết nối đến máy chủ. Vui lòng thử lại</string>
     <string name="no_internet_connection">Không có kết nối mạng</string>
     <string name="title_activity_acl_validation">Đăng ký khoản vay</string>
     <string name="acl_register_legal_note"><html><i><b>Ghi chú: </b>Vui lòng đảm bảo rằng bạn nhập thông tin chính xác vì thông tin này được sử dụng như là một phần của quá trình duyệt khoản vay</i></html></string>
@@ -70,6 +70,8 @@
     <string name="cash_loan_c_desc">Vui lòng mang theo những giấy tờ sau để làm hồ sơ vay:</string>
     <string name="cash_loan_c_desc_1">Chứng minh nhân dân</string>
     <string name="cash_loan_c_desc_2">Giấy phép lái xe hoặc Sổ hộ khẩu</string>
+    <string name="cash_loan_d_desc">Vui lòng chọn <b><font color='#E21838'>tiếp tục</font></b> để tìm các địa điểm vay gần nhất. Chúng tôi sẵn sàng hỗ trợ quý khách trong quá trình nộp hồ sơ vay</string>
+    <string name="cash_loan_d_header">Bạn đã sẵn sàng vay?</string>
     <string name="which_way_to_apply">Bạn muốn vay theo cách nào?</string>
     <string name="or">hoặc</string>
     <string name="apply_from_anywhere">Làm hồ sơ vay trực tuyến</string>
@@ -78,7 +80,7 @@
     <string name="point_of_sales">Điểm giao dịch</string>
     <string name="hello">Xin chào</string>
     <string name="title_activity_af">Chọn khoản vay</string>
-    <string name="legal_note"><![CDATA[<htm><i><b>*Notes:</b> The monthly installment showed above includes insurance fee and may have a minor variance with the final contractual amount</i> </html>]]></string>
+    <string name="legal_note"><![CDATA[<html><i><b>*Notes:</b> The monthly installment showed above includes insurance fee and may have a minor variance with the final contractual amount</i> </html>]]></string>
     <string name="cancel">Huỷ</string>
     <string name="otp_empty">Bạn phải nhập mã xác thực</string>
     <string name="otp_resend_success">Mã xác thực đã được gửi lại thành công, vui lòng chờ vài phút</string>
@@ -101,14 +103,7 @@
     <string name="signup_now">Đăng ký ngay</string>
     <string name="dialog_contact_help_title">Vui lòng điền mã hợp đồng có 10 chữ số của bạn</string>
     <string name="dialog_contact_help_content">Vui lòng gọi dịch vụ khách hàng của chúng tôi %s để được hỗ trợ thêm </string>
-    <string name="dialog_password_help_title">"Mật khẩu phải bao gồm ít nhất 8 ký tự (bao gồm chữ số, chữ viết, chữ hoa và chữ thường)
-
-        Mật khẩu sẽ có độ bảo mật cao hơn khi có các ký tự đặc biệt (@ # $ %% ^ “…)
-
-        Mật khẩu cần được thay đổi định kỳ (ít nhất 1 lần trong năm)
-
-        Không sử dụng các thông tin cá nhân đơn giản (ngày sinh, số điện thoại, tên của bạn, tên của người thân như vợ/chồng/con, các dãy số đơn giản như 1234567, 111111…)
-        để lập mật khẩu"
+    <string name="dialog_password_help_title">"- Mật khẩu phải bao gồm ít nhất 8 ký tự (bao gồm chữ số, chữ viết, chữ hoa và chữ thường)\n\n- Mật khẩu sẽ có độ bảo mật cao hơn khi có các ký tự đặc biệt (@ # $ %% ^ “…)\n\n- Mật khẩu cần được thay đổi định kỳ (ít nhất 1 lần trong năm)\n\n- Không sử dụng các thông tin cá nhân đơn giản (ngày sinh, số điện thoại, tên của bạn, tên của người thân như vợ/chồng/con, các dãy số đơn giản như 1234567, 111111… để lập mật khẩu"
     </string>
     <string name="dialog_password_help_content">Vui lòng gọi dịch vụ khách hàng của chúng tôi %s để được hỗ trợ thêm</string>
     <string name="dialog_fingersprint_announce">Tài khoản của bạn đã được tạo thành công. Để đăng nhập nhanh hơn, vui lòng kích hoạt chức năng Đăng nhập bằng vân tay  tại màn hình cài đặt</string>
@@ -175,7 +170,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="loan_amount">Khoản vay</string>
     <string name="signed_date">Ngày ký HĐ</string>
     <string name="contract_status">Trạng thái HĐ</string>
-    <string name="payment_locations">Địa điểm giao dịch</string>
+    <string name="payment_locations">Địa điểm thanh toán</string>
     <string name="master_contract_title">Tóm Lược Hợp Đồng</string>
     <string name="master_contract_name">Bên vay</string>
     <string name="master_contract_toal_loan">Tổng giá trị khoản vay</string>
@@ -189,7 +184,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="master_contract_approved">Xem chi tiết và xác nhận</string>
     <string name="master_contract_prepare_data">Tải dữ liệu hợp đồng</string>
     <string name="currency">"%s&lt;u>đ&lt;/u>"</string>
-    <string name="contract_summary_interest">"%s%% / năm"</string>
+    <string name="contract_summary_interest">"%s%% / tháng"</string>
     <string name="mastercontract_status">Trạng thái hợp đồng</string>
     <string name="master_contract_include_insurance">Có (đã bao gồm trong số tiền vay)</string>
     <string name="master_contract_wait_prepare">Vui lòng chờ giây lát để chúng tôi hoàn tất chuẩn bị dữ liệu hồ sơ của bạn</string>
@@ -285,6 +280,10 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="error_unexpected">Lỗi không mong đợi. Vui lòng thử lại sau.</string>
 
     <!-- Support -->
+    <string name="support_history_title">Lịch sử (%d)</string>
+    <string name="support_detail_title">Chi tiết phản hồi</string>
+    <string name="support_detail_subject">Tiêu đề</string>
+    <string name="support_detail_message">Thông báo</string>
     <string name="history">Lịch sử</string>
     <string name="enter_subject">Nhập tiêu đề</string>
     <string name="enter_feedback">Nhập phản hồi</string>
@@ -297,5 +296,4 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="feedback_done_title">Phản hồi của bạn đã được gửi thành công</string>
     <string name="feedback_done_content">Nhân viên hỗ trợ sẽ liên lạc bạn trong thời gian sớm nhất</string>
     <string name="feedback_done">Hoàn tất</string>
-
 </resources>

@@ -10,8 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import vn.homecredit.hcvn.ui.acl.introduction.AclSelectLoanType.AclSelectLoanTypeFragment;
-
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
@@ -33,8 +31,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return AclIntroductionCFragment.newInstance();
             case 3:
-                return AclSelectLoanTypeFragment.newInstance();
-        };
+                return AclIntroductionDFragment.newInstance();
+                //return AclSelectLoanTypeFragment.newInstance();
+        }
         return null;
     }
 
