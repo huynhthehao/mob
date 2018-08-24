@@ -150,10 +150,12 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (trackService != null) {
-            trackService.sendView(this);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (trackService != null) {
+                trackService.sendView(this);
+            }
         }
     }
 

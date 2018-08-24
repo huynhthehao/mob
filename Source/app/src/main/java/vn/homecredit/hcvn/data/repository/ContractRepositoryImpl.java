@@ -82,6 +82,7 @@ public class ContractRepositoryImpl implements ContractRepository {
     public Observable<MasterContractResp> startPrepare(String contractId) {
         int numberRequest = MASTERCONTRACT_PREPARE_TIMEOUT / MASTERCONTRACT_PREPARE_INTERVAL;
         return Observable.interval(MASTERCONTRACT_PREPARE_INTERVAL, TimeUnit.SECONDS)
+                .startWith(0L)
                 .flatMap(aLong -> {
                     if (aLong >= numberRequest) {
                         return Observable.error(new Throwable("Timeout"));
@@ -148,6 +149,7 @@ public class ContractRepositoryImpl implements ContractRepository {
     public Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval) {
         int numberRequest = timeout / interval;
         return Observable.interval(interval, TimeUnit.MILLISECONDS)
+                .startWith(0L)
                 .flatMap((Function<Long, Observable<MasterContractResp>>) aLong -> {
                     if (aLong >= numberRequest) {
                         return Observable.error(new Throwable("Timeout"));
