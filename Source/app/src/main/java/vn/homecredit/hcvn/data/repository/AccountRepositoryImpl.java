@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.model.LoginInformation;
@@ -112,7 +113,9 @@ public class AccountRepositoryImpl implements AccountRepository {
         return restService.getToken(phoneNumber, password)
                 .doOnSuccess(tokenResp -> {
                     preferencesHelper.setAccessToken(tokenResp.getAccessToken());
-                    apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
+                    if (apiHeader.getProtectedApiHeader() != null) {
+                        apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
+                    }
                 })
                 .flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
                 .subscribeOn(schedulerProvider.io())
@@ -136,8 +139,8 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public Single<ProfileResp> getProfile() {
         return getProfileWithoutSubscribeOn()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui());
     }
 
     private Single<ProfileResp> getProfileWithoutSubscribeOn() {

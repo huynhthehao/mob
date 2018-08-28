@@ -167,7 +167,7 @@ dependencies {
 
     testImplementation 'org.mockito:mockito-core:2.15.0'
     testImplementation "org.mockito:mockito-inline:2.11.0"
-    testImplementation 'com.github.fabioCollini.daggermock:daggermock:0.8.4'
-    testImplementation "org.robolectric:robolectric:3.4.2"
+    testImplementation "com.google.truth:truth:0.36"
+    testImplementation "android.arch.core:core-testing:1.1.1"
 
 }

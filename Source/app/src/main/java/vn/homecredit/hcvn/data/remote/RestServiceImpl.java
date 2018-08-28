@@ -53,7 +53,6 @@ public class RestServiceImpl implements RestService {
     private final boolean useMock;
     private ApiHeader mApiHeader;
 
-    private MemoryHelper mMemoryHelper;
     private DeviceInfo mDeviceInfo;
     private VersionService mVersionService;
     private final OneSignalService mOneSignalService;
@@ -61,9 +60,8 @@ public class RestServiceImpl implements RestService {
     PreferencesHelper preferencesHelper;
 
     @Inject
-    public RestServiceImpl(ApiHeader apiHeader, MemoryHelper memoryHelper, DeviceInfo deviceInfo, VersionService versionService, OneSignalService oneSignalService) {
+    public RestServiceImpl(ApiHeader apiHeader, DeviceInfo deviceInfo, VersionService versionService, OneSignalService oneSignalService) {
         mApiHeader = apiHeader;
-        mMemoryHelper = memoryHelper;
         mDeviceInfo = deviceInfo;
         mVersionService = versionService;
         mOneSignalService = oneSignalService;
@@ -96,27 +94,23 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<TokenResp> getToken(String phoneNumber, String password) {
-        if (mMemoryHelper.getVersionRespData() == null ||
-                mMemoryHelper.getVersionRespData().getSettings() == null ||
-                mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId() == null) {
+        VersionResp.VersionRespData versionRespData = preferencesHelper.getVersionRespData();
+        if (versionRespData == null ||
+                versionRespData.getSettings() == null ||
+                versionRespData.getSettings().getOpenApiClientId() == null) {
             return Single.error(new Throwable("System Error"));
         }
-        String s = String.format("OpenApi:%s", mMemoryHelper.getVersionRespData().getSettings().getOpenApiClientId());
+        String s = String.format("OpenApi:%s", versionRespData.getSettings().getOpenApiClientId());
         byte[] b = s.getBytes(Charset.forName("UTF-8"));
         String authCode = Base64.encodeToString(b, android.util.Base64.DEFAULT);
         HashMap<String, String> requestHeader = new HashMap<>();
         requestHeader.put("Authorization", String.format("Basic %s", authCode.trim()));
-
         HashMap<String, String> requestBody = new HashMap<String, String>();
         requestBody.put("grant_type", "password");
         requestBody.put("username", phoneNumber);
         requestBody.put("password", password);
         requestBody.put("login_type", "direct");
         requestBody.put("lang", "vi");
-
-        if (useMock)
-            requestBody.put("isMock", "true");
-
         return DefaultAndroidNetworking.postWithoutSubscribeOn(ApiEndPoint.ENDPOINT_TOKEN, requestHeader, requestBody, TokenResp.class);
     }
 

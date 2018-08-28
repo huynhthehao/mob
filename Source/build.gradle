@@ -8,7 +8,7 @@ buildscript {
         google()
         jcenter()
         maven { url 'https://plugins.gradle.org/m2/' }
-        maven { url 'https://maven.google.com' }
+//        maven { url 'https://maven.google.com' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
@@ -63,7 +63,7 @@ ext {
     rx2FastAndroidNetworking = '1.0.1'
 
     dagger2Version = '2.16'
-    rxjava2Version = '2.1.14'
+    rxjava2Version = '2.2.1'
     rxandroidVersion = '2.0.2'
     placeholderviewVersion = '0.6.1'
     debugDBVersion = '1.0.3'

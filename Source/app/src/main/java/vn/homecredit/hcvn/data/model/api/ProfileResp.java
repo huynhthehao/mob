@@ -48,7 +48,7 @@ public class ProfileResp {
         this.responseMessage = responseMessage;
     }
 
-    public class ProfileRespData {
+    public static class ProfileRespData {
         @SerializedName("UserTrackingId")
         @Expose
         private String userTrackingId;
