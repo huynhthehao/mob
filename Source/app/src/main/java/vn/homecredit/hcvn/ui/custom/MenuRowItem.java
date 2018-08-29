@@ -55,7 +55,7 @@ public class MenuRowItem extends LinearLayout {
 
         getAttributeValue(attrs);
 
-        LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // inflate whatever layout xml has your common xml
         inflater.inflate(R.layout.widget_menu_item, this);
     }
@@ -78,10 +78,15 @@ public class MenuRowItem extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mTitleView = (TextView) findViewById(R.id.menuTitleView);
-        mImageView = (ImageView) findViewById(R.id.imageView);
+        mTitleView = findViewById(R.id.menuTitleView);
+        mImageView = findViewById(R.id.imageView);
 
         mTitleView.setText(mTitle);
         mImageView.setImageResource(mSrc);
+        if (mSrc == DEFAULT_IMAGE_SRC) {
+            mImageView.setVisibility(GONE);
+        }else {
+            mImageView.setVisibility(VISIBLE);
+        }
     }
 }

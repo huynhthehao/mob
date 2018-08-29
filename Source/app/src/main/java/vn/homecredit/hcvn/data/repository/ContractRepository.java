@@ -16,6 +16,8 @@ import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.Statement
 public interface ContractRepository {
     Single<ContractResp> contracts();
 
+    Single<ContractResp> activeContracts();
+
     Single<MasterContractResp> masterContract(String contractId);
 
     Single<MasterContractDocResp> masterContractDoc(String contractId);
