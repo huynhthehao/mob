@@ -14,6 +14,7 @@ import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.mock.MasterContractRespBuilder;
 import vn.homecredit.hcvn.mock.MockData;
 import vn.homecredit.hcvn.ui.base.TestBaseViewModel;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
@@ -104,8 +105,10 @@ public class SummaryContractViewModelTest extends TestBaseViewModel<SummaryContr
 
     @Test
     public void testShowMasterContractDoc(){
-        MasterContractResp masterContractResp = MockData.masterContractResp();
-        masterContractResp.getMasterContract().setMaterialPrepared(true);
+        MasterContractResp masterContractResp = MasterContractRespBuilder
+                .create(contractsId)
+                .prepared(true)
+                .build();
         when(contractRepository.masterContract(contractsId))
                 .thenReturn(Single.just(masterContractResp));
         when(accountRepository.isExpired()).thenReturn(false);
@@ -116,18 +119,21 @@ public class SummaryContractViewModelTest extends TestBaseViewModel<SummaryContr
 
     @Test
     public void testPrepareSuccess() {
-        MasterContractResp masterContractResp = MockData.masterContractResp();
-        masterContractResp.getMasterContract().setMaterialPrepared(false);
-        when(contractRepository.masterContract(contractsId))
-                .thenReturn(Single.just(masterContractResp));
-        when(accountRepository.isExpired()).thenReturn(false);
-        viewModel.setContractsId(contractsId);
 
-        when(contractRepository.startPrepare(contractsId)).thenReturn(Observable.create(emitter -> {
-            masterContractResp.getMasterContract().setMaterialPrepared(true);
-            emitter.onNext(masterContractResp);
-            emitter.onComplete();
-        }));
+        MasterContractResp masterContractResp = MasterContractRespBuilder
+                .create(contractsId)
+                .build();
+
+        MasterContractResp masterContractRespPrepared = MasterContractRespBuilder
+                .create(contractsId)
+                .prepared(true)
+                .build();
+
+        when(contractRepository.masterContract(contractsId)) .thenReturn(Single.just(masterContractResp));
+        when(accountRepository.isExpired()).thenReturn(false);
+        when(contractRepository.startPrepare(contractsId)).thenReturn(Observable.just(masterContractRespPrepared));
+
+        viewModel.setContractsId(contractsId);
         viewModel.onNextClicked();
 
         assertEquals(R.string.master_contract_approved, ((int) viewModel.getBtnNextText().get()));
@@ -137,14 +143,16 @@ public class SummaryContractViewModelTest extends TestBaseViewModel<SummaryContr
 
     @Test
     public void testPrepareFailed() {
-        MasterContractResp masterContractResp = MockData.masterContractResp();
-        masterContractResp.getMasterContract().setMaterialPrepared(false);
+        MasterContractResp masterContractResp = MasterContractRespBuilder
+                .create(contractsId)
+                .build();
+
         when(contractRepository.masterContract(contractsId))
                 .thenReturn(Single.just(masterContractResp));
-        when(accountRepository.isExpired()).thenReturn(false);
-
-        masterContractResp.getMasterContract().setMaterialPrepared(false);
-        when(contractRepository.startPrepare(contractsId)).thenReturn(Observable.error(new HcApiException(500, "internal error")));
+        when(accountRepository.isExpired())
+                .thenReturn(false);
+        when(contractRepository.startPrepare(contractsId))
+                .thenReturn(Observable.error(new HcApiException(500, "internal error")));
         viewModel.setContractsId(contractsId);
         viewModel.onNextClicked();
 

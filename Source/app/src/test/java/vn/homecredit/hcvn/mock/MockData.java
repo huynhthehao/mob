@@ -14,11 +14,15 @@ public class MockData {
         return profileResp;
     }
 
-    public static MasterContractResp masterContractResp(){
+    public static MasterContractResp masterContractResp(boolean isPrepared){
         MasterContractResp masterContractResp = new MasterContractResp();
         MasterContract masterContract = new MasterContract();
         masterContract.setContractStatus("approved");
+        masterContract.setMaterialPrepared(isPrepared);
         masterContractResp.setMasterContract(masterContract);
         return  masterContractResp;
+    }
+    public static MasterContractResp masterContractResp(){
+        return masterContractResp(false);
     }
 }
