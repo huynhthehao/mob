@@ -116,6 +116,7 @@
         <activity
             android:name=".ui.support.SupportDoneActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".ui.payment.summary.PaymentSummaryActivity" />
 
 
         <meta-data
