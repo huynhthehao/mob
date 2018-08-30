@@ -98,6 +98,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:layout_marginRight="@dimen/margin_small"
                                 android:text="@string/payment_date"
                                 android:textStyle="bold" />
 
@@ -125,6 +126,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:layout_marginRight="@dimen/margin_small"
                                 android:text="@string/payer_name"
                                 android:textStyle="bold" />
 
@@ -151,6 +153,7 @@
                                 style="@style/AppTheme.TextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_small"
                                 android:layout_weight="1"
                                 android:text="@string/beneficiary"
                                 android:textStyle="bold" />
@@ -178,6 +181,7 @@
                                 style="@style/AppTheme.TextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_small"
                                 android:layout_weight="1"
                                 android:text="@string/total_transaction"
                                 android:textStyle="bold" />
