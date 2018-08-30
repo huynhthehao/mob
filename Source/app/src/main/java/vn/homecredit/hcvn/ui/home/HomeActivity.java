@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.style.StyleSpan;
@@ -25,7 +24,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.databinding.library.baseAdapters.BR;
-import com.google.android.gms.maps.model.Dash;
 
 import java.util.Locale;
 
@@ -39,10 +37,10 @@ import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
-import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.custom.ActionDialogFragment;
+import vn.homecredit.hcvn.ui.momo.MomoForTestActivity;
+import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
-import vn.homecredit.hcvn.utils.AppUtils;
 import vn.homecredit.hcvn.utils.SpanBuilder;
 
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked, ViewPager.OnPageChangeListener, NotificationsFragment.OnNotificationCountListener {
@@ -105,7 +103,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         super.onCreate(savedInstanceState);
 
         // force set locale flow the app setting, for get relative time span in notification list.
-        String languageToLoad  = preferencesHelper.getLanguageCode(); // your language
+        String languageToLoad = preferencesHelper.getLanguageCode(); // your language
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -249,11 +247,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     }
 
     @Override
-    public void onClickedMomo() {
-        AppUtils.openAppMomo(this);
-    }
-
-    @Override
     public void onClickedMore() {
         setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_MORE);
     }
@@ -328,5 +321,10 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         ((DashBoardDialogFragment) dashboardFragment).updateNotificationCount(count);
     }
 
+    @Override
+    public void onClickedMomo() {
+        Intent intent = new Intent(this, MomoForTestActivity.class);
+        startActivity(intent);
+    }
 
 }
