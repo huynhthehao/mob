@@ -55,6 +55,7 @@ import vn.homecredit.hcvn.ui.map.PayMapActivity;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
 import vn.homecredit.hcvn.ui.otp.OtpViewModel;
 import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryActivity;
+import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryModule;
 import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryViewModel;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
@@ -170,7 +171,7 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = StatementDetailsModule.class)
     abstract StatementDetailsActivity bindStatementDetailsActivity();
 
-    @ContributesAndroidInjector(modules = PaymentSummaryViewModel.class)
+    @ContributesAndroidInjector(modules = PaymentSummaryModule.class)
     abstract PaymentSummaryActivity bindPaymentSummaryActivity();
 
 }

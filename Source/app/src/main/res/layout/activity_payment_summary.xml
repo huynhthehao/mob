@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryViewModel" />
+
         <variable
             name="summaryModel"
             type="vn.homecredit.hcvn.ui.payment.summary.model.PaymentSummaryModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorSummaryBg"
@@ -39,8 +39,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_high"
                 android:layout_marginRight="@dimen/margin_high"
-                android:layout_marginTop="@dimen/margin_high"
                 android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -50,7 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/payment_summary_top_height"
                         android:layout_marginTop="@dimen/payment_summary_top_margin"
-                        android:background="@drawable/ic_bg_payment_done_top">
+                        android:background="@drawable/ic_payment_summary_top">
 
                         <TextView
                             style="@style/AppTheme.TextView"
@@ -75,7 +78,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_bg_payment_done_body"
+                    android:background="@drawable/ic_payment_summary_body"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -97,8 +100,8 @@
                                 style="@style/AppTheme.TextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_marginRight="@dimen/margin_small"
+                                android:layout_weight="1"
                                 android:text="@string/payment_date"
                                 android:textStyle="bold" />
 
@@ -125,8 +128,8 @@
                                 style="@style/AppTheme.TextView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_marginRight="@dimen/margin_small"
+                                android:layout_weight="1"
                                 android:text="@string/payer_name"
                                 android:textStyle="bold" />
 
@@ -200,32 +203,35 @@
                             android:background="@color/grey_300" />
 
                         <TextView
-                            style="@style/AppTheme.TextView.Clickable"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginTop="@dimen/margin_medium"
                             android:gravity="center_horizontal"
                             android:text="@string/thank_for_your_payment"
-                            android:textSize="@dimen/text_size_medium"
-                            android:onClick="@{() -> viewModel.onDoneClick()}"/>
+                            android:textSize="@dimen/text_size_medium" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginTop="@dimen/margin_medium"
                             android:gravity="center_horizontal"
                             android:text="@string/payment_success_notice" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
-                    style="@style/AppTheme.TextView"
+                    style="@style/AppTheme.TextView.Clickable"
+                    android:onClick="@{() -> viewModel.onDoneClick()}"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/button_submit_height"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_marginRight="@dimen/margin_small"
+                    android:layout_marginLeft="@dimen/margin_smallest"
+                    android:layout_marginRight="@dimen/margin_smallest"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:background="@drawable/rounded_button"
                     android:gravity="center"
@@ -235,7 +241,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="30dp" />
+                    android:layout_height="50dp" />
             </LinearLayout>
         </ScrollView>
 
