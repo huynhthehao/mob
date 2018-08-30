@@ -175,6 +175,21 @@
                             >
                         </vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
+                        <View
+                            style="@style/Separator_Horizontal"
+                            android:layout_marginHorizontal="@dimen/margin_normal" />
+
+                        <vn.homecredit.hcvn.ui.custom.MenuRowItem
+                            android:id="@+id/paymentMomo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?android:attr/selectableItemBackground"
+                            android:src="@drawable/ic_momo_small"
+                            android:onClick="@{() -> viewModel.onMomoClicked()}"
+                            android:text="@string/pay_for_momo"
+                            >
+                        </vn.homecredit.hcvn.ui.custom.MenuRowItem>
+
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 

@@ -11,6 +11,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -26,6 +28,7 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
+import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
@@ -166,6 +169,14 @@ public class ContractRepositoryImpl implements ContractRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Single<RePaymentResp> getRePayment(String contractId) {
+        return restService.getRePayment(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
     public Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval) {
         int numberRequest = timeout / interval;
         return Observable.interval(interval, TimeUnit.MILLISECONDS)
@@ -197,6 +208,7 @@ public class ContractRepositoryImpl implements ContractRepository {
         List<HcContract> activeContractList = new ArrayList<>();
         for (HcContract hcContract : hcContractList) {
             if (hcContract.getTypeStatus() == HcContract.STATUS_ACTIVE) {
+                if (hcContract.isCreditCard()) continue;
                 if (activeContractList.size() == 0) {
                     hcContract.setShowSection(true);
                 }

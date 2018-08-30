@@ -9,6 +9,7 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
+import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
@@ -37,4 +38,6 @@ public interface ContractRepository {
     Single<StatementResp> getStatements(String contractId);
 
     Single<StatementDetailsResp> getStatementDetails(String contractId, StatementModel statementModel);
+
+    Single<RePaymentResp> getRePayment(String contractId);
 }

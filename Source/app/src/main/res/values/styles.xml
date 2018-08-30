@@ -169,6 +169,7 @@
         <item name="android:layout_marginLeft">@dimen/margin_high</item>
     </style>
 
+
     <style name="Contact.Summary.Title" parent="Base.TextAppearance.AppCompat">
         <item name="android:textColor">@color/brownishGrey</item>
         <item name="fontFamily">@font/myriadpro_regular</item>

@@ -36,6 +36,7 @@ import vn.homecredit.hcvn.data.model.api.support.SupportResp;
 import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
+import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
@@ -142,7 +143,7 @@ public class RestServiceImpl implements RestService {
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("oldPassword", oldPassword);
         requestBody.put("password", newPassword);
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,null,requestBody,OtpTimerResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,mApiHeader.getProtectedApiHeader(),requestBody,OtpTimerResp.class);
     }
 
     @Override
@@ -265,6 +266,14 @@ public class RestServiceImpl implements RestService {
                 .build()
                 .getObjectSingle(MasterContractVerifyResp.class)
                 .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractVerifyResp.class))) ;
+    }
+
+    @Override
+    public Single<RePaymentResp> getRePayment(String contractId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/" + contractId + "/repayment");
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(),
+                RePaymentResp.class);
     }
 
     @Override
