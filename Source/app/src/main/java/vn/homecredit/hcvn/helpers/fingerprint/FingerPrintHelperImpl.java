@@ -45,24 +45,20 @@ public class FingerPrintHelperImpl implements FingerPrintHelper {
 
 
     private FingerPrintAuthValue getSamsungFingerPrintAuthValue() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            try {
-                Spass spass = new Spass();
-                spass.initialize(context);
-                SpassFingerprint spassFingerprint = new SpassFingerprint(context);
+        try {
+            Spass spass = new Spass();
+            spass.initialize(context);
+            SpassFingerprint spassFingerprint = new SpassFingerprint(context);
 
-                if(!spass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT))
-                    return FingerPrintAuthValue.NOT_SUPPORT;
-
-                if (!spassFingerprint.hasRegisteredFinger())
-                    return FingerPrintAuthValue.SUPPORT_BUT_NOT_ENABLE;
-
-            } catch (Exception e) {
+            if (!spass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT))
                 return FingerPrintAuthValue.NOT_SUPPORT;
-            }
-            return FingerPrintAuthValue.SUPPORT_AND_ENABLED;
-        }
 
-        return FingerPrintAuthValue.NOT_SUPPORT;
+            if (!spassFingerprint.hasRegisteredFinger())
+                return FingerPrintAuthValue.SUPPORT_BUT_NOT_ENABLE;
+
+        } catch (Exception e) {
+            return FingerPrintAuthValue.NOT_SUPPORT;
+        }
+        return FingerPrintAuthValue.SUPPORT_AND_ENABLED;
     }
 }
