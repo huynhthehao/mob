@@ -4,7 +4,7 @@
  * Last modified 7/5/18 1:05 PM, by Admin
  */
 
-package vn.homecredit.hcvn.ui.otp;
+package vn.homecredit.hcvn.ui.payment.momo.payothers;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -37,7 +37,7 @@ import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
-public class OtpViewModel extends BaseViewModel<OtpListener> {
+public class PayOthersViewModel extends BaseViewModel<PayOthersListener> {
 
     private String phoneNumber;
     private String phonePrimary;
@@ -63,15 +63,14 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
     public ObservableField<CharSequence> timeCounter = new ObservableField<>();
     private OtpPassParam otpPassParam;
 
-    private OtpListener listener;
 
     @Inject
-    public OtpViewModel(SchedulerProvider schedulerProvider,
-                        ResourceService resourceService,
-                        DeviceInfo deviceInfo,
-                        AccountRepository accountRepository,
-                        ContractRepository contractRepository,
-                        AclDataManager aclDataManager) {
+    public PayOthersViewModel(SchedulerProvider schedulerProvider,
+                              ResourceService resourceService,
+                              DeviceInfo deviceInfo,
+                              AccountRepository accountRepository,
+                              ContractRepository contractRepository,
+                              AclDataManager aclDataManager) {
         super(schedulerProvider);
 
         this.resourceService = resourceService;
@@ -81,16 +80,6 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
         this.aclDataManager = aclDataManager;
     }
 
-    public void setListener(OtpListener listener){
-        this.listener = listener;
-    }
-
-    private void notifyNext(OtpPassParam passParam){
-        if(this.listener == null)
-            return;
-
-        listener.onNext(passParam);
-    }
 
     public void initData(OtpPassParam otpPassParam) {
         if (otpPassParam != null
@@ -186,7 +175,7 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
                     if (masterContractVerifyResp.isSuccess()) {
                         stopTimer();
                         otpPassParam.setMasterContractVerifyDataResp(masterContractVerifyResp.getMasterContractVerifyDataResp());
-                        notifyNext(otpPassParam);
+                        getNavigator().next(otpPassParam);
                     } else {
                         showMessage(masterContractVerifyResp.getResponseMessage());
                     }
@@ -259,7 +248,7 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        notifyNext(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, inputOtp));
+                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, inputOtp));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
@@ -309,7 +298,7 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        notifyNext(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SIGN_UP, inputOtp));
+                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SIGN_UP, inputOtp));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
@@ -331,7 +320,7 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
 
                         initData(phoneNumber, contractId, OtpFlow.CASH_LOAN_WALKIN, response.getData());
                     } else {
-                        showMessage(response.getResponseMessage());
+                        getNavigator().showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
@@ -358,9 +347,9 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         stopTimer();
                         aclDataManager.setAclAccessToken(response.getAccessToken());
-                        notifyNext(null);
+                        getNavigator().next(null);
                     } else {
-                        showMessage(response.getResponseMessage());
+                        getNavigator().showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
