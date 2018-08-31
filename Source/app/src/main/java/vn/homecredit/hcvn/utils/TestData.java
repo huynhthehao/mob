@@ -106,7 +106,7 @@ public class TestData {
         rePaymentData.setIdNumber("***7218");
         rePaymentData.setTotalAmount(1000000);
         rePaymentData.setAmount(500000);
-        rePaymentData.setDueDate("22/8/2018");
+        rePaymentData.setDueDate("2018-07-20T00:00:00");
         rePaymentResp.setRePaymentData(rePaymentData);
         return rePaymentResp;
     }

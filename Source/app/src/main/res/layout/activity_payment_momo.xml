@@ -72,6 +72,7 @@
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
+                    app:date="@{viewModel.rePaymentData.dueDate}"
                     app:title="@string/paymomo_duedate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -93,13 +94,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/momo_full_payment"
-                        android:checked="true"
+                        android:checked="@={viewModel.fullPayment}"
                         />
                     <RadioButton
                         android:id="@+id/rbPartialPayment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/momo_partial_payment"
+                        android:checked="@={viewModel.partialPayment}"
                         />
                 </RadioGroup>
 
@@ -116,14 +118,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_smallest"
-                    android:text="50000VND"
                     android:textColor="@color/colorPrimaryDark"
                     android:gravity="center"
+                    app:loanamount="@{viewModel.rePaymentData.amount}"
                     style="@style/AppTheme.SectionLabel"
                     />
-
-
-
 
                 <Button
                     android:id="@+id/btnNext"
@@ -139,9 +138,6 @@
                     android:text="@string/payment_via_momo"
                     style="@style/PrimaryButton"
                     />
-
-
-
             </LinearLayout>
         <!--</ScrollView>-->
     </LinearLayout>
