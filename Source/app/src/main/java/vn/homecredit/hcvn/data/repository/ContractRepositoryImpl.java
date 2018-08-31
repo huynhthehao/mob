@@ -11,6 +11,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -26,11 +28,13 @@ import vn.homecredit.hcvn.data.model.api.contract.MasterContractResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.PaymentHistoryResp;
 import vn.homecredit.hcvn.data.model.api.contract.ScheduleDetailResp;
+import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.utils.TestData;
+import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class ContractRepositoryImpl implements ContractRepository {
     public static final int MASTERCONTRACT_PREPARE_TIMEOUT = 60;
@@ -39,7 +43,7 @@ public class ContractRepositoryImpl implements ContractRepository {
     private final RestService restService;
 
     @Inject
-    public ContractRepositoryImpl(RestService restService) {
+    public ContractRepositoryImpl(RestService restService ) {
         this.restService = restService;
     }
 
@@ -55,6 +59,25 @@ public class ContractRepositoryImpl implements ContractRepository {
                         contractResp.getData().getContracts().addAll(contractMasterList);
                     }
                     List<HcContract> contractList = groupContract(contractResp.getData().getContracts());
+                    contractResp.getData().setContracts(contractList);
+                    return contractResp;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<ContractResp> activeContracts() {
+        return restService.contract()
+                .map(contractResp -> {
+                    if (contractResp == null || contractResp.getData() == null) {
+                        return contractResp;
+                    }
+                    List<HcContract> contractMasterList = convertMasterToHcContract(contractResp.getData().getMasterContracts());
+                    if (contractResp.getData().getContracts() != null && contractMasterList != null) {
+                        contractResp.getData().getContracts().addAll(contractMasterList);
+                    }
+                    List<HcContract> contractList = groupActiveContract(contractResp.getData().getContracts());
                     contractResp.getData().setContracts(contractList);
                     return contractResp;
                 })
@@ -146,6 +169,14 @@ public class ContractRepositoryImpl implements ContractRepository {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    @Override
+    public Single<RePaymentResp> getRePayment(String contractId) {
+        return restService.getRePayment(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
     public Observable<Boolean> checkMasterContractVerified(String contractId, int timeout, int interval) {
         int numberRequest = timeout / interval;
         return Observable.interval(interval, TimeUnit.MILLISECONDS)
@@ -167,6 +198,26 @@ public class ContractRepositoryImpl implements ContractRepository {
                 .map(masterContractResp -> true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @NonNull
+    private List<HcContract> groupActiveContract(List<HcContract> hcContractList) {
+        if (hcContractList == null) {
+            return null;
+        }
+        List<HcContract> activeContractList = new ArrayList<>();
+        for (HcContract hcContract : hcContractList) {
+            if (hcContract.getTypeStatus() == HcContract.STATUS_ACTIVE) {
+                if (hcContract.isCreditCard()) continue;
+                if (activeContractList.size() == 0) {
+                    hcContract.setShowSection(true);
+                }
+                activeContractList.add(hcContract);
+            }
+        }
+        List<HcContract> contractList = new ArrayList<>();
+        contractList.addAll(activeContractList);
+        return contractList;
     }
 
     @NonNull

@@ -24,12 +24,14 @@ import vn.homecredit.hcvn.data.model.api.support.SupportResp;
 import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
+import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 
 public interface RestService extends RestUrl {
+    //Account
     Single<VersionResp> checkUpdate();
     Single<TokenResp> getToken(String phoneNumber, String password);
     Single<ProfileResp> getProfile();
@@ -44,6 +46,7 @@ public interface RestService extends RestUrl {
     Single<NotificationResp> getNotifications();
     Single<BaseApiResponse> markNotificationAsRead(String notificationId);
 
+    //Contracts
     Single<TransactionResp> getTransactions(String contractId, boolean isHold, boolean isRepay, int withinMonths);
     Single<ContractResp> contract();
     Single<MasterContractResp> masterContract(String contractId);
@@ -51,11 +54,12 @@ public interface RestService extends RestUrl {
     Single<OtpTimerResp> masterContractApprove(String contractId);
     Single<ScheduleDetailResp> viewInstalmentsv1(String contractId);
     Single<PaymentHistoryResp> viewPaymentsv1(String contractId);
-
     Single<StatementResp> getStatements(String contractId);
     Single<StatementDetailsResp> getStatementDetails(String contractId,StatementModel statementModel);
     Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract);
+    Single<RePaymentResp> getRePayment(String contractId);
 
+    //Support
     Single<SupportResp> submitFeedback(String subject, String description, String phoneNumber, String contractId);
     Single<SupportHistoryResp> getSupportHistories();
 

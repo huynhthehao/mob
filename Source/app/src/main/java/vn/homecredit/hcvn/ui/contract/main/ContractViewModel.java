@@ -18,6 +18,7 @@ public class ContractViewModel extends BaseViewModel {
     private MutableLiveData<List<HcContract>> listMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> refreshing = new MutableLiveData<>();
     private MutableLiveData<Boolean> errorAuthenticate = new MutableLiveData<>();
+    private boolean isLastGetContract = true;
 
     @Inject
     public ContractViewModel(ContractRepository contractRepository, SchedulerProvider schedulerProvider) {
@@ -51,10 +52,10 @@ public class ContractViewModel extends BaseViewModel {
         super.init();
         errorAuthenticate.setValue(false);
         refreshing.setValue(false);
-        getContracṭ̣();
     }
 
-    private void getContracṭ̣() {
+    public void getContracṭ̣() {
+        isLastGetContract = true;
         refreshing.setValue(true);
         contractRepository.contracts().subscribe(s -> {
             refreshing.setValue(false);
@@ -69,7 +70,27 @@ public class ContractViewModel extends BaseViewModel {
         });
     }
 
+    public void getActiviteContracṭ̣() {
+        isLastGetContract = false;
+        refreshing.setValue(true);
+        contractRepository.activeContracts().subscribe(s -> {
+            refreshing.setValue(false);
+            if (s.getData() != null) {
+                listMutableLiveData.setValue(s.getData().getContracts());
+            }else {
+                showMessage(s.getResponseMessage());
+            }
+        }, throwable -> {
+            refreshing.setValue(false);
+            handleError(throwable);
+        });
+    }
+
     public void onRefresh() {
-        getContracṭ̣();
+        if (isLastGetContract) {
+            getContracṭ̣();
+        }else {
+            getActiviteContracṭ̣();
+        }
     }
 }

@@ -30,7 +30,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private WeakReference<N> mNavigator;
     private MutableLiveData<String> messageData = new MutableLiveData<>();
     private MutableLiveData<Integer> messageIdData = new MutableLiveData<>();
-    private MutableLiveData<Integer> messageResourceData = new MutableLiveData<>();
     private MutableLiveData<BaseMessage> confirmMessageData = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelReLogin = new MutableLiveData<>();
 
@@ -119,7 +118,7 @@ public abstract class BaseViewModel<N> extends ViewModel {
                 modelReLogin.setValue(true);
             }else {
                 if (((HcApiException) throwable).isErrorResponseEmpty()) {
-                    messageResourceData.setValue(R.string.error_unexpected);
+                    messageIdData.setValue(R.string.error_unexpected);
                 }else {
                     messageData.setValue(((HcApiException) throwable).getErrorResponseMessage());
                 }

@@ -314,4 +314,17 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="momo_merchant_code" translatable="false">MOMOIQA420180417</string>
     <string name="momo_merchant_name_label">Nhà cung cấp</string>
     <string name="momo_payment_description">Thanh toán số hợp đồng %1$s</string>
+    <string name="momo_payment">Thanh toán</string>
+    <string name="momo_pay_for_other">Pay for Other</string>
+    <string name="momo_my_contract">My Contracts</string>
+    <string name="pay_for_momo">Thanh toán qua Momo</string>
+    <string name="payment_via_momo">Thanh toán qua Momo</string>
+    <string name="paymomo_contractnumber">Contract number</string>
+    <string name="paymomo_fullname">Full name</string>
+    <string name="paymomo_idnumber">ID number</string>
+    <string name="paymomo_total_amount">Out standing amount</string>
+    <string name="paymomo_amount">Amount</string>
+    <string name="paymomo_duedate">Due date</string>
+    <string name="momo_full_payment">Full payment</string>
+    <string name="momo_partial_payment">Partial payment</string>
 </resources>
