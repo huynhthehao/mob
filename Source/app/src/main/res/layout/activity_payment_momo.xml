@@ -37,14 +37,14 @@
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
                     android:layout_marginTop="@dimen/margin_high"
-                    app:title="@string/paymomo_contractnumber"
+                    app:title="@string/contract_number"
                     app:content="@{viewModel.rePaymentData.contractNumber}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
-                    app:title="@string/paymomo_fullname"
+                    app:title="@string/full_name"
                     app:content="@{viewModel.rePaymentData.fullName}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -52,28 +52,28 @@
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
                     app:content="@{viewModel.rePaymentData.idNumber}"
-                    app:title="@string/paymomo_idnumber"
+                    app:title="@string/id_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
                     app:amount="@{viewModel.rePaymentData.totalAmount}"
-                    app:title="@string/paymomo_total_amount"
+                    app:title="@string/total_outstanding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
                     app:amount="@{viewModel.rePaymentData.amount}"
-                    app:title="@string/paymomo_amount"
+                    app:title="@string/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
                     app:date="@{viewModel.rePaymentData.dueDate}"
-                    app:title="@string/paymomo_duedate"
+                    app:title="@string/due_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>
@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_high"
-                    android:text="Total payment amount"
+                    android:text="@string/total_payment_amount"
                     android:gravity="center"
                     style="@style/AppTheme.Title"
                     />

@@ -301,12 +301,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="momo_my_contract">My Contracts</string>
     <string name="pay_for_momo">Thanh toán qua Momo</string>
     <string name="payment_via_momo">Thanh toán qua Momo</string>
-    <string name="paymomo_contractnumber">Contract number</string>
-    <string name="paymomo_fullname">Full name</string>
-    <string name="paymomo_idnumber">ID number</string>
-    <string name="paymomo_total_amount">Out standing amount</string>
-    <string name="paymomo_amount">Amount</string>
     <string name="paymomo_duedate">Due date</string>
-    <string name="momo_full_payment">Full payment</string>
-    <string name="momo_partial_payment">Partial payment</string>
+    <string name="momo_full_payment">Tối đa</string>
+    <string name="momo_partial_payment">Một </string>
+    <string name="total_payment_amount">Tổng số tiền bạn cần trả:</string>
 </resources>
