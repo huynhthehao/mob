@@ -1,8 +1,23 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.25.2'
+    }
+}
+
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -34,6 +49,8 @@ android {
             minifyEnabled false
             debuggable true
             signingConfig signingConfigs.config
+            ext.crashlyticsApiSecret = "98b49c4d7ffd3b3f5ec6eafc591a64502a36027e896109cec0ab9bd57d500fe1"
+            ext.crashlyticsApiKey = "7120678654c0ed1a98d873a2afb8c337ea0155b0"
         }
 
         release {
@@ -41,6 +58,8 @@ android {
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+            ext.crashlyticsApiSecret = "c6a2d798d5ee0967c6cd9c0a7f5ffda5863c65787d5e3786b2222865df306709"
+            ext.crashlyticsApiKey = "95dde588b648092ee1321edafecb53097354ce89"
         }
     }
 
@@ -58,7 +77,7 @@ android {
         beta {
             dimension "mode"
             applicationId "vn.homecredit.hcvn.beta"
-            versionName "1.5.5"
+            versionName "1.5.3"
             versionCode 8
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://mobileapp-uat.homecredit.vn"'
@@ -85,22 +104,41 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+
+    // generate fabric crashlytics properties for each build type
+    File crashlyticsProperties = new File("${project.projectDir.absolutePath}/fabric.properties")
+    applicationVariants.all { variant ->
+        // Rename output apk
+        def version = variant.versionName
+        variant.outputs.all {
+            def filename = it.outputFile.name
+            outputFileName = filename.replace(".apk", "-${version}.apk")
+        }
+
+        // Generate fabric.properties for each variant
+        def variantSuffix = variant.name.capitalize()
+        def generateResourcesTask = project.tasks.getByName("fabricGenerateResources${variantSuffix}")
+        def generatePropertiesTask = task("fabricGenerateProperties${variantSuffix}").doLast {
+            Properties properties = new Properties()
+            println "...copying apiSecret for ${variant.name}"
+            properties.put("apiSecret", variant.buildType.ext.crashlyticsApiSecret)
+            println "...copying apiKey for ${variant.name}"
+            properties.put("apiKey", variant.buildType.ext.crashlyticsApiKey)
+            PropertiesUtils.injectPropertyInFile(crashlyticsProperties, properties, "")
+        }
+        generateResourcesTask.dependsOn generatePropertiesTask
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:multidex:1.0.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
 
     // android support libraries
+    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
@@ -130,13 +168,16 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     // logger
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     // view model
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
     kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
     kapt "com.android.databinding:compiler:$gradleVersion"
-    // appCenter
-    implementation "com.microsoft.appcenter:appcenter-analytics:$rootProject.appCenterSdkVersion"
-    implementation "com.microsoft.appcenter:appcenter-crashes:$rootProject.appCenterSdkVersion"
+    // Crash & distribution tools
+    implementation ("com.crashlytics.sdk.android:crashlytics:2.9.5@aar") {
+        transitive = true
+    }
     //onesignal
     implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
     //layout
@@ -164,6 +205,10 @@ dependencies {
     //Google Analytics
     implementation "com.google.android.gms:play-services-analytics:$rootProject.googleAnalytics"
 
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
 
     testImplementation 'org.mockito:mockito-core:2.15.0'
     testImplementation "org.mockito:mockito-inline:2.11.0"
@@ -171,3 +216,4 @@ dependencies {
     testImplementation "android.arch.core:core-testing:1.1.1"
 
 }
+import com.crashlytics.tools.utils.PropertiesUtils
