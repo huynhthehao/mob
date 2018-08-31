@@ -23,8 +23,5 @@
         tools:text="Nguyen Van Nam"
         style="@style/Contact.Summary.Content"
         />
-    <View
-        android:layout_below="@+id/tvTitle"
-        style="@style/Separator_Horizontal"/>
 
 </RelativeLayout>

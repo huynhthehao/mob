@@ -10,6 +10,8 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyDataResp;
 import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
 import vn.homecredit.hcvn.data.model.api.contract.NextPayment;
+import vn.homecredit.hcvn.data.model.momo.RePaymentData;
+import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 
 public class TestData {
 
@@ -93,5 +95,19 @@ public class TestData {
         masterContractVerifyResp.setResponseCode(0);
         masterContractVerifyResp.setMasterContractVerifyDataResp(masterContractVerifyDataResp);
         return masterContractVerifyResp;
+    }
+
+    public static RePaymentResp rePaymentResp(){
+        RePaymentResp rePaymentResp = new RePaymentResp();
+        rePaymentResp.setResponseCode(0);
+        RePaymentData rePaymentData = new RePaymentData();
+        rePaymentData.setContractNumber("12345678");
+        rePaymentData.setFullName("nguyen van a");
+        rePaymentData.setIdNumber("***7218");
+        rePaymentData.setTotalAmount(1000000);
+        rePaymentData.setAmount(500000);
+        rePaymentData.setDueDate("2018-07-20T00:00:00");
+        rePaymentResp.setRePaymentData(rePaymentData);
+        return rePaymentResp;
     }
 }

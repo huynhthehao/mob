@@ -1,10 +1,12 @@
 package vn.homecredit.hcvn.ui.contract.detail;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import org.parceler.Parcels;
@@ -19,6 +21,9 @@ import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
+import vn.homecredit.hcvn.ui.momo.paymentMomo.PaymentMomoActivity;
+
+import static java.lang.Boolean.TRUE;
 
 public class ContractDetailActivity extends BaseActivity<ActivityContractDetailBinding, ContractDetailViewModel> {
 
@@ -67,7 +72,6 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
             getViewModel().setHcContract(hcContract);
             getViewDataBinding().setHcContractModel(new ContractDetailViewModel.ContractViewModel(hcContract));
         }
-
         getViewModel().getModelPaymentSchedule().observe(this, contractNumber -> {
             if (!TextUtils.isEmpty(contractNumber)) {
                 showPaymentSchedule(contractNumber);
@@ -79,10 +83,19 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
             }
         });
         getViewModel().getModelLocation().observe(this, aBoolean -> {
-            if (aBoolean) {
+            if (aBoolean != null && aBoolean == TRUE) {
                 showMap();
             }
         });
+        getViewModel().getModelMomo().observe(this, aBoolean -> {
+            if (aBoolean != null && aBoolean == TRUE) {
+                showMomoDetail();
+            }
+        });
+    }
+
+    private void showMomoDetail() {
+        PaymentMomoActivity.start(this, getViewModel().getHcContract());
     }
 
     private void showPaymentHistory(String contractNumber) {

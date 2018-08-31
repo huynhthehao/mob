@@ -60,7 +60,6 @@ public class SignUpViewModel extends BaseViewModel {
                 .subscribe(otpTimer -> {
                             setIsLoading(false);
                             if (otpTimer == null) return;
-                            Log.debug(otpTimer.toString());
                             if (otpTimer.isVerified()) {
                                 OtpPassParam otpPassParam = new OtpPassParam(otpTimer, username.get(), contracts.get(), OtpFlow.SIGN_UP);
                                 modelOtpPassParam.setValue(otpPassParam);

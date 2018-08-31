@@ -25,6 +25,7 @@ public class ContractDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> modelPaymentSchedule = new MutableLiveData<>();
     private MutableLiveData<String> modelPaymentHistory = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelMomo = new MutableLiveData<>();
 
     public MutableLiveData<String> getModelStatusColor() {
         return modelStatusColor;
@@ -69,6 +70,10 @@ public class ContractDetailViewModel extends BaseViewModel {
         return modelLocation;
     }
 
+    public MutableLiveData<Boolean> getModelMomo() {
+        return modelMomo;
+    }
+
     public void onPaymentScheduleClicked() {
         modelPaymentSchedule.setValue(this.hcContract.getContractNumber());
     }
@@ -79,6 +84,10 @@ public class ContractDetailViewModel extends BaseViewModel {
 
     public void onLocationClicked() {
         modelLocation.setValue(true);
+    }
+
+    public void onMomoClicked() {
+        modelMomo.setValue(true);
     }
 
     public static class ContractViewModel {

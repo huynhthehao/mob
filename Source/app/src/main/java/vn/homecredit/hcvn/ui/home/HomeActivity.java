@@ -39,6 +39,7 @@ import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.momo.whichContract.WhichContractActivity;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.custom.ActionDialogFragment;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
@@ -250,7 +251,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedMomo() {
-        AppUtils.openAppMomo(this);
+        WhichContractActivity.start(this);
     }
 
     @Override

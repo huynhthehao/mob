@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.model.LoginInformation;
@@ -30,6 +31,7 @@ import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.utils.AppUtils;
+import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class AccountRepositoryImpl implements AccountRepository {
 
@@ -38,21 +40,28 @@ public class AccountRepositoryImpl implements AccountRepository {
     private final ApiHeader apiHeader;
     private OneSignalService oneSignalService;
     private AppDatabase appDatabase;
+    private final SchedulerProvider schedulerProvider;
 
     @Inject
-    public AccountRepositoryImpl(RestService restService, PreferencesHelper preferencesHelper, ApiHeader apiHeader, OneSignalService oneSignalService, AppDatabase appDatabase) {
+    public AccountRepositoryImpl(RestService restService,
+                                 PreferencesHelper preferencesHelper,
+                                 ApiHeader apiHeader,
+                                 OneSignalService oneSignalService,
+                                 AppDatabase appDatabase,
+                                 SchedulerProvider schedulerProvider) {
         this.restService = restService;
         this.preferencesHelper = preferencesHelper;
         this.apiHeader = apiHeader;
         this.oneSignalService = oneSignalService;
         this.appDatabase = appDatabase;
+        this.schedulerProvider = schedulerProvider;
     }
 
     @Override
     public Single<OtpTimerResp> signupVerify(String username, String contractsId) {
         return restService.verified(username, contractsId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui());
     }
 
     @Override
@@ -104,11 +113,13 @@ public class AccountRepositoryImpl implements AccountRepository {
         return restService.getToken(phoneNumber, password)
                 .doOnSuccess(tokenResp -> {
                     preferencesHelper.setAccessToken(tokenResp.getAccessToken());
-                    apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
+                    if (apiHeader.getProtectedApiHeader() != null) {
+                        apiHeader.getProtectedApiHeader().setAccessToken(preferencesHelper.getAccessToken());
+                    }
                 })
                 .flatMap((Function<TokenResp, SingleSource<ProfileResp>>) tokenResp -> getProfileWithoutSubscribeOn())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui());
     }
 
     @Override
@@ -128,8 +139,8 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public Single<ProfileResp> getProfile() {
         return getProfileWithoutSubscribeOn()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui());
     }
 
     private Single<ProfileResp> getProfileWithoutSubscribeOn() {

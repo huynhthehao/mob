@@ -296,4 +296,17 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="feedback_done_title">Phản hồi của bạn đã được gửi thành công</string>
     <string name="feedback_done_content">Nhân viên hỗ trợ sẽ liên lạc bạn trong thời gian sớm nhất</string>
     <string name="feedback_done">Hoàn tất</string>
+    <string name="momo_payment">Thanh toán</string>
+    <string name="momo_pay_for_other">Pay for Other</string>
+    <string name="momo_my_contract">My Contracts</string>
+    <string name="pay_for_momo">Thanh toán qua Momo</string>
+    <string name="payment_via_momo">Thanh toán qua Momo</string>
+    <string name="paymomo_contractnumber">Contract number</string>
+    <string name="paymomo_fullname">Full name</string>
+    <string name="paymomo_idnumber">ID number</string>
+    <string name="paymomo_total_amount">Out standing amount</string>
+    <string name="paymomo_amount">Amount</string>
+    <string name="paymomo_duedate">Due date</string>
+    <string name="momo_full_payment">Full payment</string>
+    <string name="momo_partial_payment">Partial payment</string>
 </resources>

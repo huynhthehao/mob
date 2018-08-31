@@ -163,4 +163,11 @@ dependencies {
 
     //Google Analytics
     implementation "com.google.android.gms:play-services-analytics:$rootProject.googleAnalytics"
+
+
+    testImplementation 'org.mockito:mockito-core:2.15.0'
+    testImplementation "org.mockito:mockito-inline:2.11.0"
+    testImplementation "com.google.truth:truth:0.36"
+    testImplementation "android.arch.core:core-testing:1.1.1"
+
 }
