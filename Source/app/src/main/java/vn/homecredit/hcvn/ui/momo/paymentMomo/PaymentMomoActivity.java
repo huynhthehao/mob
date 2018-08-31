@@ -1,6 +1,5 @@
 package vn.homecredit.hcvn.ui.momo.paymentMomo;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -11,13 +10,22 @@ import android.widget.Toast;
 
 import org.parceler.Parcels;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
+import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.databinding.ActivityPaymentMomoBinding;
+import vn.homecredit.hcvn.ui.momo.MomoForTestActivity;
+import vn.homecredit.hcvn.ui.payment.PaymentMomoEventValueBuilder;
+import vn.homecredit.hcvn.ui.payment.model.PaymentMomoRequestModel;
+import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryActivity;
+import vn.homecredit.hcvn.ui.payment.summary.model.PaymentSummaryModel;
+import vn.momo.momo_partner.AppMoMoLib;
 
 import static java.lang.Boolean.TRUE;
 
@@ -53,20 +61,44 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (BuildConfig.FLAVOR == "product") {
+            AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.PRODUCTION);
+        } else {
+            AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
+        }
         if (!getIntent().hasExtra(BUNDLE_CONTRACT_PARAM)) return;
         HcContract hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT_PARAM));
         getViewModel().setContract(hcContract);
         getViewModel().getRepayment();
 
-        getViewModel().getModelPaymentViaMomo().observe(this, aBoolean -> {
-            if (aBoolean != null && aBoolean == TRUE) {
-                paymentViaMomo();
+        getViewModel().getModelRequestPaymentViaMomo().observe(this, paymentMomoRequestModel -> {
+            if (paymentMomoRequestModel != null) {
+                requestPaymentViaMomo(paymentMomoRequestModel);
             }
+        });
+
+        getViewModel().getPaymentMomoSuccess().observe(this, paymentSummary -> {
+            PaymentSummaryActivity.start(this, paymentSummary);
         });
 
     }
 
-    private void paymentViaMomo() {
-        Toast.makeText(this, "pay via momo", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getViewModel().onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void requestPaymentViaMomo(PaymentMomoRequestModel paymentMomoRequestModel) {
+        AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
+        AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
+        Map<String, Object> eventValue = new PaymentMomoEventValueBuilder(this)
+                .setAmount(String.valueOf(paymentMomoRequestModel.getRePaymentData().getAmount()))
+                .setContractNumber(paymentMomoRequestModel.getRePaymentData().getContractNumber())
+                .setMerchantCode(paymentMomoRequestModel.getMerchantCode())
+                .setMerchantName(paymentMomoRequestModel.getMerchantName())
+                .setLanguageCode(paymentMomoRequestModel.getLanguageCode())
+                .create();
+        AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
     }
 }

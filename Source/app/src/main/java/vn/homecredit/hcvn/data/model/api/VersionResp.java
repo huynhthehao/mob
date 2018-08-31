@@ -77,6 +77,9 @@ public class VersionResp extends BaseApiResponse {
         @SerializedName("AppExpiredInMinutes")
         @Expose
         private Integer appExpiredInMinutes;
+        @SerializedName("MomoSettingInfo")
+        @Expose
+        private MomoSettingInfo momoSettingInfo;
 
         public String getPlatform() {
             return platform;
@@ -206,5 +209,12 @@ public class VersionResp extends BaseApiResponse {
             this.appExpiredInMinutes = appExpiredInMinutes;
         }
 
+        public MomoSettingInfo getMomoSettingInfo() {
+            return momoSettingInfo;
+        }
+
+        public void setMomoSettingInfo(MomoSettingInfo momoSettingInfo) {
+            this.momoSettingInfo = momoSettingInfo;
+        }
     }
 }

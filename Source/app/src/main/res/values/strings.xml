@@ -310,8 +310,6 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="payment_success_notice">Xin lưu ý đây chỉ là xác nhận số tiền thanh toán đã được gởi đi từ ví điện tử. Chúng tôi sẽ gởi biên lai trong vòng 24 tiếng kể từ khi nhận được thanh toán</string>
     <string name="payment_done">Hoàn tất</string>
     <string name="payment_description">Thanh toán số hợp đồng %1$s</string>
-    <string name="momo_merchant_name" translatable="false">HomeCredit Việt Nam</string>
-    <string name="momo_merchant_code" translatable="false">MOMOIQA420180417</string>
     <string name="momo_merchant_name_label">Nhà cung cấp</string>
     <string name="momo_payment_description">Thanh toán số hợp đồng %1$s</string>
     <string name="momo_payment">Thanh toán</string>
@@ -327,4 +325,5 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="paymomo_duedate">Due date</string>
     <string name="momo_full_payment">Full payment</string>
     <string name="momo_partial_payment">Partial payment</string>
+    <string name="momo_payment_failed">Thất bại</string>
 </resources>

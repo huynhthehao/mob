@@ -29,6 +29,8 @@ import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
+import vn.homecredit.hcvn.ui.payment.model.MakePaymentRequestValue;
+import vn.homecredit.hcvn.ui.payment.model.MakePaymentResp;
 
 public interface RestService extends RestUrl {
     //Account
@@ -58,6 +60,7 @@ public interface RestService extends RestUrl {
     Single<StatementDetailsResp> getStatementDetails(String contractId,StatementModel statementModel);
     Single<MasterContractVerifyResp> masterContractVerify(String contractId, String otp, boolean hasDisbursementBankAccount, boolean isCreditCardContract);
     Single<RePaymentResp> getRePayment(String contractId);
+    Single<MakePaymentResp> makePaymentForMomo(MakePaymentRequestValue requestValue);
 
     //Support
     Single<SupportResp> submitFeedback(String subject, String description, String phoneNumber, String contractId);
@@ -66,4 +69,5 @@ public interface RestService extends RestUrl {
     Single<ClwModel> getClwNear(Double lat, Double lon);
     Single<DisbursementModel> getDisbursementNear(Double lat, Double lon);
     Single<PaymentModel> getPaymenttNear(Double lat, Double lon);
+
 }
