@@ -11,10 +11,17 @@ import java.text.NumberFormat;
 
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
+import vn.homecredit.hcvn.ui.custom.MenuRowItem;
 import vn.homecredit.hcvn.ui.custom.PayMomoInfoItem;
 
 public class BindingAdapterUtils {
 
+    @BindingAdapter({"enable"})
+    public static void setEnable(MenuRowItem menuRowItem, Boolean enable ) {
+        if (enable == Boolean.FALSE) {
+            menuRowItem.disable();
+        }
+    }
     @BindingAdapter({"amount"})
     public static void setLoanAmountPayMomo(PayMomoInfoItem payMomoInfoItem, Integer loanAmount) {
         if (loanAmount == null) return;

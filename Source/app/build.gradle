@@ -80,7 +80,7 @@ android {
             versionName "1.5.3"
             versionCode 8
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
-            buildConfigField "String", "BASE_URL", '"https://mobileapp-uat.homecredit.vn"'
+            buildConfigField "String", "BASE_URL", '"https://mobileapp3-uat.homecredit.vn"'
         }
         uat {
             dimension "mode"

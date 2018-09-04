@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Toast;
 
 import org.parceler.Parcels;
@@ -57,12 +58,12 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
         HcContract hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT_PARAM));
         getViewModel().setContract(hcContract);
         getViewModel().getRepayment();
-
         getViewModel().getModelPaymentViaMomo().observe(this, aBoolean -> {
             if (aBoolean != null && aBoolean == TRUE) {
                 paymentViaMomo();
             }
         });
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
     }
 

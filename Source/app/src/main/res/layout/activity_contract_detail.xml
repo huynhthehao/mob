@@ -176,6 +176,7 @@
                         </vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
                         <View
+
                             style="@style/Separator_Horizontal"
                             android:layout_marginHorizontal="@dimen/margin_normal" />
 
@@ -187,6 +188,7 @@
                             android:src="@drawable/ic_momo_small"
                             android:onClick="@{() -> viewModel.onMomoClicked()}"
                             android:text="@string/pay_for_momo"
+                            app:enable="@{viewModel.bindEnableMomo}"
                             >
                         </vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
