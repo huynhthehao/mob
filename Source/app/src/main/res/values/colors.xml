@@ -9,6 +9,7 @@
     <!-- For Credit Contract -->
     <color name="activeDisplay">#559D44</color>
     <color name="textGray">#666666</color>
+    <color name="disable">#666666</color>
 
     <color name="red">#FF0000</color>
     <color name="red_50">#FFEBEE</color>

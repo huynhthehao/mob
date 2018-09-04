@@ -12,10 +12,6 @@ package vn.homecredit.hcvn.ui.splash;
 import android.content.Context;
 import android.content.Intent;
 
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
-import com.microsoft.appcenter.crashes.Crashes;
-
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
@@ -83,10 +79,6 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
 
     @Override
     protected void init()  {
-        if (!BuildConfig.DEBUG) {
-            AppCenter.start(getApplication(), BuildConfig.APPCENTER_SECRET,
-                    Analytics.class, Crashes.class);
-        }
         if (!isTaskRoot()
                 && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
                 && getIntent().getAction() != null

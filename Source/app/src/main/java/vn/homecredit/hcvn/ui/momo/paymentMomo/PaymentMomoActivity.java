@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Toast;
 
 import org.parceler.Parcels;
@@ -76,6 +77,7 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
                 requestPaymentViaMomo(paymentMomoRequestModel);
             }
         });
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         getViewModel().getPaymentMomoSuccess().observe(this, paymentSummary -> {
             PaymentSummaryActivity.start(this, paymentSummary);

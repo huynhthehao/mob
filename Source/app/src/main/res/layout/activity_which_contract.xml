@@ -41,7 +41,7 @@
             android:layout_marginTop="@dimen/margin_high"
             app:layout_constraintTop_toBottomOf="@+id/ivLogo"
             android:gravity="center"
-            android:text="Which contract do you want to pay?"
+            android:text="@string/which_contract"
             android:textStyle="bold"
             style="@style/AppTheme.Title"
             />

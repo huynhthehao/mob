@@ -10,7 +10,11 @@ import android.support.v4.app.Fragment;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor;
+import com.androidnetworking.internal.InternalNetworking;
+import com.crashlytics.android.Crashlytics;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.onesignal.OneSignal;
 
 import javax.inject.Inject;
@@ -19,12 +23,13 @@ import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import io.fabric.sdk.android.Fabric;
+import okhttp3.OkHttpClient;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import vn.homecredit.hcvn.di.component.AppComponent;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
 import vn.homecredit.hcvn.di.module.RoomModule;
 import vn.homecredit.hcvn.service.OneSignalService;
-import vn.homecredit.hcvn.utils.AppConstants;
 import vn.homecredit.hcvn.utils.AppLogger;
 
 /**
@@ -77,11 +82,8 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
         context = getApplicationContext();
 
         AppLogger.init();
-
-        AndroidNetworking.initialize(getApplicationContext());
-        if (BuildConfig.DEBUG) {
-            AndroidNetworking.enableLogging(HttpLoggingInterceptor.Level.BODY);
-        }
+        initializeCrashAndDistribution();
+        initializeNetworkConfiguration();
 
         CalligraphyConfig.initDefault(mCalligraphyConfig);
 
@@ -133,6 +135,20 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
             }
         });
         Fresco.initialize(this);
+    }
+
+    private void initializeNetworkConfiguration() {
+        OkHttpClient.Builder clientBuilder = InternalNetworking.getClient().newBuilder();
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+            clientBuilder.addNetworkInterceptor(new StethoInterceptor());
+            clientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        }
+        AndroidNetworking.initialize(getApplicationContext(), clientBuilder.build());
+    }
+
+    private void initializeCrashAndDistribution() {
+        Fabric.with(this, new Crashlytics());
     }
 
     public static Context getContext() {

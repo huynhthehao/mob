@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,14 +22,14 @@ import android.widget.TextView;
 import vn.homecredit.hcvn.R;
 
 public class MenuRowItem extends LinearLayout {
-
     private static final int DEFAULT_IMAGE_SRC = R.drawable.ic_launcher_foreground;
-
     private String mTitle;
     private int mSrc;
 
     private TextView mTitleView;
     private ImageView mImageView;
+    private boolean enabled;
+    private ImageView ivIndicator;
 
     public MenuRowItem(Context context) {
         super(context);
@@ -66,11 +67,8 @@ public class MenuRowItem extends LinearLayout {
                 android.R.attr.text        // idx 1
         };
         TypedArray array = getContext().getTheme().obtainStyledAttributes(attrs, set, 0, 0);
-
-
         mSrc = array.getResourceId(0, DEFAULT_IMAGE_SRC);
         mTitle = array.getString(1);
-
         array.recycle();
     }
 
@@ -80,6 +78,7 @@ public class MenuRowItem extends LinearLayout {
 
         mTitleView = findViewById(R.id.menuTitleView);
         mImageView = findViewById(R.id.imageView);
+        ivIndicator = findViewById(R.id.ivIndicator);
 
         mTitleView.setText(mTitle);
         mImageView.setImageResource(mSrc);
@@ -88,5 +87,14 @@ public class MenuRowItem extends LinearLayout {
         }else {
             mImageView.setVisibility(VISIBLE);
         }
+    }
+
+    public void disable() {
+        mImageView.setColorFilter(getResources().getColor(R.color.disable));
+        ivIndicator.setColorFilter(getResources().getColor(R.color.disable));
+        mTitleView.setTextColor(getResources().getColor(R.color.disable));
+        this.setEnabled(false);
+        this.setClickable(false);
+        this.setFocusable(false);
     }
 }

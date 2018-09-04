@@ -10,10 +10,11 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentContractListBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.contract.main.ContractRecyclerViewAdapter;
 import vn.homecredit.hcvn.ui.contract.main.ContractViewModel;
 
-public class MyContractFragment extends BaseActivity<FragmentContractListBinding, ContractViewModel> implements ContractRecyclerViewAdapter.OnContractListener {
+public class MyContractFragment extends BaseFragment<FragmentContractListBinding, ContractViewModel> implements ContractRecyclerViewAdapter.OnContractListener {
     ContractRecyclerViewAdapter contractRecyclerViewAdapter;
     @Inject
     ViewModelProvider.Factory viewModelFactory;

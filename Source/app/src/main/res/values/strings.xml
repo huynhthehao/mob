@@ -313,8 +313,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="momo_merchant_name_label">Nhà cung cấp</string>
     <string name="momo_payment_description">Thanh toán số hợp đồng %1$s</string>
     <string name="momo_payment">Thanh toán</string>
-    <string name="momo_pay_for_other">Pay for Other</string>
-    <string name="momo_my_contract">My Contracts</string>
+    <string name="momo_pay_for_other">Hợp đồng của người khác</string>
+    <string name="momo_my_contract">Hợp đồng của tôi</string>
     <string name="pay_for_momo">Thanh toán qua Momo</string>
     <string name="payment_via_momo">Thanh toán qua Momo</string>
     <string name="paymomo_contractnumber">Contract number</string>
@@ -323,7 +323,9 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="paymomo_total_amount">Out standing amount</string>
     <string name="paymomo_amount">Amount</string>
     <string name="paymomo_duedate">Due date</string>
-    <string name="momo_full_payment">Full payment</string>
-    <string name="momo_partial_payment">Partial payment</string>
     <string name="momo_payment_failed">Thất bại</string>
+    <string name="momo_full_payment">Tối đa</string>
+    <string name="momo_partial_payment">Một phần </string>
+    <string name="total_payment_amount">Tổng số tiền bạn cần trả:</string>
+    <string name="which_contract">Bạn muốn thanh toán cho hợp đồng nào?</string>
 </resources>
