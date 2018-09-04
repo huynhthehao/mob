@@ -7,29 +7,31 @@
 
 package vn.homecredit.hcvn.ui.payment.momo.payothers;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-
-import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
-import vn.homecredit.hcvn.databinding.ActivityOtpBinding;
+import vn.homecredit.hcvn.data.model.momo.RePaymentData;
+import vn.homecredit.hcvn.databinding.ActivityPaymomoOthersBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.helpers.DialogContractsHelp;
+import vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoActivity;
 
 
-public class PayOthersActivity extends BaseActivity<ActivityOtpBinding, PayOthersViewModel> implements PayOthersListener {
+public class PayOthersActivity extends BaseActivity<ActivityPaymomoOthersBinding, PayOthersViewModel> implements PayOthersListener {
 
     @Inject
-    PayOthersViewModel otpViewModel;
+    ViewModelProvider.Factory viewModelFactory;
 
 
-    public static void start(Context context, OtpPassParam otpPassParam) {
+    public static void start(Context context) {
         Intent newInstance = new Intent(context, PayOthersActivity.class);
         context.startActivity(newInstance);
     }
@@ -42,29 +44,33 @@ public class PayOthersActivity extends BaseActivity<ActivityOtpBinding, PayOther
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_otp;
+        return R.layout.activity_paymomo_others;
     }
 
     @Override
     public PayOthersViewModel getViewModel() {
-        return otpViewModel;
+        return ViewModelProviders.of(this, viewModelFactory).get(PayOthersViewModel.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        otpViewModel.setNavigator(this);
-
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getViewModel().setListener(this);
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
     }
+
 
     @Override
-    public void onNext(String contractNumber) {
-
+    public void onNext(RePaymentData rePaymentData) {
+        PaymentMomoActivity.start(this, rePaymentData);
     }
+
+
+    @Override
+    public void onContractHelp(String supportPhoneNumber) {
+        showDialogContactHelp(supportPhoneNumber);
+    }
+
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -72,6 +78,11 @@ public class PayOthersActivity extends BaseActivity<ActivityOtpBinding, PayOther
         return super.onSupportNavigateUp();
     }
 
+    private void showDialogContactHelp(String supportPhoneNumber) {
+        String title = getResources().getString(R.string.dialog_contact_help_pay_other_title);
+        String content = getResources().getString(R.string.dialog_contact_help_content, supportPhoneNumber);
+        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content, supportPhoneNumber);
+    }
 }
 
 

@@ -6,6 +6,9 @@
 
 package vn.homecredit.hcvn.ui.payment.momo.payothers;
 
+import vn.homecredit.hcvn.data.model.momo.RePaymentData;
+
 public interface PayOthersListener {
-    void onNext(String contractNumber);
+    void onNext(RePaymentData rePaymentData);
+    void onContractHelp(String supportPhoneNumber);
 }

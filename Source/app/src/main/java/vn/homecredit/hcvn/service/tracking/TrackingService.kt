@@ -24,7 +24,7 @@ constructor(private val context: Context, private val gaAnalyticsServiceImpl: An
             "SignUpActivity" to R.string.ga_screen_signup,
             "ga_screen_login_success" to R.string.ga_screen_login_success,
             "SetPasswordActivity" to R.string.ga_screen_login_setpassword,
-            "PayOthersActivity" to R.string.ga_screen_otp,
+            "OtpActivity" to R.string.ga_screen_otp,
             "ForgetPasswordActivity" to R.string.ga_screen_login_forgot,
             //Contract
             "ContractDetailActivity" to R.string.ga_screen_contract_detail,

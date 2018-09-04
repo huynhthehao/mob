@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.homecredit.hcvn.ui.momo.whichContract.WhichContractViewModel" />
+            type="vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
