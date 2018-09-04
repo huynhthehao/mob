@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.ui.momo.myContract;
+package vn.homecredit.hcvn.ui.payment.myContract;
 
 import android.content.Context;
 import android.content.Intent;

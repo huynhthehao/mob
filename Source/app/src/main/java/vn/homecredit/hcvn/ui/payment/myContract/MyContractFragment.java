@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.ui.momo.myContract;
+package vn.homecredit.hcvn.ui.payment.myContract;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
