@@ -29,7 +29,6 @@ public class PaymentMomoViewModelTest extends TestBaseViewModel<PaymentMomoViewM
         bindVisibleCustomerId = viewModel.getBindVisibleCustomerId();
         bindVisibleFullname = viewModel.getBindVisibleFullname();
         bindVisibleDuedate = viewModel.getBindVisibleDuedate();
-
     }
 
     @Test
