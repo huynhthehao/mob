@@ -46,7 +46,8 @@ public class AclAfSelectLoanFragment extends BaseFragment<FragmentAclAfSelectLoa
 
     @Override
     protected void init() {
-        getViewModel().setNavigator(this);
+        // TODO: Need to modified
+        //getViewModel().setNavigator(this);
         getViewModel().AmountSliderChangedSubject = RxSeekBar.userChanges(getViewDataBinding().loanAmountSeekBar);
         getViewModel().TenorSliderChangedSubject = RxSeekBar.userChanges(getViewDataBinding().loanTenorSeekBar);
         getViewModel().init();

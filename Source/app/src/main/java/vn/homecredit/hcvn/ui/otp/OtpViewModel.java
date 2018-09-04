@@ -371,13 +371,11 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
     }
 
     private void setCountingDisplay() {
-//        TextView countingView = getNavigator().getControlById(R.id.countingText);
         SpanBuilder spanBuilder = new SpanBuilder();
         String otpHintRes = resourceService.getStringById(R.string.otp_hint);
         int primaryColor = resourceService.getColorById(R.color.colorPrimary);
         spanBuilder.appendWithSpace(String.format(otpHintRes, phonePrimary == null ? phoneNumber : phonePrimary));
         spanBuilder.append(remainingTimeText, new ForegroundColorSpan(primaryColor));
-//        countingView.setText(spanBuilder.build());
         timeCounter.set(spanBuilder.build());
     }
 

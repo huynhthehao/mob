@@ -70,6 +70,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        otpViewModel.setListener(this);
 
         if (getIntent().hasExtra(BUNDLE_OTPPARAM)) {
             OtpPassParam otpPassParam = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_OTPPARAM));

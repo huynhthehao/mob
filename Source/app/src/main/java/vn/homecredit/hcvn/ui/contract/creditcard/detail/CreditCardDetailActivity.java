@@ -70,7 +70,6 @@ public class CreditCardDetailActivity extends BaseActivity<ActivityCreditcardDet
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel.setNavigator(this);
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
 
         if (getIntent().hasExtra(BUNDLE_INPUT_CREDIT_CARD)) {

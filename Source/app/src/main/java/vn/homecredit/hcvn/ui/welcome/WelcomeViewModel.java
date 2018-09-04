@@ -20,10 +20,11 @@ import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
-public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
+public class WelcomeViewModel extends BaseViewModel<WelcomeListener> {
     private final AclDataManager mAclDataManager;
     private final PreferencesHelper preferencesHelper;
     private final AccountRepository accountRepository;
+    private WelcomeListener listener;
 
     @Inject
     public WelcomeViewModel(SchedulerProvider schedulerProvider, AclDataManager aclDataManager, PreferencesHelper preferencesHelper, AccountRepository accountRepository) {
@@ -33,13 +34,20 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
         this.accountRepository = accountRepository;
     }
 
+    public void setListener(WelcomeListener listener){
+        this.listener = listener;
+    }
+
     public void onLoginClick() {
-        this.getNavigator().openLoginActivity();
+        if(listener != null)
+            listener.openLoginActivity();
     }
 
     public void onLanguageFlagClick() {
         preferencesHelper.changeLanguage();
-        getNavigator().changeLanguage();
+
+        if(listener != null)
+            listener.changeLanguage();
     }
 
     public String getCurrentLanguageCode() {
@@ -47,15 +55,19 @@ public class WelcomeViewModel extends BaseViewModel<WelcomeNavigator> {
     }
 
     public void onSignupClick() {
-        this.getNavigator().openSignupActivity();
+        if(this.listener != null)
+            listener.openSignupActivity();
     }
 
     public void onCashloanClick() {
         String aclAccessToken = mAclDataManager.getAclAccessToken();
+        if(listener == null)
+            return;
+
         if (TextUtils.isEmpty(aclAccessToken)) {
-            this.getNavigator().openIntroActivity();
+            listener.openIntroActivity();
         } else {
-            this.getNavigator().openAclApplicationForm();
+            listener.openAclApplicationForm();
         }
     }
 
