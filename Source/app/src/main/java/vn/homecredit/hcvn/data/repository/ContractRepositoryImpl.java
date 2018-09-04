@@ -41,10 +41,12 @@ public class ContractRepositoryImpl implements ContractRepository {
     public static final int MASTERCONTRACT_PREPARE_INTERVAL = 20;
 
     private final RestService restService;
+    private SchedulerProvider schedulerProvider;
 
     @Inject
-    public ContractRepositoryImpl(RestService restService ) {
+    public ContractRepositoryImpl(RestService restService, SchedulerProvider schedulerProvider ) {
         this.restService = restService;
+        this.schedulerProvider = schedulerProvider;
     }
 
     @Override
@@ -81,8 +83,8 @@ public class ContractRepositoryImpl implements ContractRepository {
                     contractResp.getData().setContracts(contractList);
                     return contractResp;
                 })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui());
     }
 
 

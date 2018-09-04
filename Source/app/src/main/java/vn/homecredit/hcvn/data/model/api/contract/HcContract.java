@@ -272,5 +272,18 @@ public class HcContract {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        HcContract that = (HcContract) o;
+
+        return contractNumber != null ? contractNumber.equals(that.contractNumber) : that.contractNumber == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return contractNumber != null ? contractNumber.hashCode() : 0;
+    }
 }

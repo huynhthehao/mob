@@ -12,6 +12,7 @@ import vn.homecredit.hcvn.data.model.momo.RePaymentData;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.Log;
+import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.TestData;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -110,9 +111,6 @@ public class PaymentMomoViewModel extends BaseViewModel {
                 }, throwable -> {
                     setIsLoading(false);
                     handleError(throwable);
-                    if (BuildConfig.DEBUG) {
-                        updateData(TestData.rePaymentResp().getRePaymentData());
-                    }
                 });
     }
 
@@ -122,10 +120,10 @@ public class PaymentMomoViewModel extends BaseViewModel {
         }
         bindVisibleRepayment.set(true);
         this.rePaymentData.set(rePaymentData);
-        bindVisibleContract.set(!TextUtils.isEmpty(rePaymentData.getContractNumber()));
-        bindVisibleFullname.set(!TextUtils.isEmpty(rePaymentData.getFullName()));
-        bindVisibleCustomerId.set(!TextUtils.isEmpty(rePaymentData.getIdNumber()));
-        bindVisibleDuedate.set(!TextUtils.isEmpty(rePaymentData.getDueDate()));
+        bindVisibleContract.set(!StringUtils.isNullOrEmpty(rePaymentData.getContractNumber()));
+        bindVisibleFullname.set(!StringUtils.isNullOrEmpty(rePaymentData.getFullName()));
+        bindVisibleCustomerId.set(!StringUtils.isNullOrEmpty(rePaymentData.getIdNumber()));
+        bindVisibleDuedate.set(!StringUtils.isNullOrEmpty(rePaymentData.getDueDate()));
     }
 
 
