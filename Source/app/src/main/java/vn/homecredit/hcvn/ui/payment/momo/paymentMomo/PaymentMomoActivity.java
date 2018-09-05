@@ -18,7 +18,6 @@ import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.momo.RePaymentData;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.databinding.ActivityPaymentMomoBinding;
-import vn.homecredit.hcvn.ui.momo.paymentMomo.PaymentMomoViewModel;
 
 import static java.lang.Boolean.TRUE;
 
