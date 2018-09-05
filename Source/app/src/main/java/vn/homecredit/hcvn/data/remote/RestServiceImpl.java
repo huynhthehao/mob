@@ -384,6 +384,7 @@ public class RestServiceImpl implements RestService {
         requestBody.put("provider", requestValue.getProvider());
         requestBody.put("amount", requestValue.getAmount());
         requestBody.put("customerNumber", requestValue.getCustomerNumber());
+        requestBody.put("contractNumber", requestValue.getContractNumber());
         return DefaultAndroidNetworking.postWithoutSubscribeOn(url,
                 mApiHeader.getProtectedApiHeader(), requestBody,
                 MakePaymentResp.class);
