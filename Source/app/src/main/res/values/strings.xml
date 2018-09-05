@@ -302,7 +302,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="pay_for_momo">Thanh toán qua Momo</string>
     <string name="payment_via_momo">Thanh toán qua Momo</string>
     <string name="momo_full_payment">Tối đa</string>
-    <string name="momo_partial_payment">Một phần </string>
+    <string name="momo_partial_payment"><![CDATA[ Một phần <i>(tối thiểu 50.000 VND)</i> ]]></string>
+    <string name="momo_partial_payment_amount">Số tiền bạn muốn thanh toán</string>
     <string name="total_payment_amount">Tổng số tiền bạn cần trả:</string>
     <string name="which_contract">Bạn muốn thanh toán cho hợp đồng nào?</string>
 </resources>

@@ -4,9 +4,15 @@
     >
     <data>
         <import type="android.view.View"/>
+        <import type="android.text.Html"/>
+
         <variable
             name="viewModel"
             type="vn.homecredit.hcvn.ui.momo.paymentMomo.PaymentMomoViewModel" />
+
+        <variable
+            name="paymentChange"
+            type="android.widget.CompoundButton.OnCheckedChangeListener" />
     </data>
 
     <LinearLayout
@@ -24,23 +30,19 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintBottom_toBottomOf="parent"
             >
 
             <LinearLayout
                 android:id="@+id/llRePayment"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/margin_high"
-                android:layout_marginRight="@dimen/margin_high"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_marginLeft="@dimen/margin_normal"
                 android:visibility="@{viewModel.bindVisibleRepayment ? View.VISIBLE : View.GONE}"
                 android:orientation="vertical">
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
-                    android:layout_marginTop="@dimen/margin_high"
+                    android:layout_marginTop="@dimen/margin_normal"
                     app:title='@{@string/contract_number + ":"}'
                     app:content="@{viewModel.rePaymentData.contractNumber}"
                     android:visibility="@{viewModel.bindVisibleContract ? View.VISIBLE : View.GONE}"
@@ -73,7 +75,7 @@
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
                     app:title='@{@string/amount + ":"}'
-                    app:amount="@{viewModel.rePaymentData.amount}"
+                    app:amount="@{viewModel.fullAmount}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>
@@ -108,40 +110,68 @@
                         android:id="@+id/rbPartialPayment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/momo_partial_payment"
                         android:checked="@={viewModel.partialPayment}"
+                        android:onCheckedChanged="@{paymentChange.onCheckedChanged}"
+                        android:text="@{Html.fromHtml(@string/momo_partial_payment)}"
                         />
                 </RadioGroup>
 
-                <TextView
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_high"
-                    android:text="@string/total_payment_amount"
-                    android:gravity="center"
-                    style="@style/AppTheme.Title"
-                    />
+                    android:layout_marginTop="@dimen/margin_high">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_smallest"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:gravity="center"
-                    app:loanamount="@{viewModel.rePaymentData.amount}"
-                    style="@style/AppTheme.SectionLabel"
-                    />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="@{viewModel.fullPayment ? View.VISIBLE : View.GONE}">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total_payment_amount"
+                            android:gravity="center"
+                            style="@style/AppTheme.Title"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_smallest"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:gravity="center"
+                            app:loanamount="@{viewModel.fullAmount}"
+                            style="@style/AppTheme.SectionLabel"
+                            />
+                    </LinearLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/AppTheme.TextLabel"
+                        android:visibility="@{viewModel.partialPayment ? View.VISIBLE : View.GONE}">
+
+                        <EditText
+                            android:id="@+id/etPartialAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_money"
+                            android:drawablePadding="@dimen/padding_normal"
+                            android:drawableStart="@drawable/ic_money"
+                            android:hint="@string/momo_partial_payment_amount"
+                            android:inputType="number" />
+                    </android.support.design.widget.TextInputLayout>
+                </FrameLayout>
 
                 <Button
                     android:id="@+id/btnNext"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    app:layout_constraintTop_toBottomOf="@+id/tvHintNumContracts"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginHorizontal="30dp"
-                    android:imeOptions="actionDone"
+                    android:enabled="@{viewModel.enableMomoPayment}"
+                    android:layout_marginHorizontal="@dimen/margin_high"
                     android:onClick="@{() -> viewModel.payViaMomoClicked()}"
                     android:text="@string/payment_via_momo"
                     style="@style/PrimaryButton"

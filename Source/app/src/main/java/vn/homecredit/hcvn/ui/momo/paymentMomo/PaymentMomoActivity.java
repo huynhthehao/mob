@@ -1,31 +1,35 @@
 package vn.homecredit.hcvn.ui.momo.paymentMomo;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
+import vn.homecredit.hcvn.data.model.momo.RePaymentData;
+import vn.homecredit.hcvn.ui.momo.NumberFormatTextWatcher;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
-import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.databinding.ActivityPaymentMomoBinding;
+import vn.homecredit.hcvn.ui.base.BaseActivity;
 
 import static java.lang.Boolean.TRUE;
 
-public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding, PaymentMomoViewModel> {
+public class PaymentMomoActivity
+        extends BaseActivity<ActivityPaymentMomoBinding, PaymentMomoViewModel>
+        implements NumberFormatTextWatcher.StringAsNumberChangeListener {
 
     public static final String BUNDLE_CONTRACT_PARAM = "BUNDLE_CONTRACT_PARAM";
-
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
@@ -63,11 +67,36 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
                 paymentViaMomo();
             }
         });
+        EditText partial = getViewDataBinding().etPartialAmount;
+        partial.addTextChangedListener(new NumberFormatTextWatcher(partial, this));
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
-
+        getViewDataBinding().setPaymentChange((ignored, isChecked) -> {
+            if (isChecked) {
+                partial.setText("0");
+                partial.setSelection(1);
+            }
+        });
     }
 
     private void paymentViaMomo() {
         Toast.makeText(this, "pay via momo", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onChange(@NotNull String value) {
+        int amount = Integer.parseInt(value);
+        RePaymentData data = getViewModel().getRePaymentData().get();
+        if (data != null) {
+            data.setAmount(amount);
+        }
+
+        int fullAmount = getViewModel().getFullAmount().get();
+        if (amount > fullAmount) {
+            EditText partial = getViewDataBinding().etPartialAmount;
+            partial.setText(String.valueOf(fullAmount));
+            partial.setSelection(partial.getText().length());
+            return;
+        }
+        getViewModel().getRePaymentData().notifyChange();
     }
 }
