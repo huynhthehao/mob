@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.ui.momo.paymentMomo;
+package vn.homecredit.hcvn.ui.payment.momo.paymentMomo;
 
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.Toast;
 
 import org.parceler.Parcels;
 
@@ -19,20 +17,18 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
-import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.data.model.momo.RePaymentData;
 import vn.homecredit.hcvn.databinding.ActivityPaymentMomoBinding;
-import vn.homecredit.hcvn.ui.momo.MomoForTestActivity;
+import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.payment.PaymentMomoEventValueBuilder;
 import vn.homecredit.hcvn.ui.payment.model.PaymentMomoRequestModel;
 import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryActivity;
-import vn.homecredit.hcvn.ui.payment.summary.model.PaymentSummaryModel;
 import vn.momo.momo_partner.AppMoMoLib;
-
-import static java.lang.Boolean.TRUE;
 
 public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding, PaymentMomoViewModel> {
 
     public static final String BUNDLE_CONTRACT_PARAM = "BUNDLE_CONTRACT_PARAM";
+    public static final String BUNDLE_REPAYMENT_PARAM = "BUNDLE_REPAYMENT_PARAM";
 
 
     @Inject
@@ -41,6 +37,12 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
     public static void start(Context context, HcContract hcContract) {
         Intent intent = new Intent(context, PaymentMomoActivity.class);
         intent.putExtra(BUNDLE_CONTRACT_PARAM, Parcels.wrap(hcContract));
+        context.startActivity(intent);
+    }
+
+    public static void start(Context context, RePaymentData rePaymentData) {
+        Intent intent = new Intent(context, PaymentMomoActivity.class);
+        intent.putExtra(BUNDLE_REPAYMENT_PARAM, Parcels.wrap(rePaymentData));
         context.startActivity(intent);
     }
 
@@ -67,11 +69,24 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
         } else {
             AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
         }
-        if (!getIntent().hasExtra(BUNDLE_CONTRACT_PARAM)) return;
-        HcContract hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT_PARAM));
-        getViewModel().setContract(hcContract);
-        getViewModel().getRepayment();
+        RePaymentData rePaymentData = null;
+        HcContract hcContract = null;
+        boolean hasIntentData = false;
 
+        if (getIntent().hasExtra(BUNDLE_CONTRACT_PARAM)) {
+            hcContract = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_CONTRACT_PARAM));
+            hasIntentData = true;
+            getViewModel().initData(false, hcContract, rePaymentData);
+        }
+
+        if (getIntent().hasExtra(BUNDLE_REPAYMENT_PARAM)) {
+            rePaymentData = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_REPAYMENT_PARAM));
+            hasIntentData = true;
+            getViewModel().initData(true, hcContract, rePaymentData);
+        }
+
+        if(!hasIntentData)
+            return;
         getViewModel().getModelRequestPaymentViaMomo().observe(this, paymentMomoRequestModel -> {
             if (paymentMomoRequestModel != null) {
                 requestPaymentViaMomo(paymentMomoRequestModel);
@@ -82,7 +97,6 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
         getViewModel().getPaymentMomoSuccess().observe(this, paymentSummary -> {
             PaymentSummaryActivity.start(this, paymentSummary);
         });
-
     }
 
     @Override

@@ -37,7 +37,6 @@ import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
-import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
@@ -48,6 +47,8 @@ import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.Statement
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 import vn.homecredit.hcvn.ui.payment.model.MakePaymentRequestValue;
 import vn.homecredit.hcvn.ui.payment.model.MakePaymentResp;
+
+//import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 
 @Singleton
 public class RestServiceImpl implements RestService {

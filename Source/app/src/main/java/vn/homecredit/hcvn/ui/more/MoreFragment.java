@@ -10,10 +10,8 @@
 package vn.homecredit.hcvn.ui.more;
 
 
-import android.app.NotificationManager;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,7 +28,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentMoreBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
-import vn.homecredit.hcvn.ui.momo.whichContract.WhichContractActivity;
+import vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractActivity;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.ChangePassActivity;

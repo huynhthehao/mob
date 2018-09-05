@@ -11,23 +11,23 @@ package vn.homecredit.hcvn.ui.splash;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
-import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.ui.custom.MyStatefulLayout;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseStatefulActivity;
+import vn.homecredit.hcvn.ui.custom.MyStatefulLayout;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 
-public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, SplashViewModel> implements SplashNavigator {
+public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, SplashViewModel> implements SplashListener {
 
     @Inject
-    SplashViewModel mSplashViewModel;
+    SplashViewModel viewModel;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SplashActivity.class);
@@ -50,7 +50,7 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
 
     @Override
     public SplashViewModel getViewModel() {
-        return mSplashViewModel;
+        return viewModel;
     }
 
     @Override
@@ -75,6 +75,13 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     @Override
     public void retryCheckUpdate() {
         this.showOffline(view -> getViewModel().checkUpdate());
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel.setListener(this);
     }
 
     @Override

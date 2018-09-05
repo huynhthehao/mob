@@ -22,11 +22,13 @@ public class AclSelectLoanTypeViewModel extends AclBaseViewModel<AclSelectLoanTy
     }
 
     public void onACLOClick() {
-        getNavigator().goACLO();
+        // TODO: Need to modified
+        //getNavigator().goACLO();
     }
 
     public void onMapClick() {
-        getNavigator().goPos();
+        // TODO: Need to modified
+        //getNavigator().goPos();
     }
 
 }

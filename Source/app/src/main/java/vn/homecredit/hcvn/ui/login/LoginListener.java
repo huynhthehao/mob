@@ -9,7 +9,7 @@
 
 package vn.homecredit.hcvn.ui.login;
 
-public interface LoginNavigator {
+public interface LoginListener {
     void openHomeActivity();
     void forgetPassword();
     void showFingerPrintAuthDialog();

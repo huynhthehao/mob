@@ -9,7 +9,7 @@
 
 package vn.homecredit.hcvn.ui.welcome;
 
-public interface WelcomeNavigator {
+public interface WelcomeListener {
     void openWelcomeActivity();
     void openHomeActivity();
 

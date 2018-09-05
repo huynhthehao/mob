@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.ui.momo.paymentMomo;
+package vn.homecredit.hcvn.ui.payment.momo.paymentMomo;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
@@ -58,6 +58,7 @@ public class PaymentMomoViewModel extends BaseViewModel {
     public MutableLiveData<PaymentMomoRequestModel> getModelRequestPaymentViaMomo() {
         return modelRequestPaymentViaMomo;
     }
+
     public ObservableField<Boolean> getBindVisibleRepayment() {
         return bindVisibleRepayment;
     }
@@ -119,7 +120,7 @@ public class PaymentMomoViewModel extends BaseViewModel {
         modelRequestPaymentViaMomo.setValue(paymentMomoRequestModel);
     }
 
-    public void getRepayment() {
+    private void getRepayment() {
         if (contract == null || contract.getContractNumber() == null) {
             return;
         }
@@ -155,8 +156,15 @@ public class PaymentMomoViewModel extends BaseViewModel {
     }
 
 
-    public void setContract(HcContract contract) {
+    // TODO: Need to refresh layout base on init data
+    public void initData(boolean hasRepayment, HcContract contract, RePaymentData rePaymentIntent) {
+        if (hasRepayment) {
+            updateData(rePaymentIntent);
+            return;
+        }
+
         this.contract = contract;
+        getRepayment();
     }
 
     public HcContract getContract() {

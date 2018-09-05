@@ -27,7 +27,7 @@ import vn.homecredit.hcvn.ui.contract.masterContractSuccess.MasterContractSucces
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 
 
-public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> implements OtpNavigator {
+public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> implements OtpListener {
 
     public static final String BUNDLE_OTPPARAM = "BUNDLE_OTPPARAM";
 
@@ -70,7 +70,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        otpViewModel.setNavigator(this);
+        otpViewModel.setListener(this);
 
         if (getIntent().hasExtra(BUNDLE_OTPPARAM)) {
             OtpPassParam otpPassParam = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_OTPPARAM));
@@ -84,7 +84,7 @@ public class OtpActivity extends BaseActivity<ActivityOtpBinding, OtpViewModel> 
     }
 
     @Override
-    public void next(OtpPassParam data) {
+    public void onNext(OtpPassParam data) {
         switch (currentOtpFlow){
             case MASTER_CONTRACT:
             case MASTER_CONTRACT_CREDIT_CARD:

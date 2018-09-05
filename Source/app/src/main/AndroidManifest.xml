@@ -116,12 +116,11 @@
         <activity
             android:name=".ui.support.SupportDoneActivity"
             android:theme="@style/AppTheme" />
-
         <activity android:name=".ui.payment.summary.PaymentSummaryActivity" />
-        <activity android:name=".ui.momo.whichContract.WhichContractActivity" />
-        <activity android:name=".ui.momo.myContract.MyContractActivity" />
-        <activity android:name=".ui.momo.paymentMomo.PaymentMomoActivity" />
-
+        <activity android:name=".ui.payment.momo.whichContract.WhichContractActivity" />
+        <activity android:name=".ui.payment.myContract.MyContractActivity" />
+        <activity android:name=".ui.payment.momo.paymentMomo.PaymentMomoActivity" />
+        <activity android:name=".ui.payment.momo.payothers.PayOthersActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

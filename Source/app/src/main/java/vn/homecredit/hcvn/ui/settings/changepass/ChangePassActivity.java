@@ -1,6 +1,5 @@
 package vn.homecredit.hcvn.ui.settings.changepass;
 
-import android.app.Activity;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -15,7 +14,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityChangepasswordBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
-import vn.homecredit.hcvn.ui.signup.DialogContractsHelp;
+import vn.homecredit.hcvn.helpers.DialogContractsHelp;
 
 public class ChangePassActivity extends BaseActivity<ActivityChangepasswordBinding, ChangePassViewModel> {
 

@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.ui.signup;
+package vn.homecredit.hcvn.helpers;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.util.Linkify;
 import android.view.View;
 import android.widget.TextView;
 

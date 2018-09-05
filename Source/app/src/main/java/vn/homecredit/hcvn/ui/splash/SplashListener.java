@@ -9,7 +9,7 @@
 
 package vn.homecredit.hcvn.ui.splash;
 
-public interface SplashNavigator {
+public interface SplashListener {
     void openWelcomeActivity();
     void openHomeActivity();
     void retryCheckUpdate();

@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.ui.momo.whichContract;
+package vn.homecredit.hcvn.ui.payment.momo.whichContract;
 
 import android.arch.lifecycle.MutableLiveData;
 

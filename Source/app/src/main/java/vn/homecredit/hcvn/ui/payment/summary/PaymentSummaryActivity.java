@@ -55,11 +55,20 @@ public class PaymentSummaryActivity extends BaseActivity<ActivityPaymentSummaryB
         }
         getViewModel().getDoneClickEvent().observe(this, mBoolean -> {
             if (mBoolean) {
-                Intent intentHome = new Intent(this, HomeActivity.class);
-                intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intentHome);
-                finish();
+                startHomeActivity();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startHomeActivity();
+    }
+
+    private void startHomeActivity() {
+        Intent intentHome = new Intent(this, HomeActivity.class);
+        intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intentHome);
+        finish();
     }
 }

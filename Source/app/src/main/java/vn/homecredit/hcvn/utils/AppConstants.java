@@ -9,10 +9,9 @@
 
 package vn.homecredit.hcvn.utils;
 
-public class AppConstants {
+public final class AppConstants {
+    private AppConstants(){}
 
     public static final String SUPPORT_PHONE = "(028) 38 999 666";
-
     public static final String PREF_NAME = "hcvn_pref";
-
 }

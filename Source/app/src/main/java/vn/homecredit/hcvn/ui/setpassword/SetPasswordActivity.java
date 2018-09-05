@@ -19,7 +19,7 @@ import vn.homecredit.hcvn.databinding.ActivitySetpasswordBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.DialogChangePassSuccess;
-import vn.homecredit.hcvn.ui.signup.DialogContractsHelp;
+import vn.homecredit.hcvn.helpers.DialogContractsHelp;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding, SetPasswordViewModel> {

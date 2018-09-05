@@ -7,7 +7,7 @@ public class PaymentSummaryModel {
     String paymentDate = "";
     String payerName = "";
     String beneficiary = "";
-    String totalTransaction = "";
+    int totalTransaction = 0;
 
     public String getPaymentDate() {
         return paymentDate;
@@ -33,11 +33,11 @@ public class PaymentSummaryModel {
         this.beneficiary = beneficiary;
     }
 
-    public String getTotalTransaction() {
+    public int getTotalTransaction() {
         return totalTransaction;
     }
 
-    public void setTotalTransaction(String totalTransaction) {
+    public void setTotalTransaction(int totalTransaction) {
         this.totalTransaction = totalTransaction;
     }
 }

@@ -10,7 +10,7 @@ public class MakePaymentRespData {
 
     @SerializedName("amount")
     @Expose
-    private String amount ;
+    private int amount ;
 
     @SerializedName("transactionId")
     @Expose
@@ -24,11 +24,11 @@ public class MakePaymentRespData {
         this.contractNumber = contractNumber;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
