@@ -69,6 +69,7 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
         } else {
             AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
         }
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
         RePaymentData rePaymentData = null;
         HcContract hcContract = null;
         boolean hasIntentData = false;

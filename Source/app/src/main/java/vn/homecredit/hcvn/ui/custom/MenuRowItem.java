@@ -81,11 +81,11 @@ public class MenuRowItem extends LinearLayout {
         ivIndicator = findViewById(R.id.ivIndicator);
 
         mTitleView.setText(mTitle);
-        mImageView.setImageResource(mSrc);
         if (mSrc == DEFAULT_IMAGE_SRC) {
             mImageView.setVisibility(GONE);
         }else {
             mImageView.setVisibility(VISIBLE);
+            mImageView.setImageResource(mSrc);
         }
     }
 

@@ -155,8 +155,6 @@ public class PaymentMomoViewModel extends BaseViewModel {
         bindVisibleDuedate.set(!StringUtils.isNullOrEmpty(rePaymentData.getDueDate()));
     }
 
-
-    // TODO: Need to refresh layout base on init data
     public void initData(boolean hasRepayment, HcContract contract, RePaymentData rePaymentIntent) {
         if (hasRepayment) {
             updateData(rePaymentIntent);
