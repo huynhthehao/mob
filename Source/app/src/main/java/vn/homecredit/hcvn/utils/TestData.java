@@ -2,6 +2,7 @@ package vn.homecredit.hcvn.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import vn.homecredit.hcvn.data.model.api.creditcard.HcCreditCard;
 import vn.homecredit.hcvn.data.model.api.contract.ContractStatus;
@@ -70,7 +71,7 @@ public class TestData {
     public static HcContract hcContract(String status, String type) {
         HcContract hcContract = new HcContract();
         hcContract.setClientName("Lê Văn Tèo");
-        hcContract.setContractNumber("3800589883");
+        hcContract.setContractNumber(UUID.randomUUID().toString());
         hcContract.setSignedDate("2018-07-20T00:00:00");
         hcContract.setAmtCreditTotal(35409000);
         hcContract.setStatusTextVn("Ngon lành");

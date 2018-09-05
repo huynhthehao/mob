@@ -176,7 +176,6 @@
                         </vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
                         <View
-
                             style="@style/Separator_Horizontal"
                             android:layout_marginHorizontal="@dimen/margin_normal" />
 
