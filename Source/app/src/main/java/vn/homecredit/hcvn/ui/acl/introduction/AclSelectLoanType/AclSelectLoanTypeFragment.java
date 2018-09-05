@@ -50,7 +50,8 @@ public class AclSelectLoanTypeFragment extends BaseFragment<FragmentAclSelectLoa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAclSelectLoanTypeViewModel.setNavigator(this);
+        // TODO: Need to modified
+        //mAclSelectLoanTypeViewModel.setNavigator(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

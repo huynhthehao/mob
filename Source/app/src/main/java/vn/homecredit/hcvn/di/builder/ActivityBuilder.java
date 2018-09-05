@@ -52,13 +52,17 @@ import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.login.LoginViewModel;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
-import vn.homecredit.hcvn.ui.momo.paymentMomo.PaymentMomoActivity;
-import vn.homecredit.hcvn.ui.momo.paymentMomo.PaymentMomoModule;
-import vn.homecredit.hcvn.ui.momo.paymentMomo.PaymentMomoViewModel;
-import vn.homecredit.hcvn.ui.momo.whichContract.WhichContractActivity;
-import vn.homecredit.hcvn.ui.momo.whichContract.WhichContractActivityModule;
+import vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoActivity;
+import vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoModule;
+import vn.homecredit.hcvn.ui.payment.momo.payothers.PayOthersActivity;
+import vn.homecredit.hcvn.ui.payment.momo.payothers.PayOthersModule;
+import vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractActivity;
+import vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractActivityModule;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
 import vn.homecredit.hcvn.ui.otp.OtpViewModel;
+import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryActivity;
+import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryModule;
+import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryViewModel;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivityModule;
@@ -173,10 +177,16 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = StatementDetailsModule.class)
     abstract StatementDetailsActivity bindStatementDetailsActivity();
 
+    @ContributesAndroidInjector(modules = PaymentSummaryModule.class)
+    abstract PaymentSummaryActivity bindPaymentSummaryActivity();
+
     @ContributesAndroidInjector(modules = WhichContractActivityModule.class)
     abstract WhichContractActivity bindWhichContractActivity();
 
     @ContributesAndroidInjector(modules = PaymentMomoModule.class)
     abstract PaymentMomoActivity bindPaymentMomoActivity();
+
+    @ContributesAndroidInjector(modules = PayOthersModule.class)
+    abstract PayOthersActivity bindPayOthersActivity();
 
 }

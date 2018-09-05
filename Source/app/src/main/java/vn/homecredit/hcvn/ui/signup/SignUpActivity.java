@@ -13,6 +13,7 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivitySignupBinding;
+import vn.homecredit.hcvn.helpers.DialogContractsHelp;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
 

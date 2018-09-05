@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="vn.homecredit.hcvn.ui.momo.paymentMomo.PaymentMomoViewModel" />
+            type="vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoViewModel" />
 
         <variable
             name="paymentChange"

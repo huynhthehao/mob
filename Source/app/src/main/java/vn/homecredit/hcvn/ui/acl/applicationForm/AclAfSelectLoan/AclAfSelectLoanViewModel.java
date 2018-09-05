@@ -128,9 +128,11 @@ public class AclAfSelectLoanViewModel extends AclBaseViewModel<AclAfSelectLoanNa
                 String message = String.format("%s %s", resp.getResponseMessage(), "Bạn có chắc chắn muốn thoát?");
                 showConfirmMessage("Warning", message, (yes) -> {
                     if (yes) {
-                        getNavigator().popToRoot();
+                        // TODO: Need to modified
+                        //getNavigator().popToRoot();
                     } else {
-                        getNavigator().goToAclValidation();
+                        // TODO: Need to modified
+                        //getNavigator().goToAclValidation();
                     }
                 });
 

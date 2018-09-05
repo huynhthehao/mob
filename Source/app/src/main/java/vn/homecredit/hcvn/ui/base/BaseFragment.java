@@ -160,7 +160,6 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     }
 
     protected void init() {
-        getViewModel().setNavigator(this);
         getViewModel().init();
     }
 

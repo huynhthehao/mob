@@ -33,6 +33,8 @@ import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
+import vn.homecredit.hcvn.ui.payment.model.MakePaymentRequestValue;
+import vn.homecredit.hcvn.ui.payment.model.MakePaymentResp;
 import vn.homecredit.hcvn.utils.TestData;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -174,6 +176,13 @@ public class ContractRepositoryImpl implements ContractRepository {
     @Override
     public Single<RePaymentResp> getRePayment(String contractId) {
         return restService.getRePayment(contractId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Single<MakePaymentResp> makePaymentForMomo(MakePaymentRequestValue requestValue) {
+        return restService.makePaymentForMomo(requestValue)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

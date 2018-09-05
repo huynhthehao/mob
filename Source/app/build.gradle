@@ -45,10 +45,8 @@ android {
     }
     buildTypes {
         debug {
-            applicationIdSuffix ".dev"
             minifyEnabled false
             debuggable true
-            signingConfig signingConfigs.config
             ext.crashlyticsApiSecret = "98b49c4d7ffd3b3f5ec6eafc591a64502a36027e896109cec0ab9bd57d500fe1"
             ext.crashlyticsApiKey = "7120678654c0ed1a98d873a2afb8c337ea0155b0"
         }
@@ -205,10 +203,11 @@ dependencies {
     //Google Analytics
     implementation "com.google.android.gms:play-services-analytics:$rootProject.googleAnalytics"
 
+    //MoMo
+    implementation "com.github.momodevelopment:androidsdkV2.$rootProject.momo"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
 
     testImplementation 'org.mockito:mockito-core:2.15.0'
     testImplementation "org.mockito:mockito-inline:2.11.0"
@@ -216,4 +215,5 @@ dependencies {
     testImplementation "android.arch.core:core-testing:1.1.1"
 
 }
+
 import com.crashlytics.tools.utils.PropertiesUtils

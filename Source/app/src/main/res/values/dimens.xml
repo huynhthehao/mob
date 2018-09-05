@@ -78,4 +78,9 @@
     <dimen name="ic_drawable_left_margin_bottom">10dp</dimen>
 
     <dimen name="button_submit_height">42dp</dimen>
+    <dimen name="payment_summary_icon_size">50dp</dimen>
+    <dimen name="payment_summary_top_margin">24dp</dimen>
+    <dimen name="payment_summary_top_title_margin">44dp</dimen>
+    <dimen name="payment_summary_row_size">40dp</dimen>
+    <dimen name="payment_summary_top_height">100dp</dimen>
 </resources>

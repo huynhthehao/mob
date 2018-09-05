@@ -4,7 +4,6 @@ import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerprintUiHelper;
 
-import static vn.homecredit.hcvn.ui.signup.DialogContractsHelp.TAG_CONTRACTS;
+import static vn.homecredit.hcvn.helpers.DialogContractsHelp.TAG_CONTRACTS;
 
 public class ESigningLoginDialogFragment extends HcDialogFragment implements FingerprintUiHelper.Callback {
 

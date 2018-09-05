@@ -49,6 +49,7 @@
     <string name="title_activity_acl_validation">Đăng ký khoản vay</string>
     <string name="acl_register_legal_note"><html><i><b>Ghi chú: </b>Vui lòng đảm bảo rằng bạn nhập thông tin chính xác vì thông tin này được sử dụng như là một phần của quá trình duyệt khoản vay</i></html></string>
     <string name="action_next">Tiếp tục</string>
+    <string name="action_next2">Tiếp theo</string>
     <string name="personal_detail">Thông tin cá nhân</string>
     <string name="prompt_id_number">Số chứng minh nhân dân</string>
     <string name="otp_hint">Chúng tôi đã gửi mã xác thực đến số điện thoại %s. Mã sẽ hết hạn trong vòng</string>
@@ -102,6 +103,7 @@
     <string name="set_password">Đặt Mật Khẩu</string>
     <string name="signup_now">Đăng ký ngay</string>
     <string name="dialog_contact_help_title">Vui lòng điền mã hợp đồng có 10 chữ số của bạn</string>
+    <string name="dialog_contact_help_pay_other_title">Vui lòng điền mã hợp đồng có 10 chữ số của hợp đồng bạn muốn chi trả</string>
     <string name="dialog_contact_help_content">Vui lòng gọi dịch vụ khách hàng của chúng tôi %s để được hỗ trợ thêm </string>
     <string name="dialog_password_help_title">"- Mật khẩu phải bao gồm ít nhất 8 ký tự (bao gồm chữ số, chữ viết, chữ hoa và chữ thường)\n\n- Mật khẩu sẽ có độ bảo mật cao hơn khi có các ký tự đặc biệt (@ # $ %% ^ “…)\n\n- Mật khẩu cần được thay đổi định kỳ (ít nhất 1 lần trong năm)\n\n- Không sử dụng các thông tin cá nhân đơn giản (ngày sinh, số điện thoại, tên của bạn, tên của người thân như vợ/chồng/con, các dãy số đơn giản như 1234567, 111111… để lập mật khẩu"
     </string>
@@ -296,11 +298,38 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="feedback_done_title">Phản hồi của bạn đã được gửi thành công</string>
     <string name="feedback_done_content">Nhân viên hỗ trợ sẽ liên lạc bạn trong thời gian sớm nhất</string>
     <string name="feedback_done">Hoàn tất</string>
+
+    <!-- MoMo -->
+    <string name="momo_not_receive_info">Không nhận được thông tin</string>
+    <string name="momo_not_receive_info_err">Không gởi được yêu cầu vui lòng kiểm tra lại</string>
+    <string name="summary">Tổng kết</string>
+    <string name="transaction_success">Giao dịch thanh toán của bạn đã được ghi nhận thành công</string>
+    <string name="payment_date">Ngày thanh toán</string>
+    <string name="payer_name">Người thanh toán</string>
+    <string name="beneficiary">Người nhận</string>
+    <string name="total_transaction">Số tiền</string>
+    <string name="thank_for_your_payment">Cảm ơn bạn đã thanh toán</string>
+    <string name="payment_success_notice">Xin lưu ý đây chỉ là xác nhận số tiền thanh toán đã được gởi đi từ ví điện tử. Chúng tôi sẽ gởi biên lai trong vòng 24 tiếng kể từ khi nhận được thanh toán</string>
+    <string name="payment_done">Hoàn tất</string>
+    <string name="payment_description">Thanh toán số hợp đồng %1$s</string>
+    <string name="momo_merchant_name_label">Nhà cung cấp</string>
+    <string name="momo_payment_description">Thanh toán số hợp đồng %1$s</string>
     <string name="momo_payment">Thanh toán</string>
     <string name="momo_pay_for_other">Hợp đồng của người khác</string>
     <string name="momo_my_contract">Hợp đồng của tôi</string>
     <string name="pay_for_momo">Thanh toán qua Momo</string>
     <string name="payment_via_momo">Thanh toán qua Momo</string>
+    <string name="paymomo_contractnumber">Contract number</string>
+    <string name="paymomo_fullname">Full name</string>
+    <string name="paymomo_idnumber">ID number</string>
+    <string name="paymomo_total_amount">Out standing amount</string>
+    <string name="paymomo_amount">Amount</string>
+    <string name="paymomo_duedate">Due date</string>
+    <string name="momo_payment_failed">Thất bại</string>
+    <string name="paymomo_payothers_des">Vui lòng nhập số hợp đồng</string>
+    <string name="paymomo_others_contract_title">Hợp Đồng Của Người Khác</string>
+    <string name="paymomo_others_contract">Hợp đồng của người khác</string>
+    <string name="paymomo_others_contract_null">Vui lòng nhập số hợp đồng</string>
     <string name="momo_full_payment">Tối đa</string>
     <string name="momo_partial_payment"><![CDATA[ Một phần <i>(tối thiểu 50.000 VND)</i> ]]></string>
     <string name="momo_partial_payment_amount">Số tiền bạn muốn thanh toán</string>

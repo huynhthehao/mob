@@ -37,7 +37,6 @@ import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
-import vn.homecredit.hcvn.helpers.memory.MemoryHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
@@ -46,6 +45,10 @@ import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
+import vn.homecredit.hcvn.ui.payment.model.MakePaymentRequestValue;
+import vn.homecredit.hcvn.ui.payment.model.MakePaymentResp;
+
+//import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 
 @Singleton
 public class RestServiceImpl implements RestService {
@@ -134,7 +137,7 @@ public class RestServiceImpl implements RestService {
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("PhoneNumber", username);
         requestBody.put("ContractNumber", contractsId);
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,null,requestBody,OtpTimerResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, OtpTimerResp.class);
     }
 
     @Override
@@ -143,7 +146,7 @@ public class RestServiceImpl implements RestService {
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("oldPassword", oldPassword);
         requestBody.put("password", newPassword);
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,mApiHeader.getProtectedApiHeader(),requestBody,OtpTimerResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, mApiHeader.getProtectedApiHeader(), requestBody, OtpTimerResp.class);
     }
 
     @Override
@@ -152,7 +155,7 @@ public class RestServiceImpl implements RestService {
         requestBody.put("phoneNumber", phone);
         requestBody.put("contractNumber", contractId);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/forgotpassword/verify");
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,null,requestBody,OtpTimerResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, OtpTimerResp.class);
     }
 
     @Override
@@ -162,7 +165,7 @@ public class RestServiceImpl implements RestService {
         requestBody.put("contractNumber", contractId);
         requestBody.put("VerificationCode", otp);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/forgotpassword/verify/otp");
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,null,requestBody,OtpTimerResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, OtpTimerResp.class);
     }
 
     @Override
@@ -173,7 +176,7 @@ public class RestServiceImpl implements RestService {
         requestBody.put("verificationCode", otp);
         requestBody.put("password", password);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/signup");
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,null,requestBody,ProfileResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, ProfileResp.class);
     }
 
     @Override
@@ -184,13 +187,13 @@ public class RestServiceImpl implements RestService {
         requestBody.put("verificationCode", otp);
         requestBody.put("password", password);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/forgotpassword");
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,null,requestBody,ProfileResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, ProfileResp.class);
     }
 
     @Override
     public Single<NotificationResp> getNotifications() {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/notifications");
-        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,mApiHeader.getProtectedApiHeader(),NotificationResp.class);
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url, mApiHeader.getProtectedApiHeader(), NotificationResp.class);
     }
 
     @Override
@@ -265,7 +268,7 @@ public class RestServiceImpl implements RestService {
                 .addBodyParameter(requestBody)
                 .build()
                 .getObjectSingle(MasterContractVerifyResp.class)
-                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractVerifyResp.class))) ;
+                .onErrorResumeNext(throwable -> Single.error(new HcApiException(throwable, MasterContractVerifyResp.class)));
     }
 
     @Override
@@ -370,7 +373,22 @@ public class RestServiceImpl implements RestService {
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify/otp");
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,null,requestBody,OtpTimerResp.class);
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, OtpTimerResp.class);
+    }
+
+    @Override
+    public Single<MakePaymentResp> makePaymentForMomo(MakePaymentRequestValue requestValue) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/contracts/" + requestValue.getContractNumber() + "/makepayment");
+        HashMap<String, String> requestBody = new HashMap<>();
+        requestBody.put("rePaymentId", requestValue.getRePaymentId());
+        requestBody.put("token", requestValue.getToken());
+        requestBody.put("provider", requestValue.getProvider());
+        requestBody.put("amount", requestValue.getAmount());
+        requestBody.put("customerNumber", requestValue.getCustomerNumber());
+        requestBody.put("contractNumber", requestValue.getContractNumber());
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(), requestBody,
+                MakePaymentResp.class);
     }
 
     private String buildUrl(String url) {

@@ -28,7 +28,7 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 
 @Module
-public class LoginViewModel extends BaseViewModel<LoginNavigator> {
+public class LoginViewModel extends BaseViewModel<LoginListener> {
     public ObservableField<String> username = new ObservableField("");
     public ObservableField<String> password = new ObservableField("");
     public ObservableBoolean showFingerPrint = new ObservableBoolean(false);
@@ -36,7 +36,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     private final AccountRepository accountRepository;
     private final FingerPrintHelper fingerPrintHelper;
     private final PreferencesHelper preferencesHelper;
-    private final Context context;
+    private LoginListener listener;
 
     @Inject
     public LoginViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider,
@@ -45,7 +45,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         this.accountRepository = accountRepository;
         this.fingerPrintHelper = fingerPrintHelper;
         this.preferencesHelper = preferencesHelper;
-        this.context = context;
+        //this.context = context;
 
         FingerPrintAuthValue fingerSupportStatus = fingerPrintHelper.getFingerPrintAuthValue();
         showFingerPrint.set(fingerSupportStatus != FingerPrintAuthValue.NOT_SUPPORT);
@@ -55,6 +55,9 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         username.set(currentUser);
     }
 
+    public void setListener(LoginListener listener){
+        this.listener = listener;
+    }
 
     public boolean validate() {
         if (StringUtils.isNullOrWhiteSpace(username.get()))
@@ -86,7 +89,10 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     }
 
     public void onForgotPasswordClick() {
-        getNavigator().forgetPassword();
+        if(listener == null)
+            return;
+
+        listener.forgetPassword();
     }
 
     public void onFingerPrintClick() {
@@ -103,7 +109,10 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
             return;
         }
 
-        getNavigator().showFingerPrintAuthDialog();
+        if(listener == null)
+            return;
+
+        listener.showFingerPrintAuthDialog();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -134,7 +143,9 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                         showMessage(profileResp.getResponseMessage());
                     } else {
                         accountRepository.saveLoginInfo(phoneNumber, password);
-                        getNavigator().openHomeActivity();
+
+                        if(listener != null)
+                            listener.openHomeActivity();
                     }
                 }, throwable -> {
                     setIsLoading(false);

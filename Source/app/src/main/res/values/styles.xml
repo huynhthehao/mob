@@ -244,5 +244,9 @@
         <item name="android:checkedButton">@android:color/holo_purple</item>
     </style>
 
+    <style name="AppTheme.TextView.Clickable" parent="AppTheme.TextView">
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
 
 </resources>

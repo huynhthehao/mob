@@ -29,7 +29,7 @@ public class DerParser {
     }
 
     /**
-     * Read next object. If it's constructed, the value holds
+     * Read onNext object. If it's constructed, the value holds
      * encoded content and it should be parsed by a new
      * parser from <code>Asn1Object.getParser</code>.
      *
