@@ -1,12 +1,10 @@
 package vn.homecredit.hcvn.ui.contract.detail;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import org.parceler.Parcels;
@@ -21,7 +19,7 @@ import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
-import vn.homecredit.hcvn.ui.momo.paymentMomo.PaymentMomoActivity;
+import vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoActivity;
 
 import static java.lang.Boolean.TRUE;
 

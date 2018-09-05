@@ -1,4 +1,4 @@
-package vn.homecredit.hcvn.ui.momo.paymentMomo;
+package vn.homecredit.hcvn.ui.payment.momo.paymentMomo;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
@@ -6,11 +6,15 @@ import android.text.TextUtils;
 
 import javax.inject.Inject;
 
+import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.BuildConfig;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.momo.RePaymentData;
+import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.ui.custom.PayMomoInfoItem;
 import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.TestData;
@@ -91,7 +95,7 @@ public class PaymentMomoViewModel extends BaseViewModel {
         modelPaymentViaMomo.setValue(true);
     }
 
-    public void getRepayment() {
+    private void getRepayment() {
         if (contract == null || contract.getContractNumber() == null) {
             return;
         }
@@ -126,14 +130,18 @@ public class PaymentMomoViewModel extends BaseViewModel {
         bindVisibleDuedate.set(!StringUtils.isNullOrEmpty(rePaymentData.getDueDate()));
     }
 
+    // TODO: Need to refresh layout base on init data
+    public void initData(boolean hasRepayment, HcContract contract, RePaymentData rePaymentIntent){
+        if(hasRepayment){
+            updateData(rePaymentIntent);
+            return;
+        }
 
-    public void setContract(HcContract contract) {
         this.contract = contract;
+        getRepayment();
     }
 
     public HcContract getContract() {
         return contract;
     }
-
-
 }

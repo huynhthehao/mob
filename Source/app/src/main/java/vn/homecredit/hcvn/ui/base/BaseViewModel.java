@@ -10,8 +10,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 
-import java.lang.ref.WeakReference;
-
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -27,7 +25,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private final ObservableBoolean mIsLoading = new ObservableBoolean(false);
     private final SchedulerProvider mSchedulerProvider;
     private CompositeDisposable mCompositeDisposable;
-    private WeakReference<N> mNavigator;
     private MutableLiveData<String> messageData = new MutableLiveData<>();
     private MutableLiveData<Integer> messageIdData = new MutableLiveData<>();
     private MutableLiveData<BaseMessage> confirmMessageData = new MutableLiveData<>();
@@ -63,14 +60,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
         mIsLoading.set(isLoading);
     }
 
-    public N getNavigator() {
-        return mNavigator.get();
-    }
-
-
-    public void setNavigator(N navigator) {
-        this.mNavigator = new WeakReference<>(navigator);
-    }
 
     public SchedulerProvider getSchedulerProvider() {
         return mSchedulerProvider;

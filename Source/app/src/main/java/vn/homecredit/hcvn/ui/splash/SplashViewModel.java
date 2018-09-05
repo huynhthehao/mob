@@ -21,15 +21,21 @@ import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
-public class SplashViewModel extends BaseViewModel<SplashNavigator> {
+public class SplashViewModel extends BaseViewModel<SplashListener> {
 
     private final DataManager dataManager;
     private final OneSignalService mOneSignalService;
+    private SplashListener listener;
+
     @Inject
     public SplashViewModel(DataManager dataManager, SchedulerProvider schedulerProvider, OneSignalService oneSignalService) {
         super(schedulerProvider);
         this.dataManager = dataManager;
         mOneSignalService = oneSignalService;
+    }
+
+    public void setListener(SplashListener listener){
+        this.listener = listener;
     }
 
     @Override
@@ -48,13 +54,16 @@ public class SplashViewModel extends BaseViewModel<SplashNavigator> {
                 .subscribe(response -> {
                     setIsLoading(false);
                     if (dataManager.getAccessToken() != null) {
-                        getNavigator().openHomeActivity();
+                        if(listener != null)
+                            listener.openHomeActivity();
                     }else {
-                        getNavigator().openWelcomeActivity();
+                        if(listener != null)
+                            listener.openWelcomeActivity();
                     }
                 }, throwable -> {
                     setIsLoading(false);
-                    getNavigator().retryCheckUpdate();
+                    if(listener != null)
+                        listener.retryCheckUpdate();
                 });
 
         startSafeProcess(newProcess);

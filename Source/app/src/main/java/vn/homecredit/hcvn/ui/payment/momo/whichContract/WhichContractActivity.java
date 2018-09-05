@@ -1,15 +1,11 @@
-package vn.homecredit.hcvn.ui.momo.whichContract;
+package vn.homecredit.hcvn.ui.payment.momo.whichContract;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-
-import com.androidnetworking.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -17,7 +13,8 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityWhichContractBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
-import vn.homecredit.hcvn.ui.momo.myContract.MyContractActivity;
+import vn.homecredit.hcvn.ui.payment.momo.payothers.PayOthersActivity;
+import vn.homecredit.hcvn.ui.payment.myContract.MyContractActivity;
 
 import static java.lang.Boolean.TRUE;
 
@@ -69,7 +66,7 @@ public class WhichContractActivity extends BaseActivity<ActivityWhichContractBin
     }
 
     private void showPayForOther() {
-
+        PayOthersActivity.start(this);
     }
 
 }

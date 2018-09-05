@@ -4,7 +4,7 @@
  * Last modified 10/07/18 4:21 PM, by An.NguyenN1
  */
 
-package vn.homecredit.hcvn.ui.momo.paymentMomo;
+package vn.homecredit.hcvn.ui.payment.momo.whichContract;
 
 import android.arch.lifecycle.ViewModelProvider;
 
@@ -13,10 +13,10 @@ import dagger.Provides;
 import vn.homecredit.hcvn.di.ViewModelProviderFactory;
 
 @Module
-public class PaymentMomoModule {
+public class WhichContractActivityModule {
     @Provides
-    ViewModelProvider.Factory paymentMomoViewModelFactory(PaymentMomoViewModel paymentMomoViewModel) {
-        return new ViewModelProviderFactory<>(paymentMomoViewModel);
+    ViewModelProvider.Factory whichContractViewModelFactory(WhichContractViewModel whichContractViewModel) {
+        return new ViewModelProviderFactory<>(whichContractViewModel);
     }
 
 }

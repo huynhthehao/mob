@@ -35,13 +35,12 @@ import vn.homecredit.hcvn.databinding.ActivityLoginBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.FingerprintAuthenticationDialogFragment;
 import vn.homecredit.hcvn.ui.forgetpassword.ForgetPasswordActivity;
-import vn.homecredit.hcvn.ui.home.DashBoardDialogFragment;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> implements LoginNavigator {
+public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> implements LoginListener {
 
     private static final String DEFAULT_KEY_NAME = "default_key";
     private KeyStore keyStore;
@@ -77,7 +76,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel.setNavigator(this);
+        viewModel.setListener(this);
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> finish());
         initKeyInfo();
     }

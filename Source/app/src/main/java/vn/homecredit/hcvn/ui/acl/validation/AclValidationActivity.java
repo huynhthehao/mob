@@ -58,7 +58,8 @@ public class AclValidationActivity extends BaseActivity<ActivityAclValidationBin
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityLoginBinding = getViewDataBinding();
-        mAclValidationViewModel.setNavigator(this);
+        // TODO: Need to modified
+        //mAclValidationViewModel.setNavigator(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

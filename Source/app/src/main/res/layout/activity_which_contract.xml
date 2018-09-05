@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="vn.homecredit.hcvn.ui.momo.whichContract.WhichContractViewModel" />
+            type="vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -24,7 +24,7 @@
 
         <ImageView
             android:id="@+id/ivLogo"
-            android:layout_width="100dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_highest"
             app:layout_constraintTop_toBottomOf="@id/toolbar"

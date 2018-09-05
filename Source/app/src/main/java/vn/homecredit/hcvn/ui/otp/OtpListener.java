@@ -7,8 +7,7 @@
 package vn.homecredit.hcvn.ui.otp;
 
 import vn.homecredit.hcvn.data.model.OtpPassParam;
-import vn.homecredit.hcvn.ui.base.BaseNavigator;
 
-public interface OtpNavigator extends BaseNavigator {
-    void next(OtpPassParam data);
+public interface OtpListener {
+    void onNext(OtpPassParam data);
 }
