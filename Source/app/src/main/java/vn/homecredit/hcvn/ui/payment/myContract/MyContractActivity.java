@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.ui.contract.main.ContractFragment;
@@ -20,6 +21,7 @@ public class MyContractActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_contract);
+        ((Toolbar) findViewById(R.id.toolbar)).setNavigationOnClickListener(v -> onBackPressed());
         if (getSupportFragmentManager().findFragmentByTag(TAG_MY_CONTRACTS) == null) {
             ContractFragment contractFragment = ContractFragment.newInstance(true);
             getSupportFragmentManager().beginTransaction()

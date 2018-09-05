@@ -187,6 +187,7 @@
                             android:src="@drawable/ic_momo_small"
                             android:onClick="@{() -> viewModel.onMomoClicked()}"
                             android:text="@string/pay_for_momo"
+                            app:enable="@{viewModel.bindEnableMomo}"
                             >
                         </vn.homecredit.hcvn.ui.custom.MenuRowItem>
 
