@@ -45,6 +45,14 @@ public class OtpTimerResp {
     }
 
 
+    public void setResponseCode(Integer responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+
     public boolean isVerified() {
         return responseCode == RESPONSE_CODE_SUCCESS
                 || responseCode == RESPONSE_CODE_IN_EFFECT;

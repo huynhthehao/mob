@@ -175,7 +175,6 @@ public class SummaryContractViewModel extends BaseViewModel {
         isPreparing.set(true);
         disposablePrepare = contractRepository.startPrepare(masterContract.getContractNumber())
                 .subscribe(masterContractResp -> {
-                            Log.debug("" + masterContractResp.getMasterContract().isMaterialPrepared());
                             isPreparing.set(false);
                             modelViewDoc.setValue(true);
                             updateData(masterContractResp.getMasterContract());
@@ -184,8 +183,6 @@ public class SummaryContractViewModel extends BaseViewModel {
                         throwable -> {
                             throwable.printStackTrace();
                             isPreparing.set(false);
-                            // handleError(throwable);
-                            // TODO: Create specific exception for this case
                             showMessage(R.string.master_contract_approve_retry);
                         });
         getCompositeDisposable().add(disposablePrepare);

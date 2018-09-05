@@ -95,5 +95,7 @@ public class OtpPassParam {
     public void setMasterContractVerifyDataResp(MasterContractVerifyDataResp masterContractVerifyDataResp) {
         this.masterContractVerifyDataResp = masterContractVerifyDataResp;
     }
+
+
 }
 

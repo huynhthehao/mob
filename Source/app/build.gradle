@@ -77,10 +77,10 @@ android {
         beta {
             dimension "mode"
             applicationId "vn.homecredit.hcvn.beta"
-            versionName "1.5.3"
+            versionName "1.6.1"
             versionCode 8
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
-            buildConfigField "String", "BASE_URL", '"https://mobileapp-uat.homecredit.vn"'
+            buildConfigField "String", "BASE_URL", '"https://mobileapp3-uat.homecredit.vn"'
         }
         uat {
             dimension "mode"
@@ -208,5 +208,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+
+    testImplementation 'org.mockito:mockito-core:2.15.0'
+    testImplementation "org.mockito:mockito-inline:2.11.0"
+    testImplementation "com.google.truth:truth:0.36"
+    testImplementation "android.arch.core:core-testing:1.1.1"
+
 }
 import com.crashlytics.tools.utils.PropertiesUtils

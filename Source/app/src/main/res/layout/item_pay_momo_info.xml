@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        tools:text="Contract owner"
+        android:gravity="right"
+        android:paddingTop="@dimen/padding_smallest"
+        android:paddingBottom="@dimen/padding_smallest"
+        android:paddingRight="@dimen/padding_smallest"
+        style="@style/AppTheme.TextView.Title"
+        />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:layout_toRightOf="@+id/tvTitle"
+        tools:text="Nguyen Van Nam"
+        android:paddingLeft="@dimen/padding_smallest"
+        android:paddingTop="@dimen/padding_smallest"
+        android:paddingBottom="@dimen/padding_smallest"
+        android:textStyle="bold"
+        style="@style/AppTheme.TextView.Title"
+        />
+</LinearLayout>

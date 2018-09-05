@@ -42,4 +42,5 @@ public interface AccountRepository {
     boolean isExpired();
 
     void logout(Context context);
+
 }

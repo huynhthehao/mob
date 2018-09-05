@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.ui.contract.main;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import vn.homecredit.hcvn.BR;
@@ -29,10 +30,23 @@ import vn.homecredit.hcvn.ui.map.PayMapActivity;
 import javax.inject.Inject;
 
 public class ContractFragment extends BaseFragment<FragmentContractListBinding, ContractViewModel> implements ContractRecyclerViewAdapter.OnContractListener {
+    private static final String BUNDLE_ACTIVE_CONTRACT = "BUNDLE_ACTIVE_CONTRACT";
 
     ContractRecyclerViewAdapter contractRecyclerViewAdapter;
     @Inject
     ViewModelProvider.Factory viewModelFactory;
+
+    public static ContractFragment newInstance() {
+        return newInstance(false);
+    }
+
+    public static ContractFragment newInstance(boolean isActiveContract) {
+        Bundle args = new Bundle();
+        args.putBoolean(BUNDLE_ACTIVE_CONTRACT, isActiveContract);
+        ContractFragment fragment = new ContractFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public int getBindingVariable() {
@@ -61,8 +75,12 @@ public class ContractFragment extends BaseFragment<FragmentContractListBinding, 
                 contractRecyclerViewAdapter.setNewData(hcContracts);
             }
         });
-
         getViewModel().getRefreshing().observe(this, aBoolean -> getViewDataBinding().swiperefresh.setRefreshing(aBoolean));
+        if (getArguments() != null && getArguments().getBoolean(BUNDLE_ACTIVE_CONTRACT, false)) {
+            getViewModel().getActiviteContracṭ̣();
+        }else {
+            getViewModel().getContracṭ̣();
+        }
 
     }
 
