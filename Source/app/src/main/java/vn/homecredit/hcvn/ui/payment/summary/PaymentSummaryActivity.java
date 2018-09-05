@@ -15,6 +15,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.ActivityPaymentSummaryBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.BR;
+import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.payment.summary.model.PaymentSummaryModel;
 
 public class PaymentSummaryActivity extends BaseActivity<ActivityPaymentSummaryBinding, PaymentSummaryViewModel> {
@@ -54,6 +55,9 @@ public class PaymentSummaryActivity extends BaseActivity<ActivityPaymentSummaryB
         }
         getViewModel().getDoneClickEvent().observe(this, mBoolean -> {
             if (mBoolean) {
+                Intent intentHome = new Intent(this, HomeActivity.class);
+                intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intentHome);
                 finish();
             }
         });
