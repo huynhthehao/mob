@@ -60,6 +60,8 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
         RePaymentData rePaymentData = null;
         HcContract hcContract = null;
         boolean hasIntentData = false;
@@ -84,8 +86,6 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
                 paymentViaMomo();
             }
         });
-        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
-
     }
 
     private void paymentViaMomo() {

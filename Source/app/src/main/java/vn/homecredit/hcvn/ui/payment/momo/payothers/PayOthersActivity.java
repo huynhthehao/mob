@@ -62,6 +62,7 @@ public class PayOthersActivity extends BaseActivity<ActivityPaymomoOthersBinding
 
     @Override
     public void onNext(RePaymentData rePaymentData) {
+        finish();
         PaymentMomoActivity.start(this, rePaymentData);
     }
 
