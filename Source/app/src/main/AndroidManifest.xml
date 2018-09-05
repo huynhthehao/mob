@@ -112,7 +112,6 @@
         <activity android:name=".ui.contract.scheduleDetail.ScheduleDetailActivity"></activity>
         <activity android:name=".ui.contract.paymentHistory.PaymentHistoryActivity" />
         <activity android:name=".ui.contract.masterContractSign.MasterContractSignActivity" />
-        <activity android:name=".ui.momo.MomoForTestActivity" />
         <activity
             android:name=".ui.support.SupportDoneActivity"
             android:theme="@style/AppTheme" />
