@@ -1,6 +1,7 @@
 package vn.homecredit.hcvn.utils;
 
 import android.databinding.BindingAdapter;
+import android.databinding.InverseBindingAdapter;
 import android.text.Html;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
@@ -47,6 +49,17 @@ public class BindingAdapterUtils {
         NumberFormat formatter = new DecimalFormat("#,###");
         String formattedNumber = formatter.format(loanAmount);
         textView.setText(Html.fromHtml(textView.getContext().getString(R.string.currency, formattedNumber)));
+    }
+
+    @InverseBindingAdapter(attribute = "loanamount")
+    public static int getLoanAmount(TextView textView) {
+        NumberFormat formatter = new DecimalFormat("#,##0.##");
+        try {
+            return formatter.parse(textView.getText().toString()).intValue();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @BindingAdapter({"type"})

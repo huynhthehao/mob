@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        tools:text="Contract owner"
+        tools:text="Contract owner:"
         android:gravity="right"
         android:paddingTop="@dimen/padding_smallest"
         android:paddingBottom="@dimen/padding_smallest"

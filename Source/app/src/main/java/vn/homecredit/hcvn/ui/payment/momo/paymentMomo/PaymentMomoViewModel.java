@@ -4,6 +4,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
 import android.databinding.ObservableField;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,12 +29,24 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 import vn.momo.momo_partner.AppMoMoLib;
 
 public class PaymentMomoViewModel extends BaseViewModel {
+    private static final int MINIMUM_AMOUNT = 50000;
 
     private ObservableField<RePaymentData> rePaymentData = new ObservableField<>();
     private ContractRepository contractRepository;
     private final PreferencesHelper preferencesHelper;
     private HcContract contract;
-    private ObservableField<Boolean> fullPayment = new ObservableField<>(true);
+    private ObservableField<Boolean> fullPayment = new ObservableField<Boolean>(true) {
+        @Override
+        public void set(Boolean value) {
+            if (value == Boolean.TRUE) {
+                RePaymentData data = rePaymentData.get();
+                if (data != null)
+                    data.setAmount(fullAmount.get());
+            }
+            super.set(value);
+        }
+    };
+    private ObservableField<Integer> fullAmount = new ObservableField<>(0);
     private ObservableField<Boolean> partialPayment = new ObservableField<>(false);
     private MutableLiveData<PaymentMomoRequestModel> modelRequestPaymentViaMomo = new MutableLiveData<>();
     private MutableLiveData<PaymentSummaryModel> paymentMomoSuccess = new MutableLiveData<>();
@@ -42,6 +57,13 @@ public class PaymentMomoViewModel extends BaseViewModel {
     private ObservableField<Boolean> bindVisibleCustomerId = new ObservableField<>(false);
     private ObservableField<Boolean> bindVisibleDuedate = new ObservableField<>(false);
     private ObservableField<Boolean> bindVisibleRepayment = new ObservableField<>(false);
+    private ObservableField<Boolean> enableMomoPayment = new ObservableField<Boolean>(fullPayment, partialPayment, rePaymentData) {
+        @Override
+        public Boolean get() {
+            boolean flag = fullPayment.get() || rePaymentData.get().getAmount() >= MINIMUM_AMOUNT;
+            return flag;
+        }
+    };
 
     @Inject
     public PaymentMomoViewModel(ContractRepository contractRepository, SchedulerProvider schedulerProvider, PreferencesHelper preferencesHelper) {
@@ -103,6 +125,14 @@ public class PaymentMomoViewModel extends BaseViewModel {
         return partialPayment;
     }
 
+    public ObservableField<Boolean> getEnableMomoPayment() {
+        return enableMomoPayment;
+    }
+
+    public ObservableField<Integer> getFullAmount() {
+        return fullAmount;
+    }
+	
     public void payViaMomoClicked() {
         if (rePaymentData == null)
             return;
@@ -133,6 +163,7 @@ public class PaymentMomoViewModel extends BaseViewModel {
                         return;
                     }
                     if (rePaymentResp.isSuccess()) {
+                        fullAmount.set(rePaymentResp.getRePaymentData().getAmount());
                         updateData(rePaymentResp.getRePaymentData());
                     } else {
                         showMessage(rePaymentResp.getResponseMessage());

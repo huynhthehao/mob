@@ -24,8 +24,6 @@ public class StringUtils {
     }
 
     public static String getCurrencyMaskValue(Number inputNumber) {
-        NumberFormat formatter = new DecimalFormat("#,###");
-        String formattedNumber = formatter.format(inputNumber);
-        return formattedNumber;
+        return CommonUtils.getDefaultNumberFormmater().format(inputNumber);
     }
 }
