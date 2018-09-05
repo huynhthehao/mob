@@ -6,7 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
 import java.util.Map;
@@ -25,7 +29,11 @@ import vn.homecredit.hcvn.ui.payment.model.PaymentMomoRequestModel;
 import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryActivity;
 import vn.momo.momo_partner.AppMoMoLib;
 
-public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding, PaymentMomoViewModel> {
+import static java.lang.Boolean.TRUE;
+
+public class PaymentMomoActivity
+        extends BaseActivity<ActivityPaymentMomoBinding, PaymentMomoViewModel>
+        implements NumberFormatTextWatcher.StringAsNumberChangeListener {
 
     public static final String BUNDLE_CONTRACT_PARAM = "BUNDLE_CONTRACT_PARAM";
     public static final String BUNDLE_REPAYMENT_PARAM = "BUNDLE_REPAYMENT_PARAM";
@@ -93,7 +101,15 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
                 requestPaymentViaMomo(paymentMomoRequestModel);
             }
         });
+        EditText partial = getViewDataBinding().etPartialAmount;
+        partial.addTextChangedListener(new NumberFormatTextWatcher(partial, this));
         getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        getViewDataBinding().setPaymentChange((ignored, isChecked) -> {
+            if (isChecked) {
+                partial.setText("0");
+                partial.setSelection(1);
+            }
+        });
 
         getViewModel().getPaymentMomoSuccess().observe(this, paymentSummary -> {
             PaymentSummaryActivity.start(this, paymentSummary);
@@ -104,6 +120,24 @@ public class PaymentMomoActivity extends BaseActivity<ActivityPaymentMomoBinding
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         getViewModel().onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onChange(@NotNull String value) {
+        int amount = Integer.parseInt(value);
+        RePaymentData data = getViewModel().getRePaymentData().get();
+        if (data != null) {
+            data.setAmount(amount);
+        }
+
+        int fullAmount = getViewModel().getFullAmount().get();
+        if (amount > fullAmount) {
+            EditText partial = getViewDataBinding().etPartialAmount;
+            partial.setText(String.valueOf(fullAmount));
+            partial.setSelection(partial.getText().length());
+            return;
+        }
+        getViewModel().getRePaymentData().notifyChange();
     }
 
     private void requestPaymentViaMomo(PaymentMomoRequestModel paymentMomoRequestModel) {
