@@ -37,8 +37,7 @@
         </activity>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
-            android:theme="@style/NoTitleActivity">
-        </activity>
+            android:theme="@style/NoTitleActivity"></activity>
         <activity
             android:name=".ui.home.HomeActivity"
             android:label="@string/title_activity_home"
@@ -66,8 +65,7 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".ui.acl.validation.AclValidationActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -117,11 +115,11 @@
         <activity
             android:name=".ui.support.SupportDoneActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".ui.payment.summary.PaymentSummaryActivity" />
         <activity android:name=".ui.payment.momo.whichContract.WhichContractActivity" />
         <activity android:name=".ui.payment.myContract.MyContractActivity" />
         <activity android:name=".ui.payment.momo.paymentMomo.PaymentMomoActivity" />
         <activity android:name=".ui.payment.momo.payothers.PayOthersActivity" />
-
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

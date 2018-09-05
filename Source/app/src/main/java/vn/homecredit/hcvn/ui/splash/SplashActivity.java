@@ -12,18 +12,13 @@ package vn.homecredit.hcvn.ui.splash;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-
-import org.parceler.Parcels;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
-import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.OtpPassParam;
-import vn.homecredit.hcvn.ui.custom.MyStatefulLayout;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseStatefulActivity;
+import vn.homecredit.hcvn.ui.custom.MyStatefulLayout;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;

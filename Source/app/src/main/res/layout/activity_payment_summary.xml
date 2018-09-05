@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryViewModel" />
+
+        <variable
+            name="summaryModel"
+            type="vn.homecredit.hcvn.ui.payment.summary.model.PaymentSummaryModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSummaryBg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/AppTheme.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/primary_red"
+            android:gravity="center"
+            android:text="@string/summary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium_big"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_average"
+                android:layout_marginRight="@dimen/margin_average"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/payment_summary_top_height"
+                        android:layout_marginTop="@dimen/payment_summary_top_margin"
+                        android:background="@drawable/ic_payment_summary_top">
+
+                        <TextView
+                            style="@style/AppTheme.TextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/payment_summary_top_title_margin"
+                            android:gravity="center_horizontal"
+                            android:paddingLeft="@dimen/padding_normal"
+                            android:paddingRight="@dimen/padding_normal"
+                            android:text="@string/transaction_success" />
+                    </FrameLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/payment_summary_icon_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_payment_success" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_payment_summary_body"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_normal"
+                        android:layout_marginLeft="@dimen/margin_average"
+                        android:layout_marginRight="@dimen/margin_average"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/payment_summary_row_size"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/AppTheme.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_small"
+                                android:text="@string/payment_date"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvDate"
+                                style="@style/AppTheme.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@{summaryModel.paymentDate}" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/grey_300" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/payment_summary_row_size"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/AppTheme.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_small"
+                                android:text="@string/payer_name"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvPayerName"
+                                style="@style/AppTheme.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@{summaryModel.payerName}" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/grey_300" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/payment_summary_row_size"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/AppTheme.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_small"
+                                android:text="@string/beneficiary"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvBeneficiary"
+                                style="@style/AppTheme.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@{summaryModel.beneficiary}" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/grey_300" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/payment_summary_row_size"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                style="@style/AppTheme.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/margin_small"
+                                android:text="@string/total_transaction"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvTotalTransaction"
+                                style="@style/AppTheme.TextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                app:loanamount="@{summaryModel.totalTransaction}" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/grey_300" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:gravity="center_horizontal"
+                            android:text="@string/thank_for_your_payment"
+                            android:textSize="@dimen/text_size_medium" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:gravity="center_horizontal"
+                            android:text="@string/payment_success_notice" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/AppTheme.TextView.Clickable"
+                    android:onClick="@{() -> viewModel.onDoneClick()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_submit_height"
+                    android:layout_marginLeft="@dimen/margin_smallest"
+                    android:layout_marginRight="@dimen/margin_smallest"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:background="@drawable/rounded_button"
+                    android:gravity="center"
+                    android:text="@string/payment_done"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_big" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
+</layout>

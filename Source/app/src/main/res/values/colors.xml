@@ -327,5 +327,6 @@
     <color name="image_tint">#bdc1c9</color>
     <color name="setting_background">#f6f7f8</color>
     <color name="colorTrasparent">#ffffffff</color>
+    <color name="colorSummaryBg">#F6F7F9</color>
 
 </resources>

@@ -13,6 +13,8 @@ import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
+import vn.homecredit.hcvn.ui.payment.model.MakePaymentRequestValue;
+import vn.homecredit.hcvn.ui.payment.model.MakePaymentResp;
 
 public interface ContractRepository {
     Single<ContractResp> contracts();
@@ -40,4 +42,6 @@ public interface ContractRepository {
     Single<StatementDetailsResp> getStatementDetails(String contractId, StatementModel statementModel);
 
     Single<RePaymentResp> getRePayment(String contractId);
+
+    Single<MakePaymentResp> makePaymentForMomo(MakePaymentRequestValue requestValue);
 }

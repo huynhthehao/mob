@@ -298,6 +298,22 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="feedback_done_title">Phản hồi của bạn đã được gửi thành công</string>
     <string name="feedback_done_content">Nhân viên hỗ trợ sẽ liên lạc bạn trong thời gian sớm nhất</string>
     <string name="feedback_done">Hoàn tất</string>
+
+    <!-- MoMo -->
+    <string name="momo_not_receive_info">Không nhận được thông tin</string>
+    <string name="momo_not_receive_info_err">Không gởi được yêu cầu vui lòng kiểm tra lại</string>
+    <string name="summary">Tổng kết</string>
+    <string name="transaction_success">Giao dịch thanh toán của bạn đã được ghi nhận thành công</string>
+    <string name="payment_date">Ngày thanh toán</string>
+    <string name="payer_name">Người thanh toán</string>
+    <string name="beneficiary">Người nhận</string>
+    <string name="total_transaction">Số tiền</string>
+    <string name="thank_for_your_payment">Cảm ơn bạn đã thanh toán</string>
+    <string name="payment_success_notice">Xin lưu ý đây chỉ là xác nhận số tiền thanh toán đã được gởi đi từ ví điện tử. Chúng tôi sẽ gởi biên lai trong vòng 24 tiếng kể từ khi nhận được thanh toán</string>
+    <string name="payment_done">Hoàn tất</string>
+    <string name="payment_description">Thanh toán số hợp đồng %1$s</string>
+    <string name="momo_merchant_name_label">Nhà cung cấp</string>
+    <string name="momo_payment_description">Thanh toán số hợp đồng %1$s</string>
     <string name="momo_payment">Thanh toán</string>
     <string name="momo_pay_for_other">Hợp đồng của người khác</string>
     <string name="momo_my_contract">Hợp đồng của tôi</string>
@@ -309,6 +325,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="paymomo_total_amount">Out standing amount</string>
     <string name="paymomo_amount">Amount</string>
     <string name="paymomo_duedate">Due date</string>
+    <string name="momo_payment_failed">Thất bại</string>
     <string name="paymomo_payothers_des">Vui lòng nhập số hợp đồng</string>
     <string name="paymomo_others_contract_title">Hợp Đồng Của Người Khác</string>
     <string name="paymomo_others_contract">Hợp đồng của người khác</string>

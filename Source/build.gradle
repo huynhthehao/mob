@@ -8,7 +8,6 @@ buildscript {
         google()
         jcenter()
         maven { url 'https://plugins.gradle.org/m2/' }
-//        maven { url 'https://maven.google.com' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
@@ -25,7 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://jitpack.io" }
+        maven { url 'https://jitpack.io' }
     }
 
     /*tasks.matching {it instanceof Test}.all {
@@ -87,4 +86,5 @@ ext {
     facebookFrescoVersion='1.2.0'
 
     googleAnalytics='10.2.4'
+    momo='2:0.9'
 }
