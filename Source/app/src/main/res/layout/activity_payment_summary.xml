@@ -24,7 +24,7 @@
             style="@style/AppTheme.TextView"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/primary_red"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/summary"
             android:textColor="@color/white"
@@ -38,8 +38,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_average"
-                android:layout_marginRight="@dimen/margin_average"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
                 android:orientation="vertical">
 
                 <View
@@ -86,8 +86,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_normal"
-                        android:layout_marginLeft="@dimen/margin_average"
-                        android:layout_marginRight="@dimen/margin_average"
+                        android:layout_marginLeft="@dimen/margin_normal"
+                        android:layout_marginRight="@dimen/margin_normal"
                         android:layout_marginTop="@dimen/margin_small"
                         android:orientation="vertical">
 
@@ -142,6 +142,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:paddingTop="@dimen/padding_smallest"
+                                android:paddingBottom="@dimen/padding_smallest"
                                 android:gravity="right"
                                 android:text="@{summaryModel.payerName}" />
                         </LinearLayout>
@@ -172,6 +174,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:paddingTop="@dimen/padding_smallest"
+                                android:paddingBottom="@dimen/padding_smallest"
                                 android:gravity="right"
                                 android:text="@{summaryModel.beneficiary}" />
                         </LinearLayout>
