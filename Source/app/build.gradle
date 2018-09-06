@@ -75,7 +75,7 @@ android {
         beta {
             dimension "mode"
             applicationId "vn.homecredit.hcvn.beta"
-            versionName "1.6.2"
+            versionName "1.6.3"
             versionCode 8
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://mobileapp3-uat.homecredit.vn"'
