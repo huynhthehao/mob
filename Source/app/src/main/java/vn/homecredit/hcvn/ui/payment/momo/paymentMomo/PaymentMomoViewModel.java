@@ -4,9 +4,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
 import android.databinding.ObservableField;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -163,7 +160,6 @@ public class PaymentMomoViewModel extends BaseViewModel {
                         return;
                     }
                     if (rePaymentResp.isSuccess()) {
-                        fullAmount.set(rePaymentResp.getRePaymentData().getAmount());
                         updateData(rePaymentResp.getRePaymentData());
                     } else {
                         showMessage(rePaymentResp.getResponseMessage());
@@ -178,6 +174,7 @@ public class PaymentMomoViewModel extends BaseViewModel {
         if (rePaymentData == null) {
             return;
         }
+        fullAmount.set(rePaymentData.getAmount());
         bindVisibleRepayment.set(true);
         this.rePaymentData.set(rePaymentData);
         bindVisibleContract.set(!StringUtils.isNullOrEmpty(rePaymentData.getContractNumber()));

@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
@@ -28,8 +26,6 @@ import vn.homecredit.hcvn.ui.payment.PaymentMomoEventValueBuilder;
 import vn.homecredit.hcvn.ui.payment.model.PaymentMomoRequestModel;
 import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryActivity;
 import vn.momo.momo_partner.AppMoMoLib;
-
-import static java.lang.Boolean.TRUE;
 
 public class PaymentMomoActivity
         extends BaseActivity<ActivityPaymentMomoBinding, PaymentMomoViewModel>
