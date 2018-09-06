@@ -3,3 +3,4 @@ Source/app/gradle/
 */.idea/
 Source/app/gradlew
 Source/app/gradlew.bat
+Source/app/fabric.properties

@@ -17,11 +17,10 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.momo.RePaymentData;
 import vn.homecredit.hcvn.databinding.ActivityPaymomoOthersBinding;
-import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.helpers.DialogContractsHelp;
+import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoActivity;
 
 
@@ -62,7 +61,6 @@ public class PayOthersActivity extends BaseActivity<ActivityPaymomoOthersBinding
 
     @Override
     public void onNext(RePaymentData rePaymentData) {
-        finish();
         PaymentMomoActivity.start(this, rePaymentData);
     }
 
