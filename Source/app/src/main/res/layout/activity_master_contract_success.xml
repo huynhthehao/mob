@@ -52,18 +52,30 @@
             style="@style/AppTheme.Title"
             />
 
+
+        <ImageView
+            android:id="@+id/ivLocation"
+            android:layout_width="@dimen/contract_type_width"
+            android:layout_height="@dimen/contract_type_height"
+            android:src="@drawable/ic_location"
+            android:layout_marginTop="@dimen/margin_normal"
+            app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tvPaymentLocation"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            />
+
         <TextView
             android:id="@+id/tvPaymentLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tvMessage"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivLocation"
+            app:layout_constraintBottom_toBottomOf="@id/ivLocation"
+            app:layout_constraintLeft_toRightOf="@+id/ivLocation"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginLeft="0dp"
             android:textColor="@color/red"
             android:gravity="center"
-            android:drawableLeft="@drawable/ic_location"
-            android:drawablePadding="@dimen/padding_small"
             android:text="@string/map_disbursement_location"
             android:clickable="true"
             android:focusable="true"
@@ -78,8 +90,8 @@
             style="@style/PrimaryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginHorizontal="@dimen/margin_high"
+            android:layout_marginTop="@dimen/margin_high"
             android:imeOptions="actionDone"
             android:text="@string/done"
             android:onClick="@{() -> viewModel.onDoneClicked()}"
