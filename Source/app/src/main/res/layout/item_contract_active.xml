@@ -142,7 +142,7 @@
                     android:id="@+id/ivLocation"
                     android:layout_width="@dimen/contract_type_width"
                     android:layout_height="@dimen/contract_type_height"
-                    app:srcCompat="@drawable/ic_location"
+                    android:src="@drawable/ic_location"
                     android:layout_marginTop="@dimen/margin_normal"
                     app:layout_constraintTop_toBottomOf="@+id/tvNextPayment"
                     app:layout_constraintLeft_toLeftOf="parent"
