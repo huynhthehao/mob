@@ -69,12 +69,13 @@ public class PaymentMomoEventValueBuilder {
         eventValue.put(MoMoParameterNamePayment.MERCHANT_CODE, merchantCode);
         eventValue.put(MoMoParameterNamePayment.MERCHANT_NAME_LABEL, merchantNameLabel);
         eventValue.put(MoMoParameterNamePayment.AMOUNT, amount);
-        eventValue.put(MoMoParameterNamePayment.DESCRIPTION, context.getString(R.string.momo_payment_description, contractNumber));
+        eventValue.put(MoMoParameterNamePayment.DESCRIPTION, context.getString(R.string.momo_payment_description));
         eventValue.put(MoMoParameterNamePayment.REQUEST_TYPE, "payment");
         eventValue.put(MoMoParameterNamePayment.LANGUAGE, languageCode);
         JSONObject objExtraData = new JSONObject();
         try {
-            objExtraData.put("contract_number", contractNumber);
+            objExtraData.put("orderLabel", context.getString(R.string.contract_number));
+            objExtraData.put("orderId", contractNumber);
         } catch (JSONException e) {
             e.printStackTrace();
         }

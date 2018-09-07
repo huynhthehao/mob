@@ -313,7 +313,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="payment_done">Hoàn tất</string>
     <string name="payment_description">Thanh toán số hợp đồng %1$s</string>
     <string name="momo_merchant_name_label">Nhà cung cấp</string>
-    <string name="momo_payment_description">Thanh toán số hợp đồng %1$s</string>
+    <string name="momo_payment_description">Thanh toán khoản vay Home Credit</string>
     <string name="momo_payment">Thanh toán</string>
     <string name="momo_pay_for_other">Hợp đồng của người khác</string>
     <string name="momo_my_contract">Hợp đồng của tôi</string>
