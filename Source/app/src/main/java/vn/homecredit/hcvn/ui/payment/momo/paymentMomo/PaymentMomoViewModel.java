@@ -134,9 +134,6 @@ public class PaymentMomoViewModel extends BaseViewModel {
     public void payViaMomoClicked() {
         if (rePaymentData == null)
             return;
-        if (partialPayment.get()) {
-            //TODO set amount for rePaymentData after verify
-        }
         PaymentMomoRequestModel paymentMomoRequestModel = new PaymentMomoRequestModel();
         paymentMomoRequestModel.setRePaymentData(rePaymentData.get());
         if (preferencesHelper.getVersionRespData() != null && preferencesHelper.getVersionRespData().getMomoSettingInfo() != null) {
