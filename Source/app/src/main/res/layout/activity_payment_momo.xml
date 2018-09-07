@@ -69,6 +69,7 @@
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
                     app:title='@{@string/total_outstanding + ":"}'
                     app:amount="@{viewModel.rePaymentData.totalAmount}"
+                    android:visibility="@{viewModel.bindVisibleTotalAmount ? View.VISIBLE : View.GONE}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>

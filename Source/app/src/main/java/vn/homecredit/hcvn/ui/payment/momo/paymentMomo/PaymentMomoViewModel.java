@@ -54,6 +54,7 @@ public class PaymentMomoViewModel extends BaseViewModel {
     private ObservableField<Boolean> bindVisibleCustomerId = new ObservableField<>(false);
     private ObservableField<Boolean> bindVisibleDuedate = new ObservableField<>(false);
     private ObservableField<Boolean> bindVisibleRepayment = new ObservableField<>(false);
+    private ObservableField<Boolean> bindVisibleTotalAmount = new ObservableField<>(false);
     private ObservableField<Boolean> enableMomoPayment = new ObservableField<Boolean>(fullPayment, partialPayment, rePaymentData) {
         @Override
         public Boolean get() {
@@ -129,7 +130,7 @@ public class PaymentMomoViewModel extends BaseViewModel {
     public ObservableField<Integer> getFullAmount() {
         return fullAmount;
     }
-	
+
     public void payViaMomoClicked() {
         if (rePaymentData == null)
             return;
@@ -181,11 +182,16 @@ public class PaymentMomoViewModel extends BaseViewModel {
         bindVisibleFullname.set(!StringUtils.isNullOrEmpty(rePaymentData.getFullName()));
         bindVisibleCustomerId.set(!StringUtils.isNullOrEmpty(rePaymentData.getIdNumber()));
         bindVisibleDuedate.set(!StringUtils.isNullOrEmpty(rePaymentData.getDueDate()));
+        bindVisibleTotalAmount.set(rePaymentData.getTotalAmount() > 0);
     }
 
-    public void initData(boolean hasRepayment, HcContract contract, RePaymentData rePaymentIntent) {
+    public void initData(boolean hasRepayment, HcContract contract, RePaymentData rePaymentData) {
         if (hasRepayment) {
-            updateData(rePaymentIntent);
+            // update to hide total amount and customerId in case pay for others
+            rePaymentData.setTotalAmount(0);
+            rePaymentData.setIdNumber("");
+            // end update to hide total amount and customerId
+            updateData(rePaymentData);
             return;
         }
 
@@ -270,5 +276,9 @@ public class PaymentMomoViewModel extends BaseViewModel {
 
     public MutableLiveData<PaymentSummaryModel> getPaymentMomoSuccess() {
         return paymentMomoSuccess;
+    }
+
+    public ObservableField<Boolean> getBindVisibleTotalAmount() {
+        return bindVisibleTotalAmount;
     }
 }
