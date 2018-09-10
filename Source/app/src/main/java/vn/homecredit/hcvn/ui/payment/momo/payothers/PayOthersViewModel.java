@@ -45,6 +45,12 @@ public class PayOthersViewModel extends BaseViewModel {
             return;
         }
 
+        // TODO: This is a work-around stuff. Need to implement at the server side
+        if(contractNumber.get().length() != AppConstants.CONTRACT_NUMBER_LENGTH){
+            showMessage(R.string.paymomo_others_contract_wrong_length);
+            return;
+        }
+
         if(listener == null)
             return;
 
