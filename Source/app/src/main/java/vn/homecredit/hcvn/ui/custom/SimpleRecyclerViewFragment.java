@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
@@ -53,9 +54,15 @@ public class SimpleRecyclerViewFragment extends Fragment {
         if (images == null) {
             images = new ArrayList<>();
         }
-        ImageAdapter imageAdapter = new ImageAdapter(images, footerView, (items, startPosition) -> new ImageViewer.Builder(getActivity(), items)
-                .setStartPosition(startPosition)
-                .show());
+        ImageAdapter imageAdapter = new ImageAdapter(images, footerView, (items, startPosition) -> {
+            GenericDraweeHierarchyBuilder hierarchyBuilder = GenericDraweeHierarchyBuilder.newInstance(getResources())
+                    .setFailureImage(R.drawable.ic_placeholder)
+                    .setPlaceholderImage(R.drawable.ic_placeholder);
+            new ImageViewer.Builder(getActivity(), items)
+                    .setStartPosition(startPosition)
+                    .setCustomDraweeHierarchyBuilder(hierarchyBuilder)
+                    .show();
+        });
         recyclerView.setAdapter(imageAdapter);
     }
 
