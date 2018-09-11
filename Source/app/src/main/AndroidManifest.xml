@@ -121,6 +121,7 @@
         <activity android:name=".ui.payment.momo.paymentMomo.PaymentMomoActivity" />
         <activity android:name=".ui.payment.momo.payothers.PayOthersActivity" />
         <activity android:name=".ui.offers.NoOfferActivity" />
+        <activity android:name=".ui.offers.OfferActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
