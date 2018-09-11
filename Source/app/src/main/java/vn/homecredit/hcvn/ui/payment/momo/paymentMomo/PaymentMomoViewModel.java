@@ -184,10 +184,6 @@ public class PaymentMomoViewModel extends BaseViewModel {
 
     public void initData(boolean hasRepayment, HcContract contract, RePaymentData rePaymentData) {
         if (hasRepayment) {
-            // update to hide total amount and customerId in case pay for others
-            rePaymentData.setTotalAmount(0);
-            rePaymentData.setIdNumber("");
-            // end update to hide total amount and customerId
             updateData(rePaymentData);
             return;
         }

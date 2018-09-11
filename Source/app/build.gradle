@@ -42,11 +42,19 @@ android {
             storeFile file('../../KeyStore/debug.keystore')
             storePassword '!T123456'
         }
+
+        develop {
+            keyAlias 'develop'
+            keyPassword '123456'
+            storeFile file('../../KeyStore/develop.jks')
+            storePassword '123456'
+        }
     }
     buildTypes {
         debug {
             minifyEnabled false
             debuggable true
+            signingConfig signingConfigs.develop
             ext.crashlyticsApiSecret = "98b49c4d7ffd3b3f5ec6eafc591a64502a36027e896109cec0ab9bd57d500fe1"
             ext.crashlyticsApiKey = "7120678654c0ed1a98d873a2afb8c337ea0155b0"
         }
@@ -125,6 +133,15 @@ android {
             PropertiesUtils.injectPropertyInFile(crashlyticsProperties, properties, "")
         }
         generateResourcesTask.dependsOn generatePropertiesTask
+
+        def installApp = project.tasks.getByName("install$variantSuffix")
+        def startApp = task("start$variantSuffix").doLast {
+            description "Install and run app (dev env)"
+            exec {
+                commandLine "adb", "shell", "am", "start", "-n", variant.getApplicationId() + "/vn.homecredit.hcvn.ui.splash.SplashActivity"
+            }
+        }
+        startApp.dependsOn installApp
     }
 }
 
@@ -173,7 +190,7 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
     kapt "com.android.databinding:compiler:$gradleVersion"
     // Crash & distribution tools
-    implementation ("com.crashlytics.sdk.android:crashlytics:2.9.5@aar") {
+    implementation("com.crashlytics.sdk.android:crashlytics:2.9.5@aar") {
         transitive = true
     }
     //onesignal
