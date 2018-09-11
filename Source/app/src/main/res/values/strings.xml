@@ -336,5 +336,9 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="momo_partial_payment_amount">Số tiền bạn muốn thanh toán</string>
     <string name="total_payment_amount">Tổng số tiền bạn cần trả:</string>
     <string name="which_contract">Bạn muốn thanh toán cho hợp đồng nào?</string>
+
+    <!-- Offer -->
     <string name="loan_offers">Khoản Vay Ưu Đãi</string>
+    <string name="vip_customer">Khách hàng VIP</string>
+    <string name="expired_offer_message">Ưu đãi này đã hết hạn. Ưu đãi đặc biệt mới sẽ được gởi đến quý khách trong thời gian sắp tới.</string>
 </resources>
