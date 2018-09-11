@@ -207,7 +207,10 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     private void showDashboard(String greeting, String username) {
         if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
             preferencesHelper.setIsShowDashboard(false);
-            dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
+
+            int offerBadNumber = getOfferBadgeNumber();
+
+            dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username, offerBadNumber);
             ((DashBoardDialogFragment) dashboardFragment).setOnDashboardClicked(this);
             dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
             // update notification count
@@ -226,6 +229,16 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
                         }
                     });
         }
+    }
+
+    private int getOfferBadgeNumber() {
+        if (preferencesHelper == null || preferencesHelper.getProfile() == null
+                || preferencesHelper.getProfile().getOffer() == null)
+            return 0;
+        if (preferencesHelper.getProfile().getOffer().getActive()) {
+            return 1;
+        }
+        return 0;
     }
 
     @Override
@@ -323,7 +336,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         if (dashboardFragment == null) {
             return;
         }
-        ((DashBoardDialogFragment) dashboardFragment).updateNotificationCount(count);
+        ((DashBoardDialogFragment) dashboardFragment).updateNotificationBadgeNumber(count);
     }
 
 }

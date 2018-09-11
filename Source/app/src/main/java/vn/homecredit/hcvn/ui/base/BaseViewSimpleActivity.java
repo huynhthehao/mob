@@ -11,8 +11,8 @@ public abstract class BaseViewSimpleActivity extends BaseSimpleActivity {
         super.onCreate(savedInstanceState);
         if (getLayoutId() != 0) {
             setContentView(getLayoutId());
+            enableNavigationClicked();
         }
-        enableNavigationClicked();
     }
 
 }
