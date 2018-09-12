@@ -266,6 +266,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedMomo() {
+        sendEvent(R.string.ga_event_momo_category, R.string.ga_event_momo_action, R.string.ga_event_momo_label_dashboard);
         WhichContractActivity.start(this);
     }
 
