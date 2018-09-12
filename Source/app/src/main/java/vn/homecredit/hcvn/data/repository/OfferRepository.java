@@ -6,6 +6,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.model.offer.ContractOfferResp;
+import vn.homecredit.hcvn.data.model.offer.OfferDetailResp;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 
@@ -26,4 +27,12 @@ public class OfferRepository {
                 .observeOn(AndroidSchedulers.mainThread());
 
     }
+
+    public Single<OfferDetailResp> offerFormula(String riskGroup, String productCode) {
+        return restService.offerFormula(riskGroup, productCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+    }
+
 }

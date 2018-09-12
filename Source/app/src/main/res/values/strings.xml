@@ -352,4 +352,5 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="time_left">Nhanh tay lên, chỉ còn %d ngày</string>
     <string name="more_detail">Xem chi tiết</string>
     <string name="vip_customer">Khách hàng VIP</string>
+    <string name="offers_fail">Chúng tôi không tải được dữ liệu về ưu đãi của bạn, vui lòng kiểm tra kết nối và thử lại sau</string>
 </resources>

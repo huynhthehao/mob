@@ -36,6 +36,7 @@ import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.offers.ExpiredOfferFragment;
+import vn.homecredit.hcvn.ui.offers.OfferActivity;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
     public static final String ACTION_REFRESH_NOTIFICATIONS = "ACTION_REFRESH_NOTIFICATIONS";
@@ -131,6 +132,9 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
     private void initAdapter() {
         notificationAdapter = new NotificationAdapter(getActivity(), model -> {
             getViewModel().onNotificationItemClicked(model);
+            if (model.getOffer() != null) {
+                OfferActivity.start(getActivity(), model.getOffer());
+            }
         });
         rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvNotifications.setAdapter(notificationAdapter);

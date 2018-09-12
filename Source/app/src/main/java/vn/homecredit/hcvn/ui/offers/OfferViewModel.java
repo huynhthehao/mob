@@ -75,11 +75,26 @@ public class OfferViewModel extends BaseViewModel {
                     modelNoVip.setValue(true);
                 }
             }else {
-                showMessage(contractOfferResp.getResponseMessage());
+                modelOffer.setValue(true);
             }
         } , throwable -> {
             setIsLoading(false);
             handleError(throwable);
         });
+    }
+
+    public void getOfferFormula() {
+       setIsLoading(true);
+       offerRepository.offerFormula(offer.getRiskGroup(), offer.getProductCode()) .subscribe(contractOfferResp -> {
+           setIsLoading(false);
+           if (contractOfferResp.isSuccess() ) {
+
+           }else {
+               showMessage(R.string.offers_fail);
+           }
+       } , throwable -> {
+           setIsLoading(false);
+           handleError(throwable);
+       });
     }
 }

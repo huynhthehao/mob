@@ -1,6 +1,5 @@
 package vn.homecredit.hcvn.ui.offers;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import org.parceler.Parcels;
 
@@ -16,12 +14,11 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.databinding.ActivityOfferBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;
 
-public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewModel> {
+public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewModel> implements OfferFragment.OnOfferListenner {
 
     private static final String BUNDLE_OFFER = "BUNDLE_OFFER";
 
@@ -75,8 +72,11 @@ public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewM
     private void showNoVipFragment() {
         addFragment(new NoOfferFragment());
     }
+
     private void showOfferFragment() {
-        addFragment(OfferFragment.newInstance(getViewModel().getOffer()));
+        OfferFragment offerFragment = OfferFragment.newInstance(getViewModel().getOffer());
+        offerFragment.setOnOfferListenner(this);
+        addFragment(offerFragment);
 
     }
     private void showExpiredFragment() {
@@ -89,5 +89,8 @@ public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewM
     }
 
 
-
+    @Override
+    public void onDetailClicked() {
+       getViewModel().getOfferFormula();
+    }
 }
