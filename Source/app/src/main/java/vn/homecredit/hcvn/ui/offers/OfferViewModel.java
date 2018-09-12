@@ -4,13 +4,12 @@ import android.arch.lifecycle.MutableLiveData;
 
 import javax.inject.Inject;
 
-import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.ProfileResp;
-import vn.homecredit.hcvn.data.model.offer.ContractOffer;
+import vn.homecredit.hcvn.data.model.offer.ContractOfferData;
 import vn.homecredit.hcvn.data.repository.OfferRepository;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.ui.notification.model.OfferModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class OfferViewModel extends BaseViewModel {
@@ -20,7 +19,7 @@ public class OfferViewModel extends BaseViewModel {
     private MutableLiveData<Boolean> modelNoVip = new MutableLiveData<>();
     private final OfferRepository offerRepository;
     private PreferencesHelper preferencesHelper;
-    private ProfileResp.Offer offer;
+    private OfferModel offer;
 
     @Inject
     public OfferViewModel(OfferRepository offerRepository, PreferencesHelper preferencesHelper, SchedulerProvider schedulerProvider) {
@@ -32,6 +31,10 @@ public class OfferViewModel extends BaseViewModel {
     @Override
     public void init() {
         super.init();
+    }
+
+    public OfferModel getOffer() {
+        return offer;
     }
 
     public MutableLiveData<Boolean> getModelOffer() {
@@ -46,7 +49,7 @@ public class OfferViewModel extends BaseViewModel {
         return modelNoVip;
     }
 
-    public void initData(ProfileResp.Offer offer) {
+    public void initData(OfferModel offer) {
         this.offer = offer;
         if (this.offer == null) {
             modelNoVip.setValue(true);
@@ -62,13 +65,17 @@ public class OfferViewModel extends BaseViewModel {
             return;
         }
         setIsLoading(true);
-        offerRepository.contractOffer(campId).subscribe(contractOffer -> {
+        offerRepository.contractOffer(campId).subscribe(contractOfferResp -> {
             setIsLoading(false);
-            if (contractOffer.isSuccess()) {
-                modelOffer.setValue(contractOffer.isActive());
-                modelExpired.setValue(!contractOffer.isActive());
+            if (contractOfferResp.isSuccess()) {
+                ContractOfferData contractOfferData = contractOfferResp.getData();
+                if (contractOfferData != null && contractOfferData.isActive()) {
+                   modelOffer.setValue(true);
+                }else {
+                    modelNoVip.setValue(true);
+                }
             }else {
-                showMessage(contractOffer.getResponseMessage());
+                showMessage(contractOfferResp.getResponseMessage());
             }
         } , throwable -> {
             setIsLoading(false);

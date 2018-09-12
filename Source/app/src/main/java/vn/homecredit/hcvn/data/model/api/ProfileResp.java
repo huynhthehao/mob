@@ -109,7 +109,7 @@ public class ProfileResp {
         private List<Setting> settings = null;
         @SerializedName("Offer")
         @Expose
-        private Offer offer;
+        private OfferModel offer;
         @SerializedName("PasswordExpiration")
         @Expose
         private PasswordExpiration passwordExpiration;

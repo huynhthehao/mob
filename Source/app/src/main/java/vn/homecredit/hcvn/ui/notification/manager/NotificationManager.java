@@ -39,8 +39,7 @@ public class NotificationManager {
                 AppUtils.openExternalBrowser(context, getMarketingUrl(model));
                 break;
             case CRM:
-                String camId = model.getOffer().getCamId();
-                OfferActivity.start(context, camId);
+                OfferActivity.start(context, model.getOffer());
                 break;
             case CLW_APPLICATION_LOAN_EXPIRED:
             case CLW_APPLICATION_LOAN_RESULT:

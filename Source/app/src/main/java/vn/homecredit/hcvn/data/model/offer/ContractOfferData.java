@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 
-public class ContractOffer extends BaseApiResponse {
+public class ContractOfferData extends BaseApiResponse {
 
     @SerializedName("active")
     @Expose

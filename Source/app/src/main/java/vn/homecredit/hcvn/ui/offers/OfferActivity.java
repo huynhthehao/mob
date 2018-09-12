@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import org.parceler.Parcels;
 
@@ -18,6 +19,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.databinding.ActivityOfferBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.notification.model.OfferModel;
 
 public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewModel> {
 
@@ -26,7 +28,7 @@ public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewM
     @Inject
     ViewModelProvider.Factory viewModelProvider;
 
-    public static void start(Context context, ProfileResp.Offer offer) {
+    public static void start(Context context, OfferModel offer) {
         Intent intent = new Intent(context, OfferActivity.class);
         intent.putExtra(BUNDLE_OFFER, Parcels.wrap(offer));
         context.startActivity(intent);
@@ -50,7 +52,8 @@ public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewM
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ProfileResp.Offer offer = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_OFFER));
+        getViewDataBinding().toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        OfferModel offer = Parcels.unwrap(getIntent().getParcelableExtra(BUNDLE_OFFER));
         getViewModel().initData(offer);
         getViewModel().getModelNoVip().observe(this, aBoolean -> {
             if (aBoolean != null && aBoolean == Boolean.TRUE) {
@@ -73,7 +76,7 @@ public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewM
         addFragment(new NoOfferFragment());
     }
     private void showOfferFragment() {
-        addFragment(new OfferFragment());
+        addFragment(OfferFragment.newInstance(getViewModel().getOffer()));
 
     }
     private void showExpiredFragment() {

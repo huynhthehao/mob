@@ -37,7 +37,7 @@ import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
-import vn.homecredit.hcvn.data.model.offer.ContractOffer;
+import vn.homecredit.hcvn.data.model.offer.ContractOfferResp;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
@@ -335,11 +335,11 @@ public class RestServiceImpl implements RestService {
     }
 
     @Override
-    public Single<ContractOffer> contractOffer(String campId) {
+    public Single<ContractOfferResp> contractOffer(String campId) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/offers/contracts?camp=%s", campId));
         return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
                 mApiHeader.getProtectedApiHeader(),
-                ContractOffer.class);
+                ContractOfferResp.class);
     }
 
     @Override
