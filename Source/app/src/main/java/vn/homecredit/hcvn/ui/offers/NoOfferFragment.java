@@ -1,8 +1,7 @@
 package vn.homecredit.hcvn.ui.offers;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
@@ -10,22 +9,16 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.ui.base.BaseSimpleActivity;
+import vn.homecredit.hcvn.ui.base.BaseSimpleFragment;
 import vn.homecredit.hcvn.utils.AppConstants;
 import vn.homecredit.hcvn.utils.AppUtils;
 
-public class NoOfferActivity extends BaseSimpleActivity {
+public class NoOfferFragment extends BaseSimpleFragment {
 
     @Inject
     PreferencesHelper preferencesHelper;
-
-    public static void start(Context context) {
-        Intent intent = new Intent(context, NoOfferActivity.class);
-        context.startActivity(intent);
-    }
 
     @Override
     protected boolean isSupportInjection() {
@@ -33,12 +26,16 @@ public class NoOfferActivity extends BaseSimpleActivity {
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_offer_no_offer);
-        enableNavigationClicked();
+    public int getLayoutId() {
+        return R.layout.fragment_no_offer;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         updateUI();
     }
+
 
     private void updateUI() {
         VersionResp.VersionRespData versionRespData = preferencesHelper.getVersionRespData();
@@ -47,14 +44,14 @@ public class NoOfferActivity extends BaseSimpleActivity {
         if (phoneSupport == null) {
             phoneSupport = AppConstants.SUPPORT_PHONE;
         }
-        TextView tvPhoneSupport = findViewById(R.id.tvPhoneSupport);
+        TextView tvPhoneSupport = getView().findViewById(R.id.tvPhoneSupport);
         tvPhoneSupport.setText(phoneSupport);
         tvPhoneSupport.setOnClickListener(v -> openPhoneSupport(tvPhoneSupport.getText().toString()));
 
     }
 
     private void openPhoneSupport(String text) {
-        AppUtils.openDeviceCallDialog(this, text);
+        AppUtils.openDeviceCallDialog(getActivity(), text);
     }
 
 }

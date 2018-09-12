@@ -1,5 +1,7 @@
 package vn.homecredit.hcvn.ui.offers;
 
+import android.arch.lifecycle.MutableLiveData;
+
 import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
@@ -13,9 +15,12 @@ import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class OfferViewModel extends BaseViewModel {
 
+    private MutableLiveData<Boolean> modelOffer = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelExpired = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelNoVip = new MutableLiveData<>();
     private final OfferRepository offerRepository;
     private PreferencesHelper preferencesHelper;
-    private String campId;
+    private ProfileResp.Offer offer;
 
     @Inject
     public OfferViewModel(OfferRepository offerRepository, PreferencesHelper preferencesHelper, SchedulerProvider schedulerProvider) {
@@ -29,13 +34,26 @@ public class OfferViewModel extends BaseViewModel {
         super.init();
     }
 
-    public void setCampId(String campId) {
-        if (campId == null) {
-            this.campId = getCampIdFromProfile();
-        }else {
-            this.campId = campId;
+    public MutableLiveData<Boolean> getModelOffer() {
+        return modelOffer;
+    }
+
+    public MutableLiveData<Boolean> getModelExpired() {
+        return modelExpired;
+    }
+
+    public MutableLiveData<Boolean> getModelNoVip() {
+        return modelNoVip;
+    }
+
+    public void initData(ProfileResp.Offer offer) {
+        this.offer = offer;
+        if (this.offer == null) {
+            modelNoVip.setValue(true);
+            return;
         }
-        getContractOffer(this.campId);
+        getContractOffer(this.offer.getCamId());
+
     }
 
     public void getContractOffer(String campId) {
@@ -45,19 +63,16 @@ public class OfferViewModel extends BaseViewModel {
         }
         setIsLoading(true);
         offerRepository.contractOffer(campId).subscribe(contractOffer -> {
-                    setIsLoading(false);
-                } , throwable -> {
-                    setIsLoading(false);
-                    handleError(throwable);
+            setIsLoading(false);
+            if (contractOffer.isSuccess()) {
+                modelOffer.setValue(contractOffer.isActive());
+                modelExpired.setValue(!contractOffer.isActive());
+            }else {
+                showMessage(contractOffer.getResponseMessage());
+            }
+        } , throwable -> {
+            setIsLoading(false);
+            handleError(throwable);
         });
-    }
-
-    private String getCampIdFromProfile() throws NullPointerException{
-        if (preferencesHelper.getProfile() == null ||
-                preferencesHelper.getProfile().getOffer() == null ||
-                preferencesHelper.getProfile().getOffer().getCamId() == null)
-            return null;
-
-        return preferencesHelper.getProfile().getOffer().getCamId();
     }
 }

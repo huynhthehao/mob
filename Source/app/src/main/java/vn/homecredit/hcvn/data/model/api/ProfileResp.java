@@ -9,6 +9,8 @@ package vn.homecredit.hcvn.data.model.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 public class ProfileResp {
@@ -331,6 +333,7 @@ public class ProfileResp {
 
     }
 
+    @Parcel
     public static class Offer {
 
         @SerializedName("risk_group")

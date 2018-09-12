@@ -31,7 +31,7 @@ import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicati
 import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
-import vn.homecredit.hcvn.ui.offers.NoOfferActivity;
+import vn.homecredit.hcvn.ui.offers.NoOfferFragment;
 import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 
@@ -79,10 +79,8 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
 
     @Override
     public void openLoginActivity() {
-//        Intent intent = LoginActivity.newIntent(WelcomeActivity.this);
-//        startActivity(intent);
-        NoOfferActivity.start(this);
-
+        Intent intent = LoginActivity.newIntent(WelcomeActivity.this);
+        startActivity(intent);
     }
 
     @Override
