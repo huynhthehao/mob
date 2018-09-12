@@ -3,6 +3,11 @@ package vn.homecredit.hcvn.ui.notification.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+import vn.homecredit.hcvn.utils.DateUtils;
+
+@Parcel
 public class OfferModel {
     @SerializedName("message_code")
     @Expose
@@ -42,6 +47,8 @@ public class OfferModel {
     @SerializedName("risk_group")
     @Expose
     private String riskGroup;
+
+    private long dayLeft;
 
     public String getMessageCode() {
         return messageCode;
@@ -121,5 +128,11 @@ public class OfferModel {
 
     public void setRiskGroup(String riskGroup) {
         this.riskGroup = riskGroup;
+    }
+
+    public int getDayLeft() {
+        long days = DateUtils.calcDayLeft(endDate);
+        if (days < 0) days = 0;
+        return (int) days;
     }
 }

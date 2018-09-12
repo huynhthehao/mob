@@ -9,6 +9,8 @@ package vn.homecredit.hcvn.data.model.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;

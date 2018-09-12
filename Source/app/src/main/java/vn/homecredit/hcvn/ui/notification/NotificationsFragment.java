@@ -15,7 +15,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
@@ -36,7 +35,6 @@ import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
-import vn.homecredit.hcvn.ui.offers.ExpiredOfferActivity;
 import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
 
@@ -129,13 +127,16 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
             AppUtils.openExternalBrowser(getActivity(), marketingUrl);
         });
         getViewModel().getModelOpenNotificationOfferType().observe(this, offerModel -> {
-            OfferActivity.start(getActivity(), offerModel.getCamId());
+            OfferActivity.start(getActivity(), offerModel);
         });
     }
 
     private void initAdapter() {
         notificationAdapter = new NotificationAdapter(getActivity(), model -> {
             getViewModel().onNotificationItemClicked(model);
+            if (model.getOffer() != null) {
+                OfferActivity.start(getActivity(), model.getOffer());
+            }
         });
         rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvNotifications.setAdapter(notificationAdapter);

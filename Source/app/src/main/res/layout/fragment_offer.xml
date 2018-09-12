@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvHeader"
+        style="@style/AppTheme.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/customer_vip"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/ivHeader"
+        android:layout_width="@dimen/icon_header_size"
+        android:layout_height="@dimen/icon_header_size"
+        android:src="@drawable/ic_offer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
+
+    <ImageView
+        android:id="@+id/ivFastCard"
+        style="@style/OfferIcon"
+        android:layout_marginLeft="@dimen/margin_high"
+        android:layout_marginTop="@dimen/margin_highest"
+        android:src="@drawable/ic_car"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivHeader" />
+
+    <TextView
+        android:id="@+id/tvFast"
+        style="@style/AppTheme.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_high"
+        android:text="@string/offers_cash"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivFastCard"
+        app:layout_constraintLeft_toRightOf="@id/ivFastCard"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivFastCard" />
+
+
+    <ImageView
+        android:id="@+id/ivClock"
+        style="@style/OfferIcon"
+        android:layout_marginLeft="@dimen/margin_high"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:src="@drawable/ic_clock"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFastCard" />
+
+    <TextView
+        android:id="@+id/tvClock"
+        style="@style/AppTheme.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_high"
+        android:text="@string/offers_fast"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivClock"
+        app:layout_constraintLeft_toRightOf="@id/ivClock"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivClock" />
+
+    <ImageView
+        android:id="@+id/ivGift"
+        style="@style/OfferIcon"
+        android:layout_marginLeft="@dimen/margin_high"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:src="@drawable/ic_gift"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivClock" />
+
+    <TextView
+        android:id="@+id/tvGift"
+        style="@style/AppTheme.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_high"
+        android:text="@string/offers_installment"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivGift"
+        app:layout_constraintLeft_toRightOf="@id/ivGift"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivGift" />
+
+    <ImageView
+        android:id="@+id/ivDoc"
+        style="@style/OfferIcon"
+        android:layout_marginLeft="@dimen/margin_high"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:src="@drawable/ic_doc"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivGift" />
+
+    <TextView
+        android:id="@+id/tvDoc"
+        style="@style/AppTheme.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_high"
+        android:text="@string/offers_doc"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivDoc"
+        app:layout_constraintLeft_toRightOf="@id/ivDoc"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivDoc" />
+
+    <TextView
+        android:id="@+id/tvTimeLeft"
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_high"
+        android:gravity="center_horizontal"
+        android:text="@string/time_left"
+        app:layout_constraintTop_toBottomOf="@+id/tvDoc" />
+
+
+    <Button
+        android:id="@+id/btnDetail"
+        style="@style/PrimaryButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:imeOptions="actionDone"
+        android:text="@string/more_detail"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimeLeft" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,21 +1,25 @@
 package vn.homecredit.hcvn.ui.offers;
 
+import android.arch.lifecycle.MutableLiveData;
+
 import javax.inject.Inject;
 
-import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.ProfileResp;
-import vn.homecredit.hcvn.data.model.offer.ContractOffer;
+import vn.homecredit.hcvn.data.model.offer.ContractOfferData;
 import vn.homecredit.hcvn.data.repository.OfferRepository;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.ui.notification.model.OfferModel;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class OfferViewModel extends BaseViewModel {
 
+    private MutableLiveData<Boolean> modelOffer = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelExpired = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelNoVip = new MutableLiveData<>();
     private final OfferRepository offerRepository;
     private PreferencesHelper preferencesHelper;
-    private String campId;
+    private OfferModel offer;
 
     @Inject
     public OfferViewModel(OfferRepository offerRepository, PreferencesHelper preferencesHelper, SchedulerProvider schedulerProvider) {
@@ -29,13 +33,30 @@ public class OfferViewModel extends BaseViewModel {
         super.init();
     }
 
-    public void setCampId(String campId) {
-        if (campId == null) {
-            this.campId = getCampIdFromProfile();
-        }else {
-            this.campId = campId;
+    public OfferModel getOffer() {
+        return offer;
+    }
+
+    public MutableLiveData<Boolean> getModelOffer() {
+        return modelOffer;
+    }
+
+    public MutableLiveData<Boolean> getModelExpired() {
+        return modelExpired;
+    }
+
+    public MutableLiveData<Boolean> getModelNoVip() {
+        return modelNoVip;
+    }
+
+    public void initData(OfferModel offer) {
+        this.offer = offer;
+        if (this.offer == null) {
+            modelNoVip.setValue(true);
+            return;
         }
-        getContractOffer(this.campId);
+        getContractOffer(this.offer.getCamId());
+
     }
 
     public void getContractOffer(String campId) {
@@ -44,20 +65,36 @@ public class OfferViewModel extends BaseViewModel {
             return;
         }
         setIsLoading(true);
-        offerRepository.contractOffer(campId).subscribe(contractOffer -> {
-                    setIsLoading(false);
-                } , throwable -> {
-                    setIsLoading(false);
-                    handleError(throwable);
+        offerRepository.contractOffer(campId).subscribe(contractOfferResp -> {
+            setIsLoading(false);
+            if (contractOfferResp.isSuccess()) {
+                ContractOfferData contractOfferData = contractOfferResp.getData();
+                if (contractOfferData != null && contractOfferData.isActive()) {
+                   modelOffer.setValue(true);
+                }else {
+                    modelNoVip.setValue(true);
+                }
+            }else {
+                modelOffer.setValue(true);
+            }
+        } , throwable -> {
+            setIsLoading(false);
+            handleError(throwable);
         });
     }
 
-    private String getCampIdFromProfile() throws NullPointerException{
-        if (preferencesHelper.getProfile() == null ||
-                preferencesHelper.getProfile().getOffer() == null ||
-                preferencesHelper.getProfile().getOffer().getCamId() == null)
-            return null;
+    public void getOfferFormula() {
+       setIsLoading(true);
+       offerRepository.offerFormula(offer.getRiskGroup(), offer.getProductCode()) .subscribe(contractOfferResp -> {
+           setIsLoading(false);
+           if (contractOfferResp.isSuccess() ) {
 
-        return preferencesHelper.getProfile().getOffer().getCamId();
+           }else {
+               showMessage(R.string.offers_fail);
+           }
+       } , throwable -> {
+           setIsLoading(false);
+           handleError(throwable);
+       });
     }
 }
