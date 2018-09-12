@@ -20,6 +20,7 @@ import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseStatefulActivity;
 import vn.homecredit.hcvn.ui.custom.MyStatefulLayout;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
+import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 

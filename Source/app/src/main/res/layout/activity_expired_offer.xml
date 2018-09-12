@@ -22,7 +22,7 @@
             style="@style/AppTheme.TextView.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vip_customer"
+            android:text="@string/customer_vip"
             android:textSize="@dimen/text_size_medium_big"
             android:textStyle="bold" />
 

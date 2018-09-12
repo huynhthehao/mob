@@ -20,6 +20,10 @@ public class OfferModel {
     @Expose
     private String endDate;
 
+    @SerializedName("cam_id")
+    @Expose
+    private String camId;
+
     public String getMessageCode() {
         return messageCode;
     }
@@ -50,5 +54,13 @@ public class OfferModel {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String getCamId() {
+        return camId;
+    }
+
+    public void setCamId(String camId) {
+        this.camId = camId;
     }
 }

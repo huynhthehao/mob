@@ -339,6 +339,16 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
 
     <!-- Offer -->
     <string name="loan_offers">Khoản Vay Ưu Đãi</string>
-    <string name="vip_customer">Khách hàng VIP</string>
     <string name="expired_offer_message">Ưu đãi này đã hết hạn. Ưu đãi đặc biệt mới sẽ được gởi đến quý khách trong thời gian sắp tới.</string>
+    <string name="customer_vip">Khách hàng VIP</string>
+    <string name="benefit">Quyền lợi:</string>
+    <string name="benefit_vip_offer">"• Ưu đãi vay tiền mặt lên đến 60 triệu\n• Nhận tiền chỉ sau 1,5 giờ \n• Tặng đến 6 kỳ thanh toán \n• Duyệt hồ sơ vay ngay - chỉ 10 phút \n• Chỉ cần CMND và GPLX (không cần hộ khẩu)"</string>
+    <string name="how_to_become_vip">Trở thành khách hàng VIP?</string>
+    <string name="how_to_become_vip_detail">"• Có ít nhất 4 kỳ thanh toán đúng hạn và một số điều kiện nội bộ \n• Ưu đãi vay sẽ được thông báo ngay khi bạn trở thành khách hàng VIP"</string>
+    <string name="offers_cash">Khoản vay lên đến %s, giải ngân sau 1,5 giờ</string>
+    <string name="offers_fast">Duyệt hồ sơ vay ngay - chỉ 10 phút</string>
+    <string name="offers_installment">Tặng đến 6 kỳ thanh toán</string>
+    <string name="offers_doc">Chỉ cần CMND và GPLX (không cần sổ hộ khẩu)</string>
+    <string name="time_left">Nhanh tay lên, chỉ còn %s ngày</string>
+    <string name="more_detail">Xem chi tiết</string>
 </resources>

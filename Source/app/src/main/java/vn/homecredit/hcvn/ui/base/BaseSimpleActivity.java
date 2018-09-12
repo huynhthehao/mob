@@ -30,8 +30,6 @@ public class BaseSimpleActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         trackingService = ((HCVNApp) getApplication()).getTrackingService();
-        enableNavigationClicked();
-
     }
 
     protected void enableNavigationClicked() {
