@@ -4,8 +4,6 @@ import android.content.Context;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.notification.NotificationType;

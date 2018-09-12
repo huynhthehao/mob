@@ -37,6 +37,7 @@ import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.offers.ExpiredOfferActivity;
+import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
@@ -125,8 +126,10 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
             ShortcutBadger.applyCount(getActivity().getApplicationContext(), count);
         });
         getViewModel().getModelOpenNotificationMarketingType().observe(this, marketingUrl -> {
-//            AppUtils.openExternalBrowser(getActivity(), marketingUrl);
-            ExpiredOfferActivity.start(getActivity());
+            AppUtils.openExternalBrowser(getActivity(), marketingUrl);
+        });
+        getViewModel().getModelOpenNotificationOfferType().observe(this, offerModel -> {
+            OfferActivity.start(getActivity(), offerModel.getCamId());
         });
     }
 
