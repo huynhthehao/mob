@@ -331,7 +331,7 @@ public class ProfileResp {
 
     }
 
-    public class Offer {
+    public static class Offer {
 
         @SerializedName("risk_group")
         @Expose
@@ -360,6 +360,10 @@ public class ProfileResp {
         @SerializedName("active")
         @Expose
         private Boolean active;
+
+        @SerializedName("message_code")
+        @Expose
+        private String messageCode;
 
         public String getRiskGroup() {
             return riskGroup;
@@ -433,6 +437,13 @@ public class ProfileResp {
             this.active = active;
         }
 
+        public String getMessageCode() {
+            return messageCode;
+        }
+
+        public void setMessageCode(String messageCode) {
+            this.messageCode = messageCode;
+        }
     }
 
     public class PasswordExpiration {
