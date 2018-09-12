@@ -59,7 +59,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void updateNotificationCount(View view, int count) {
-        TextView tvNotification = view.findViewById(R.id.tvNotificationCount);
+        TextView tvNotification = view.findViewById(R.id.tvBadgeNumber);
         if (count == 0) {
             tvNotification.setVisibility(View.GONE);
         } else {

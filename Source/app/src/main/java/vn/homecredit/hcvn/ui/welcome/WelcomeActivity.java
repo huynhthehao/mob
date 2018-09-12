@@ -79,8 +79,9 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
 
     @Override
     public void openLoginActivity() {
-        Intent intent = LoginActivity.newIntent(WelcomeActivity.this);
-        startActivity(intent);
+//        Intent intent = LoginActivity.newIntent(WelcomeActivity.this);
+//        startActivity(intent);
+        NoOfferActivity.start(this);
 
     }
 
