@@ -61,16 +61,14 @@ public class RestServiceImpl implements RestService {
 
     private DeviceInfo mDeviceInfo;
     private VersionService mVersionService;
-    private final OneSignalService mOneSignalService;
     @Inject
     PreferencesHelper preferencesHelper;
 
     @Inject
-    public RestServiceImpl(ApiHeader apiHeader, DeviceInfo deviceInfo, VersionService versionService, OneSignalService oneSignalService) {
+    public RestServiceImpl(ApiHeader apiHeader, DeviceInfo deviceInfo, VersionService versionService) {
         mApiHeader = apiHeader;
         mDeviceInfo = deviceInfo;
         mVersionService = versionService;
-        mOneSignalService = oneSignalService;
 
         if (BuildConfig.DEBUG)
             useMock = false;
@@ -79,10 +77,6 @@ public class RestServiceImpl implements RestService {
     }
 
     public Single<VersionResp> checkUpdate() {
-        if (TextUtils.isEmpty(mDeviceInfo.getPlayerId())) {
-            mOneSignalService.tryGetPlayerId();
-        }
-
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         //TODO: This code in Xamarin was commented. Consider to remove it later
         requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPlayerId());

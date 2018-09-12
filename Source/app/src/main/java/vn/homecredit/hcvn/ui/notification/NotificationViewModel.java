@@ -14,6 +14,7 @@ import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
+import vn.homecredit.hcvn.ui.notification.model.OfferModel;
 import vn.homecredit.hcvn.utils.CountryValue;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -24,6 +25,7 @@ public class NotificationViewModel extends BaseViewModel {
     private MutableLiveData<Boolean> modelIsRefreshing = new MutableLiveData<>();
     private MutableLiveData<Integer> modelNotificationUnreadCount = new MutableLiveData<>();
     private MutableLiveData<String> modelOpenNotificationMarketingType = new MutableLiveData<>();
+    private MutableLiveData<OfferModel> modelOpenNotificationOfferType = new MutableLiveData<>();
 
     @Inject
     public NotificationViewModel(SchedulerProvider schedulerProvider, NotificationRepository notificationRepository, PreferencesHelper preferencesHelper) {
@@ -101,13 +103,13 @@ public class NotificationViewModel extends BaseViewModel {
 
     public void onNotificationItemClicked(NotificationModel model) {
         if (!model.isRead()) {
-            if (model.getType() != NotificationType.MARKETING.getType()) {
-                setIsLoading(true);
-            }
+            setIsLoading(true);
             markAsReadNotificationToServer(model);
         }
         if (model.getType() == NotificationType.MARKETING.getType()) {
             modelOpenNotificationMarketingType.setValue(getMarketingUrl(model));
+        } else if (model.getType() == NotificationType.CRM.getType()) {
+            modelOpenNotificationOfferType.setValue(model.getOffer());
         }
     }
 
@@ -158,5 +160,9 @@ public class NotificationViewModel extends BaseViewModel {
 
     public MutableLiveData<String> getModelOpenNotificationMarketingType() {
         return modelOpenNotificationMarketingType;
+    }
+
+    public MutableLiveData<OfferModel> getModelOpenNotificationOfferType() {
+        return modelOpenNotificationOfferType;
     }
 }
