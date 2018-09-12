@@ -93,6 +93,7 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
     }
 
     private void showMomoDetail() {
+        sendEvent(R.string.ga_event_momo_category, R.string.ga_event_momo_action, R.string.ga_event_momo_label_contract_detail);
         PaymentMomoActivity.start(this, getViewModel().getHcContract());
     }
 
