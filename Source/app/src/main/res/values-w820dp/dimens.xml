@@ -1,12 +1,3 @@
-<!--
-  ~ dimens.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
-  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
-  ~
-  ~ Last modified 6/13/18 1:32 PM
-  -->
-
 <resources>
     <!-- Example customization of dimensions originally defined in res/values/dimens.xml
          (such as screen margins) for screens with more than 820dp of available width. This

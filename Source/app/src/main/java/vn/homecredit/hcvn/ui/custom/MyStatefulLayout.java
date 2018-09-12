@@ -195,7 +195,7 @@ public class MyStatefulLayout extends LinearLayout {
         showCustom(new CustomStateOptions()
                 .message(message)
                 .image(com.gturedi.views.R.drawable.stf_ic_error)
-                .buttonText(str(com.gturedi.views.R.string.stfButtonText))
+                .buttonText(str(R.string.retry))
                 .buttonClickListener(clickListener));
     }
 
@@ -213,7 +213,7 @@ public class MyStatefulLayout extends LinearLayout {
         showCustom(new CustomStateOptions()
                 .message(message)
                 .image(R.drawable.no_server)
-                .buttonText(str(com.gturedi.views.R.string.stfButtonText))
+                .buttonText(str(R.string.retry))
                 .buttonClickListener(clickListener));
     }
 

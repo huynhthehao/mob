@@ -290,7 +290,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="enter_subject">Nhập tiêu đề</string>
     <string name="enter_feedback">Nhập phản hồi</string>
     <string name="clear">Xóa</string>
-    <string name="submit">Gởi</string>
+    <string name="submit">Gửi</string>
     <string name="tap_to_call_message">Bấm nút bên dưới để gọi</string>
     <string name="please_enter_subject">Vui lòng nhập tiêu đề</string>
     <string name="please_enter_feedback">Vui lòng nhập phản hồi</string>
@@ -336,6 +336,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="momo_partial_payment_amount">Số tiền bạn muốn thanh toán</string>
     <string name="total_payment_amount">Tổng số tiền bạn cần trả:</string>
     <string name="which_contract">Bạn muốn thanh toán cho hợp đồng nào?</string>
+    <string name="customer_owner">Chủ hợp đồng</string>
 
     <!-- Offer -->
     <string name="loan_offers">Khoản Vay Ưu Đãi</string>

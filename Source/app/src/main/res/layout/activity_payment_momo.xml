@@ -51,7 +51,7 @@
                 </vn.homecredit.hcvn.ui.custom.PayMomoInfoItem>
 
                 <vn.homecredit.hcvn.ui.custom.PayMomoInfoItem
-                    app:title='@{@string/full_name + ":"}'
+                    app:title='@{@string/customer_owner + ":"}'
                     app:content="@{viewModel.rePaymentData.fullName}"
                     android:visibility="@{viewModel.bindVisibleFullname ? View.VISIBLE : View.GONE}"
                     android:layout_width="match_parent"

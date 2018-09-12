@@ -84,11 +84,10 @@
         <item name="android:textColor">@color/brownishGrey</item>
     </style>
 
-    <style name="PrimaryButton" parent="Widget.AppCompat.Button">
+    <style name="PrimaryButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/my_primary_text</item>
         <item name="android:background">@drawable/rounded_button</item>
-        <item name="fontFamily">@font/myriadpro_regular</item>
-        <item name="android:textAppearanceButton">@style/AppTheme.TextAppearanceButton</item>
-        <item name="android:height">60dp</item>
+        <item name="android:fontFamily">@font/myriadpro_regular</item>
     </style>
 
     <style name="AppTheme.TextAppearanceButton">

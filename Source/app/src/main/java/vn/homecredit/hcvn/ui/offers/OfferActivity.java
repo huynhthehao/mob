@@ -14,6 +14,7 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.offer.OfferDetailData;
 import vn.homecredit.hcvn.databinding.ActivityOfferBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
@@ -85,6 +86,17 @@ public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewM
                 showOfferFragment();
             }
         });
+        getViewModel().getModelDetailOffer().observe(this, offerDetail -> {
+            if (offerDetail != null ) {
+                showOfferDetail(offerDetail);
+            }
+        });
+
+
+    }
+
+    private void showOfferDetail(OfferDetailData offerDetail) {
+
     }
 
     @Override
