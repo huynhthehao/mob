@@ -24,7 +24,7 @@ import vn.homecredit.hcvn.R;
 public class DashBoadItemView extends LinearLayout {
     private String title;
     private int srcId;
-    TextView tvNotificationCount;
+    TextView tvBadgeNumber;
 
     public DashBoadItemView(Context context) {
         super(context);
@@ -73,21 +73,21 @@ public class DashBoadItemView extends LinearLayout {
             tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
         }
 
-        tvNotificationCount = findViewById(R.id.tvNotificationCount);
+        tvBadgeNumber = findViewById(R.id.tvBadgeNumber);
 
         typedArray.recycle();
     }
 
-    public void updateNotificationCount(int count) {
-        if (tvNotificationCount == null) {
+    public void updateBadgeNumber(int count) {
+        if (tvBadgeNumber == null) {
             return;
         }
         if (count == 0) {
-            tvNotificationCount.setVisibility(GONE);
+            tvBadgeNumber.setVisibility(GONE);
             return;
         }
-        tvNotificationCount.setVisibility(VISIBLE);
-        tvNotificationCount.setText(String.valueOf(count));
+        tvBadgeNumber.setVisibility(VISIBLE);
+        tvBadgeNumber.setText(String.valueOf(count));
     }
 
 

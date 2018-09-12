@@ -30,6 +30,7 @@ import vn.homecredit.hcvn.di.component.AppComponent;
 import vn.homecredit.hcvn.di.component.DaggerAppComponent;
 import vn.homecredit.hcvn.di.module.RoomModule;
 import vn.homecredit.hcvn.service.OneSignalService;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.utils.AppLogger;
 
 /**
@@ -51,6 +52,10 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
     @Inject
     OneSignalService oneSignalService;
+
+    @Inject
+    TrackingService trackingService;
+
 
     @Override
     public DispatchingAndroidInjector<Activity> activityInjector() {
@@ -157,5 +162,9 @@ public class HCVNApp extends Application implements HasActivityInjector, HasSupp
 
     public AppComponent getAppComponent() {
         return appComponent;
+    }
+
+    public TrackingService getTrackingService() {
+        return trackingService;
     }
 }

@@ -76,12 +76,14 @@ constructor(private val context: Context, private val gaAnalyticsServiceImpl: An
 
     fun sendView(activity: Activity) {
         val screenResc = mapScreen[activity.javaClass.simpleName]
-        screenResc?.let { sendView(screenResc) }
+        val screen = if (screenResc == null) activity.javaClass.simpleName else context.getString(screenResc)
+        sendView(screen)
     }
 
     fun sendView(fragment: Fragment) {
         val screenResc = mapScreen[fragment.javaClass.simpleName]
-        screenResc?.let { sendView(screenResc) }
+        val screen = if (screenResc == null) fragment.javaClass.simpleName else context.getString(screenResc)
+        sendView(screen)
     }
 
 }

@@ -32,6 +32,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
@@ -39,6 +40,8 @@ import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.ActionDialogFragment;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
+import vn.homecredit.hcvn.ui.notification.model.OfferModel;
+import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.utils.SpanBuilder;
@@ -207,7 +210,10 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     private void showDashboard(String greeting, String username) {
         if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
             preferencesHelper.setIsShowDashboard(false);
-            dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
+
+            int offerBadNumber = getOfferBadgeNumber();
+
+            dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username, offerBadNumber);
             ((DashBoardDialogFragment) dashboardFragment).setOnDashboardClicked(this);
             dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
             // update notification count
@@ -228,6 +234,16 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         }
     }
 
+    private int getOfferBadgeNumber() {
+        if (preferencesHelper == null || preferencesHelper.getProfile() == null
+                || preferencesHelper.getProfile().getOffer() == null)
+            return 0;
+        if (preferencesHelper.getProfile().getOffer().getActive()) {
+            return 1;
+        }
+        return 0;
+    }
+
     @Override
     public void onClickedContact() {
         setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_CONTRACTS);
@@ -239,6 +255,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedOffer() {
+        OfferModel offer = preferencesHelper.getProfile().getOffer();
+        OfferActivity.start(this, offer);
     }
 
     @Override
@@ -323,7 +341,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         if (dashboardFragment == null) {
             return;
         }
-        ((DashBoardDialogFragment) dashboardFragment).updateNotificationCount(count);
+        ((DashBoardDialogFragment) dashboardFragment).updateNotificationBadgeNumber(count);
     }
 
 }

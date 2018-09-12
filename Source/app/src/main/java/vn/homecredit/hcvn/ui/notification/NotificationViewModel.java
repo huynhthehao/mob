@@ -124,7 +124,6 @@ public class NotificationViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             setIsLoading(false);
-                            handleError(throwable);
                         });
         getCompositeDisposable().add(disposableMarkAsRead);
     }
