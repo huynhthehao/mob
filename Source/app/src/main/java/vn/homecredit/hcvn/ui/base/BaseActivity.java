@@ -210,6 +210,8 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         UiHelper.showConfirmMessage(this,title, message,onCompleted);
     }
 
+
+
     private void bindModelMessageDialog() {
         getViewModel().getMessageData().observe(this, o -> {
             if (o != null && o instanceof String) {

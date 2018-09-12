@@ -1,0 +1,134 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvHeader"
+        style="@style/AppTheme.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/padding_medium"
+        android:text="@string/customer_vip"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/ivHeader"
+        android:layout_width="@dimen/icon_header_size"
+        android:layout_height="@dimen/icon_header_size"
+        android:src="@drawable/ic_offer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
+
+    <ImageView
+        android:id="@+id/ivBenefit"
+        android:layout_width="@dimen/drawable_left_size_medium"
+        android:layout_height="@dimen/drawable_left_size_medium"
+        android:layout_marginLeft="@dimen/margin_high"
+        android:src="@drawable/ic_gift"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivHeader" />
+
+    <TextView
+        android:id="@+id/tvBenefit"
+        style="@style/AppTheme.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:text="@string/benefit"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ivBenefit"
+        app:layout_constraintLeft_toRightOf="@id/ivBenefit"
+        app:layout_constraintTop_toTopOf="@+id/ivBenefit" />
+
+    <TextView
+        android:id="@+id/tvBenefitOffer"
+        style="@style/AppTheme.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:paddingRight="@dimen/padding_medium"
+        android:text="@string/benefit_vip_offer"
+        app:layout_constraintLeft_toLeftOf="@+id/tvBenefit"
+        app:layout_constraintTop_toBottomOf="@+id/ivBenefit" />
+
+    <ImageView
+        android:id="@+id/ivHowToVip"
+        android:layout_width="@dimen/drawable_left_size_medium"
+        android:layout_height="@dimen/drawable_left_size_medium"
+        android:layout_marginLeft="@dimen/margin_high"
+        android:layout_marginTop="@dimen/margin_high"
+        android:src="@drawable/ic_vip_member"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBenefitOffer" />
+
+    <TextView
+        android:id="@+id/tvHowToVip"
+        style="@style/AppTheme.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:text="@string/how_to_become_vip"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ivHowToVip"
+        app:layout_constraintLeft_toRightOf="@id/ivHowToVip"
+        app:layout_constraintTop_toTopOf="@+id/ivHowToVip" />
+
+    <TextView
+        android:id="@+id/tvHowToVipDetail"
+        style="@style/AppTheme.TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:paddingRight="@dimen/padding_medium"
+        android:text="@string/how_to_become_vip_detail"
+        app:layout_constraintLeft_toLeftOf="@+id/tvHowToVip"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivHowToVip" />
+
+    <TextView
+        android:id="@+id/tvSupport"
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_high"
+        android:gravity="center_horizontal"
+        android:text="@string/tap_to_call_message"
+        app:layout_constraintTop_toBottomOf="@+id/tvHowToVipDetail" />
+
+    <LinearLayout
+        android:id="@+id/llCallSupport"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_submit_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@drawable/rounded_button"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSupport">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_average"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_call_center" />
+
+        <TextView
+            android:id="@+id/tvPhoneSupport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_average"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_big" />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
