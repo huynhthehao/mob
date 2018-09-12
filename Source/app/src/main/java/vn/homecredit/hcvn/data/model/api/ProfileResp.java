@@ -13,6 +13,8 @@ import org.parceler.Parcel;
 
 import java.util.List;
 
+import vn.homecredit.hcvn.ui.notification.model.OfferModel;
+
 public class ProfileResp {
     public static final int RESPONSE_CODE_SUCCESS = 0;
 
@@ -256,11 +258,11 @@ public class ProfileResp {
             this.settings = settings;
         }
 
-        public Offer getOffer() {
+        public OfferModel getOffer() {
             return offer;
         }
 
-        public void setOffer(Offer offer) {
+        public void setOffer(OfferModel offer) {
             this.offer = offer;
         }
 
@@ -331,122 +333,6 @@ public class ProfileResp {
             this.platform = platform;
         }
 
-    }
-
-    @Parcel
-    public static class Offer {
-
-        @SerializedName("risk_group")
-        @Expose
-        private String riskGroup;
-        @SerializedName("product_code")
-        @Expose
-        private String productCode;
-        @SerializedName("start_date")
-        @Expose
-        private String startDate;
-        @SerializedName("end_date")
-        @Expose
-        private String endDate;
-        @SerializedName("max_loan_amount")
-        @Expose
-        private Integer maxLoanAmount;
-        @SerializedName("min_loan_amount")
-        @Expose
-        private Integer minLoanAmount;
-        @SerializedName("cam_id")
-        @Expose
-        private String camId;
-        @SerializedName("has_gift")
-        @Expose
-        private Boolean hasGift;
-        @SerializedName("active")
-        @Expose
-        private Boolean active;
-
-        @SerializedName("message_code")
-        @Expose
-        private String messageCode;
-
-        public String getRiskGroup() {
-            return riskGroup;
-        }
-
-        public void setRiskGroup(String riskGroup) {
-            this.riskGroup = riskGroup;
-        }
-
-        public String getProductCode() {
-            return productCode;
-        }
-
-        public void setProductCode(String productCode) {
-            this.productCode = productCode;
-        }
-
-        public String getStartDate() {
-            return startDate;
-        }
-
-        public void setStartDate(String startDate) {
-            this.startDate = startDate;
-        }
-
-        public String getEndDate() {
-            return endDate;
-        }
-
-        public void setEndDate(String endDate) {
-            this.endDate = endDate;
-        }
-
-        public Integer getMaxLoanAmount() {
-            return maxLoanAmount;
-        }
-
-        public void setMaxLoanAmount(Integer maxLoanAmount) {
-            this.maxLoanAmount = maxLoanAmount;
-        }
-
-        public Integer getMinLoanAmount() {
-            return minLoanAmount;
-        }
-
-        public void setMinLoanAmount(Integer minLoanAmount) {
-            this.minLoanAmount = minLoanAmount;
-        }
-
-        public String getCamId() {
-            return camId;
-        }
-
-        public void setCamId(String camId) {
-            this.camId = camId;
-        }
-
-        public Boolean getHasGift() {
-            return hasGift;
-        }
-
-        public void setHasGift(Boolean hasGift) {
-            this.hasGift = hasGift;
-        }
-
-        public Boolean getActive() {
-            return active;
-        }
-
-        public void setActive(Boolean active) {
-            this.active = active;
-        }
-
-        public String getMessageCode() {
-            return messageCode;
-        }
-
-        public void setMessageCode(String messageCode) {
-            this.messageCode = messageCode;
-        }
     }
 
     public class PasswordExpiration {
