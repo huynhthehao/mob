@@ -76,14 +76,12 @@ public class OfferViewModel extends BaseViewModel {
             setIsLoading(false);
             if (contractOfferResp.isSuccess()) {
                 ContractOfferData contractOfferData = contractOfferResp.getData();
-                if (contractOfferData != null && contractOfferData.isActive() && !offer.isExpired()) {
-                   modelOffer.setValue(true);
-                }else {
-                    modelNoVip.setValue(true);
+                if (contractOfferData != null && contractOfferData.isActive() && offer.isExpired()) {
+                    modelExpired.setValue(true);
+                    return;
                 }
-            }else {
-                modelOffer.setValue(true);
             }
+            modelOffer.setValue(true);
         } , throwable -> {
             setIsLoading(false);
             handleError(throwable);
