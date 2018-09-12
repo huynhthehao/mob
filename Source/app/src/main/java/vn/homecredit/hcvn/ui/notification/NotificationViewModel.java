@@ -103,9 +103,7 @@ public class NotificationViewModel extends BaseViewModel {
 
     public void onNotificationItemClicked(NotificationModel model) {
         if (!model.isRead()) {
-            if (model.getType() != NotificationType.MARKETING.getType()) {
-                setIsLoading(true);
-            }
+            setIsLoading(true);
             markAsReadNotificationToServer(model);
         }
         if (model.getType() == NotificationType.MARKETING.getType()) {

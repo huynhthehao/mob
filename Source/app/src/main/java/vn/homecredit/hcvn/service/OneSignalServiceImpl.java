@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.onesignal.OSNotification;
@@ -32,10 +31,10 @@ import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.tracking.CommonEventAction;
 import vn.homecredit.hcvn.service.tracking.CommonEventObjectType;
 import vn.homecredit.hcvn.service.tracking.TrackingService;
-import vn.homecredit.hcvn.ui.home.HomeActivity;
-import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.notification.NotificationType;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
+import vn.homecredit.hcvn.ui.notification.manager.NotificationManager;
+import vn.homecredit.hcvn.ui.notification.manager.NotificationManagerImpl;
 import vn.homecredit.hcvn.ui.notification.model.ClwResult;
 import vn.homecredit.hcvn.ui.notification.model.ClwResultConverter;
 import vn.homecredit.hcvn.ui.notification.model.NotificationAnalyticData;
@@ -48,12 +47,14 @@ public class OneSignalServiceImpl implements OneSignalService {
     private final DeviceInfo mDeviceInfo;
     private PreferencesHelper preferencesHelper;
     private TrackingService trackingService;
+    private NotificationManager notificationManager;
 
     @Inject
-    public OneSignalServiceImpl(DeviceInfo deviceInfo, PreferencesHelper preferencesHelper, TrackingService trackingService) {
+    public OneSignalServiceImpl(DeviceInfo deviceInfo, PreferencesHelper preferencesHelper, TrackingService trackingService, NotificationManager notificationManager) {
         mDeviceInfo = deviceInfo;
         this.preferencesHelper = preferencesHelper;
         this.trackingService = trackingService;
+        this.notificationManager = notificationManager;
     }
 
     @Override
@@ -112,13 +113,10 @@ public class OneSignalServiceImpl implements OneSignalService {
         // tracking event
         trackingNotification(result.notification, false);
         // end tracking
-        Intent intent = new Intent(context, HomeActivity.class);
-        intent.putExtra(HomeActivity.BUNDLE_SELECT_NOTIFICATION_TAB, true);
-        if (TextUtils.isEmpty(preferencesHelper.getAccessToken())) {
-            intent = new Intent(context, LoginActivity.class);
-        }
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+
+        JSONObject additionalData = result.notification.payload.additionalData;
+        NotificationModel notificationModel = getNotificationModel(result.notification, additionalData);
+        notificationManager.openNotification(context, notificationModel);
     }
 
     private void trackingNotification(OSNotification notification, boolean isReceived) {
@@ -147,10 +145,10 @@ public class OneSignalServiceImpl implements OneSignalService {
         return notificationAnalyticData;
     }
 
-    private void getNotificationModel(OSNotification notification, JSONObject additionalData) {
+    private NotificationModel getNotificationModel(OSNotification notification, JSONObject additionalData) {
         NotificationModel model = new NotificationModel();
         if (additionalData == null || !additionalData.has("Type")) {
-            return;
+            return model;
         }
         try {
             int type = additionalData.getInt("Type");
@@ -190,6 +188,7 @@ public class OneSignalServiceImpl implements OneSignalService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return model;
     }
 
     private String getStringData(JSONObject object, String key) {
