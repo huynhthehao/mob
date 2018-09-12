@@ -6,14 +6,17 @@ import javax.inject.Inject;
 
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.offer.ContractOfferData;
+import vn.homecredit.hcvn.data.model.offer.OfferDetailData;
 import vn.homecredit.hcvn.data.repository.OfferRepository;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;
+import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class OfferViewModel extends BaseViewModel {
 
+    private MutableLiveData<OfferDetailData> modelDetailOffer = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelOffer = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelExpired = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelNoVip = new MutableLiveData<>();
@@ -35,6 +38,10 @@ public class OfferViewModel extends BaseViewModel {
 
     public OfferModel getOffer() {
         return offer;
+    }
+
+    public MutableLiveData<OfferDetailData> getModelDetailOffer() {
+        return modelDetailOffer;
     }
 
     public MutableLiveData<Boolean> getModelOffer() {
@@ -69,7 +76,7 @@ public class OfferViewModel extends BaseViewModel {
             setIsLoading(false);
             if (contractOfferResp.isSuccess()) {
                 ContractOfferData contractOfferData = contractOfferResp.getData();
-                if (contractOfferData != null && contractOfferData.isActive()) {
+                if (contractOfferData != null && contractOfferData.isActive() && !offer.isExpired()) {
                    modelOffer.setValue(true);
                 }else {
                     modelNoVip.setValue(true);
@@ -88,7 +95,10 @@ public class OfferViewModel extends BaseViewModel {
        offerRepository.offerFormula(offer.getRiskGroup(), offer.getProductCode()) .subscribe(contractOfferResp -> {
            setIsLoading(false);
            if (contractOfferResp.isSuccess() ) {
-
+               OfferDetailData offerDetailData = contractOfferResp.getData();
+               offerDetailData.generateInterest();
+               offerDetailData.setOfferModel(offer);
+               modelDetailOffer.setValue(offerDetailData);
            }else {
                showMessage(R.string.offers_fail);
            }

@@ -49,6 +49,7 @@ public class OfferModel {
     private String riskGroup;
 
     private long dayLeft;
+    private boolean expired;
 
     public String getMessageCode() {
         return messageCode;
@@ -134,5 +135,9 @@ public class OfferModel {
         long days = DateUtils.calcDayLeft(endDate);
         if (days < 0) days = 0;
         return (int) days;
+    }
+
+    public boolean isExpired() {
+        return getDayLeft() <= 0;
     }
 }
