@@ -16,6 +16,7 @@ import vn.homecredit.hcvn.data.model.api.base.BaseApiResponse;
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;
 
 public class OfferDetailData extends BaseApiResponse {
+    // TODO: Refactor to remove JsonObject in this model
 
     @SerializedName("Formula")
     @Expose
