@@ -87,6 +87,7 @@ android {
             versionCode 15
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://mobileapp3-uat.homecredit.vn"'
+            resValue "string", "app_name", "Home Credit Beta"
         }
         uat {
             dimension "mode"
@@ -94,12 +95,14 @@ android {
             applicationId "vn.homecredit.hcvn.uat"
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
+            resValue "string", "app_name", "Home Credit UAT"
         }
         product {
             dimension "mode"
             versionCode 1
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
+            resValue "string", "app_name", "Home Credit"
         }
     }
 

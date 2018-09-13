@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Home Credit</string>
-
     <!--play store-->
     <string name="app_google_play_store_link" translatable="false">"https://play.google.com/store/apps/details?id="</string>
     <string name="app_market_link" translatable="false">"market://details?id="</string>
