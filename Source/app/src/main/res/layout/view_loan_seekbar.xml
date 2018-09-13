@@ -27,6 +27,7 @@
             android:background="@drawable/rounded_stroke_normal"
             android:gravity="center"
             android:padding="@dimen/padding_small"
+            android:textColor="@color/colorPrimary"
             tools:text="80.000.000 đ" />
 
         <TextView
@@ -40,18 +41,12 @@
     <android.support.v7.widget.AppCompatSeekBar
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:max="15"
-        android:progress="10"
-        android:backgroundTint="@color/black"
-        app:progressTint="@color/colorPrimary"
-        app:thumbTint="@color/colorPrimary" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/below_title_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_smallest">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/below_min_title"

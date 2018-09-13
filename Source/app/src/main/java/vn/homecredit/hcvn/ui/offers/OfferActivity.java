@@ -78,7 +78,7 @@ public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewM
     }
 
     private void showOfferDetail(OfferDetailData offerDetail) {
-
+        OfferDetailActivity.start(this, offerDetail);
     }
 
     private void showNoVipFragment() {

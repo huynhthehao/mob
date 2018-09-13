@@ -21,20 +21,28 @@ public class OfferDetailData extends BaseApiResponse {
     private List<Rate> rateList;
     private OfferModel offerModel;
 
-    public OfferModel getOfferModel() {
-        return offerModel;
-    }
-
-    public void setOfferModel(OfferModel offerModel) {
-        this.offerModel = offerModel;
-    }
-
     public JsonObject getJsonFormula() {
         return jsonFormula;
     }
 
     public void setJsonFormula(JsonObject jsonFormula) {
         this.jsonFormula = jsonFormula;
+    }
+
+    public List<Rate> getRateList() {
+        return rateList;
+    }
+
+    public void setRateList(List<Rate> rateList) {
+        this.rateList = rateList;
+    }
+
+    public OfferModel getOfferModel() {
+        return offerModel;
+    }
+
+    public void setOfferModel(OfferModel offerModel) {
+        this.offerModel = offerModel;
     }
 
     public void generateInterest() {
@@ -45,8 +53,8 @@ public class OfferDetailData extends BaseApiResponse {
     }
 
     public static class Rate {
-        String month;
-        int interest;
+        public String month;
+        public int interest;
         public Rate(Map.Entry<String, JsonElement>  map) {
             month = map.getKey();
             interest = 70;

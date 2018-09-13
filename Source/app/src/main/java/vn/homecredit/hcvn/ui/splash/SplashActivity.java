@@ -12,16 +12,15 @@ package vn.homecredit.hcvn.ui.splash;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.TestActivity;
 import vn.homecredit.hcvn.databinding.ActivitySplashBinding;
 import vn.homecredit.hcvn.ui.base.BaseStatefulActivity;
 import vn.homecredit.hcvn.ui.custom.MyStatefulLayout;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
-import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 
@@ -62,7 +61,6 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
     @Override
     public void openWelcomeActivity() {
         Intent intent = WelcomeActivity.newIntent(SplashActivity.this);
-        intent = new Intent(this, TestActivity.class);
         startActivity(intent);
         overridePendingTransition(0,0);
         finish();
@@ -70,10 +68,7 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
 
     @Override
     public void openHomeActivity() {
-//        HomeActivity.start(this);
-        Intent intent = WelcomeActivity.newIntent(SplashActivity.this);
-        intent = new Intent(this, TestActivity.class);
-        startActivity(intent);
+        HomeActivity.start(this);
         finish();
     }
 

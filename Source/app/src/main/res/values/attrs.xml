@@ -52,11 +52,11 @@
     </declare-styleable>
 
     <declare-styleable name="HcLoanSeekBar">
-        <attr name="loan_min" format="integer" />
-        <attr name="loan_max" format="integer" />
-        <attr name="loan_step" format="integer" />
-        <attr name="loan_progress" format="integer" />
-        <attr name="loan_unit" format="string" />
+        <attr name="min" format="integer" />
+        <attr name="max" format="integer" />
+        <attr name="step" format="integer" />
+        <attr name="progress" format="integer" />
+        <attr name="unit" format="string" />
         <attr name="loan_color" format="color|reference" />
         <attr name="title_color" format="color|reference" />
         <attr name="title_position" format="enum">

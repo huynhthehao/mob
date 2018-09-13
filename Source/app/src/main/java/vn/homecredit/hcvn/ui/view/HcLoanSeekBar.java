@@ -30,7 +30,7 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
     private TextView tvValueTitle;
     private SeekBar seekBar;
 
-    private String unit;
+    private String unit = "";
     private int min;
     private int max;
     private int step = 1;
@@ -72,19 +72,19 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
             if (!a.hasValue(index))
                 continue;
             switch (index) {
-                case R.styleable.HcLoanSeekBar_loan_unit:
+                case R.styleable.HcLoanSeekBar_unit:
                     setUnit(a.getString(index));
                     break;
                 case R.styleable.HcLoanSeekBar_loan_color:
                     // TODO: Define value title color
                     break;
-                case R.styleable.HcLoanSeekBar_loan_min:
+                case R.styleable.HcLoanSeekBar_min:
                     setMin(a.getInt(index, min));
                     break;
-                case R.styleable.HcLoanSeekBar_loan_max:
+                case R.styleable.HcLoanSeekBar_max:
                     setMax(a.getInt(index, max));
                     break;
-                case R.styleable.HcLoanSeekBar_loan_step:
+                case R.styleable.HcLoanSeekBar_step:
                     setStep(a.getInt(index, step));
                     break;
                 case R.styleable.HcLoanSeekBar_title_position:
@@ -182,7 +182,7 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
             value = max;
         setValueTitle(String.format("%d %s", value, unit));
         if (onValueChangeListener != null)
-            onValueChangeListener.onValueChange(value);
+            onValueChangeListener.onValueChange(this, value);
     }
 
     @Override
@@ -213,6 +213,6 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
     }
 
     public interface OnValueChangeListener {
-        void onValueChange(int value);
+        void onValueChange(HcLoanSeekBar seekBar, int value);
     }
 }
