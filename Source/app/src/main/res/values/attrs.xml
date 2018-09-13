@@ -1,21 +1,12 @@
-<!--
-  ~ attrs.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
-  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
-  ~
-  ~ Last modified 6/19/18 6:21 PM
-  -->
-
 <resources>
-    <attr name="src" format="integer"/>
-    <attr name="textTitle" format="string"/>
-    <attr name="textColor" format="color"/>
-    <attr name="text" format="string"/>
-    <attr name="title" format="string"/>
-    <attr name="content" format="string"/>
-    <attr name="size" format="dimension"/>
-    <attr name="color" format="color"/>
+    <attr name="src" format="integer" />
+    <attr name="textTitle" format="string" />
+    <attr name="textColor" format="color" />
+    <attr name="text" format="string" />
+    <attr name="title" format="string" />
+    <attr name="content" format="string" />
+    <attr name="size" format="dimension" />
+    <attr name="color" format="color" />
 
     <declare-styleable name="stfStatefulLayout">
         <attr name="stfLayoutRes" format="integer" />
@@ -24,27 +15,27 @@
     <declare-styleable name="DashboardView">
         <attr name="text" />
         <attr name="size" />
-        <attr name="color"/>
-        <attr name="src"/>
+        <attr name="color" />
+        <attr name="src" />
     </declare-styleable>
 
     <declare-styleable name="ProfileItemView">
         <attr name="textTitle" />
-        <attr name="src"/>
+        <attr name="src" />
     </declare-styleable>
 
     <declare-styleable name="HorizontalMasterDetailRowItem">
         <attr name="textTitle" />
-        <attr name="src"/>
-        <attr name="textColor"/>
+        <attr name="src" />
+        <attr name="textColor" />
     </declare-styleable>
 
     <declare-styleable name="DefaultTwoColumnsRowItem">
-        <attr name="leftText" format="string"/>
-        <attr name="rightText" format="string"/>
-        <attr name="textColor"/>
+        <attr name="leftText" format="string" />
+        <attr name="rightText" format="string" />
+        <attr name="textColor" />
         <attr name="verticalPadding" format="dimension" />
-        <attr name="leftColumnWeightPercent" format="integer"/>
+        <attr name="leftColumnWeightPercent" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="StepIndicator">
@@ -58,5 +49,21 @@
         <attr name="title" />
         <attr name="content" />
         <attr name="color" />
+    </declare-styleable>
+
+    <declare-styleable name="HcLoanSeekBar">
+        <attr name="min" format="integer" />
+        <attr name="max" format="integer" />
+        <attr name="step" format="integer" />
+        <attr name="progress" format="integer" />
+        <attr name="unit" format="string" />
+        <attr name="loan_color" format="color|reference" />
+        <attr name="title_color" format="color|reference" />
+        <attr name="title_position" format="enum">
+            <enum name="above" value="0" />
+            <enum name="below" value="1" />
+        </attr>
+        <attr name="thumbTint" format="color|reference" />
+        <attr name="progressTint" format="color|reference" />
     </declare-styleable>
 </resources>

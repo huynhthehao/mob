@@ -185,7 +185,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="bank_branch">Chi nhánh</string>
     <string name="master_contract_approved">Xem chi tiết và xác nhận</string>
     <string name="master_contract_prepare_data">Tải dữ liệu hợp đồng</string>
-    <string name="currency">"%s&lt;u>đ&lt;/u>"</string>
+    <string name="currency">"%s&#8363;"</string>
     <string name="contract_summary_interest">"%s%% / tháng"</string>
     <string name="mastercontract_status">Trạng thái hợp đồng</string>
     <string name="master_contract_include_insurance">Có (đã bao gồm trong số tiền vay)</string>
@@ -208,6 +208,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="tenor">Thời hạn</string>
     <string name="tenor_month">%d tháng</string>
     <string name="token_expired">Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại</string>
+
+    <string name="tall_free">Tổng đài miễn phí</string>
 
     <!-- Notifications Page -->
     <string name="loading_data">Đang tải dữ liệu...</string>
@@ -340,6 +342,13 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
 
     <!-- Offer -->
     <string name="loan_offers">Khoản Vay Ưu Đãi</string>
+    <string name="offer_detail_title">Chọn Khoản Vay</string>
+    <string name="offer_detail_tenor_total_title">Tổng số kỳ thanh toán</string>
+    <string name="offer_detail_tenor_total">%d tháng</string>
+    <string name="offer_detail_unit">triệu</string>
+    <string name="offer_detail_paid_month">Khoản trả góp hàng tháng:</string>
+    <string name="offer_detail_description">Vui lòng điều chỉnh khoản vay và kỳ hạn bên dưới</string>
+    <string name="offer_detail_notice"><![CDATA[<b>Ghi chú:</b> Kết quả tính toán này chỉ mang tính chất tham khảo và có thể sai lệch nhỏ với kết quả tính toán thực tế tại các điểm giới thiệu của Home Credit]]></string>
     <string name="expired_offer_message">Ưu đãi này đã hết hạn. Ưu đãi đặc biệt mới sẽ được gởi đến quý khách trong thời gian sắp tới.</string>
     <string name="customer_vip">Khách hàng VIP</string>
     <string name="benefit">Quyền lợi:</string>
