@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.parceler.Parcels;
 
@@ -16,7 +15,7 @@ import vn.homecredit.hcvn.utils.StringUtils;
 
 public class OfferFragment extends BaseSimpleFragment {
     private static final String BUNDLE_OFFER = "BUNDLE_OFFER";
-    private OnOfferListenner onOfferListenner;
+    private OnOfferListener onOfferListener;
     public static OfferFragment newInstance(OfferModel offerModel) {
         OfferFragment offerFragment = new OfferFragment();
         Bundle bundle = new Bundle();
@@ -37,17 +36,15 @@ public class OfferFragment extends BaseSimpleFragment {
         OfferModel offerModel = Parcels.unwrap(getArguments().getParcelable(BUNDLE_OFFER)) ;
         if (offerModel == null) return;
         getView().findViewById(R.id.btnDetail).setOnClickListener(v -> {
-            // TODO: 9/12/18 Start Offer Detail
-            Toast.makeText(getActivity(), "clicked Detail", Toast.LENGTH_LONG).show();
-            if (onOfferListenner != null) {
-                onOfferListenner.onDetailClicked();
+            if (onOfferListener != null) {
+                onOfferListener.onDetailClicked();
             }
         });
         updateUI(offerModel);
     }
 
-    public void setOnOfferListenner(OnOfferListenner onOfferListenner) {
-        this.onOfferListenner = onOfferListenner;
+    public void setOnOfferListener(OnOfferListener onOfferListener) {
+        this.onOfferListener = onOfferListener;
     }
 
     private void updateUI(OfferModel offerModel) {
@@ -57,7 +54,7 @@ public class OfferFragment extends BaseSimpleFragment {
         tvTimeLeft.setText(getContext().getString(R.string.time_left, offerModel.getDayLeft()));
     }
 
-    public interface OnOfferListenner {
+    public interface OnOfferListener {
         void onDetailClicked();
     }
 }

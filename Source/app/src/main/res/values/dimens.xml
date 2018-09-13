@@ -9,8 +9,9 @@
     <dimen name="text_margin">16dp</dimen>
 
     <!-- Other default values -->
-    <dimen name="corner_radius">2dp</dimen>
+    <dimen name="corner_radius">5dp</dimen>
     <dimen name="icon_button_height">20dp</dimen>
+    <dimen name="button_height">45dp</dimen>
 
     <dimen name="padding_back_button">14dp</dimen>
     <dimen name="setting_row_height">56dp</dimen>

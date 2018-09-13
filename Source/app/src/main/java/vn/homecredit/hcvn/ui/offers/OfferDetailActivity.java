@@ -7,6 +7,8 @@ import android.content.Intent;
 
 import com.google.gson.Gson;
 
+import org.parceler.Parcels;
+
 import java.text.NumberFormat;
 
 import javax.inject.Inject;
@@ -43,13 +45,9 @@ public class OfferDetailActivity extends BaseActivity<ActivityOfferDetailBinding
     @Override
     protected void init() {
         super.init();
-        getViewDataBinding().setCallCenterClick(view -> {
-            AppUtils.openDeviceCallDialog(this, getViewModel().getTallNumber().get());
-        });
+        getViewDataBinding().setCallCenterClick(ignored -> AppUtils.openDeviceCallDialog(this, getViewModel().getTallNumber().get()));
 
-        getViewDataBinding().toolbar.setNavigationOnClickListener(view -> {
-            onBackPressed();
-        });
+        getViewDataBinding().toolbar.setNavigationOnClickListener(ignored -> onBackPressed());
 
         getViewDataBinding().loanSeekBar.setOnValueChangeListener((seekBar, value) -> {
             NumberFormat nf = CommonUtils.getDefaultNumberFormmater();

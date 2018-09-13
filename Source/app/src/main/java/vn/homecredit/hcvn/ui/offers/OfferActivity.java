@@ -19,7 +19,7 @@ import vn.homecredit.hcvn.databinding.ActivityOfferBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;
 
-public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewModel> implements OfferFragment.OnOfferListenner {
+public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewModel> implements OfferFragment.OnOfferListener {
 
     private static final String BUNDLE_OFFER = "BUNDLE_OFFER";
 
@@ -87,7 +87,7 @@ public class OfferActivity extends BaseActivity<ActivityOfferBinding, OfferViewM
 
     private void showOfferFragment() {
         OfferFragment offerFragment = OfferFragment.newInstance(getViewModel().getOffer());
-        offerFragment.setOnOfferListenner(this);
+        offerFragment.setOnOfferListener(this);
         addFragment(offerFragment);
 
     }
