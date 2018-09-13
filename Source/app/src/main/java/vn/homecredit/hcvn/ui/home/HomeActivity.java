@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -77,6 +78,13 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         context.startActivity(intent);
     }
 
+    public static void startAndOpenNotificationScreen(Context context, PreferencesHelper preferencesHelper) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        preferencesHelper.setIsOpenNotificationScreen(true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+    }
+
     public static Intent newIntent(Context context) {
         return new Intent(context, HomeActivity.class);
     }
@@ -133,18 +141,19 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             tab.setCustomView(mSectionsPagerAdapter.getTabView(i));
         }
         checkToShowDialog();
-        checkToOpenNotificationTab(getIntent());
+        checkToOpenNotificationTab();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        checkToOpenNotificationTab(intent);
+        checkToOpenNotificationTab();
     }
 
-    private void checkToOpenNotificationTab(Intent intent) {
-        if (intent.getBooleanExtra(BUNDLE_SELECT_NOTIFICATION_TAB, false)) {
+    private void checkToOpenNotificationTab() {
+        if (preferencesHelper.isOpenNotificationScreen()) {
             openNotificationTabFromPushNotification();
+            preferencesHelper.setIsOpenNotificationScreen(false);
         }
     }
 
@@ -266,6 +275,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedMomo() {
+        sendEvent(R.string.ga_event_momo_category, R.string.ga_event_momo_action, R.string.ga_event_momo_label_dashboard);
         WhichContractActivity.start(this);
     }
 

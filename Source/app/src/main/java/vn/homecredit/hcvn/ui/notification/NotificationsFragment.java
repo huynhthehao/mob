@@ -35,8 +35,8 @@ import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
-import vn.homecredit.hcvn.ui.offers.ExpiredOfferFragment;
 import vn.homecredit.hcvn.ui.offers.OfferActivity;
+import vn.homecredit.hcvn.utils.AppUtils;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
     public static final String ACTION_REFRESH_NOTIFICATIONS = "ACTION_REFRESH_NOTIFICATIONS";
@@ -124,17 +124,16 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
             ShortcutBadger.applyCount(getActivity().getApplicationContext(), count);
         });
         getViewModel().getModelOpenNotificationMarketingType().observe(this, marketingUrl -> {
-//            AppUtils.openExternalBrowser(getActivity(), marketingUrl);
-//            ExpiredOfferFragment.start(getActivity());
+            AppUtils.openExternalBrowser(getActivity(), marketingUrl);
+        });
+        getViewModel().getModelOpenNotificationOfferType().observe(this, offerModel -> {
+            OfferActivity.start(getActivity(), offerModel);
         });
     }
 
     private void initAdapter() {
         notificationAdapter = new NotificationAdapter(getActivity(), model -> {
             getViewModel().onNotificationItemClicked(model);
-            if (model.getOffer() != null) {
-                OfferActivity.start(getActivity(), model.getOffer());
-            }
         });
         rvNotifications.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvNotifications.setAdapter(notificationAdapter);

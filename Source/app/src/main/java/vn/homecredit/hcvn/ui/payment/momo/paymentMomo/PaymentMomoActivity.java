@@ -93,6 +93,8 @@ public class PaymentMomoActivity
         if(!hasIntentData)
             return;
         getViewModel().getModelRequestPaymentViaMomo().observe(this, paymentMomoRequestModel -> {
+
+            sendEvent(R.string.ga_event_momo_category, R.string.ga_event_momo_action, R.string.ga_event_momo_label_pay_via_momo);
             if (paymentMomoRequestModel != null) {
                 requestPaymentViaMomo(paymentMomoRequestModel);
             }
