@@ -73,7 +73,10 @@ public class OfferDetailViewModel extends BaseViewModel {
     @Override
     public void init() {
         super.init();
-        tallNumber.set(prefHelper.getVersionRespData().getCustomerSupportPhone());
+        String customPhoneNumber = null;
+        if (prefHelper.getVersionRespData() != null)
+            customPhoneNumber = prefHelper.getVersionRespData().getCustomerSupportPhone();
+        tallNumber.set(customPhoneNumber == null ? "" : customPhoneNumber);
     }
 
     public ObservableField<String> getTallNumber() {
