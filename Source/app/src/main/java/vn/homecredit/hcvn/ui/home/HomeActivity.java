@@ -112,17 +112,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // force set locale flow the app setting, for get relative time span in notification list.
-        String languageToLoad = preferencesHelper.getLanguageCode(); // your language
-        Locale locale = new Locale(languageToLoad);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-        // end set locale
-
         setSupportActionBar(getViewDataBinding().toolbar);
 
         // Create the adapter that will return a fragment for each of the three

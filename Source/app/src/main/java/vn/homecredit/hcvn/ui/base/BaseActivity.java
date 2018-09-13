@@ -14,6 +14,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
@@ -26,6 +27,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
@@ -34,6 +37,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
@@ -54,6 +58,9 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     @Inject
     TrackingService trackService;
+
+    @Inject
+    PreferencesHelper preferencesHelper;
 
     protected boolean getLoadingEnable(){
         return true;
@@ -93,6 +100,15 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         performDependencyInjection();
         super.onCreate(savedInstanceState);
+        // force set locale flow the app setting, for get relative time span in notification list.
+        String languageToLoad = preferencesHelper.getLanguageCode(); // your language
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+        // end set locale
         performDataBinding();
         this.init();
     }
