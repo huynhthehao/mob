@@ -52,6 +52,11 @@ import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
 import vn.homecredit.hcvn.ui.login.LoginViewModel;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
+import vn.homecredit.hcvn.ui.offers.NoOfferFragment;
+import vn.homecredit.hcvn.ui.offers.OfferActivity;
+import vn.homecredit.hcvn.ui.offers.OfferActivityModule;
+import vn.homecredit.hcvn.ui.offers.OfferDetailActivity;
+import vn.homecredit.hcvn.ui.offers.OfferDetailActivityModule;
 import vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoActivity;
 import vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoModule;
 import vn.homecredit.hcvn.ui.payment.momo.payothers.PayOthersActivity;
@@ -62,7 +67,6 @@ import vn.homecredit.hcvn.ui.otp.OtpActivity;
 import vn.homecredit.hcvn.ui.otp.OtpViewModel;
 import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryActivity;
 import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryModule;
-import vn.homecredit.hcvn.ui.payment.summary.PaymentSummaryViewModel;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivity;
 import vn.homecredit.hcvn.ui.setpassword.SetPasswordActivityModule;
@@ -188,5 +192,14 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = PayOthersModule.class)
     abstract PayOthersActivity bindPayOthersActivity();
+
+    @ContributesAndroidInjector()
+    abstract NoOfferFragment bindNoOfferActivity();
+
+    @ContributesAndroidInjector(modules = OfferActivityModule.class)
+    abstract OfferActivity bindOfferAcivity();
+
+    @ContributesAndroidInjector(modules = OfferDetailActivityModule.class)
+    abstract OfferDetailActivity bindOfferDetailActivity();
 
 }

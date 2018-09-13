@@ -15,7 +15,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
@@ -36,6 +35,7 @@ import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.custom.AppDataView;
 import vn.homecredit.hcvn.ui.custom.AppDataViewState;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
+import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.utils.AppUtils;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding, NotificationViewModel> {
@@ -125,6 +125,9 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         });
         getViewModel().getModelOpenNotificationMarketingType().observe(this, marketingUrl -> {
             AppUtils.openExternalBrowser(getActivity(), marketingUrl);
+        });
+        getViewModel().getModelOpenNotificationOfferType().observe(this, offerModel -> {
+            OfferActivity.start(getActivity(), offerModel);
         });
     }
 

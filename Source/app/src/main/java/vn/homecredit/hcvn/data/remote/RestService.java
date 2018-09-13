@@ -25,6 +25,8 @@ import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
+import vn.homecredit.hcvn.data.model.offer.ContractOfferResp;
+import vn.homecredit.hcvn.data.model.offer.OfferDetailResp;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
 import vn.homecredit.hcvn.ui.contract.statement.statementdetails.model.StatementDetailsResp;
@@ -69,5 +71,10 @@ public interface RestService extends RestUrl {
     Single<ClwModel> getClwNear(Double lat, Double lon);
     Single<DisbursementModel> getDisbursementNear(Double lat, Double lon);
     Single<PaymentModel> getPaymenttNear(Double lat, Double lon);
+
+    //Offer
+    Single<ContractOfferResp> contractOffer(String campId);
+    Single<OfferDetailResp> offerFormula(String riskGroup, String productCode);
+
 
 }

@@ -85,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_phone"
                             android:drawablePadding="@dimen/padding_small"
-                            android:hint="@string/prompt_phone_number"
+                            android:hint="@string/hint_phone_contracts"
                             android:maxLines="1"
                             android:inputType="textVisiblePassword"
                             android:singleLine="true"

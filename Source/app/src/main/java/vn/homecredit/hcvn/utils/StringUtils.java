@@ -6,9 +6,6 @@
 
 package vn.homecredit.hcvn.utils;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 public class StringUtils {
 
     public static boolean isNullOrWhiteSpace(CharSequence input){

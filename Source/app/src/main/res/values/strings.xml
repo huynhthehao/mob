@@ -185,7 +185,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="bank_branch">Chi nhánh</string>
     <string name="master_contract_approved">Xem chi tiết và xác nhận</string>
     <string name="master_contract_prepare_data">Tải dữ liệu hợp đồng</string>
-    <string name="currency">"%s&lt;u>đ&lt;/u>"</string>
+    <string name="currency">"%s&#8363;"</string>
     <string name="contract_summary_interest">"%s%% / tháng"</string>
     <string name="mastercontract_status">Trạng thái hợp đồng</string>
     <string name="master_contract_include_insurance">Có (đã bao gồm trong số tiền vay)</string>
@@ -208,6 +208,8 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="tenor">Thời hạn</string>
     <string name="tenor_month">%d tháng</string>
     <string name="token_expired">Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại</string>
+
+    <string name="tall_free">Tổng đài miễn phí</string>
 
     <!-- Notifications Page -->
     <string name="loading_data">Đang tải dữ liệu...</string>
@@ -290,7 +292,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="enter_subject">Nhập tiêu đề</string>
     <string name="enter_feedback">Nhập phản hồi</string>
     <string name="clear">Xóa</string>
-    <string name="submit">Gởi</string>
+    <string name="submit">Gửi</string>
     <string name="tap_to_call_message">Bấm nút bên dưới để gọi</string>
     <string name="please_enter_subject">Vui lòng nhập tiêu đề</string>
     <string name="please_enter_feedback">Vui lòng nhập phản hồi</string>
@@ -330,9 +332,35 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="paymomo_others_contract_title">Hợp Đồng Của Người Khác</string>
     <string name="paymomo_others_contract">Hợp đồng của người khác</string>
     <string name="paymomo_others_contract_null">Vui lòng nhập số hợp đồng</string>
+    <string name="paymomo_others_contract_wrong_length">Số hợp đồng phải có 10 chữ số. Vui lòng nhập lại</string>
     <string name="momo_full_payment">Tối đa</string>
     <string name="momo_partial_payment"><![CDATA[ Một phần <i>(tối thiểu 50.000 VND)</i> ]]></string>
     <string name="momo_partial_payment_amount">Số tiền bạn muốn thanh toán</string>
     <string name="total_payment_amount">Tổng số tiền bạn cần trả:</string>
     <string name="which_contract">Bạn muốn thanh toán cho hợp đồng nào?</string>
+    <string name="customer_owner">Chủ hợp đồng</string>
+
+    <!-- Offer -->
+    <string name="loan_offers">Khoản Vay Ưu Đãi</string>
+    <string name="offer_detail_title">Chọn Khoản Vay</string>
+    <string name="offer_detail_tenor_total_title">Tổng số kỳ thanh toán</string>
+    <string name="offer_detail_tenor_total">%d tháng</string>
+    <string name="offer_detail_unit">triệu</string>
+    <string name="offer_detail_paid_month">Khoản trả góp hàng tháng:</string>
+    <string name="offer_detail_description">Vui lòng điều chỉnh khoản vay và kỳ hạn bên dưới</string>
+    <string name="offer_detail_notice"><![CDATA[<b>Ghi chú:</b> Kết quả tính toán này chỉ mang tính chất tham khảo và có thể sai lệch nhỏ với kết quả tính toán thực tế tại các điểm giới thiệu của Home Credit]]></string>
+    <string name="expired_offer_message">Ưu đãi này đã hết hạn. Ưu đãi đặc biệt mới sẽ được gởi đến quý khách trong thời gian sắp tới.</string>
+    <string name="customer_vip">Khách hàng VIP</string>
+    <string name="benefit">Quyền lợi:</string>
+    <string name="benefit_vip_offer">"• Ưu đãi vay tiền mặt lên đến 60 triệu\n• Nhận tiền chỉ sau 1,5 giờ \n• Tặng đến 6 kỳ thanh toán \n• Duyệt hồ sơ vay ngay - chỉ 10 phút \n• Chỉ cần CMND và GPLX (không cần hộ khẩu)"</string>
+    <string name="how_to_become_vip">Trở thành khách hàng VIP?</string>
+    <string name="how_to_become_vip_detail">"• Có ít nhất 4 kỳ thanh toán đúng hạn và một số điều kiện nội bộ \n• Ưu đãi vay sẽ được thông báo ngay khi bạn trở thành khách hàng VIP"</string>
+    <string name="offers_cash">Khoản vay lên đến %s, giải ngân sau 1,5 giờ</string>
+    <string name="offers_fast">Duyệt hồ sơ vay ngay - chỉ 10 phút</string>
+    <string name="offers_installment">Tặng đến 6 kỳ thanh toán</string>
+    <string name="offers_doc">Chỉ cần CMND và GPLX (không cần sổ hộ khẩu)</string>
+    <string name="time_left">Nhanh tay lên, chỉ còn %d ngày</string>
+    <string name="more_detail">Xem chi tiết</string>
+    <string name="vip_customer">Khách hàng VIP</string>
+    <string name="offers_fail">Chúng tôi không tải được dữ liệu về ưu đãi của bạn, vui lòng kiểm tra kết nối và thử lại sau</string>
 </resources>

@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -32,6 +33,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
@@ -39,6 +41,8 @@ import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.custom.ActionDialogFragment;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
+import vn.homecredit.hcvn.ui.notification.model.OfferModel;
+import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.utils.SpanBuilder;
@@ -71,6 +75,13 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         intent.putExtra(BUNDLE_SHOW_DASHBOARD, showDashboard);
         intent.putExtra(BUNDLE_SHOW_FIRSTCOME, firstComeFlow);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+    }
+
+    public static void startAndOpenNotificationScreen(Context context, PreferencesHelper preferencesHelper) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        preferencesHelper.setIsOpenNotificationScreen(true);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
 
@@ -130,18 +141,19 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             tab.setCustomView(mSectionsPagerAdapter.getTabView(i));
         }
         checkToShowDialog();
-        checkToOpenNotificationTab(getIntent());
+        checkToOpenNotificationTab();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        checkToOpenNotificationTab(intent);
+        checkToOpenNotificationTab();
     }
 
-    private void checkToOpenNotificationTab(Intent intent) {
-        if (intent.getBooleanExtra(BUNDLE_SELECT_NOTIFICATION_TAB, false)) {
+    private void checkToOpenNotificationTab() {
+        if (preferencesHelper.isOpenNotificationScreen()) {
             openNotificationTabFromPushNotification();
+            preferencesHelper.setIsOpenNotificationScreen(false);
         }
     }
 
@@ -207,7 +219,10 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     private void showDashboard(String greeting, String username) {
         if (getSupportFragmentManager().findFragmentByTag(DashBoardDialogFragment.TAG_DASHBOARD) == null) {
             preferencesHelper.setIsShowDashboard(false);
-            dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username);
+
+            int offerBadNumber = getOfferBadgeNumber();
+
+            dashboardFragment = DashBoardDialogFragment.newInstance(greeting, username, offerBadNumber);
             ((DashBoardDialogFragment) dashboardFragment).setOnDashboardClicked(this);
             dashboardFragment.show(getSupportFragmentManager(), DashBoardDialogFragment.TAG_DASHBOARD);
             // update notification count
@@ -228,6 +243,16 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         }
     }
 
+    private int getOfferBadgeNumber() {
+        if (preferencesHelper == null || preferencesHelper.getProfile() == null
+                || preferencesHelper.getProfile().getOffer() == null)
+            return 0;
+        if (preferencesHelper.getProfile().getOffer().getActive()) {
+            return 1;
+        }
+        return 0;
+    }
+
     @Override
     public void onClickedContact() {
         setViewPagerCurrentItemWithoutSmoothScroll(SectionsPagerAdapter.TAB_CONTRACTS);
@@ -239,6 +264,8 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedOffer() {
+        OfferModel offer = preferencesHelper.getProfile().getOffer();
+        OfferActivity.start(this, offer);
     }
 
     @Override
@@ -248,6 +275,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedMomo() {
+        sendEvent(R.string.ga_event_momo_category, R.string.ga_event_momo_action, R.string.ga_event_momo_label_dashboard);
         WhichContractActivity.start(this);
     }
 
@@ -323,7 +351,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         if (dashboardFragment == null) {
             return;
         }
-        ((DashBoardDialogFragment) dashboardFragment).updateNotificationCount(count);
+        ((DashBoardDialogFragment) dashboardFragment).updateNotificationBadgeNumber(count);
     }
 
 }

@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.momo.RePaymentData;
 import vn.homecredit.hcvn.data.remote.RestService;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
@@ -45,6 +46,12 @@ public class PayOthersViewModel extends BaseViewModel {
             return;
         }
 
+        // TODO: This is a work-around stuff. Need to implement at the server side
+        if(contractNumber.get().length() != AppConstants.CONTRACT_NUMBER_LENGTH){
+            showMessage(R.string.paymomo_others_contract_wrong_length);
+            return;
+        }
+
         if(listener == null)
             return;
 
@@ -74,7 +81,12 @@ public class PayOthersViewModel extends BaseViewModel {
                     }
 
                     if (rePaymentResp.isSuccess()) {
-                        listener.onNext(rePaymentResp.getRePaymentData());
+                        RePaymentData data = rePaymentResp.getRePaymentData();
+                        // update to hide total amount and customerId in case pay for others
+                        data.setTotalAmount(0);
+                        data.setIdNumber("");
+                        // end update to hide total amount and customerId
+                        listener.onNext(data);
                     }else {
                         showMessage(rePaymentResp.getResponseMessage());
                     }

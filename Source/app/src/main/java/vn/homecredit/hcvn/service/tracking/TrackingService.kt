@@ -46,6 +46,12 @@ constructor(private val context: Context, private val gaAnalyticsServiceImpl: An
             "ChangePassActivity" to R.string.ga_screen_setting_changepass,
             "ProfileActivity" to R.string.ga_screen_setting_profile,
             "PayMapActivity" to R.string.ga_screen_setting_map,
+            //Momo
+            "WhichContractActivity" to R.string.ga_screen_momo_which_contract,
+            "MyContractActivity" to R.string.ga_screen_momo_pay_my_contract,
+            "PayOthersActivity" to R.string.ga_screen_momo_pay_other,
+            "PaymentMomoActivity" to R.string.ga_screen_momo_repayment,
+            "PaymentSummaryActivity" to R.string.ga_screen_momo_summary,
             //Cashloan
             "AclIntroductionAFragment" to R.string.ga_screen_cl_intro1,
             "AclIntroductionBFragment" to R.string.ga_screen_cl_intro2,
@@ -76,12 +82,14 @@ constructor(private val context: Context, private val gaAnalyticsServiceImpl: An
 
     fun sendView(activity: Activity) {
         val screenResc = mapScreen[activity.javaClass.simpleName]
-        screenResc?.let { sendView(screenResc) }
+        val screen = if (screenResc == null) activity.javaClass.simpleName else context.getString(screenResc)
+        sendView(screen)
     }
 
     fun sendView(fragment: Fragment) {
         val screenResc = mapScreen[fragment.javaClass.simpleName]
-        screenResc?.let { sendView(screenResc) }
+        val screen = if (screenResc == null) fragment.javaClass.simpleName else context.getString(screenResc)
+        sendView(screen)
     }
 
 }

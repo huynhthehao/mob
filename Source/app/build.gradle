@@ -42,17 +42,25 @@ android {
             storeFile file('../../KeyStore/debug.keystore')
             storePassword '!T123456'
         }
+
+        develop {
+            keyAlias 'develop'
+            keyPassword '123456'
+            storeFile file('../../KeyStore/develop.jks')
+            storePassword '123456'
+        }
     }
     buildTypes {
         debug {
             minifyEnabled false
             debuggable true
+            signingConfig signingConfigs.develop
             ext.crashlyticsApiSecret = "98b49c4d7ffd3b3f5ec6eafc591a64502a36027e896109cec0ab9bd57d500fe1"
             ext.crashlyticsApiKey = "7120678654c0ed1a98d873a2afb8c337ea0155b0"
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
@@ -75,8 +83,8 @@ android {
         beta {
             dimension "mode"
             applicationId "vn.homecredit.hcvn.beta"
-            versionName "1.6.3"
-            versionCode 8
+            versionName "1.7.0"
+            versionCode 15
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://mobileapp3-uat.homecredit.vn"'
         }
@@ -125,12 +133,20 @@ android {
             PropertiesUtils.injectPropertyInFile(crashlyticsProperties, properties, "")
         }
         generateResourcesTask.dependsOn generatePropertiesTask
+
+        def installApp = project.tasks.getByName("install$variantSuffix")
+        def startApp = task("start$variantSuffix").doLast {
+            description "Install and run app (dev env)"
+            exec {
+                commandLine "adb", "shell", "am", "start", "-n", variant.getApplicationId() + "/vn.homecredit.hcvn.ui.splash.SplashActivity"
+            }
+        }
+        startApp.dependsOn installApp
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
@@ -173,7 +189,7 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
     kapt "com.android.databinding:compiler:$gradleVersion"
     // Crash & distribution tools
-    implementation ("com.crashlytics.sdk.android:crashlytics:2.9.5@aar") {
+    implementation("com.crashlytics.sdk.android:crashlytics:2.9.5@aar") {
         transitive = true
     }
     //onesignal

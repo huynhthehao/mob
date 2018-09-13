@@ -1,8 +1,10 @@
 package vn.homecredit.hcvn.utils;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class DateUtils {
     public static final String FORMAT_UTC = "yyyy-MM-dd'T'hh:mm:ss";
@@ -35,5 +37,22 @@ public class DateUtils {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public static Date convertStringToDate(String date, String format) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+            return simpleDateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static long calcDayLeft(String date) {
+        Date dateEnd = convertStringToDate(date, FORMAT_UTC);
+        if (dateEnd == null) return 0;
+        long diff = dateEnd.getTime() - System.currentTimeMillis();
+        return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 }

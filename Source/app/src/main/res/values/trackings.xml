@@ -42,6 +42,21 @@
     <string name="ga_screen_cl_intro3">CashLoanPage3</string>
     <string name="ga_screen_cl_intro4">CashLoanPage4</string>
 
+    <!--Momo-->
+    <string name="ga_screen_momo_which_contract">E-wallet_WhichContract</string>
+    <string name="ga_screen_momo_pay_my_contract">E-wallet_PayMyContract</string>
+    <string name="ga_screen_momo_pay_other">E-wallet_PayOther</string>
+    <string name="ga_screen_momo_repayment">E-wallet_Repayment</string>
+    <string name="ga_screen_momo_summary">E-wallet_Summary</string>
+
+    <string name="ga_event_momo_category">E-wallet</string>
+    <string name="ga_event_momo_action">Click</string>
+    <string name="ga_event_momo_label_dashboard">Payment_iCon</string>
+    <string name="ga_event_momo_label_contract_detail">Choose_MoMo</string>
+    <string name="ga_event_momo_label_pay_via_momo">Pay via Momo</string>
+    <string name="ga_event_momo_label_done">Done</string>
+
+
     <!--Event-->
     <string name="ga_event_support_call_category">SupportCall</string>
     <string name="ga_event_support_call_action">Call</string>

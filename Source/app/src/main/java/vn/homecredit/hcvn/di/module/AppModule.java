@@ -53,6 +53,8 @@ import vn.homecredit.hcvn.service.VersionServiceImpl;
 import vn.homecredit.hcvn.service.tracking.FBAnalyticsServiceImpl;
 import vn.homecredit.hcvn.service.tracking.GAAnalyticsServiceImpl;
 import vn.homecredit.hcvn.service.tracking.TrackingService;
+import vn.homecredit.hcvn.ui.notification.manager.NotificationManager;
+import vn.homecredit.hcvn.ui.notification.manager.NotificationManagerImpl;
 import vn.homecredit.hcvn.utils.AppConstants;
 import vn.homecredit.hcvn.utils.rx.AppSchedulerProvider;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
@@ -225,6 +227,12 @@ public class AppModule {
     @Singleton
     ApiHeader.PayooApiHeader provPayooApiHeader() {
         return new ApiHeader.PayooApiHeader("YM_7fPw6xA", "Partner07");
+    }
+
+    @Provides
+    @Singleton
+    public NotificationManager provideNotificationManager(NotificationManagerImpl notificationManagerImpl) {
+        return notificationManagerImpl;
     }
 
 }

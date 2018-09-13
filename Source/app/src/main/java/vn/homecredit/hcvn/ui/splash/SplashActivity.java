@@ -12,6 +12,7 @@ package vn.homecredit.hcvn.ui.splash;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import javax.inject.Inject;
 
 import vn.homecredit.hcvn.BR;

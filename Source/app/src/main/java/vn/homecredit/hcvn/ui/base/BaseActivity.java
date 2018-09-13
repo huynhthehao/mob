@@ -210,6 +210,8 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         UiHelper.showConfirmMessage(this,title, message,onCompleted);
     }
 
+
+
     private void bindModelMessageDialog() {
         getViewModel().getMessageData().observe(this, o -> {
             if (o != null && o instanceof String) {
@@ -241,4 +243,11 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+    protected void sendEvent(int category, int action, int label) {
+        if (trackService != null) {
+            trackService.sendEvent(category, action, label);
+        }
+    }
+
 }

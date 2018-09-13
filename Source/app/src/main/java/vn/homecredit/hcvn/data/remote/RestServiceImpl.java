@@ -37,6 +37,8 @@ import vn.homecredit.hcvn.data.model.mapdata.model.clw.ClwModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.disbursement.DisbursementModel;
 import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
+import vn.homecredit.hcvn.data.model.offer.ContractOfferResp;
+import vn.homecredit.hcvn.data.model.offer.OfferDetailResp;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
@@ -59,16 +61,14 @@ public class RestServiceImpl implements RestService {
 
     private DeviceInfo mDeviceInfo;
     private VersionService mVersionService;
-    private final OneSignalService mOneSignalService;
     @Inject
     PreferencesHelper preferencesHelper;
 
     @Inject
-    public RestServiceImpl(ApiHeader apiHeader, DeviceInfo deviceInfo, VersionService versionService, OneSignalService oneSignalService) {
+    public RestServiceImpl(ApiHeader apiHeader, DeviceInfo deviceInfo, VersionService versionService) {
         mApiHeader = apiHeader;
         mDeviceInfo = deviceInfo;
         mVersionService = versionService;
-        mOneSignalService = oneSignalService;
 
         if (BuildConfig.DEBUG)
             useMock = false;
@@ -77,10 +77,6 @@ public class RestServiceImpl implements RestService {
     }
 
     public Single<VersionResp> checkUpdate() {
-        if (TextUtils.isEmpty(mDeviceInfo.getPlayerId())) {
-            mOneSignalService.tryGetPlayerId();
-        }
-
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         //TODO: This code in Xamarin was commented. Consider to remove it later
         requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPlayerId());
@@ -331,6 +327,22 @@ public class RestServiceImpl implements RestService {
         return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
                 mApiHeader.getProtectedApiHeader(),
                 PaymentModel.class);
+    }
+
+    @Override
+    public Single<ContractOfferResp> contractOffer(String campId) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/offers/contracts?camp=%s", campId));
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(),
+                ContractOfferResp.class);
+    }
+
+    @Override
+    public Single<OfferDetailResp> offerFormula(String riskGroup, String productCode) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_APP + String.format("/offers/formula?group=%s&product=%s", riskGroup, productCode));
+        return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(),
+                OfferDetailResp.class);
     }
 
     @Override

@@ -72,6 +72,8 @@ public class PaymentMomoEventValueBuilder {
         eventValue.put(MoMoParameterNamePayment.DESCRIPTION, context.getString(R.string.momo_payment_description));
         eventValue.put(MoMoParameterNamePayment.REQUEST_TYPE, "payment");
         eventValue.put(MoMoParameterNamePayment.LANGUAGE, languageCode);
+        eventValue.put("orderLabel", context.getString(R.string.contract_number));
+        eventValue.put("orderId", contractNumber);
         return eventValue;
     }
 }
