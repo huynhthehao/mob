@@ -284,6 +284,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onPageSelected(int position) {
+        hideKeyboard();
         switch (position) {
             case SectionsPagerAdapter.TAB_CONTRACTS:
                 setTitle(R.string.contracts);
