@@ -123,7 +123,14 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         mViewPager.setOffscreenPageLimit(4);
         tabLayout = getViewDataBinding().tabs;
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager) {
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                super.onTabUnselected(tab);
+                if (tab.getPosition() == SectionsPagerAdapter.TAB_SUPPORT)
+                    hideKeyboard();
+            }
+        });
         mViewPager.addOnPageChangeListener(this);
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
@@ -284,7 +291,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onPageSelected(int position) {
-        hideKeyboard();
         switch (position) {
             case SectionsPagerAdapter.TAB_CONTRACTS:
                 setTitle(R.string.contracts);
