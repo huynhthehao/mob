@@ -27,7 +27,7 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
     private TextView tvAboveMaxTitle;
     private TextView tvBelowMinTitle;
     private TextView tvBelowMaxTitle;
-    private TextView tvValueTitle;
+    private TextView tvValueText;
     private SeekBar seekBar;
 
     private String unit = "";
@@ -59,7 +59,7 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
         tvBelowMaxTitle = findViewById(R.id.below_max_title);
         belowTitleContainer = findViewById(R.id.below_title_container);
         seekBar = findViewById(R.id.seek_bar);
-        tvValueTitle = findViewById(R.id.value_title);
+        tvValueText = findViewById(R.id.value_text);
 
         seekBar.setOnSeekBarChangeListener(this);
     }
@@ -166,8 +166,8 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
         seekBar.setProgressDrawable(progressDrawable);
     }
 
-    public void setValueTitle(String valueTitle) {
-        tvValueTitle.setText(valueTitle);
+    public void setValueText(String valueTitle) {
+        tvValueText.setText(valueTitle);
     }
 
     public void setOnValueChangeListener(OnValueChangeListener listener) {
@@ -179,7 +179,7 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
         int value = step * progress + min;
         if (value > max)
             value = max;
-        setValueTitle(String.format("%d %s", value, unit));
+        setValueText(String.format("%d %s", value, unit));
         if (onValueChangeListener != null)
             onValueChangeListener.onValueChange(this, value);
     }

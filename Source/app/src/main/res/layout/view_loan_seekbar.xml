@@ -20,7 +20,7 @@
             tools:text="5 mil" />
 
         <TextView
-            android:id="@+id/value_title"
+            android:id="@+id/value_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_stroke_normal"
