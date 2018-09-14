@@ -34,7 +34,6 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
     private int min;
     private int max;
     private int step = 1;
-    private int value = 0;
 
     public HcLoanSeekBar(Context context) {
         this(context, null);
@@ -177,7 +176,7 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        value = step * progress + min;
+        int value = step * progress + min;
         if (value > max)
             value = max;
         setValueTitle(String.format("%d %s", value, unit));
@@ -195,11 +194,11 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
 
     private void updateMinMax() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            seekBar.setMax((max - min) / step);
         } else {
-            seekBar.setMin(min);
-            seekBar.setMax(max);
+            // TODO: May need to check this again. Temporary use 0 for min seekbar value
+//            seekBar.setMin(min);
         }
+        seekBar.setMax((max - min) / step);
         updateUnit();
     }
 
