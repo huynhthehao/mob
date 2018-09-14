@@ -99,7 +99,7 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
                     onContractListener.onClicked(getLayoutPosition());
                 }
             });
-            binding.tvPaymentLocation.setOnClickListener(view -> {
+            binding.viewPaymentLocation.setOnClickListener(view -> {
                 if (onContractListener != null) {
                     onContractListener.onLocationClicked(getLayoutPosition());
                 }
