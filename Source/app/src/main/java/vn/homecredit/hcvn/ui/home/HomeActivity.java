@@ -26,6 +26,7 @@ import android.view.MenuItem;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -34,11 +35,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
+import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
 import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
+import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.custom.ActionDialogFragment;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;
@@ -47,7 +50,8 @@ import vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.utils.SpanBuilder;
 
-public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked, ViewPager.OnPageChangeListener, NotificationsFragment.OnNotificationCountListener {
+public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked,
+        ViewPager.OnPageChangeListener, NotificationsFragment.OnNotificationCountListener, HomeExtraMothodsListener {
     public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
     public static final String BUNDLE_SELECT_NOTIFICATION_TAB = "BUNDLE_SELECT_NOTIFICATION_TAB";
     DialogFragment dashboardFragment;
@@ -113,7 +117,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setSupportActionBar(getViewDataBinding().toolbar);
-
+        homeViewModel.setListener(this);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
@@ -239,6 +243,7 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         }
     }
 
+
     private int getOfferBadgeNumber() {
         if (preferencesHelper == null || preferencesHelper.getProfile() == null
                 || preferencesHelper.getProfile().getOffer() == null)
@@ -256,6 +261,9 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
 
     @Override
     public void onClickedSchedule() {
+        showLoading();
+        if(homeViewModel != null)
+            homeViewModel.checkAndNavigating();
     }
 
     @Override
@@ -350,4 +358,14 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
         ((DashBoardDialogFragment) dashboardFragment).updateNotificationBadgeNumber(count);
     }
 
+    @Override
+    public void openDefaultScheduleDetails(HcContract contract) {
+        hideLoading();
+        if (contract == null) {
+            showMessage(R.string.payment_schedule_not_found);
+            return;
+        }
+
+        ScheduleDetailActivity.start(this, contract.getContractNumber());
+    }
 }

@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import javax.inject.Inject;
-
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.custom.DashBoadItemView;
 import vn.homecredit.hcvn.ui.custom.FullscreenDialogFragment;
 
@@ -18,10 +15,8 @@ public class DashBoardDialogFragment extends FullscreenDialogFragment implements
     public static final String BUNDLE_USERNAME = "USERNAME";
     public static final String BUNDLE_OFFER_BADGE_NUMBER = "BUNDLE_OFFER_BADGE_NUMBER";
 
-    @Inject
-    PreferencesHelper preferencesHelper;
+    private OnDashboardClicked onDashboardClicked;
 
-    OnDashboardClicked onDashboardClicked;
     DashBoadItemView dashBoadNotificationView, dashBoardOfferView;
 
     public static DashBoardDialogFragment newInstance(String greeting, String username, int offerBadgeNumber) {
@@ -119,6 +114,7 @@ public class DashBoardDialogFragment extends FullscreenDialogFragment implements
             return;
         dashBoardOfferView.updateBadgeNumber(offerBadgeNumber);
     }
+
 
     public interface OnDashboardClicked {
         void onClickedContact();
