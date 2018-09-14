@@ -27,14 +27,13 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
     private TextView tvAboveMaxTitle;
     private TextView tvBelowMinTitle;
     private TextView tvBelowMaxTitle;
-    private TextView tvValueTitle;
+    private TextView tvValueText;
     private SeekBar seekBar;
 
     private String unit = "";
     private int min;
     private int max;
     private int step = 1;
-    private int value = 0;
 
     public HcLoanSeekBar(Context context) {
         this(context, null);
@@ -60,7 +59,7 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
         tvBelowMaxTitle = findViewById(R.id.below_max_title);
         belowTitleContainer = findViewById(R.id.below_title_container);
         seekBar = findViewById(R.id.seek_bar);
-        tvValueTitle = findViewById(R.id.value_title);
+        tvValueText = findViewById(R.id.value_text);
 
         seekBar.setOnSeekBarChangeListener(this);
     }
@@ -167,8 +166,8 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
         seekBar.setProgressDrawable(progressDrawable);
     }
 
-    public void setValueTitle(String valueTitle) {
-        tvValueTitle.setText(valueTitle);
+    public void setValueText(String valueTitle) {
+        tvValueText.setText(valueTitle);
     }
 
     public void setOnValueChangeListener(OnValueChangeListener listener) {
@@ -177,10 +176,10 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        value = step * progress + min;
+        int value = step * progress + min;
         if (value > max)
             value = max;
-        setValueTitle(String.format("%d %s", value, unit));
+        setValueText(String.format("%d %s", value, unit));
         if (onValueChangeListener != null)
             onValueChangeListener.onValueChange(this, value);
     }
@@ -195,11 +194,11 @@ public class HcLoanSeekBar extends LinearLayout implements SeekBar.OnSeekBarChan
 
     private void updateMinMax() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            seekBar.setMax((max - min) / step);
         } else {
-            seekBar.setMin(min);
-            seekBar.setMax(max);
+            // TODO: May need to check this again. Temporary use 0 for min seekbar value
+//            seekBar.setMin(min);
         }
+        seekBar.setMax((max - min) / step);
         updateUnit();
     }
 

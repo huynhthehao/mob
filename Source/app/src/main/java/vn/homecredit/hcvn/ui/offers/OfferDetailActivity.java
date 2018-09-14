@@ -7,8 +7,6 @@ import android.content.Intent;
 
 import com.google.gson.Gson;
 
-import org.parceler.Parcels;
-
 import java.text.NumberFormat;
 
 import javax.inject.Inject;
@@ -52,7 +50,7 @@ public class OfferDetailActivity extends BaseActivity<ActivityOfferDetailBinding
         getViewDataBinding().loanSeekBar.setOnValueChangeListener((seekBar, value) -> {
             NumberFormat nf = CommonUtils.getDefaultNumberFormmater();
             Integer realValue = value * 1000000;
-            seekBar.setValueTitle(getString(R.string.currency, nf.format(realValue)));
+            seekBar.setValueText(getString(R.string.currency, nf.format(realValue)));
             getViewModel().getLoanAmount().set(realValue);
         });
 
