@@ -45,4 +45,7 @@
     <dimen name="icon_header_size">66dp</dimen>
     <dimen name="drawable_left_size_medium">30dp</dimen>
     <dimen name="offer_detail_space">@dimen/margin_medium</dimen>
+
+    <!-- Support Screens -->
+    <dimen name="img_support_header_width">100dp</dimen>
 </resources>
