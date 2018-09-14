@@ -200,6 +200,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
 
     <string name="contract_detail">Thông tin hợp đồng</string>
     <string name="payment_schedule">Xem lịch thanh toán</string>
+    <string name="payment_schedule_not_found">Tạm thời không tìm thấy lịch thanh toán</string>
     <string name="payment_history">Lịch sử thanh toán</string>
     <string name="contract_no">Số HĐ</string>
     <string name="product_type">Loại sản phẩm</string>

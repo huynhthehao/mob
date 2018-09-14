@@ -6,11 +6,13 @@ import android.databinding.ObservableField;
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
+import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.AppConstants;
 import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
@@ -47,6 +49,12 @@ public class SignUpViewModel extends BaseViewModel {
     }
 
     public void onClickedSignUp() {
+        // TODO: This is a work-around stuff. Need to implement at the server side
+        if(contracts.get().length() != AppConstants.CONTRACT_NUMBER_LENGTH){
+            showMessage(R.string.paymomo_others_contract_wrong_length);
+            return;
+        }
+
         verified();
     }
 
