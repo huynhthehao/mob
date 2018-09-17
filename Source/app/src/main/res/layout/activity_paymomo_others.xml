@@ -91,17 +91,21 @@
                         android:text="@={viewModel.contractNumber}" />
                 </android.support.design.widget.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvHintNumContracts"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_normal"
-                    android:layout_marginTop="5dp"
-                    android:gravity="right"
-                    android:imeOptions="actionDone"
-                    android:onClick="@{() -> viewModel.onContractNumberHelpTapped()}"
-                    android:text="@string/contracts_help"
-                    android:textColor="@color/colorPrimary" />
+                    android:layout_height="wrap_content" android:orientation="horizontal">
+                    <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/tvHintNumContracts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_normal"
+                        android:layout_marginTop="5dp"
+                        android:imeOptions="actionDone"
+                        android:onClick="@{() -> viewModel.onContractNumberHelpTapped()}"
+                        android:text="@string/contracts_help"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/submit_otp_button"
