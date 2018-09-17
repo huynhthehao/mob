@@ -68,7 +68,7 @@ public class SplashActivity extends BaseStatefulActivity<ActivitySplashBinding, 
 
     @Override
     public void openHomeActivity() {
-        HomeActivity.start(this);
+        HomeActivity.start(this,true);
         finish();
     }
 
