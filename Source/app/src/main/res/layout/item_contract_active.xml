@@ -133,8 +133,8 @@
 
                 <ImageView
                     android:id="@+id/ivLocation"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/contract_under_icon_size"
+                    android:layout_height="@dimen/contract_under_icon_size"
                     android:src="@drawable/ic_location"
                     android:layout_marginTop="@dimen/margin_normal"
                     app:layout_constraintTop_toBottomOf="@+id/tvNextPayment"
