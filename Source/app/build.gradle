@@ -37,10 +37,10 @@ android {
     }
     signingConfigs {
         config {
-            keyAlias 'androiddebugkey'
-            keyPassword 'Onl!ne123'
-            storeFile file('../../KeyStore/debug.keystore')
-            storePassword '!T123456'
+            keyAlias 'homecreditvn'
+            keyPassword 'Online123!'
+            storeFile file('../../KeyStore/homecreditvn.keystore')
+            storePassword 'Online123!'
         }
 
         develop {
