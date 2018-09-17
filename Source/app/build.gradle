@@ -23,24 +23,18 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        applicationId "vn.homecredit.hcvn"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        manifestPlaceholders = [
-                onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
-                // Project number pulled from dashboard, local value is ignored.
-                onesignal_google_project_number: 'REMOTE'
-        ]
     }
     signingConfigs {
-        config {
-            keyAlias 'androiddebugkey'
-            keyPassword 'Onl!ne123'
-            storeFile file('../../KeyStore/debug.keystore')
-            storePassword '!T123456'
+        release {
+            keyAlias 'homecreditvn'
+            keyPassword 'Online123!'
+            storeFile file('../../KeyStore/homecreditvn.keystore')
+            storePassword 'Online123!'
         }
 
         develop {
@@ -63,7 +57,7 @@ android {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.release
             ext.crashlyticsApiSecret = "c6a2d798d5ee0967c6cd9c0a7f5ffda5863c65787d5e3786b2222865df306709"
             ext.crashlyticsApiKey = "95dde588b648092ee1321edafecb53097354ce89"
         }
@@ -88,7 +82,13 @@ android {
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://mobileapp3-uat.homecredit.vn"'
             resValue "string", "app_name", "Home Credit Beta"
+            manifestPlaceholders = [
+                    onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
+                    // Project number pulled from dashboard, local value is ignored.
+                    onesignal_google_project_number: 'REMOTE'
+            ]
         }
+
         uat {
             dimension "mode"
             versionCode 1
@@ -96,13 +96,25 @@ android {
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
             resValue "string", "app_name", "Home Credit UAT"
+            manifestPlaceholders = [
+                    onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
+                    // Project number pulled from dashboard, local value is ignored.
+                    onesignal_google_project_number: 'REMOTE'
+            ]
         }
+
         product {
             dimension "mode"
-            versionCode 1
+            versionName "1.7.0"
+            versionCode 62
+            applicationId "vn.homecredit.hcvn"
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
-            resValue "string", "app_name", "Home Credit"
+            resValue "string", "app_name", "Home Credit Vietnam"
+            manifestPlaceholders = [
+                    onesignal_app_id               : '709848ff0d5f450eb6aaef107625bd52',
+                    onesignal_google_project_number: 'REMOTE'
+            ]
         }
     }
 
