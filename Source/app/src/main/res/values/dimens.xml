@@ -49,4 +49,5 @@
 
     <!-- Support Screens -->
     <dimen name="img_support_header_width">100dp</dimen>
+    <dimen name="support_history_icon_size">14dp</dimen>
 </resources>
