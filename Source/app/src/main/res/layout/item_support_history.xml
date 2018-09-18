@@ -54,15 +54,28 @@
                     android:textStyle="italic"
                     tools:text="I want to change my password, but I can not receive SMS code. I try to send 5 times but still can not receive SMS code" />
 
-                <TextView
-                    android:id="@+id/tvDate"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_support_date"
-                    android:drawablePadding="@dimen/padding_small"
                     android:gravity="center_vertical"
-                    android:text="@{viewModel.date}"
-                    tools:text="22/07/2016" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/support_history_icon_size"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_support_date" />
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@{viewModel.date}"
+                        tools:text="22/07/2016" />
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 
