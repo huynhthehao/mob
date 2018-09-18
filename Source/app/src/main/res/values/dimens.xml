@@ -48,6 +48,7 @@
     <dimen name="offer_detail_space">@dimen/margin_medium</dimen>
 
     <!-- Support Screens -->
-    <dimen name="img_support_header_width">100dp</dimen>
+    <dimen name="img_support_header_width">80dp</dimen>
+    <dimen name="text_inner_icon_padding">16dp</dimen>
     <dimen name="support_history_icon_size">14dp</dimen>
 </resources>

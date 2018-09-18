@@ -86,7 +86,7 @@
                         android:imeActionLabel="@string/action_sign_in_short"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:paddingBottom="16dp"
+                        android:paddingBottom="@dimen/text_inner_icon_padding"
                         android:singleLine="true"
                         android:text="@={viewModel.contractNumber}" />
                 </android.support.design.widget.TextInputLayout>

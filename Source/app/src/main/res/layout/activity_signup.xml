@@ -59,7 +59,7 @@
                 android:inputType="number"
                 android:maxLines="1"
                 android:drawableLeft="@drawable/ic_phone"
-                android:paddingBottom="16dp"
+                android:paddingBottom="@dimen/text_inner_icon_padding"
                 android:drawablePadding="@dimen/padding_small"
                 android:singleLine="true"
                 android:text="@={viewModel.username}"
@@ -85,7 +85,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:drawableLeft="@drawable/ic_contract"
-                android:paddingBottom="16dp"
+                android:paddingBottom="@dimen/text_inner_icon_padding"
                 android:drawablePadding="@dimen/padding_small"
                 android:text="@={viewModel.contracts}"
                 />
