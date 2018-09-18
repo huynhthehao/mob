@@ -2,8 +2,11 @@ package vn.homecredit.hcvn.ui.offers;
 
 import android.arch.lifecycle.MutableLiveData;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.offer.ContractOfferData;
 import vn.homecredit.hcvn.data.model.offer.OfferDetailData;
@@ -11,7 +14,6 @@ import vn.homecredit.hcvn.data.repository.OfferRepository;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;
-import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class OfferViewModel extends BaseViewModel {
@@ -72,7 +74,7 @@ public class OfferViewModel extends BaseViewModel {
             return;
         }
         setIsLoading(true);
-        offerRepository.contractOffer(campId).subscribe(contractOfferResp -> {
+        Disposable request = offerRepository.contractOffer(campId).subscribe(contractOfferResp -> {
             setIsLoading(false);
             if (contractOfferResp.isSuccess()) {
                 ContractOfferData contractOfferData = contractOfferResp.getData();
@@ -82,27 +84,34 @@ public class OfferViewModel extends BaseViewModel {
                 }
             }
             modelOffer.setValue(true);
-        } , throwable -> {
+        }, throwable -> {
             setIsLoading(false);
             handleError(throwable);
         });
+        startSafeProcess(request);
     }
 
     public void getOfferFormula() {
-       setIsLoading(true);
-       offerRepository.offerFormula(offer.getRiskGroup(), offer.getProductCode()) .subscribe(contractOfferResp -> {
-           setIsLoading(false);
-           if (contractOfferResp.isSuccess() ) {
-               OfferDetailData offerDetailData = contractOfferResp.getData();
-               offerDetailData.generateInterest();
-               offerDetailData.setOfferModel(offer);
-               modelDetailOffer.setValue(offerDetailData);
-           }else {
-               showMessage(R.string.offers_fail);
-           }
-       } , throwable -> {
-           setIsLoading(false);
-           handleError(throwable);
-       });
+        setIsLoading(true);
+        Disposable request = offerRepository.offerFormula(offer.getRiskGroup(), offer.getProductCode()).subscribe(contractOfferResp -> {
+            setIsLoading(false);
+            if (contractOfferResp.isSuccess()) {
+                OfferDetailData offerDetailData = contractOfferResp.getData();
+                offerDetailData.generateInterest();
+                List<OfferDetailData.Rate> rates = offerDetailData.getRateList();
+                if (rates == null || rates.isEmpty()) {
+                    showMessage(R.string.offers_fail);
+                    return;
+                }
+                offerDetailData.setOfferModel(offer);
+                modelDetailOffer.setValue(offerDetailData);
+            } else {
+                showMessage(R.string.offers_fail);
+            }
+        }, throwable -> {
+            setIsLoading(false);
+            handleError(throwable);
+        });
+        startSafeProcess(request);
     }
 }
