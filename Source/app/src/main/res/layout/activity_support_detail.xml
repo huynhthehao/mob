@@ -31,7 +31,7 @@
             <ImageView
                 android:layout_width="@dimen/img_support_header_width"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_normal"
+                android:layout_margin="@dimen/margin_high"
                 android:adjustViewBounds="true"
                 android:src="@drawable/ic_support_detail_message" />
 

@@ -90,6 +90,7 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_sms_small"
                             android:drawablePadding="10dp"
+                            android:paddingBottom="@dimen/text_inner_icon_padding"
                             android:hint="@string/otp_input_hint"
                             android:imeActionId="1"
                             android:inputType="text"
