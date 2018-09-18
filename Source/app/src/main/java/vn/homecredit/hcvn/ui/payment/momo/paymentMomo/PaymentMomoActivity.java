@@ -139,15 +139,19 @@ public class PaymentMomoActivity
     }
 
     private void requestPaymentViaMomo(PaymentMomoRequestModel paymentMomoRequestModel) {
-        AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
-        AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
-        Map<String, Object> eventValue = new PaymentMomoEventValueBuilder(this)
-                .setAmount(String.valueOf(paymentMomoRequestModel.getRePaymentData().getAmount()))
-                .setContractNumber(paymentMomoRequestModel.getRePaymentData().getContractNumber())
-                .setMerchantCode(paymentMomoRequestModel.getMerchantCode())
-                .setMerchantName(paymentMomoRequestModel.getMerchantName())
-                .setLanguageCode(paymentMomoRequestModel.getLanguageCode())
-                .create();
-        AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
+        try {
+            AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
+            AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
+            Map<String, Object> eventValue = new PaymentMomoEventValueBuilder(this)
+                    .setAmount(String.valueOf(paymentMomoRequestModel.getRePaymentData().getAmount()))
+                    .setContractNumber(paymentMomoRequestModel.getRePaymentData().getContractNumber())
+                    .setMerchantCode(paymentMomoRequestModel.getMerchantCode())
+                    .setMerchantName(paymentMomoRequestModel.getMerchantName())
+                    .setLanguageCode(paymentMomoRequestModel.getLanguageCode())
+                    .create();
+            AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
+        }catch (Exception ex){
+            showMessage(R.string.paymomo_unknown_exception);
+        }
     }
 }

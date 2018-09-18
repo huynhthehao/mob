@@ -326,6 +326,7 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="paymomo_total_amount">Out standing amount</string>
     <string name="paymomo_amount">Amount</string>
     <string name="paymomo_duedate">Due date</string>
+    <string name="paymomo_unknown_exception">Lỗi không xác định khi thanh toán MoMo</string>
     <string name="momo_payment_failed">Thất bại</string>
     <string name="paymomo_payothers_des">Vui lòng nhập số hợp đồng</string>
     <string name="paymomo_others_contract_title">Hợp Đồng Của Người Khác</string>
