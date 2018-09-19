@@ -93,7 +93,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         }
         try {
             keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
-        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+        } catch (Exception e) {
             keyValid = false;
             return;
             //throw new RuntimeException("Failed to get an instance of KeyGenerator", e);
@@ -180,8 +180,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
             keyGenerator.init(builder.build());
             keyGenerator.generateKey();
             keyValid = true;
-        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
-                | CertificateException | IOException e) {
+        } catch (Exception e) {
             keyValid = false;
             System.out.println(e.getMessage());
         }
