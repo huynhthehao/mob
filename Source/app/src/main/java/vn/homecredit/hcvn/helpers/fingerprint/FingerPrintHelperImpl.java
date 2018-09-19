@@ -25,21 +25,26 @@ public class FingerPrintHelperImpl implements FingerPrintHelper {
         if (SsdkVendorCheck.isSamsungDevice())
             return getSamsungFingerPrintAuthValue();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //Fingerprint API only available on from Android 6.0 (M)
-            FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                //Fingerprint API only available on from Android 6.0 (M)
+                FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
 
-            if (!fingerprintManager.isHardwareDetected()) {
-                // Device doesn't support fingerprint authentication
-                return FingerPrintAuthValue.NOT_SUPPORT;
-            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-                // User hasn't enrolled any fingerprints to authenticate with
-                return FingerPrintAuthValue.SUPPORT_BUT_NOT_ENABLE;
-            } else {
-                // Everything is ready for fingerprint authentication
-                return FingerPrintAuthValue.SUPPORT_AND_ENABLED;
+                if (!fingerprintManager.isHardwareDetected()) {
+                    // Device doesn't support fingerprint authentication
+                    return FingerPrintAuthValue.NOT_SUPPORT;
+                } else if (!fingerprintManager.hasEnrolledFingerprints()) {
+                    // User hasn't enrolled any fingerprints to authenticate with
+                    return FingerPrintAuthValue.SUPPORT_BUT_NOT_ENABLE;
+                } else {
+                    // Everything is ready for fingerprint authentication
+                    return FingerPrintAuthValue.SUPPORT_AND_ENABLED;
+                }
             }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+
         return FingerPrintAuthValue.NOT_SUPPORT;
     }
 
