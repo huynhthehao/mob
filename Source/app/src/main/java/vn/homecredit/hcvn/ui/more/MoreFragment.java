@@ -10,10 +10,8 @@
 package vn.homecredit.hcvn.ui.more;
 
 
-import android.app.NotificationManager;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,6 +28,7 @@ import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.databinding.FragmentMoreBinding;
 import vn.homecredit.hcvn.ui.base.BaseFragment;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
+import vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractActivity;
 import vn.homecredit.hcvn.ui.profile.ProfileActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.ChangePassActivity;
@@ -91,7 +90,6 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding, MoreViewMode
             showConfirmMessage(R.string.log_out, R.string.logout_question, (yes) -> {
                 if (yes) {
                     getViewModel().logout(getActivity());
-                    // restart app
                     AppUtils.restartApp(getActivity());
                 }
             });
@@ -100,13 +98,12 @@ public class MoreFragment extends BaseFragment<FragmentMoreBinding, MoreViewMode
 
     private void showMomo(Boolean clickedMomo) {
         if (clickedMomo) {
-            AppUtils.openAppMomo(getContext());
+            WhichContractActivity.start(getContext());
         }
     }
 
     private void showLocation(Boolean clickedLocation) {
         if (clickedLocation) {
-//            showToast("clicked Location");
             PayMapActivity.start(getContext(), PayMapActivity.PAYMENT_MODE);
         }
     }

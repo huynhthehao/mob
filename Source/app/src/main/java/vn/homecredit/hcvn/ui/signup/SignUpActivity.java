@@ -13,6 +13,7 @@ import vn.homecredit.hcvn.BR;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.databinding.ActivitySignupBinding;
+import vn.homecredit.hcvn.helpers.DialogContractsHelp;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.otp.OtpActivity;
 
@@ -65,6 +66,6 @@ public class SignUpActivity extends BaseActivity<ActivitySignupBinding, SignUpVi
     private void showDialogContactHelp(String phoneSupport) {
         String title = getResources().getString(R.string.dialog_contact_help_title);
         String content = getResources().getString(R.string.dialog_contact_help_content, phoneSupport);
-        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content);
+        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content, phoneSupport);
     }
 }

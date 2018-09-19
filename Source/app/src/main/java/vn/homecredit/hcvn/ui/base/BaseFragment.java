@@ -10,6 +10,7 @@
 package vn.homecredit.hcvn.ui.base;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -25,15 +26,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import dagger.android.support.AndroidSupportInjection;
 import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 
 import static java.lang.Boolean.TRUE;
-import static vn.homecredit.hcvn.HCVNApp.getContext;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseViewModel> extends Fragment {
 
@@ -42,6 +46,8 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private T mViewDataBinding;
     private V mViewModel;
     protected ProgressDialog mProgressDialog;
+    @Inject
+    TrackingService trackService;
 
     /**
      * Override for set binding variable
@@ -82,6 +88,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         setHasOptionsMenu(false);
     }
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewDataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
@@ -112,10 +119,47 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
             }
         });
         this.init();
+        bindModelConfirmDialog();
+        bindModelMessageDialog();
+        bindModelMessageByIdDialog();
+    }
+
+    private void bindModelMessageDialog() {
+        getViewModel().getMessageData().observe(this, o -> {
+            if (o != null && o instanceof String) {
+                showMessage((String) o);
+            }
+        });
+    }
+
+    private void bindModelMessageByIdDialog() {
+        getViewModel().getMessageIdData().observe(this, o -> {
+            if (o != null && o instanceof Integer) {
+                showMessage((Integer) o);
+            }
+        });
+    }
+
+    private void bindModelConfirmDialog() {
+        getViewModel().getConfirmMessageData().observe(this, o -> {
+            if (o != null && o instanceof BaseMessage) {
+                BaseMessage messageData =  (BaseMessage) o;
+                showConfirmMessage(messageData.getTitle(),messageData.getContent(),messageData.getOnCompleted());
+            }
+        });
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (trackService != null) {
+                trackService.sendView(this);
+            }
+        }
     }
 
     protected void init() {
-        getViewModel().setNavigator(this);
         getViewModel().init();
     }
 
@@ -172,7 +216,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private void bindModelErrorAuthenticate() {
         getViewModel().getModelReLogin().observe(this, o -> {
             if (o != null && o == TRUE) {
-                showConfirmMessage(null, getString(R.string.token_expired), aBoolean -> {
+                UiHelper.showConfirmMessageNoCancel(getActivity(), null, getString(R.string.token_expired), aBoolean -> {
                     if (aBoolean != null && aBoolean == TRUE) {
                         startWelcomeAfterSessionExpired();
                     }

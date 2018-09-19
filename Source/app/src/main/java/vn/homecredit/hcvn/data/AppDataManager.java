@@ -11,6 +11,7 @@ package vn.homecredit.hcvn.data;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.text.TextUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,6 +26,7 @@ import vn.homecredit.hcvn.data.model.api.TokenResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.data.remote.ApiHeader;
 import vn.homecredit.hcvn.data.remote.RestService;
+import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 
@@ -37,26 +39,27 @@ public class AppDataManager implements DataManager {
     private final OneSignalService mOneSignalService;
     private final FingerPrintHelper mfingerPrintHelper;
     private AppDatabase appDatabase;
+    private DeviceInfo deviceInfo;
 
 
     @Inject
-    public AppDataManager(PreferencesHelper preferencesHelper, RestService restService, MemoryHelper memoryHelper, OneSignalService oneSignalService, FingerPrintHelper fingerPrintHelper, AppDatabase appDatabase) {
+    public AppDataManager(PreferencesHelper preferencesHelper, RestService restService, MemoryHelper memoryHelper, OneSignalService oneSignalService, FingerPrintHelper fingerPrintHelper,
+                          AppDatabase appDatabase, DeviceInfo deviceInfo) {
         mPreferencesHelper = preferencesHelper;
         mRestService = restService;
         mMemoryHelper = memoryHelper;
         mOneSignalService = oneSignalService;
         mfingerPrintHelper = fingerPrintHelper;
         this.appDatabase = appDatabase;
+        this.deviceInfo = deviceInfo;
     }
 
     @Override
     public Single<VersionResp> checkUpdate() {
+        if (TextUtils.isEmpty(deviceInfo.getPlayerId())) {
+            mOneSignalService.tryGetPlayerId();
+        }
         return mRestService.checkUpdate();
-    }
-
-    @Override
-    public Single<TokenResp> getToken(String phoneNumber, String password) {
-        return mRestService.getToken(phoneNumber, password);
     }
 
     @Override

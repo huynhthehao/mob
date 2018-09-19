@@ -31,9 +31,11 @@ import vn.homecredit.hcvn.ui.acl.applicationForm.AclApplicationForm.AclApplicati
 import vn.homecredit.hcvn.ui.acl.introduction.AclIntroduction.AclIntroductionActivity;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.ui.offers.NoOfferFragment;
+import vn.homecredit.hcvn.ui.offers.OfferActivity;
 import vn.homecredit.hcvn.ui.signup.SignUpActivity;
 
-public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeNavigator {
+public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, WelcomeViewModel> implements WelcomeListener {
     public static final String IS_FORCE_LOGOUT = "is_force_logout";
 
     boolean mHasAnimationStarted = false;
@@ -118,7 +120,7 @@ public class WelcomeActivity extends BaseActivity<ActivityWelcomeBinding, Welcom
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityWelcomeBinding = getViewDataBinding();
-        viewModel.setNavigator(this);
+        viewModel.setListener(this);
 
         String langCode = viewModel.getCurrentLanguageCode();
         ImageView flagImage = findViewById(R.id.languageFlag);

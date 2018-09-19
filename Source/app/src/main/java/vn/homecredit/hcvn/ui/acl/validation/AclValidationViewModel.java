@@ -31,7 +31,8 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
 
 
     public void onNextClick() {
-        getNavigator().next();
+        // TODO: Need to modified
+        //getNavigator().next();
     }
 
     public AclRuleFactory getAclRuleFactory() {
@@ -45,13 +46,14 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
                 .subscribe(response -> {
                     setIsLoading(false);
                     if (response.isVerified()) {
-                        getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CASH_LOAN_WALKIN));
+                        // TODO: Need to modified
+                        //getNavigator().openOtpActivity(new OtpPassParam(response, phoneNumber, idNumber, OtpFlow.CASH_LOAN_WALKIN));
                     } else {
-                        getNavigator().showMessage(response.getResponseMessage());
+                        showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
-                    handleError(throwable);
                     setIsLoading(false);
+                    handleError(throwable);
                 });
 
         startSafeProcess(newProcess);

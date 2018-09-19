@@ -11,9 +11,10 @@ package vn.homecredit.hcvn.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.onesignal.OSNotification;
 import com.onesignal.OSNotificationOpenResult;
 import com.onesignal.OSPermissionSubscriptionState;
@@ -26,30 +27,34 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import timber.log.Timber;
-import vn.homecredit.hcvn.data.model.DeviceInfoModel;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
-import vn.homecredit.hcvn.ui.home.HomeActivity;
-import vn.homecredit.hcvn.ui.login.LoginActivity;
+import vn.homecredit.hcvn.service.tracking.CommonEventAction;
+import vn.homecredit.hcvn.service.tracking.CommonEventObjectType;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.ui.notification.NotificationType;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
+import vn.homecredit.hcvn.ui.notification.manager.NotificationManager;
+import vn.homecredit.hcvn.ui.notification.manager.NotificationManagerImpl;
 import vn.homecredit.hcvn.ui.notification.model.ClwResult;
 import vn.homecredit.hcvn.ui.notification.model.ClwResultConverter;
+import vn.homecredit.hcvn.ui.notification.model.NotificationAnalyticData;
 import vn.homecredit.hcvn.ui.notification.model.NotificationModel;
 import vn.homecredit.hcvn.ui.notification.model.OfferConverter;
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;
-
-import static vn.homecredit.hcvn.ui.notification.NotificationType.INCOMING;
 
 @Singleton
 public class OneSignalServiceImpl implements OneSignalService {
     private final DeviceInfo mDeviceInfo;
     private PreferencesHelper preferencesHelper;
+    private TrackingService trackingService;
+    private NotificationManager notificationManager;
 
     @Inject
-    public OneSignalServiceImpl(DeviceInfo deviceInfo, PreferencesHelper preferencesHelper) {
+    public OneSignalServiceImpl(DeviceInfo deviceInfo, PreferencesHelper preferencesHelper, TrackingService trackingService, NotificationManager notificationManager) {
         mDeviceInfo = deviceInfo;
         this.preferencesHelper = preferencesHelper;
+        this.trackingService = trackingService;
+        this.notificationManager = notificationManager;
     }
 
     @Override
@@ -97,23 +102,53 @@ public class OneSignalServiceImpl implements OneSignalService {
         // get data, will open later
         //        JSONObject additionalData = notification.payload.additionalData;
         //        getNotificationModel(notification, additionalData);
+
+        // tracking event
+        trackingNotification(notification, true);
+        // end tracking
     }
 
     @Override
     public void notificationOpenHandler(Context context, OSNotificationOpenResult result) {
-        Intent intent = new Intent(context, HomeActivity.class);
-        intent.putExtra(HomeActivity.BUNDLE_SELECT_NOTIFICATION_TAB, true);
-        if (TextUtils.isEmpty(preferencesHelper.getAccessToken())) {
-            intent = new Intent(context, LoginActivity.class);
-        }
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+        // tracking event
+        trackingNotification(result.notification, false);
+        // end tracking
+
+        JSONObject additionalData = result.notification.payload.additionalData;
+        NotificationModel notificationModel = getNotificationModel(result.notification, additionalData);
+        notificationManager.openNotification(context, notificationModel);
     }
 
-    private void getNotificationModel(OSNotification notification, JSONObject additionalData) {
+    private void trackingNotification(OSNotification notification, boolean isReceived) {
+        NotificationAnalyticData notificationAnalyticData = getNotificationAnalyticData(notification);
+        String eventAction = CommonEventAction.NOTIFICATION_RECEIVED.getValue();
+        if (!isReceived)
+            eventAction = CommonEventAction.NOTIFICATION_OPENED.getValue();
+        trackingService.sendEvent(CommonEventObjectType.NOTIFICATION.getValue(), eventAction, notificationAnalyticData.getUtmContent());
+    }
+
+    @Nullable
+    private NotificationAnalyticData getNotificationAnalyticData(OSNotification notification) {
+        NotificationAnalyticData notificationAnalyticData = new NotificationAnalyticData();
+        try {
+            JSONObject addtionalData = notification.payload.additionalData;
+            if (addtionalData == null || !addtionalData.has("analytics"))
+                return notificationAnalyticData;
+            JSONObject analyticsObject = addtionalData.optJSONObject("analytics");
+            if (analyticsObject == null)
+                return notificationAnalyticData;
+
+            notificationAnalyticData = new Gson().fromJson(analyticsObject.toString(), NotificationAnalyticData.class);
+        } catch (Exception ex) {
+            notificationAnalyticData = new NotificationAnalyticData();
+        }
+        return notificationAnalyticData;
+    }
+
+    private NotificationModel getNotificationModel(OSNotification notification, JSONObject additionalData) {
         NotificationModel model = new NotificationModel();
         if (additionalData == null || !additionalData.has("Type")) {
-            return;
+            return model;
         }
         try {
             int type = additionalData.getInt("Type");
@@ -153,6 +188,7 @@ public class OneSignalServiceImpl implements OneSignalService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return model;
     }
 
     private String getStringData(JSONObject object, String key) {

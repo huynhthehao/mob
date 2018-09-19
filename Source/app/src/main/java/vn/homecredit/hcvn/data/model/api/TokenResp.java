@@ -85,4 +85,39 @@ public class TokenResp {
         return errorDescription;
     }
 
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
+    }
+
+    public void setExpiresIn(Integer expiresIn) {
+        this.expiresIn = expiresIn;
+    }
+
+    public void setErrorType(String errorType) {
+        this.errorType = errorType;
+    }
+
+    public void setErrorDescription(String errorDescription) {
+        this.errorDescription = errorDescription;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
+    }
+
+    public void setResponseStringCode(String responseStringCode) {
+        this.responseStringCode = responseStringCode;
+    }
+
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+
+    public void setResponseDetailMessage(String responseDetailMessage) {
+        this.responseDetailMessage = responseDetailMessage;
+    }
 }

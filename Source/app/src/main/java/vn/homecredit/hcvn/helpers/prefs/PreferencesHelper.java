@@ -66,4 +66,8 @@ public interface PreferencesHelper {
     void setTimeLogin(long time);
 
     long getTimeLogin();
+
+    void setIsOpenNotificationScreen(boolean isOpenNotificationScreen);
+
+    boolean isOpenNotificationScreen();
 }

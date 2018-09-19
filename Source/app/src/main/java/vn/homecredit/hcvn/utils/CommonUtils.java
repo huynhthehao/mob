@@ -14,6 +14,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import vn.homecredit.hcvn.R;
 
 public final class CommonUtils {
@@ -28,5 +31,15 @@ public final class CommonUtils {
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         return progressDialog;
+    }
+
+    /**
+     * This method will generate a default formatter for number so that we can reuse it for many purposes
+     * such as add currency symbols, modify small things in formatter...
+     * @return
+     */
+    public static NumberFormat getDefaultNumberFormmater() {
+        NumberFormat formatter = new DecimalFormat("#,###");
+        return formatter;
     }
 }

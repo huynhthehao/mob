@@ -19,6 +19,9 @@ import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.contract.paymentHistory.PaymentHistoryActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
 import vn.homecredit.hcvn.ui.map.PayMapActivity;
+import vn.homecredit.hcvn.ui.payment.momo.paymentMomo.PaymentMomoActivity;
+
+import static java.lang.Boolean.TRUE;
 
 public class ContractDetailActivity extends BaseActivity<ActivityContractDetailBinding, ContractDetailViewModel> {
 
@@ -67,7 +70,6 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
             getViewModel().setHcContract(hcContract);
             getViewDataBinding().setHcContractModel(new ContractDetailViewModel.ContractViewModel(hcContract));
         }
-
         getViewModel().getModelPaymentSchedule().observe(this, contractNumber -> {
             if (!TextUtils.isEmpty(contractNumber)) {
                 showPaymentSchedule(contractNumber);
@@ -79,10 +81,20 @@ public class ContractDetailActivity extends BaseActivity<ActivityContractDetailB
             }
         });
         getViewModel().getModelLocation().observe(this, aBoolean -> {
-            if (aBoolean) {
+            if (aBoolean != null && aBoolean == TRUE) {
                 showMap();
             }
         });
+        getViewModel().getModelMomo().observe(this, aBoolean -> {
+            if (aBoolean != null && aBoolean == TRUE) {
+                showMomoDetail();
+            }
+        });
+    }
+
+    private void showMomoDetail() {
+        sendEvent(R.string.ga_event_momo_category, R.string.ga_event_momo_action, R.string.ga_event_momo_label_contract_detail);
+        PaymentMomoActivity.start(this, getViewModel().getHcContract());
     }
 
     private void showPaymentHistory(String contractNumber) {

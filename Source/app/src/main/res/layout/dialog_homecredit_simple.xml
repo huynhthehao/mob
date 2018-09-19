@@ -1,48 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvTitle"
+        style="@style/AppTheme.TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/padding_small"
-        tools:text="@string/dialog_contact_help_title"
-        style="@style/AppTheme.Title"
-        />
+        android:gravity="left"
+        android:lineSpacingExtra="4dp"
+        android:paddingLeft="@dimen/padding_average"
+        android:paddingRight="@dimen/padding_average"
+        android:paddingTop="@dimen/margin_high"
+        android:textSize="@dimen/text_size_normal"
+        tools:text="@string/dialog_contact_help_title" />
+
     <TextView
         android:id="@+id/tvContent"
+        style="@style/AppTheme.TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_small"
+        android:gravity="left"
+        android:lineSpacingExtra="4dp"
+        android:padding="@dimen/padding_average"
+        android:textSize="@dimen/text_size_normal"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        android:gravity="center"
-        tools:text="@string/dialog_contact_help_content"
-        style="@style/AppTheme.Content"
-        />
+        tools:text="@string/dialog_contact_help_content" />
+
     <View
         android:id="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/tvContent"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        />
+        android:background="@color/colorPrimary"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/tvContent" />
 
     <TextView
         android:id="@+id/btnOK"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_high"
-        android:padding="@dimen/padding_small"
+        style="@style/AppTheme.TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:gravity="right|center_vertical"
+        android:paddingLeft="@dimen/padding_average"
+        android:paddingRight="@dimen/padding_average"
         android:text="@string/ok"
         android:textColor="@color/colorPrimary"
-        android:gravity="center"
+        android:textSize="@dimen/text_size_normal"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        style="@style/AppTheme.Title"
-        />
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="?android:attr/selectableItemBackground"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_medium"
+        android:background="@color/colorPrimary"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/btnOK" />
 
 </android.support.constraint.ConstraintLayout>

@@ -8,9 +8,7 @@ package vn.homecredit.hcvn.ui.otp;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.support.v4.provider.FontsContractCompat;
 import android.text.style.ForegroundColorSpan;
-import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,14 +20,12 @@ import javax.inject.Inject;
 
 import dagger.Module;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.acl.AclDataManager;
-import vn.homecredit.hcvn.data.model.api.contract.MasterContractVerifyResp;
-import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.OtpTimerRespData;
+import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.data.repository.ContractRepository;
 import vn.homecredit.hcvn.service.DeviceInfo;
@@ -41,7 +37,7 @@ import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 @Module
-public class OtpViewModel extends BaseViewModel<OtpNavigator> {
+public class OtpViewModel extends BaseViewModel<OtpListener> {
 
     private String phoneNumber;
     private String phonePrimary;
@@ -49,8 +45,8 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     private OtpTimerRespData otpTimerInfo;
     private OtpFlow otpFlow = OtpFlow.CASH_LOAN_WALKIN;
 
-    private static String remainingTimeText;
-    private static long _remainingTime;
+    private String remainingTimeText;
+    private long _remainingTime;
 
     private Timer timer;
     private boolean inffected = true;
@@ -64,8 +60,10 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     public ObservableBoolean resendVisibile = new ObservableBoolean(false);
     public ObservableBoolean agreementTermVisibile = new ObservableBoolean(false);
     public ObservableField<String> otp = new ObservableField("");
+    public ObservableField<CharSequence> timeCounter = new ObservableField<>();
     private OtpPassParam otpPassParam;
 
+    private OtpListener listener;
 
     @Inject
     public OtpViewModel(SchedulerProvider schedulerProvider,
@@ -74,7 +72,7 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                         AccountRepository accountRepository,
                         ContractRepository contractRepository,
                         AclDataManager aclDataManager) {
-        super( schedulerProvider);
+        super(schedulerProvider);
 
         this.resourceService = resourceService;
         this.deviceInfo = deviceInfo;
@@ -83,6 +81,16 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         this.aclDataManager = aclDataManager;
     }
 
+    public void setListener(OtpListener listener){
+        this.listener = listener;
+    }
+
+    private void notifyNext(OtpPassParam passParam){
+        if(this.listener == null)
+            return;
+
+        listener.onNext(passParam);
+    }
 
     public void initData(OtpPassParam otpPassParam) {
         if (otpPassParam != null
@@ -171,15 +179,15 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
         contractRepository.masterContractVerify(contractId, inputOtp, hasDisbursementBankAccount, creditCardContract)
                 .subscribe(masterContractVerifyResp -> {
                     setIsLoading(false);
-                    if (masterContractVerifyResp ==  null) {
+                    if (masterContractVerifyResp == null) {
                         showMessage(R.string.error_system);
                         return;
                     }
                     if (masterContractVerifyResp.isSuccess()) {
                         stopTimer();
                         otpPassParam.setMasterContractVerifyDataResp(masterContractVerifyResp.getMasterContractVerifyDataResp());
-                        getNavigator().next(otpPassParam);
-                    }else {
+                        notifyNext(otpPassParam);
+                    } else {
                         showMessage(masterContractVerifyResp.getResponseMessage());
                     }
 
@@ -203,10 +211,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     }
                     if (response.isVerified()) {
                         initData(otpPassParam);
-                    }else {
+                    } else {
                         showMessage(response.getResponseMessage());
                     }
-                }, throwable -> setIsLoading(false));
+                }, throwable -> {
+                    setIsLoading(false);
+                    handleError(throwable);
+                });
 
         startSafeProcess(resendProcess);
     }
@@ -221,10 +232,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     }
                     if (response.isVerified()) {
                         initData(phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, response.getData());
-                    }else {
+                    } else {
                         showMessage(response.getResponseMessage());
                     }
-                }, throwable -> setIsLoading(false));
+                }, throwable -> {
+                    setIsLoading(false);
+                    handleError(throwable);
+                });
 
         startSafeProcess(resendProcess);
     }
@@ -245,12 +259,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, inputOtp ));
+                        notifyNext(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.FORGOT_PASSWORD, inputOtp));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                     Log.printStackTrace(throwable);
                 });
         startSafeProcess(disposableVerityOTPSignUp);
@@ -267,11 +282,12 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     }
                     if (response.isVerified()) {
                         initData(phoneNumber, contractId, OtpFlow.SIGN_UP, response.getData());
-                    }else {
+                    } else {
                         showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                 });
 
         startSafeProcess(resendProcess);
@@ -293,12 +309,13 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     Log.debug(otpTimerResp.toString());
                     if (otpTimerResp.isVerified()) {
                         stopTimer();
-                        getNavigator().next(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SIGN_UP, inputOtp ));
+                        notifyNext(new OtpPassParam(otpTimerResp, phoneNumber, contractId, OtpFlow.SIGN_UP, inputOtp));
                     } else {
                         showMessage(otpTimerResp.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                     Log.printStackTrace(throwable);
                 });
         startSafeProcess(disposableVerityOTPSignUp);
@@ -314,10 +331,11 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
 
                         initData(phoneNumber, contractId, OtpFlow.CASH_LOAN_WALKIN, response.getData());
                     } else {
-                        getNavigator().showMessage(response.getResponseMessage());
+                        showMessage(response.getResponseMessage());
                     }
                 }, throwable -> {
                     setIsLoading(false);
+                    handleError(throwable);
                 });
 
         startSafeProcess(resendProcess);
@@ -340,22 +358,25 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {
                         stopTimer();
                         aclDataManager.setAclAccessToken(response.getAccessToken());
-                        getNavigator().next(null);
+                        notifyNext(null);
                     } else {
-                        getNavigator().showMessage(response.getResponseMessage());
+                        showMessage(response.getResponseMessage());
                     }
-                }, throwable -> setIsLoading(false));
+                }, throwable -> {
+                    setIsLoading(false);
+                    handleError(throwable);
+                });
+
         startSafeProcess(verifyProcess);
     }
 
     private void setCountingDisplay() {
-        TextView countingView = getNavigator().getControlById(R.id.countingText);
         SpanBuilder spanBuilder = new SpanBuilder();
         String otpHintRes = resourceService.getStringById(R.string.otp_hint);
         int primaryColor = resourceService.getColorById(R.color.colorPrimary);
         spanBuilder.appendWithSpace(String.format(otpHintRes, phonePrimary == null ? phoneNumber : phonePrimary));
         spanBuilder.append(remainingTimeText, new ForegroundColorSpan(primaryColor));
-        countingView.setText(spanBuilder.build());
+        timeCounter.set(spanBuilder.build());
     }
 
     private void stopTimer() {
@@ -364,27 +385,29 @@ public class OtpViewModel extends BaseViewModel<OtpNavigator> {
     }
 
     private void resetDisplay() {
-        try {
-            _remainingTime -= interval;
-            if (_remainingTime <= (otpTimerInfo.getOtpLiveTime() - otpTimerInfo.getOtpTimeResend())) {
-                resendVisibile.set(true);
-            } else {
-                resendVisibile.set(false);
-            }
-            boolean isTimeout = false;
-            if (_remainingTime <= 0) {
-                isTimeout = true;
-                _remainingTime = 0;
-            }
-            Date date = new Date(_remainingTime);
-            DateFormat formatter = new SimpleDateFormat("mm:ss");
-            remainingTimeText = formatter.format(date);
-            setCountingDisplay();
-            if (isTimeout) {
-                stopTimer();
-                return;
-            }
-        } catch (Exception ex) {
+        _remainingTime -= interval;
+        if (_remainingTime <= (otpTimerInfo.getOtpLiveTime() - otpTimerInfo.getOtpTimeResend())) {
+            resendVisibile.set(true);
+        } else {
+            resendVisibile.set(false);
         }
+        boolean isTimeout = false;
+        if (_remainingTime <= 0) {
+            isTimeout = true;
+            _remainingTime = 0;
+        }
+        Date date = new Date(_remainingTime);
+        DateFormat formatter = new SimpleDateFormat("mm:ss");
+        remainingTimeText = formatter.format(date);
+        setCountingDisplay();
+        if (isTimeout)
+            stopTimer();
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        stopTimer();
+        timer = null;
     }
 }

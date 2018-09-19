@@ -36,7 +36,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case TAB_NOTIFICATION:
                 return NotificationsFragment.newInstance();
             case TAB_SUPPORT:
-                return SupportFragment.newInstance("A", "B");
+                return SupportFragment.newInstance();
             case TAB_MORE:
                 return MoreFragment.newInstance();
             default:
@@ -59,7 +59,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void updateNotificationCount(View view, int count) {
-        TextView tvNotification = view.findViewById(R.id.tvNotificationCount);
+        TextView tvNotification = view.findViewById(R.id.tvBadgeNumber);
         if (count == 0) {
             tvNotification.setVisibility(View.GONE);
         } else {

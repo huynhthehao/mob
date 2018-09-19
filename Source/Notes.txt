@@ -1,0 +1,7 @@
+TODO: Notes
+----------------------------------------------------------------------------
+- Do not call override init method  -> // Dangerous code
+- Stop caching data when getting from server -> very bad performance
+- Call DefaultAndroidNetworking instead of Rx2AndroidNetworking
+- Use handleError method in every API calling stuff
+- Move all checking logic on calling request into handleError method

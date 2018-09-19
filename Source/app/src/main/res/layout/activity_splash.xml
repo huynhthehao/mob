@@ -1,12 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ activity_splash.xml
-  ~
-  ~ Created by quan.p@homecredit.vn
-  ~ Copyright (c) 2018 Home Credit Vietnam. All rights reserved.
-  ~
-  ~ Last modified 6/12/18 2:57 PM
-  -->
-
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

@@ -1,41 +1,65 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.25.2'
+    }
+}
+
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
-        applicationId "vn.homecredit.hcvn"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        manifestPlaceholders = [
-                onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
-                // Project number pulled from dashboard, local value is ignored.
-                onesignal_google_project_number: 'REMOTE'
-        ]
     }
     signingConfigs {
-        config {
-            keyAlias 'androiddebugkey'
-            keyPassword 'Onl!ne123'
-            storeFile file('../../KeyStore/debug.keystore')
-            storePassword '!T123456'
+        release {
+            keyAlias 'homecreditvn'
+            keyPassword 'Online123!'
+            storeFile file('../../KeyStore/homecreditvn.keystore')
+            storePassword 'Online123!'
+        }
+
+        develop {
+            keyAlias 'develop'
+            keyPassword '123456'
+            storeFile file('../../KeyStore/develop.jks')
+            storePassword '123456'
         }
     }
     buildTypes {
         debug {
             minifyEnabled false
             debuggable true
+            signingConfig signingConfigs.develop
+            ext.crashlyticsApiSecret = "98b49c4d7ffd3b3f5ec6eafc591a64502a36027e896109cec0ab9bd57d500fe1"
+            ext.crashlyticsApiKey = "7120678654c0ed1a98d873a2afb8c337ea0155b0"
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+            signingConfig signingConfigs.release
+            ext.crashlyticsApiSecret = "c6a2d798d5ee0967c6cd9c0a7f5ffda5863c65787d5e3786b2222865df306709"
+            ext.crashlyticsApiKey = "95dde588b648092ee1321edafecb53097354ce89"
         }
     }
 
@@ -53,22 +77,44 @@ android {
         beta {
             dimension "mode"
             applicationId "vn.homecredit.hcvn.beta"
-            versionCode 8
+            versionName "1.7.1"
+            versionCode 15
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
-            buildConfigField "String", "BASE_URL", '"https://mobileapp-uat.homecredit.vn"'
+            buildConfigField "String", "BASE_URL", '"https://mobileapp3-uat.homecredit.vn"'
+            resValue "string", "app_name", "Home Credit Beta"
+            manifestPlaceholders = [
+                    onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
+                    // Project number pulled from dashboard, local value is ignored.
+                    onesignal_google_project_number: 'REMOTE'
+            ]
         }
+
         uat {
             dimension "mode"
             versionCode 1
             applicationId "vn.homecredit.hcvn.uat"
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://mobileapp2-uat.homecredit.vn"'
+            resValue "string", "app_name", "Home Credit UAT"
+            manifestPlaceholders = [
+                    onesignal_app_id               : '9c086ec1-b811-4d4a-b399-61b3052d4cd6',
+                    // Project number pulled from dashboard, local value is ignored.
+                    onesignal_google_project_number: 'REMOTE'
+            ]
         }
+
         product {
             dimension "mode"
-            versionCode 1
+            versionName "2.0.0"
+            versionCode 62
+            applicationId "vn.homecredit.hcvn"
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
+            resValue "string", "app_name", "Home Credit Vietnam"
+            manifestPlaceholders = [
+                    onesignal_app_id               : '709848ff0d5f450eb6aaef107625bd52',
+                    onesignal_google_project_number: 'REMOTE'
+            ]
         }
     }
 
@@ -79,22 +125,49 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+
+    // generate fabric crashlytics properties for each build type
+    File crashlyticsProperties = new File("${project.projectDir.absolutePath}/fabric.properties")
+    applicationVariants.all { variant ->
+        // Rename output apk
+        def version = variant.versionName
+        variant.outputs.all {
+            def filename = it.outputFile.name
+            outputFileName = filename.replace(".apk", "-${version}.apk")
+        }
+
+        // Generate fabric.properties for each variant
+        def variantSuffix = variant.name.capitalize()
+        def generateResourcesTask = project.tasks.getByName("fabricGenerateResources${variantSuffix}")
+        def generatePropertiesTask = task("fabricGenerateProperties${variantSuffix}").doLast {
+            Properties properties = new Properties()
+            println "...copying apiSecret for ${variant.name}"
+            properties.put("apiSecret", variant.buildType.ext.crashlyticsApiSecret)
+            println "...copying apiKey for ${variant.name}"
+            properties.put("apiKey", variant.buildType.ext.crashlyticsApiKey)
+            PropertiesUtils.injectPropertyInFile(crashlyticsProperties, properties, "")
+        }
+        generateResourcesTask.dependsOn generatePropertiesTask
+
+        def installApp = project.tasks.getByName("install$variantSuffix")
+        def startApp = task("start$variantSuffix").doLast {
+            description "Install and run app (dev env)"
+            exec {
+                commandLine "adb", "shell", "am", "start", "-n", variant.getApplicationId() + "/vn.homecredit.hcvn.ui.splash.SplashActivity"
+            }
+        }
+        startApp.dependsOn installApp
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:multidex:1.0.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.google.android.gms:play-services-maps:15.0.1'
 
     // android support libraries
+    implementation "com.android.support:support-v4:$rootProject.supportLibraryVersion"
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
@@ -116,20 +189,24 @@ dependencies {
 
     // dependency injection
     implementation "com.google.dagger:dagger:$rootProject.dagger2Version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
     implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
     // reactive
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     // logger
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     // view model
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
-    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycle"
-    // appCenter
-    implementation "com.microsoft.appcenter:appcenter-analytics:$rootProject.appCenterSdkVersion"
-    implementation "com.microsoft.appcenter:appcenter-crashes:$rootProject.appCenterSdkVersion"
+    kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
+    kapt "com.android.databinding:compiler:$gradleVersion"
+    // Crash & distribution tools
+    implementation("com.crashlytics.sdk.android:crashlytics:2.9.5@aar") {
+        transitive = true
+    }
     //onesignal
     implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
     //layout
@@ -141,14 +218,33 @@ dependencies {
     implementation 'com.annimon:stream:1.2.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation "org.parceler:parceler-api:$rootProject.parceler"
-    annotationProcessor "org.parceler:parceler:$rootProject.parceler"
+    kapt "org.parceler:parceler:$rootProject.parceler"
     //Room
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
-    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$rootProject.roomVersion"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
     //google map direction router
     implementation 'com.akexorcist:googledirectionlibrary:1.1.1'
     implementation "com.github.stfalcon:frescoimageviewer:$rootProject.frescoimageviewerVersion"
     implementation "com.facebook.fresco:fresco:$rootProject.facebookFrescoVersion"
+
+    //Google Analytics
+    implementation "com.google.android.gms:play-services-analytics:$rootProject.googleAnalytics"
+
+    //MoMo
+    implementation "com.github.momodevelopment:androidsdkV2.$rootProject.momo"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    testImplementation 'org.mockito:mockito-core:2.15.0'
+    testImplementation "org.mockito:mockito-inline:2.11.0"
+    testImplementation "com.google.truth:truth:0.36"
+    testImplementation "android.arch.core:core-testing:1.1.1"
+
 }
+
+import com.crashlytics.tools.utils.PropertiesUtils

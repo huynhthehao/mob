@@ -19,7 +19,7 @@
         android:src="@drawable/ic_tab_notification" />
 
     <TextView
-        android:id="@+id/tvNotificationCount"
+        android:id="@+id/tvBadgeNumber"
         style="@style/AppTheme.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="vn.homecredit.hcvn.ui.offers.OfferDetailActivity">
+
+    <data>
+
+        <import type="android.text.Html" />
+
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.offers.OfferDetailViewModel" />
+
+        <variable
+            name="callCenterClick"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            app:title="@string/offer_detail_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_normal">
+
+            <TextView
+                style="@style/AppTheme.TextView.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/offer_detail_space"
+                android:gravity="center"
+                android:text="@string/offer_detail_description"
+                android:textStyle="bold" />
+
+            <vn.homecredit.hcvn.ui.view.HcLoanSeekBar
+                android:id="@+id/loan_seek_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/offer_detail_space"
+                app:max="@{viewModel.maxLoan}"
+                app:min="@{viewModel.minLoan}"
+                app:progressTint="@color/colorPrimary"
+                app:thumbTint="@color/colorPrimary"
+                app:unit="@string/offer_detail_unit" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/offer_detail_space"
+                android:background="@drawable/rounded_stroke_normal"
+                android:padding="@dimen/padding_smallest">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/offer_detail_tenor_total_title"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:text="@{@string/offer_detail_tenor_total(viewModel.totalMonth)}"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/payment_per_month_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/offer_detail_space"
+                android:background="@drawable/rounded_stroke_normal"
+                android:backgroundTint="@color/disable"
+                android:padding="@dimen/padding_smallest">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/offer_detail_paid_month" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:text="@{@string/currency(viewModel.paymentPerMonth)}"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/offer_detail_space"
+                android:gravity="center"
+                android:text="@{Html.fromHtml(@string/offer_detail_notice)}"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/offer_detail_space"
+                android:gravity="center"
+                android:text="@string/tall_free"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/default_button_height"
+                android:layout_marginTop="@dimen/offer_detail_space"
+                android:background="@drawable/rounded_button"
+                android:gravity="center"
+                android:onClick="@{callCenterClick::onClick}"
+                android:padding="@dimen/padding_small">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/icon_button_height"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_call_center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@{viewModel.tallNumber}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_big"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

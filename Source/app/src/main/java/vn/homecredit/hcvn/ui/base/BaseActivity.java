@@ -14,6 +14,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.databinding.Observable;
 import android.databinding.ObservableBoolean;
@@ -26,12 +27,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import java.util.Locale;
+
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjection;
 import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
+import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.utils.CommonUtils;
 import vn.homecredit.hcvn.utils.NetworkUtils;
@@ -48,6 +55,12 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected ProgressDialog mProgressDialog;
     private T mViewDataBinding;
     private V mViewModel;
+
+    @Inject
+    TrackingService trackService;
+
+    @Inject
+    PreferencesHelper preferencesHelper;
 
     protected boolean getLoadingEnable(){
         return true;
@@ -66,10 +79,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     @LayoutRes
     int getLayoutId();
 
-    /**
-     * Override for set view model
-     * @return view model instance
-     */
     public abstract V getViewModel();
 
     @Override
@@ -91,13 +100,28 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         performDependencyInjection();
         super.onCreate(savedInstanceState);
+        // force set locale flow the app setting, for get relative time span in notification list.
+        String languageToLoad = preferencesHelper.getLanguageCode(); // your language
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+        // end set locale
         performDataBinding();
-
         this.init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (trackService != null){
+            trackService.sendView(this);
+        }
+    }
+
     protected void init() {
-        getViewModel().setNavigator(this);
         getViewModel().init();
     }
 
@@ -171,7 +195,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
         bindModelMessageDialog();
         bindModelMessageByIdDialog();
-        bindModelResourceMessageDialog();
         bindModelConfirmDialog();
         bindModelErrorAuthenticate();
     }
@@ -203,6 +226,8 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         UiHelper.showConfirmMessage(this,title, message,onCompleted);
     }
 
+
+
     private void bindModelMessageDialog() {
         getViewModel().getMessageData().observe(this, o -> {
             if (o != null && o instanceof String) {
@@ -219,13 +244,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         });
     }
 
-    private void bindModelResourceMessageDialog() {
-        getViewModel().getMessageResourceData().observe(this, o -> {
-            if ( o instanceof Integer) {
-                showMessage(getString((Integer) o));
-            }
-        });
-    }
     private void bindModelConfirmDialog() {
         getViewModel().getConfirmMessageData().observe(this, o -> {
             if (o != null && o instanceof BaseMessage) {
@@ -234,10 +252,18 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             }
         });
     }
+
     private void startWelcomeAfterSessionExpired() {
         Intent intent = WelcomeActivity.newIntent(getContext());
         intent.putExtra(WelcomeActivity.IS_FORCE_LOGOUT, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+    protected void sendEvent(int category, int action, int label) {
+        if (trackService != null) {
+            trackService.sendEvent(category, action, label);
+        }
+    }
+
 }

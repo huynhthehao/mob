@@ -10,8 +10,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 
-import java.lang.ref.WeakReference;
-
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -27,12 +25,11 @@ public abstract class BaseViewModel<N> extends ViewModel {
     private final ObservableBoolean mIsLoading = new ObservableBoolean(false);
     private final SchedulerProvider mSchedulerProvider;
     private CompositeDisposable mCompositeDisposable;
-    private WeakReference<N> mNavigator;
     private MutableLiveData<String> messageData = new MutableLiveData<>();
     private MutableLiveData<Integer> messageIdData = new MutableLiveData<>();
-    private MutableLiveData<Integer> messageResourceData = new MutableLiveData<>();
     private MutableLiveData<BaseMessage> confirmMessageData = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelReLogin = new MutableLiveData<>();
+
 
     public BaseViewModel(SchedulerProvider schedulerProvider) {
         this.mSchedulerProvider = schedulerProvider;
@@ -63,14 +60,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
         mIsLoading.set(isLoading);
     }
 
-    public N getNavigator() {
-        return mNavigator.get();
-    }
-
-
-    public void setNavigator(N navigator) {
-        this.mNavigator = new WeakReference<>(navigator);
-    }
 
     public SchedulerProvider getSchedulerProvider() {
         return mSchedulerProvider;
@@ -82,10 +71,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
 
     public MutableLiveData<Integer> getMessageIdData() {
         return messageIdData;
-    }
-
-    public MutableLiveData<Integer> getMessageResourceData() {
-        return messageResourceData;
     }
 
     public MutableLiveData<BaseMessage> getConfirmMessageData() {
@@ -104,9 +89,6 @@ public abstract class BaseViewModel<N> extends ViewModel {
         this.messageIdData.setValue(messageId);
     }
 
-    public void showMessage(int resId) {
-        this.messageResourceData.setValue(resId);
-    }
 
     public void showConfirmMessage(String title, String message, Consumer<Boolean> onCompleted) {
         confirmMessageData.setValue(new MessageQuestion(title, message, onCompleted));
@@ -125,7 +107,7 @@ public abstract class BaseViewModel<N> extends ViewModel {
                 modelReLogin.setValue(true);
             }else {
                 if (((HcApiException) throwable).isErrorResponseEmpty()) {
-                    messageResourceData.setValue(R.string.error_unexpected);
+                    messageIdData.setValue(R.string.error_unexpected);
                 }else {
                     messageData.setValue(((HcApiException) throwable).getErrorResponseMessage());
                 }
@@ -133,6 +115,5 @@ public abstract class BaseViewModel<N> extends ViewModel {
         }else {
             messageData.setValue(throwable.getMessage());
         }
-
     }
 }

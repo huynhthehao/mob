@@ -56,6 +56,10 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     public static final String MAKER_PAYOO = "payoo";
     public static final String MAKER_EPAY_POS = "epay";
     public static final String MAKER_EPAY = "epaydisbursement";
+    public static final String MAKER_VN_POS = "vnpos";
+    public static final String MAKER_VIETINBANK = "vietinbank";
+    public static final String MAKER_POS_CD = "pos_cd";
+    public static final String MAKER_POS_TW = "pos_tw";
     public static final String MAKER_DEFAULT = "";
     public static final String MODE_KEY = "Mode";
 
@@ -178,7 +182,6 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(defaultLocation.latitude, defaultLocation.longitude), 15));
         mMap.setOnCameraIdleListener(this);
         mMap.setOnMarkerClickListener(this);
@@ -353,45 +356,9 @@ public class PayMapActivity extends BaseActivity<ActivityPayMapBinding, PayMapVi
 
         @Override
         public View getInfoWindow(final Marker marker) {
+            marker.setTitle(marker.getTitle() == null ? "" : marker.getTitle());
+            marker.setSnippet(marker.getSnippet() == null ? "" : marker.getSnippet());
             PayMapActivity.this.marker = marker;
-
-            final ImageView image = view.findViewById(R.id.infor_image);
-            image.setVisibility(View.VISIBLE);
-
-            switch (Objects.requireNonNull((String) marker.getTag())) {
-                case MAKER_EPAY:
-                case MAKER_EPAY_POS:
-                    image.setImageResource(R.drawable.ic_epay);
-                    break;
-                case PayMapActivity.MAKER_MOMO:
-                    image.setImageResource(R.drawable.ic_momo);
-                    break;
-                case PayMapActivity.MAKER_PAYOO:
-                    image.setImageResource(R.drawable.ic_payoo);
-                    break;
-                case PayMapActivity.MAKER_DEFAULT:
-                    image.setVisibility(View.GONE);
-                    break;
-                default:
-                    image.setVisibility(View.GONE);
-                    break;
-
-            }
-            final String title = marker.getTitle();
-            final TextView titleUi = view.findViewById(R.id.infor_title);
-            if (title != null) {
-                titleUi.setText(title);
-            } else {
-                titleUi.setText("");
-            }
-
-            final String snippet = marker.getSnippet();
-            final TextView snippetUi = view.findViewById(R.id.infor_snipper);
-            if (snippet != null) {
-                snippetUi.setText(snippet);
-            } else {
-                snippetUi.setText("");
-            }
             return view;
         }
 

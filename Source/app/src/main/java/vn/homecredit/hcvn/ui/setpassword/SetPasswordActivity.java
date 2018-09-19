@@ -19,7 +19,7 @@ import vn.homecredit.hcvn.databinding.ActivitySetpasswordBinding;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.home.HomeActivity;
 import vn.homecredit.hcvn.ui.settings.changepass.DialogChangePassSuccess;
-import vn.homecredit.hcvn.ui.signup.DialogContractsHelp;
+import vn.homecredit.hcvn.helpers.DialogContractsHelp;
 import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 
 public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding, SetPasswordViewModel> {
@@ -89,6 +89,6 @@ public class SetPasswordActivity extends BaseActivity<ActivitySetpasswordBinding
     private void showDialogPasswordHelp(String phoneSupport) {
         String title = getResources().getString(R.string.dialog_password_help_title);
         String content = getResources().getString(R.string.dialog_password_help_content, phoneSupport);
-        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content);
+        DialogContractsHelp.showDialog(getSupportFragmentManager(), title, content, phoneSupport);
     }
 }

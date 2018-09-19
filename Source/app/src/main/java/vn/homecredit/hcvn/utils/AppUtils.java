@@ -42,12 +42,13 @@ public final class AppUtils {
     }
 
     public static void openAppMomo(Context context) {
-       openApp(context, MOMO_PACKAGE);
+        openApp(context, MOMO_PACKAGE);
     }
+
     public static void openApp(Context context, String appPackageName) {
         PackageManager packageManager = context.getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(appPackageName);
-        if (intent.resolveActivity(packageManager) != null) {
+        if (intent != null && intent.resolveActivity(packageManager) != null) {
             context.startActivity(intent);
         } else {
             openPlayStoreForApp(context, appPackageName);
@@ -71,7 +72,7 @@ public final class AppUtils {
 
     public static void openExternalBrowser(Context context, String uri) {
         if (!uri.startsWith("http://") && !uri.startsWith("https://")) {
-            return;
+            uri = "http://" + uri;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(uri));

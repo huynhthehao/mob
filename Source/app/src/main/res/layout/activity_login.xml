@@ -70,9 +70,7 @@
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="60dp"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/ic_log_in_grey"
-
-                        />
+                        android:src="@drawable/ic_log_in_grey" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -85,9 +83,10 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_phone"
                             android:drawablePadding="@dimen/padding_small"
-                            android:hint="@string/prompt_phone_number"
-                            android:inputType="number"
+                            android:paddingBottom="@dimen/text_inner_icon_padding"
+                            android:hint="@string/hint_phone_contracts"
                             android:maxLines="1"
+                            android:inputType="textVisiblePassword"
                             android:singleLine="true"
                             android:text="@={viewModel.username}" />
                     </android.support.design.widget.TextInputLayout>
@@ -104,6 +103,7 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_lock_red"
                             android:drawablePadding="@dimen/padding_small"
+                            android:paddingBottom="@dimen/text_inner_icon_padding"
                             android:hint="@string/prompt_password"
                             android:imeActionId="6"
                             android:imeActionLabel="@string/action_sign_in_short"

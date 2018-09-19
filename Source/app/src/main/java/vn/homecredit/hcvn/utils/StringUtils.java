@@ -6,9 +6,6 @@
 
 package vn.homecredit.hcvn.utils;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-
 public class StringUtils {
 
     public static boolean isNullOrWhiteSpace(CharSequence input){
@@ -24,8 +21,6 @@ public class StringUtils {
     }
 
     public static String getCurrencyMaskValue(Number inputNumber) {
-        NumberFormat formatter = new DecimalFormat("#,###");
-        String formattedNumber = formatter.format(inputNumber);
-        return formattedNumber;
+        return CommonUtils.getDefaultNumberFormmater().format(inputNumber);
     }
 }

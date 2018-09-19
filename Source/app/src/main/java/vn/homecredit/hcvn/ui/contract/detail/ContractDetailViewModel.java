@@ -1,6 +1,7 @@
 package vn.homecredit.hcvn.ui.contract.detail;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.databinding.ObservableField;
 
 import javax.inject.Inject;
 
@@ -25,6 +26,8 @@ public class ContractDetailViewModel extends BaseViewModel {
     private MutableLiveData<String> modelPaymentSchedule = new MutableLiveData<>();
     private MutableLiveData<String> modelPaymentHistory = new MutableLiveData<>();
     private MutableLiveData<Boolean> modelLocation = new MutableLiveData<>();
+    private MutableLiveData<Boolean> modelMomo = new MutableLiveData<>();
+    private ObservableField<Boolean> bindEnableMomo = new ObservableField<>(true);
 
     public MutableLiveData<String> getModelStatusColor() {
         return modelStatusColor;
@@ -49,12 +52,19 @@ public class ContractDetailViewModel extends BaseViewModel {
         modelPaymentSchedule.setValue(null);
     }
 
+    public ObservableField<Boolean> getBindEnableMomo() {
+        return bindEnableMomo;
+    }
+
     public HcContract getHcContract() {
         return hcContract;
     }
 
     public void setHcContract(HcContract hcContract) {
         this.hcContract = hcContract;
+        if (hcContract != null) {
+            bindEnableMomo.set(hcContract.getTypeStatus() == HcContract.STATUS_ACTIVE);
+        }
     }
 
     public MutableLiveData<String> getModelPaymentSchedule() {
@@ -69,6 +79,10 @@ public class ContractDetailViewModel extends BaseViewModel {
         return modelLocation;
     }
 
+    public MutableLiveData<Boolean> getModelMomo() {
+        return modelMomo;
+    }
+
     public void onPaymentScheduleClicked() {
         modelPaymentSchedule.setValue(this.hcContract.getContractNumber());
     }
@@ -79,6 +93,10 @@ public class ContractDetailViewModel extends BaseViewModel {
 
     public void onLocationClicked() {
         modelLocation.setValue(true);
+    }
+
+    public void onMomoClicked() {
+        modelMomo.setValue(true);
     }
 
     public static class ContractViewModel {
@@ -127,7 +145,6 @@ public class ContractDetailViewModel extends BaseViewModel {
         public Integer getTenor() {
             return tenor;
         }
-
 
         public int getStatusTextColor() {
             switch (status) {

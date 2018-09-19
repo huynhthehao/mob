@@ -18,18 +18,17 @@ import dagger.Module;
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.LoginInformation;
-import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
-import vn.homecredit.hcvn.utils.NetworkUtils;
 import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
+
 @Module
-public class LoginViewModel extends BaseViewModel<LoginNavigator> {
+public class LoginViewModel extends BaseViewModel<LoginListener> {
     public ObservableField<String> username = new ObservableField("");
     public ObservableField<String> password = new ObservableField("");
     public ObservableBoolean showFingerPrint = new ObservableBoolean(false);
@@ -37,7 +36,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     private final AccountRepository accountRepository;
     private final FingerPrintHelper fingerPrintHelper;
     private final PreferencesHelper preferencesHelper;
-    private final Context context;
+    private LoginListener listener;
 
     @Inject
     public LoginViewModel(AccountRepository accountRepository, SchedulerProvider schedulerProvider,
@@ -46,7 +45,7 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         this.accountRepository = accountRepository;
         this.fingerPrintHelper = fingerPrintHelper;
         this.preferencesHelper = preferencesHelper;
-        this.context = context;
+        //this.context = context;
 
         FingerPrintAuthValue fingerSupportStatus = fingerPrintHelper.getFingerPrintAuthValue();
         showFingerPrint.set(fingerSupportStatus != FingerPrintAuthValue.NOT_SUPPORT);
@@ -56,6 +55,9 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
         username.set(currentUser);
     }
 
+    public void setListener(LoginListener listener){
+        this.listener = listener;
+    }
 
     public boolean validate() {
         if (StringUtils.isNullOrWhiteSpace(username.get()))
@@ -69,12 +71,8 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void onLoginClick() {
-        if (!validate()) {
+       if (!validate()) {
             showMessage(R.string.login_invalid_input);
-            return;
-        }
-        if (!NetworkUtils.isNetworkConnected(context)) {
-            showMessage(R.string.no_internet_connection);
             return;
         }
 
@@ -91,7 +89,10 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
     }
 
     public void onForgotPasswordClick() {
-        getNavigator().forgetPassword();
+        if(listener == null)
+            return;
+
+        listener.forgetPassword();
     }
 
     public void onFingerPrintClick() {
@@ -108,7 +109,10 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
             return;
         }
 
-        getNavigator().showFingerPrintAuthDialog();
+        if(listener == null)
+            return;
+
+        listener.showFingerPrintAuthDialog();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -139,13 +143,13 @@ public class LoginViewModel extends BaseViewModel<LoginNavigator> {
                         showMessage(profileResp.getResponseMessage());
                     } else {
                         accountRepository.saveLoginInfo(phoneNumber, password);
-                        getNavigator().openHomeActivity();
+
+                        if(listener != null)
+                            listener.openHomeActivity();
                     }
                 }, throwable -> {
                     setIsLoading(false);
-                    if (throwable instanceof HcApiException) {
-                        showMessage(((HcApiException) throwable).getErrorResponseMessage());
-                    }
+                    handleError(throwable);
                 });
 
         startSafeProcess(subscribe);

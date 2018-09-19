@@ -10,11 +10,13 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import vn.homecredit.hcvn.ui.contract.main.ContractFragment;
 import vn.homecredit.hcvn.ui.contract.main.ContractFragmentModule;
-import vn.homecredit.hcvn.ui.custom.SimpleRecyclerViewFragment;
+import vn.homecredit.hcvn.ui.payment.myContract.MyContractFragment;
 import vn.homecredit.hcvn.ui.more.MoreFragment;
 import vn.homecredit.hcvn.ui.more.MoreFragmentModule;
 import vn.homecredit.hcvn.ui.notification.NotificationFragmentModule;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
+import vn.homecredit.hcvn.ui.support.SupportFragment;
+import vn.homecredit.hcvn.ui.support.SupportFragmentModule;
 
 @Module
 public abstract class FragmentBuilderModule {
@@ -27,4 +29,9 @@ public abstract class FragmentBuilderModule {
     @ContributesAndroidInjector(modules = ContractFragmentModule.class)
     abstract ContractFragment contractsFragment();
 
+    @ContributesAndroidInjector(modules = ContractFragmentModule.class)
+    abstract MyContractFragment myContractsFragment();
+
+    @ContributesAndroidInjector(modules = SupportFragmentModule.class)
+    abstract SupportFragment supportFragment();
 }

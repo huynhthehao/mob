@@ -44,6 +44,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     private static final String PREF_KEY_DEVICE_INFO = "PREF_KEY_DEVICE_INFO";
     private static final String PREF_KEY_LOGIN_TIMESTAMP = "PREF_KEY_LOGIN_TIMESTAMP";
     private static final String PREF_KEY_CURRENT_BADGE_COUNT = "PREF_KEY_CURRENT_BADGE_COUNT";
+    private static final String PREF_KEY_IS_OPEN_NOTIFICATION_SCREEN = "PREF_KEY_IS_OPEN_NOTIFICATION_SCREEN";
 
     private final SharedPreferences mPrefs;
     private static String initFileName;
@@ -242,5 +243,15 @@ public class AppPreferencesHelper implements PreferencesHelper {
     @Override
     public long getTimeLogin() {
         return mPrefs.getLong(PREF_KEY_LOGIN_TIMESTAMP, 0);
+    }
+
+    @Override
+    public void setIsOpenNotificationScreen(boolean isOpenNotificationScreen) {
+        mPrefs.edit().putBoolean(PREF_KEY_IS_OPEN_NOTIFICATION_SCREEN, isOpenNotificationScreen).commit();
+    }
+
+    @Override
+    public boolean isOpenNotificationScreen() {
+        return mPrefs.getBoolean(PREF_KEY_IS_OPEN_NOTIFICATION_SCREEN, false);
     }
 }

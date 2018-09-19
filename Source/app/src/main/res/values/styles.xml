@@ -57,11 +57,26 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?android:attr/actionBarSize</item>
+        <item name="android:background">?android:attr/colorPrimary</item>
+        <item name="android:theme">@style/AppTheme.AppBarOverlay</item>
+        <item name="layout_scrollFlags">enterAlways</item>
+        <item name="navigationIcon">?android:attr/homeAsUpIndicator</item>
+        <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
+    </style>
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.TextView" parent="android:Widget.TextView">
         <item name="fontFamily">@font/myriadpro_regular</item>
         <item name="android:textColor">@color/brownishGrey</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+    <style name="AppTheme.TextView.Title" parent="AppTheme.TextView">
+        <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
 
     <style name="AppTheme.TextView.Light" parent="android:Widget.TextView">
@@ -69,11 +84,10 @@
         <item name="android:textColor">@color/brownishGrey</item>
     </style>
 
-    <style name="PrimaryButton" parent="Widget.AppCompat.Button">
+    <style name="PrimaryButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/my_primary_text</item>
         <item name="android:background">@drawable/rounded_button</item>
-        <item name="fontFamily">@font/myriadpro_regular</item>
-        <item name="android:textAppearanceButton">@style/AppTheme.TextAppearanceButton</item>
-        <item name="android:height">60dp</item>
+        <item name="android:fontFamily">@font/myriadpro_regular</item>
     </style>
 
     <style name="AppTheme.TextAppearanceButton">
@@ -154,6 +168,7 @@
         <item name="android:layout_marginLeft">@dimen/margin_high</item>
     </style>
 
+
     <style name="Contact.Summary.Title" parent="Base.TextAppearance.AppCompat">
         <item name="android:textColor">@color/brownishGrey</item>
         <item name="fontFamily">@font/myriadpro_regular</item>
@@ -228,5 +243,21 @@
         <item name="android:checkedButton">@android:color/holo_purple</item>
     </style>
 
+    <style name="AppTheme.TextView.Clickable" parent="AppTheme.TextView">
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="OfferIcon" >
+       <item name="android:layout_width">@dimen/drawable_left_size_medium</item>
+        <item name="android:layout_height">@dimen/drawable_left_size_medium</item>
+    </style>
+
+    <style name="LoanSeekBar" />
+
+    <style name="LoanSeekBar.Title">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 
 </resources>

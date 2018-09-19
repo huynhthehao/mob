@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data >
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.offers.OfferViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:title="@string/loan_offers"
+            style="@style/Toolbar"
+            >
+        </android.support.v7.widget.Toolbar>
+
+        <ScrollView
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:paddingTop="@dimen/padding_high"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <FrameLayout
+                android:id="@+id/contentFrame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+        </ScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

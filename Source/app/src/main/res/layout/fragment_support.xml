@@ -11,77 +11,251 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.support.SupportFragment">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="vn.homecredit.hcvn.ui.support.SupportViewModel" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_gravity="end"
-                    android:orientation="horizontal"
+                android:id="@+id/layHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical|right"
+                android:onClick="@{()-> viewModel.onHistoryClicked()}"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_medium">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_feedback_history" />
+
+                <TextView
+                    style="@style/AppTheme.TextView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:text="Lịch sử (0)" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:text="@string/history"
+                    android:textColor="@color/primary_red" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_high"
+                android:layout_marginRight="@dimen/margin_high"
+                android:orientation="vertical">
+
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginHorizontal="30dp" android:layout_marginVertical="7dp" android:textAlignment="center" android:text="@string/Support_FormTitle"/>
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:hint="Nhập tiêu đề" />
-
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:hint="Nhập phản hồi" />
-
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:hint="096xxxxx85" />
+                    style="@style/AppTheme.TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/support_form_title" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content" android:text="Xoá" />
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_weight="0.5"
-                        android:layout_height="wrap_content" android:text="Gửi" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/ic_drawable_left_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="@dimen/ic_drawable_left_margin_bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_subject" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:theme="@style/AppTheme.TextLabel">
+
+                        <EditText
+                            android:id="@+id/etSubject"
+                            style="@style/AppTheme.TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_subject"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="@={viewModel.subjectFeedback}"
+                            android:textSize="@dimen/text_size_normal" />
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_smallest"
+                    android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
-            android:layout_marginVertical="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
+                    <ImageView
+                        android:layout_width="@dimen/ic_drawable_left_size"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="@dimen/ic_drawable_left_margin_bottom"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_write_message" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:theme="@style/AppTheme.TextLabel">
+
+                        <EditText
+                            android:id="@+id/etFeedbackMessage"
+                            style="@style/AppTheme.TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/enter_feedback"
+                            android:maxLines="4"
+                            android:overScrollMode="always"
+                            android:scrollbarStyle="insideInset"
+                            android:scrollbars="vertical"
+                            android:text="@={viewModel.messageFeedback}"
+                            android:textSize="@dimen/text_size_normal" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/ic_drawable_left_size"
+                        android:layout_height="@dimen/ic_drawable_left_phone_height"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="@dimen/ic_drawable_left_margin_bottom"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_phone" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:hint="@{viewModel.userPhoneHint}"
+                        android:theme="@style/AppTheme.TextLabel">
+
+                        <EditText
+                            android:id="@+id/etPhoneNumber"
+                            style="@style/AppTheme.TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:text="@={viewModel.userPhone}"
+                            android:textSize="@dimen/text_size_normal" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_submit_height"
+                    android:layout_marginTop="@dimen/margin_average"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        style="@style/AppTheme.TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_button_clear"
+                        android:gravity="center"
+                        android:onClick="@{()-> viewModel.onClearClicked()}"
+                        android:text="@string/clear"
+                        android:textColor="@color/primary_red"
+                        android:textSize="@dimen/text_size_big" />
+
+                    <TextView
+                        style="@style/AppTheme.TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_high"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_button"
+                        android:gravity="center"
+                        android:onClick="@{()-> viewModel.onSubmitClicked()}"
+                        android:text="@string/submit"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_big" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textAlignment="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:text="Bấm nút bên dưới để gọi" />
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:text="(028) 38 999 666" />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:background="@color/grey_300" />
 
-    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/grey_200" />
+
+            <TextView
+                style="@style/AppTheme.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:gravity="center_horizontal"
+                android:text="@string/tap_to_call_message" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_submit_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:background="@drawable/rounded_button"
+                android:gravity="center"
+                android:onClick="@{()-> viewModel.onCallSupportCenterClicked()}"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_average"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_call_center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_average"
+                    android:gravity="center"
+                    android:text="@{viewModel.customerSupportPhoneField}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_big" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </layout>

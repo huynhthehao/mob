@@ -99,7 +99,7 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
                     onContractListener.onClicked(getLayoutPosition());
                 }
             });
-            binding.tvPaymentLocation.setOnClickListener(view -> {
+            binding.viewPaymentLocation.setOnClickListener(view -> {
                 if (onContractListener != null) {
                     onContractListener.onLocationClicked(getLayoutPosition());
                 }
@@ -178,53 +178,6 @@ public class ContractRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         void onClicked(int position);
         void onLocationClicked(int position);
         void onSignClicked(int position);
-    }
-
-    @BindingAdapter({"date"})
-    public static void setSingedDate(TextView textView, String signedDate) {
-        if (signedDate == null) return;
-        textView.setText(DateUtils.convertDateFromUTCToSimple(signedDate));
-    }
-
-    @BindingAdapter({"loanamount"})
-    public static void setLoanAmount(TextView textView, Integer loanAmount) {
-        if (loanAmount == null) return;
-        NumberFormat formatter = new DecimalFormat("#,###");
-        String formattedNumber = formatter.format(loanAmount);
-        textView.setText(Html.fromHtml(textView.getContext().getString(R.string.currency, formattedNumber)));
-    }
-
-    @BindingAdapter({"type"})
-    public static void setIcon(ImageView iv, int typeContract) {
-        switch (typeContract) {
-            case HcContract.TYPE_CASH_LOAN:
-                iv.setImageResource(R.drawable.ic_contract_cashloan);
-                break;
-            case HcContract.TYPE_DURABLE:
-                iv.setImageResource(R.drawable.ic_consumer_durable);
-                break;
-            case HcContract.TYPE_CREDIT_CARD:
-                iv.setImageResource(R.drawable.ic_contract_creditcard);
-                break;
-            case HcContract.TYPE_TWO_WHEEL:
-                iv.setImageResource(R.drawable.ic_contract_twowheel);
-                break;
-            default:
-                iv.setImageResource(R.drawable.ic_contract_twowheel);
-                break;
-
-        }
-    }
-
-    @BindingAdapter({"total", "duedate"})
-    public static void setNextPayment(TextView tv, int total, String duedate) {
-        if (TextUtils.isEmpty(duedate)) {
-            return;
-        }
-        NumberFormat formatter = new DecimalFormat("#,###");
-        String formattedNumber = formatter.format(total);
-        String duedateDisplay = DateUtils.convertDateFromUTCToSimple(duedate);
-        tv.setText(Html.fromHtml(tv.getContext().getResources().getString(R.string.nextpayment, formattedNumber, duedateDisplay)));
     }
 
 
