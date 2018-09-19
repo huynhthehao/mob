@@ -29,6 +29,8 @@ public class FingerPrintHelperImpl implements FingerPrintHelper {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 //Fingerprint API only available on from Android 6.0 (M)
                 FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
+                if(fingerprintManager == null)
+                    return FingerPrintAuthValue.NOT_SUPPORT;
 
                 if (!fingerprintManager.isHardwareDetected()) {
                     // Device doesn't support fingerprint authentication
