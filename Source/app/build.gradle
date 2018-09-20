@@ -112,8 +112,8 @@ android {
             buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
             resValue "string", "app_name", "Home Credit Vietnam"
             manifestPlaceholders = [
-                    onesignal_app_id               : '709848ff0d5f450eb6aaef107625bd52',
-                    onesignal_google_project_number: 'REMOTE'
+                    onesignal_app_id               : '6847ae55-baa6-4f7d-84b0-939084cd2efb',
+                    onesignal_google_project_number: '618177657616'
             ]
         }
     }
