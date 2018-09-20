@@ -10,6 +10,9 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.style.ForegroundColorSpan;
 
+import com.crashlytics.android.Crashlytics;
+import com.google.gson.Gson;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -81,24 +84,24 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
         this.aclDataManager = aclDataManager;
     }
 
-    public void setListener(OtpListener listener){
+    public void setListener(OtpListener listener) {
         this.listener = listener;
     }
 
-    private void notifyNext(OtpPassParam passParam){
-        if(this.listener == null)
+    private void notifyNext(OtpPassParam passParam) {
+        if (this.listener == null)
             return;
 
         listener.onNext(passParam);
     }
 
     public void initData(OtpPassParam otpPassParam) {
+        this.otpPassParam = otpPassParam;
         if (otpPassParam != null
                 && otpPassParam.getOtpTimerResp() != null
                 && otpPassParam.getOtpTimerResp().getData() != null) {
             phonePrimary = otpPassParam.getOtpTimerResp().getData().getPrimaryPhone();
         }
-        this.otpPassParam = otpPassParam;
         initData(otpPassParam.getPhoneNumber(), otpPassParam.getContractId(), otpPassParam.getOtpFlow(), otpPassParam.getOtpTimerResp().getData());
     }
 
@@ -108,6 +111,11 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
         this.otpFlow = otpFlow;
         agreementTermVisibile.set(otpFlow == OtpFlow.CASH_LOAN_WALKIN);
         this.otpTimerInfo = otpTimerInfo;
+
+        if (otpTimerInfo == null) {
+            handleUnexpectedError();
+            otpTimerInfo = OtpTimerRespData.getDefault();
+        }
 
         if (inffected)
             _remainingTime = otpTimerInfo.getRemainingTime();
@@ -124,6 +132,11 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
                 resetDisplay();
             }
         }, 0, interval);
+    }
+
+    private void handleUnexpectedError() {
+        // TODO: Apply wrapper log for this, just temporary push this log to server for testing
+        Crashlytics.logException(new Throwable(String.format("UnexpectedError: otpPassParam ~ %s", new Gson().toJson(otpPassParam))));
     }
 
     public void onNextClick() {

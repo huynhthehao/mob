@@ -199,3 +199,7 @@
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;
 }
+
+-keep class android.support.v4.** { *; }
+-keep public class * extends android.support.v4.app.Fragment
+-keep public class * extends android.app.Fragment
