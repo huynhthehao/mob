@@ -101,8 +101,6 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
                 && otpPassParam.getOtpTimerResp() != null
                 && otpPassParam.getOtpTimerResp().getData() != null) {
             phonePrimary = otpPassParam.getOtpTimerResp().getData().getPrimaryPhone();
-        } else {
-            handleUnexpectedError();
         }
         initData(otpPassParam.getPhoneNumber(), otpPassParam.getContractId(), otpPassParam.getOtpFlow(), otpPassParam.getOtpTimerResp().getData());
     }
