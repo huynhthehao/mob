@@ -35,6 +35,14 @@ public class OtpTimerRespData
     @Expose
     private String source;
 
+    public OtpTimerRespData() {}
+
+    private OtpTimerRespData(int remainingTime, int otpLiveTime, int otpTimeResend) {
+        setRemainingTime(remainingTime);
+        setOtpLiveTime(otpLiveTime);
+        setOtpTimeResend(otpTimeResend);
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -94,4 +102,11 @@ public class OtpTimerRespData
                 '}';
     }
 
+    public static OtpTimerRespData getDefault() {
+        return Holder.defaultInstance;
+    }
+
+    private static class Holder {
+        private static OtpTimerRespData defaultInstance = new OtpTimerRespData(297327, 300000, 60000);
+    }
 }
