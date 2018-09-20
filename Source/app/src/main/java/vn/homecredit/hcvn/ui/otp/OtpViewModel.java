@@ -6,7 +6,6 @@
 
 package vn.homecredit.hcvn.ui.otp;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.style.ForegroundColorSpan;
@@ -65,7 +64,6 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
     public ObservableBoolean agreementTermVisibile = new ObservableBoolean(false);
     public ObservableField<String> otp = new ObservableField("");
     public ObservableField<CharSequence> timeCounter = new ObservableField<>();
-    private MutableLiveData<Boolean> shouldFinishApp = new MutableLiveData<>();
     private OtpPassParam otpPassParam;
 
     private OtpListener listener;
@@ -86,12 +84,12 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
         this.aclDataManager = aclDataManager;
     }
 
-    public void setListener(OtpListener listener){
+    public void setListener(OtpListener listener) {
         this.listener = listener;
     }
 
-    private void notifyNext(OtpPassParam passParam){
-        if(this.listener == null)
+    private void notifyNext(OtpPassParam passParam) {
+        if (this.listener == null)
             return;
 
         listener.onNext(passParam);
@@ -104,9 +102,7 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
                 && otpPassParam.getOtpTimerResp().getData() != null) {
             phonePrimary = otpPassParam.getOtpTimerResp().getData().getPrimaryPhone();
         } else {
-            // Stop progress if there is any null data
             handleUnexpectedError();
-            return;
         }
         initData(otpPassParam.getPhoneNumber(), otpPassParam.getContractId(), otpPassParam.getOtpFlow(), otpPassParam.getOtpTimerResp().getData());
     }
@@ -119,9 +115,8 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
         this.otpTimerInfo = otpTimerInfo;
 
         if (otpTimerInfo == null) {
-            // Stop progress if there is any null data
             handleUnexpectedError();
-            return;
+            otpTimerInfo = OtpTimerRespData.getDefault();
         }
 
         if (inffected)
@@ -142,7 +137,6 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
     }
 
     private void handleUnexpectedError() {
-        shouldFinishApp.setValue(true);
         // TODO: Apply wrapper log for this, just temporary push this log to server for testing
         Crashlytics.logException(new Throwable(String.format("UnexpectedError: otpPassParam ~ %s", new Gson().toJson(otpPassParam))));
     }
@@ -182,10 +176,6 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
                 resendOtpForCLW();
                 break;
         }
-    }
-
-    public MutableLiveData<Boolean> getShouldFinishApp() {
-        return shouldFinishApp;
     }
 
     private void verifyOtpMasterContract() {
