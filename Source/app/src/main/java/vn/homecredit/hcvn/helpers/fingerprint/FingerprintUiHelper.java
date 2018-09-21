@@ -46,6 +46,8 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean isFingerprintAuthAvailable() {
+        if (mFingerprintManager == null)
+            return false;
         return mFingerprintManager.isHardwareDetected()
                 && mFingerprintManager.hasEnrolledFingerprints();
     }
@@ -103,7 +105,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
     }
 
 
-    public void startBouncing(){
+    public void startBouncing() {
         Animation bouncingAni = AnimationUtils.loadAnimation(this.context, R.anim.bounce);
         BouncingInterpolator interpolator = new BouncingInterpolator(0.2, 20);
         bouncingAni.setInterpolator(interpolator);
@@ -119,7 +121,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
         messageTextView.removeCallbacks(mResetErrorTextRunnable);
     }
 
-    public void refreshMessage(){
+    public void refreshMessage() {
         messageTextView.setText(context.getResources().getString(R.string.fingerprint_description));
         messageTextView.setTextColor(context.getResources().getColor(R.color.brownishGrey, null));
     }
@@ -136,6 +138,7 @@ public class FingerprintUiHelper extends FingerprintManager.AuthenticationCallba
 
     public interface Callback {
         void onAuthenticated();
+
         void onError();
     }
 }
