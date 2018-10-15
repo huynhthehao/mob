@@ -19,10 +19,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import vn.homecredit.hcvn.HCVNApp;
 import vn.homecredit.hcvn.R;
+import vn.homecredit.hcvn.service.tracking.TrackingService;
 
 
 public abstract class FullscreenDialogFragment extends DialogFragment {
+
+    private TrackingService trackingService;
 
     abstract public int getLayoutId();
 
@@ -39,9 +43,10 @@ public abstract class FullscreenDialogFragment extends DialogFragment {
         AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         alertDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        trackingService = ((HCVNApp) getActivity().getApplication()).getTrackingService();
         return alertDialog;
-
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public abstract class FullscreenDialogFragment extends DialogFragment {
         }
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -61,6 +67,9 @@ public abstract class FullscreenDialogFragment extends DialogFragment {
             WindowManager.LayoutParams layoutParams = getDialog().getWindow().getAttributes();
             layoutParams.dimAmount = 0;
             dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        }
+        if (trackingService != null) {
+            trackingService.sendView(this);
         }
     }
 

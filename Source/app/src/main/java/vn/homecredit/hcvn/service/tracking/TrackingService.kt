@@ -10,7 +10,9 @@ import javax.inject.Singleton
 
 @Singleton
 class TrackingService @Inject
-constructor(private val context: Context, private val gaAnalyticsServiceImpl: AnalyticsService, private val fbAnalyticsService: AnalyticsService) {
+constructor(private val context: Context, private val gaAnalyticsServiceImpl: AnalyticsService,
+            private val fbAnalyticsService: AnalyticsService,
+            private val internalTrackingService: AnalyticsService ) {
 
     private val mapScreen: HashMap<String, Int> = hashMapOf(
             //Home
@@ -60,7 +62,7 @@ constructor(private val context: Context, private val gaAnalyticsServiceImpl: An
     )
 
 
-    private val listServiceImpl = arrayListOf(gaAnalyticsServiceImpl, fbAnalyticsService)
+    private val listServiceImpl = arrayListOf(gaAnalyticsServiceImpl, fbAnalyticsService, internalTrackingService)
 
     fun sendEvent(category: Int, action: Int, label: Int) {
         sendEvent(context.getString(category), context.getString(action), context.getString(label))

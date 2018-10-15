@@ -30,11 +30,11 @@ import javax.inject.Singleton;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.tracking.CommonEventAction;
 import vn.homecredit.hcvn.service.tracking.CommonEventObjectType;
+import vn.homecredit.hcvn.service.tracking.InternalTrackingServiceImpl;
 import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.ui.notification.NotificationType;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.notification.manager.NotificationManager;
-import vn.homecredit.hcvn.ui.notification.manager.NotificationManagerImpl;
 import vn.homecredit.hcvn.ui.notification.model.ClwResult;
 import vn.homecredit.hcvn.ui.notification.model.ClwResultConverter;
 import vn.homecredit.hcvn.ui.notification.model.NotificationAnalyticData;
@@ -47,13 +47,18 @@ public class OneSignalServiceImpl implements OneSignalService {
     private final DeviceInfo mDeviceInfo;
     private PreferencesHelper preferencesHelper;
     private TrackingService trackingService;
+    private InternalTrackingServiceImpl internalTrackingService;
     private NotificationManager notificationManager;
 
     @Inject
-    public OneSignalServiceImpl(DeviceInfo deviceInfo, PreferencesHelper preferencesHelper, TrackingService trackingService, NotificationManager notificationManager) {
+    public OneSignalServiceImpl(DeviceInfo deviceInfo, PreferencesHelper preferencesHelper,
+                                TrackingService trackingService,
+                                InternalTrackingServiceImpl internalTrackingService,
+                                NotificationManager notificationManager) {
         mDeviceInfo = deviceInfo;
         this.preferencesHelper = preferencesHelper;
         this.trackingService = trackingService;
+        this.internalTrackingService = internalTrackingService;
         this.notificationManager = notificationManager;
     }
 
@@ -125,6 +130,12 @@ public class OneSignalServiceImpl implements OneSignalService {
         if (!isReceived)
             eventAction = CommonEventAction.NOTIFICATION_OPENED.getValue();
         trackingService.sendEvent(CommonEventObjectType.NOTIFICATION.getValue(), eventAction, notificationAnalyticData.getUtmContent());
+
+        if (isReceived) {
+            internalTrackingService.notificationReceived(notificationAnalyticData);
+        }else {
+            internalTrackingService.notificationOpened(notificationAnalyticData);
+        }
     }
 
     @Nullable

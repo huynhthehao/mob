@@ -52,6 +52,7 @@ import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.service.VersionServiceImpl;
 import vn.homecredit.hcvn.service.tracking.FBAnalyticsServiceImpl;
 import vn.homecredit.hcvn.service.tracking.GAAnalyticsServiceImpl;
+import vn.homecredit.hcvn.service.tracking.InternalTrackingServiceImpl;
 import vn.homecredit.hcvn.service.tracking.TrackingService;
 import vn.homecredit.hcvn.ui.notification.manager.NotificationManager;
 import vn.homecredit.hcvn.ui.notification.manager.NotificationManagerImpl;
@@ -219,8 +220,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public TrackingService provideTrackService(Context context, GAAnalyticsServiceImpl gaTrackService, FBAnalyticsServiceImpl fbTrackService) {
-        return new TrackingService(context, gaTrackService, fbTrackService);
+    public TrackingService provideTrackService(Context context, GAAnalyticsServiceImpl gaTrackService, FBAnalyticsServiceImpl fbTrackService, InternalTrackingServiceImpl internalTrackingService) {
+        return new TrackingService(context, gaTrackService, fbTrackService, internalTrackingService);
     }
 
     @Provides

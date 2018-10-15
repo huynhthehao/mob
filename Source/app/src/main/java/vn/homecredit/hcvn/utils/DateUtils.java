@@ -4,11 +4,13 @@ package vn.homecredit.hcvn.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class DateUtils {
     public static final String FORMAT_UTC = "yyyy-MM-dd'T'hh:mm:ss";
     public static final String FORMAT_SIMPLE = "dd/MM/yyyy";
+    public static final String FORMAT_SIMPLE_2 = "MM/dd/yyyy";
 
     public static String convertDateFromUTCToSimple(String date) {
         return convertDate(date, FORMAT_UTC, FORMAT_SIMPLE);
@@ -54,5 +56,17 @@ public class DateUtils {
         if (dateEnd == null) return 0;
         long diff = dateEnd.getTime() - System.currentTimeMillis();
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    public static String nowUtc() {
+        SimpleDateFormat utcDateFormat = new SimpleDateFormat(FORMAT_UTC);
+        String displayDate = utcDateFormat.format(System.currentTimeMillis());
+        return displayDate;
+    }
+    public static String nowSimple() {
+        SimpleDateFormat utcDateFormat = new SimpleDateFormat(FORMAT_SIMPLE_2);
+        utcDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String displayDate = utcDateFormat.format(System.currentTimeMillis());
+        return displayDate;
     }
 }
