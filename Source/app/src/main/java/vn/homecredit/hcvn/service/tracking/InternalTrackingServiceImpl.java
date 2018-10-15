@@ -83,7 +83,7 @@ public class InternalTrackingServiceImpl implements AnalyticsService {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(s -> Log.debug("trackingAuthenticated " + s), throwable -> throwable.printStackTrace());
-        }else {
+        } else {
             restService.trackingAnonymous(internalTrackingModel)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -106,7 +106,7 @@ public class InternalTrackingServiceImpl implements AnalyticsService {
             internalTrackingModel.setCuid("");
             internalTrackingModel.setUserId("");
             internalTrackingModel.setUserName("");
-        }else {
+        } else {
             internalTrackingModel.setCuid(profileRespData.getcUID() == null ? "" : profileRespData.getcUID());
             internalTrackingModel.setUserId(profileRespData.getUserId() == null ? "" : profileRespData.getUserId());
             internalTrackingModel.setUserName(profileRespData.getUserName() == null ? "" : profileRespData.getUserName());
