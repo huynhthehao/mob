@@ -11,6 +11,8 @@ import android.util.Base64;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -39,6 +41,8 @@ import vn.homecredit.hcvn.data.model.mapdata.model.payment.PaymentModel;
 import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 import vn.homecredit.hcvn.data.model.offer.ContractOfferResp;
 import vn.homecredit.hcvn.data.model.offer.OfferDetailResp;
+import vn.homecredit.hcvn.data.model.tracking.InternalTrackingModel;
+import vn.homecredit.hcvn.data.model.tracking.TrackingResp;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.OneSignalService;
@@ -343,6 +347,27 @@ public class RestServiceImpl implements RestService {
         return DefaultAndroidNetworking.getWithoutSubscribeOn(url,
                 mApiHeader.getProtectedApiHeader(),
                 OfferDetailResp.class);
+    }
+
+    @Override
+    public Single<TrackingResp> trackingAuthenticated(InternalTrackingModel data) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_TRACKING + String.format("/data"));
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,
+                mApiHeader.getProtectedApiHeader(),
+                data,
+                TrackingResp.class);
+    }
+
+    @Override
+    public Single<TrackingResp> trackingAnonymous(InternalTrackingModel data) {
+        String url = buildUrl(ApiEndPoint.ENDPOINT_TRACKING + String.format("/track"));
+        Map<String,String> headers = new HashMap<>();
+        headers.put("Authorization", "TrackingKey " + mDeviceInfo.trackingKey());
+        headers.put("X-DEVICE-ID", mDeviceInfo.getId());
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url,
+                headers,
+                data,
+                TrackingResp.class);
     }
 
     @Override
