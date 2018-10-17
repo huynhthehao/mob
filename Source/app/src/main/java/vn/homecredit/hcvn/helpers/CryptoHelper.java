@@ -11,11 +11,13 @@ import android.support.annotation.RequiresApi;
 import android.util.Base64;
 
 import com.google.gson.Gson;
+
 import vn.homecredit.hcvn.helpers.entities.Asn1Object;
 import vn.homecredit.hcvn.helpers.entities.DerParser;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.*;
@@ -208,6 +210,30 @@ public final class CryptoHelper {
         KeyFactory kf = KeyFactory.getInstance("RSA");
         RSAPublicKey pubKey = (RSAPublicKey) kf.generatePublic(new X509EncodedKeySpec(encoded));
         return pubKey;
+    }
+
+    public static String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
 
