@@ -13,6 +13,8 @@ import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +23,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
-
+import vn.homecredit.hcvn.HCVNApp;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.helpers.UiHelper;
 
@@ -42,9 +43,10 @@ public class ActionDialogFragment extends DialogFragment {
     private CharSequence messageContent;
     private static final String PRIVATE_TAG = "Action_Dialog";
 
-    private Runnable onActionCalledRunner = () -> {};
-    private Runnable onDismissRunner = () -> {};
+    private Runnable onActionCalledRunner = () -> System.out.print("Action called");
+    private Runnable onDismissRunner = () -> System.out.print("Dismissed");
 
+    @SuppressLint("ValidFragment")
     public ActionDialogFragment(CharSequence messageContent, int actionButtonLabelId, int titleIconId) {
         this.actionButtonLabelId = actionButtonLabelId;
         this.titleIconId = titleIconId;
@@ -52,17 +54,10 @@ public class ActionDialogFragment extends DialogFragment {
         showTitleIcon = true;
     }
 
+    @SuppressLint("ValidFragment")
     public ActionDialogFragment(CharSequence messageContent, int actionButtonLabelId) {
         this.actionButtonLabelId = actionButtonLabelId;
         this.messageContent = messageContent;
-    }
-
-    public ActionDialogFragment() {
-        // TODO Create an empty constructor for fragment. Indeed we should not create any constructor with arguments as above.
-        // TODO Need to review this in develop, just make hotfix for release
-        this("Alert", R.string.ok);
-        // TODO Should change to AppLog in develop branch
-        Crashlytics.logException(new Throwable("When do we use this constructor???"));
     }
 
     @Override
