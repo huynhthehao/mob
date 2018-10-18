@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DateUtils {
     public static final String FORMAT_UTC = "yyyy-MM-dd'T'hh:mm:ss";
+    public static final String FORMAT_UTC2 = "yyyy-MM-dd'T'hh:mm:ss.SSS";
     public static final String FORMAT_SIMPLE = "dd/MM/yyyy";
     public static final String FORMAT_SIMPLE_2 = "MM/dd/yyyy";
 
@@ -59,7 +60,7 @@ public class DateUtils {
     }
 
     public static String nowUtc() {
-        SimpleDateFormat utcDateFormat = new SimpleDateFormat(FORMAT_UTC);
+        SimpleDateFormat utcDateFormat = new SimpleDateFormat(FORMAT_UTC2);
         String displayDate = utcDateFormat.format(System.currentTimeMillis());
         return displayDate;
     }
