@@ -12,8 +12,7 @@ import com.google.gson.annotations.SerializedName;
 import org.parceler.Parcel;
 
 @Parcel
-public class OtpTimerRespData
-{
+public class OtpTimerRespData {
     @SerializedName("PrimaryPhone")
     @Expose
     private String primaryPhone;
@@ -35,7 +34,8 @@ public class OtpTimerRespData
     @Expose
     private String source;
 
-    public OtpTimerRespData() {}
+    public OtpTimerRespData() {
+    }
 
     private OtpTimerRespData(int remainingTime, int otpLiveTime, int otpTimeResend) {
         setRemainingTime(remainingTime);
@@ -89,6 +89,10 @@ public class OtpTimerRespData
 
     public void setPrimaryPhone(String primaryPhone) {
         this.primaryPhone = primaryPhone;
+    }
+
+    public boolean isMissingRequiredData() {
+        return remainingTime == null || otpTimeResend == null || otpLiveTime == null;
     }
 
     @Override
