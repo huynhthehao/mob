@@ -128,7 +128,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
 
     private static String getCurrentLanguageCode(SharedPreferences preferences) {
-        // Comment cause just support vn now, will open later when we support another languages.
+        // Comment cause just support vn nowUtc, will open later when we support another languages.
         /*String langId = mPrefs.getString(PREF_KEY_LANGUAGE_CODE, "");
 
         if (langId != null && !langId.equals(""))

@@ -26,4 +26,6 @@ public interface DeviceInfo {
     String getPushToken();
 
     void setPushToken(String pushToken);
+
+    String trackingKey();
 }
