@@ -52,6 +52,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     // TODO
     // this can probably depend on isLoading variable of BaseViewModel,
     // since its going to be common for all the activities
+    private Observable.OnPropertyChangedCallback loadingChangeCallback;
     protected ProgressDialog mProgressDialog;
     private T mViewDataBinding;
     private V mViewModel;
@@ -178,10 +179,10 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     private void performDataBinding() {
         mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
-        this.mViewModel = mViewModel == null ? getViewModel() : mViewModel;
+        mViewModel = mViewModel == null ? getViewModel() : mViewModel;
         mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
         mViewDataBinding.executePendingBindings();
-        mViewModel.getIsLoading().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        loadingChangeCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (((ObservableBoolean) sender).get()) {
@@ -191,7 +192,8 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                     hideLoading();
                 }
             }
-        });
+        };
+        mViewModel.getIsLoading().addOnPropertyChangedCallback(loadingChangeCallback);
 
         bindModelMessageDialog();
         bindModelMessageByIdDialog();
@@ -211,6 +213,11 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getViewModel().getIsLoading().removeOnPropertyChangedCallback(loadingChangeCallback);
+    }
 
     public void showMessage(String message) {
         UiHelper.showMessage(this, message);
@@ -221,12 +228,9 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         showMessage(message);
     }
 
-
     public void showConfirmMessage(String title, String message, final Consumer<Boolean> onCompleted) {
         UiHelper.showConfirmMessage(this,title, message,onCompleted);
     }
-
-
 
     private void bindModelMessageDialog() {
         getViewModel().getMessageData().observe(this, o -> {
@@ -265,5 +269,4 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
             trackService.sendEvent(category, action, label);
         }
     }
-
 }
