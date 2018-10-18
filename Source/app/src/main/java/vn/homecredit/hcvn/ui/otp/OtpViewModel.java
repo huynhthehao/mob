@@ -112,7 +112,7 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
         agreementTermVisibile.set(otpFlow == OtpFlow.CASH_LOAN_WALKIN);
         this.otpTimerInfo = otpTimerInfo;
 
-        if (otpTimerInfo == null) {
+        if (otpTimerInfo == null || otpTimerInfo.isMissingRequiredData()) {
             handleUnexpectedError();
             otpTimerInfo = OtpTimerRespData.getDefault();
         }
@@ -136,7 +136,10 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
 
     private void handleUnexpectedError() {
         // TODO: Apply wrapper log for this, just temporary push this log to server for testing
-        Crashlytics.logException(new Throwable(String.format("UnexpectedError: otpPassParam ~ %s", new Gson().toJson(otpPassParam))));
+        Gson gson = new Gson();
+        Crashlytics.logException(new Throwable(String.format("UnexpectedError: otpPassParam ~ %s \n timerInfo:%s",
+                gson.toJson(otpPassParam),
+                gson.toJson(otpTimerInfo))));
     }
 
     public void onNextClick() {
