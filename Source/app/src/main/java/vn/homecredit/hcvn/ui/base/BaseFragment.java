@@ -10,7 +10,6 @@
 package vn.homecredit.hcvn.ui.base;
 
 import android.app.ProgressDialog;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -33,9 +32,9 @@ import io.reactivex.functions.Consumer;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.model.message.base.BaseMessage;
 import vn.homecredit.hcvn.helpers.UiHelper;
-import vn.homecredit.hcvn.utils.CommonUtils;
-import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
 import vn.homecredit.hcvn.service.tracking.TrackingService;
+import vn.homecredit.hcvn.ui.welcome.WelcomeActivity;
+import vn.homecredit.hcvn.utils.CommonUtils;
 
 import static java.lang.Boolean.TRUE;
 
@@ -45,6 +44,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private View mRootView;
     private T mViewDataBinding;
     private V mViewModel;
+    private Observable.OnPropertyChangedCallback loadingCallback;
     protected ProgressDialog mProgressDialog;
     @Inject
     TrackingService trackService;
@@ -108,7 +108,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         super.onViewCreated(view, savedInstanceState);
         mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
         mViewDataBinding.executePendingBindings();
-        getViewModel().getIsLoading().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+        loadingCallback = new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 if (((ObservableBoolean) sender).get()) {
@@ -117,7 +117,8 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
                     hideLoading();
                 }
             }
-        });
+        };
+        getViewModel().getIsLoading().addOnPropertyChangedCallback(loadingCallback);
         this.init();
         bindModelConfirmDialog();
         bindModelMessageDialog();
@@ -143,8 +144,8 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private void bindModelConfirmDialog() {
         getViewModel().getConfirmMessageData().observe(this, o -> {
             if (o != null && o instanceof BaseMessage) {
-                BaseMessage messageData =  (BaseMessage) o;
-                showConfirmMessage(messageData.getTitle(),messageData.getContent(),messageData.getOnCompleted());
+                BaseMessage messageData = (BaseMessage) o;
+                showConfirmMessage(messageData.getTitle(), messageData.getContent(), messageData.getOnCompleted());
             }
         });
     }
@@ -185,6 +186,12 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         if (mActivity != null) {
             mActivity.openActivityOnTokenExpire();
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getViewModel().getIsLoading().removeOnPropertyChangedCallback(loadingCallback);
     }
 
     private void performDependencyInjection() {
