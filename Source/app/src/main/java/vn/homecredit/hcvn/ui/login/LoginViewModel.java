@@ -12,6 +12,8 @@ import android.databinding.ObservableField;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import com.crashlytics.android.Crashlytics;
+
 import javax.inject.Inject;
 
 import dagger.Module;
@@ -148,6 +150,7 @@ public class LoginViewModel extends BaseViewModel<LoginListener> {
                             listener.openHomeActivity();
                     }
                 }, throwable -> {
+                    Crashlytics.logException(new Throwable("Login fail!", throwable));
                     setIsLoading(false);
                     handleError(throwable);
                 });

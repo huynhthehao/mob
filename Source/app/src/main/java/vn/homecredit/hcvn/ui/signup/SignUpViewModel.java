@@ -3,6 +3,8 @@ package vn.homecredit.hcvn.ui.signup;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 
+import com.crashlytics.android.Crashlytics;
+
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
@@ -76,6 +78,7 @@ public class SignUpViewModel extends BaseViewModel {
                             }
                         },
                         throwable -> {
+                            Crashlytics.logException(new Throwable("SignUp fail!", throwable));
                             setIsLoading(false);
                             handleError(throwable);
                         });

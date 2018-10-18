@@ -9,6 +9,8 @@
 
 package vn.homecredit.hcvn.ui.splash;
 
+import com.crashlytics.android.Crashlytics;
+
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -61,6 +63,8 @@ public class SplashViewModel extends BaseViewModel<SplashListener> {
                             listener.openWelcomeActivity();
                     }
                 }, throwable -> {
+                    // TODO: Should use AppLog in develop
+                    Crashlytics.logException(new Throwable("checkUpdate Error!", throwable));
                     setIsLoading(false);
                     if(listener != null)
                         listener.retryCheckUpdate();
