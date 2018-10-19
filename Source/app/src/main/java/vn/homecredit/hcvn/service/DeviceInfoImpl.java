@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import timber.log.Timber;
+import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.utils.DateUtils;
 import vn.homecredit.hcvn.utils.Log;
 
@@ -41,7 +42,7 @@ public class DeviceInfoImpl implements DeviceInfo {
     public DeviceInfoImpl(Context context) {
         mContext = context;
         mModel = Build.MODEL;
-        mVersion = Build.VERSION.RELEASE;
+        mVersion = BuildConfig.VERSION_NAME;
         mPlatform = 0;
         mBrand = Build.BRAND;
 
