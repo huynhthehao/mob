@@ -137,7 +137,10 @@ public class RestServiceImpl implements RestService {
         HashMap<String, String> requestBody = new HashMap<>();
         requestBody.put("PhoneNumber", username);
         requestBody.put("ContractNumber", contractsId);
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, OtpTimerResp.class);
+        HashMap<String, String> headers = new HashMap<>();
+        if (mDeviceInfo != null && !TextUtils.isEmpty(mDeviceInfo.getId()))
+            headers.put("X-DEVICE-ID", mDeviceInfo.getId());
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, headers, requestBody, OtpTimerResp.class);
     }
 
     @Override
@@ -176,7 +179,11 @@ public class RestServiceImpl implements RestService {
         requestBody.put("verificationCode", otp);
         requestBody.put("password", password);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/signup");
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, ProfileResp.class);
+
+        HashMap<String, String> headers = new HashMap<>();
+        if (mDeviceInfo != null && !TextUtils.isEmpty(mDeviceInfo.getId()))
+            headers.put("X-DEVICE-ID", mDeviceInfo.getId());
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, headers, requestBody, ProfileResp.class);
     }
 
     @Override
@@ -363,7 +370,8 @@ public class RestServiceImpl implements RestService {
         String url = buildUrl(ApiEndPoint.ENDPOINT_TRACKING + String.format("/track"));
         Map<String,String> headers = new HashMap<>();
         headers.put("Authorization", "TrackingKey " + mDeviceInfo.trackingKey());
-        headers.put("X-DEVICE-ID", mDeviceInfo.getId());
+        if (mDeviceInfo != null && !TextUtils.isEmpty(mDeviceInfo.getId()))
+            headers.put("X-DEVICE-ID", mDeviceInfo.getId());
         return DefaultAndroidNetworking.postWithoutSubscribeOn(url,
                 headers,
                 data,
@@ -410,7 +418,10 @@ public class RestServiceImpl implements RestService {
         requestBody.put("contractNumber", contractsId);
         requestBody.put("verificationCode", otp);
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/signup/verify/otp");
-        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, null, requestBody, OtpTimerResp.class);
+        HashMap<String, String> headers = new HashMap<>();
+        if (mDeviceInfo != null && !TextUtils.isEmpty(mDeviceInfo.getId()))
+            headers.put("X-DEVICE-ID", mDeviceInfo.getId());
+        return DefaultAndroidNetworking.postWithoutSubscribeOn(url, headers, requestBody, OtpTimerResp.class);
     }
 
     @Override

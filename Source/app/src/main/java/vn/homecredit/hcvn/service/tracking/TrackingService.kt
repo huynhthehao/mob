@@ -74,8 +74,10 @@ constructor(private val context: Context, private val gaAnalyticsServiceImpl: An
     }
 
     fun sendView(screen: String?) {
-        Log.debug("GA View $screen")
-        listServiceImpl.forEach { it.sendView(screen ?: "") }
+        val screenPage = screen?.replace("Activity", "Page")
+                ?.replace("Fragment", "Page")
+        Log.debug("GA View $screenPage")
+        listServiceImpl.forEach { it.sendView(screenPage ?: "") }
     }
 
     fun sendView(screenResc: Int) {

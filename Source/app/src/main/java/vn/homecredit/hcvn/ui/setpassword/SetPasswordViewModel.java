@@ -4,6 +4,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableField;
 import android.text.TextUtils;
 
+import com.crashlytics.android.Crashlytics;
+
 import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
@@ -112,6 +114,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                 }, throwable -> {
                     setIsLoading(false);
                     handleError(throwable);
+                    Crashlytics.logException(new Throwable("Forgot Password fail!", throwable));
                 });
         getCompositeDisposable().add(disposable);
     }
@@ -133,6 +136,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                 }, throwable -> {
                     setIsLoading(false);
                     handleError(throwable);
+                    Crashlytics.logException(new Throwable("SignUp & Set Password fail!", throwable));
                 });
         getCompositeDisposable().add(disposable);
     }
