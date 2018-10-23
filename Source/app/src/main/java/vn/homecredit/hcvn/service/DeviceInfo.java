@@ -19,13 +19,11 @@ public interface DeviceInfo {
 
     String getBrandModel();
 
-    String getPlayerId();
-
-    void setPlayerId(String playerId);
-
     String getPushToken();
 
     void setPushToken(String pushToken);
 
     String trackingKey();
+
+    String getPrivateId();
 }

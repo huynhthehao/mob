@@ -56,8 +56,8 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Single<VersionResp> checkUpdate() {
-        if (TextUtils.isEmpty(deviceInfo.getPlayerId())) {
-            mOneSignalService.tryGetPlayerId();
+        if (TextUtils.isEmpty(deviceInfo.getPrivateId())) {
+            mOneSignalService.trygetPrivateId();
         }
         return mRestService.checkUpdate();
     }

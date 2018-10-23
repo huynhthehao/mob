@@ -9,6 +9,7 @@ package vn.homecredit.hcvn.data.remote;
 import android.text.TextUtils;
 import android.util.Base64;
 
+
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
+
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
@@ -83,7 +85,7 @@ public class RestServiceImpl implements RestService {
     public Single<VersionResp> checkUpdate() {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         //TODO: This code in Xamarin was commented. Consider to remove it later
-        requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPlayerId());
+        requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPrivateId());
         requestHeader.put("X-DEVICE-VERSION", mDeviceInfo.getVersion());
         requestHeader.put("X-DEVICE-PLATFORM", RUNTIME_PLATFORM);
         requestHeader.put("X-DEVICE-MODEL", mDeviceInfo.getBrandModel());
@@ -138,8 +140,10 @@ public class RestServiceImpl implements RestService {
         requestBody.put("PhoneNumber", username);
         requestBody.put("ContractNumber", contractsId);
         HashMap<String, String> headers = new HashMap<>();
-        if (mDeviceInfo != null && !TextUtils.isEmpty(mDeviceInfo.getId()))
+        if (mDeviceInfo != null) {
             headers.put("X-DEVICE-ID", mDeviceInfo.getId());
+            headers.put("XX-DEVICE-ID", mDeviceInfo.getPrivateId());
+        }
         return DefaultAndroidNetworking.postWithoutSubscribeOn(url, headers, requestBody, OtpTimerResp.class);
     }
 
@@ -181,8 +185,11 @@ public class RestServiceImpl implements RestService {
         String url = buildUrl(ApiEndPoint.ENDPOINT_APP + "/customer/signup");
 
         HashMap<String, String> headers = new HashMap<>();
-        if (mDeviceInfo != null && !TextUtils.isEmpty(mDeviceInfo.getId()))
+        if (mDeviceInfo != null) {
             headers.put("X-DEVICE-ID", mDeviceInfo.getId());
+            headers.put("XX-DEVICE-ID", mDeviceInfo.getPrivateId());
+        }
+
         return DefaultAndroidNetworking.postWithoutSubscribeOn(url, headers, requestBody, ProfileResp.class);
     }
 
@@ -434,10 +441,13 @@ public class RestServiceImpl implements RestService {
         requestBody.put("amount", requestValue.getAmount());
         requestBody.put("customerNumber", requestValue.getCustomerNumber());
         requestBody.put("contractNumber", requestValue.getContractNumber());
+
         return DefaultAndroidNetworking.postWithoutSubscribeOn(url,
                 mApiHeader.getProtectedApiHeader(), requestBody,
                 MakePaymentResp.class);
     }
+
+
 
     private String buildUrl(String url) {
         if (url == null) return url;

@@ -42,7 +42,7 @@ public class AclValidationViewModel extends AclBaseViewModel<AclValidationNaviga
     public void verifyPersonal(String phoneNumber, String idNumber) {
         setIsLoading(true);
         Disposable newProcess = getAclDataManager()
-                .verifyPersonal(phoneNumber, idNumber, mDeviceInfo.getPlayerId())
+                .verifyPersonal(phoneNumber, idNumber, mDeviceInfo.getPrivateId())
                 .subscribe(response -> {
                     setIsLoading(false);
                     if (response.isVerified()) {

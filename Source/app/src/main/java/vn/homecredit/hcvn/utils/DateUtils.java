@@ -59,11 +59,13 @@ public class DateUtils {
         return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
-    public static String nowUtc() {
+
+    public static String getCurrentUTCTime() {
         SimpleDateFormat utcDateFormat = new SimpleDateFormat(FORMAT_UTC2);
         String displayDate = utcDateFormat.format(System.currentTimeMillis());
         return displayDate;
     }
+
     public static String nowSimple() {
         SimpleDateFormat utcDateFormat = new SimpleDateFormat(FORMAT_SIMPLE_2);
         utcDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));

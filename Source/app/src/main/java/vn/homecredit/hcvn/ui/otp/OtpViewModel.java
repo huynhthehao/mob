@@ -339,7 +339,7 @@ public class OtpViewModel extends BaseViewModel<OtpListener> {
 
     private void resendOtpForCLW() {
         setIsLoading(true);
-        Disposable resendProcess = aclDataManager.verifyPersonal(phoneNumber, contractId, deviceInfo.getPlayerId())
+        Disposable resendProcess = aclDataManager.verifyPersonal(phoneNumber, contractId, deviceInfo.getPrivateId())
                 .subscribe(response -> {
                     setIsLoading(false);
                     if (response.getResponseCode() == 0 || response.getResponseCode() == 64) {

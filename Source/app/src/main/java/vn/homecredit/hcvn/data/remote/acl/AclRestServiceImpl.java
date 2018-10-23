@@ -48,7 +48,7 @@ public class AclRestServiceImpl implements AclRestService {
     public Single<OtpTimerResp> verifyPersonal(String phone, String idNumber, String playerId) {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         // TODO: mDeviceInfo.getId()
-        requestHeader.put("X-DEVICE-ID", mDeviceInfo.getPlayerId());
+        requestHeader.put("X-DEVICE-ID", mDeviceInfo.getPrivateId());
 
         HashMap<String, String> requestBody = new HashMap<String, String>();
         requestBody.put("PhoneNumber", phone);
@@ -66,7 +66,7 @@ public class AclRestServiceImpl implements AclRestService {
         HashMap<String, String> requestBody = new HashMap<String, String>();
         requestBody.put("PhoneNumber", otpPassParam.getPhoneNumber());
         requestBody.put("IdNumber", otpPassParam.getContractId());
-        requestBody.put("DeviceId", mDeviceInfo.getPlayerId());
+        requestBody.put("DeviceId", mDeviceInfo.getPrivateId());
         requestBody.put("Otp", otp);
         requestBody.put("Source", otpPassParam.getOtpTimerResp().getData().getSource());
         String langId = Locale.getDefault().getLanguage();
