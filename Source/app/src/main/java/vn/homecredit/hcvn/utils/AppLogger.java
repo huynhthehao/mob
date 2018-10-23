@@ -64,7 +64,10 @@ public final class AppLogger implements RemoteLoggerKey {
     }
 
     public static Throwable createLog(String key, Object target) {
-        return new Throwable(String.format(FORMAT_KEY, key, asString(target)));
+        String logMessage = String.format(FORMAT_KEY, key, asString(target));
+        if (target instanceof Throwable)
+            return new Throwable(logMessage, (Throwable) target);
+        return new Throwable(logMessage);
     }
 
     public static void w(String s, Object... objects) {
