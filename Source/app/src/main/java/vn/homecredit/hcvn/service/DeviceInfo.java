@@ -19,8 +19,6 @@ public interface DeviceInfo {
 
     String getBrandModel();
 
-    String getPlayerId();
-
     String getPushToken();
 
     void setPushToken(String pushToken);

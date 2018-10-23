@@ -84,11 +84,6 @@ public class DeviceInfoImpl implements DeviceInfo {
         return String.format("%s %s", mBrand, mModel);
     }
 
-    @Override
-    public String getPlayerId() {
-        return getPrivateId();
-    }
-
 
     @Override
     public String getPushToken() {

@@ -20,7 +20,7 @@ public interface OneSignalService {
     void deleteTag(String key);
     String jsonString(Object object);
 
-    void tryGetPlayerId();
+    void trygetPrivateId();
 
     void notificationReceived(Context context, OSNotification notification);
 

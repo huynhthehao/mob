@@ -85,7 +85,7 @@ public class RestServiceImpl implements RestService {
     public Single<VersionResp> checkUpdate() {
         HashMap<String, String> requestHeader = new HashMap<String, String>();
         //TODO: This code in Xamarin was commented. Consider to remove it later
-        requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPlayerId());
+        requestHeader.put("X-PLAYER-ID", mDeviceInfo.getPrivateId());
         requestHeader.put("X-DEVICE-VERSION", mDeviceInfo.getVersion());
         requestHeader.put("X-DEVICE-PLATFORM", RUNTIME_PLATFORM);
         requestHeader.put("X-DEVICE-MODEL", mDeviceInfo.getBrandModel());

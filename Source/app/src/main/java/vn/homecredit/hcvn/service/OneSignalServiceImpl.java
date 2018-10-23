@@ -83,7 +83,7 @@ public class OneSignalServiceImpl implements OneSignalService {
     }
 
     @Override
-    public void tryGetPlayerId() {
+    public void trygetPrivateId() {
         OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
         String token = status.getSubscriptionStatus().getPushToken();
         deviceInfo.setPushToken(token);
