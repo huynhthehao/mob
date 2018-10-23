@@ -9,10 +9,15 @@
 
 package vn.homecredit.hcvn.utils;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+
 import timber.log.Timber;
 import vn.homecredit.hcvn.BuildConfig;
 
-public final class AppLogger {
+public final class AppLogger implements RemoteLoggerKey {
+    private static final String FORMAT_KEY = "%s ~ %s";
+    private static Gson gson;
 
     private AppLogger() {
         // This utility class is not publicly instantiable
@@ -43,9 +48,23 @@ public final class AppLogger {
     }
 
     public static void init() {
+        if (gson == null)
+            gson = new Gson();
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
+    }
+
+    private static String asString(Object target) {
+        try {
+            return gson.toJson(target);
+        } catch (JsonIOException e) {
+            return target + ":" + e.getMessage();
+        }
+    }
+
+    public static Throwable createLog(String key, Object target) {
+        return new Throwable(String.format(FORMAT_KEY, key, asString(target)));
     }
 
     public static void w(String s, Object... objects) {

@@ -21,6 +21,7 @@ import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.data.DataManager;
 import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.AppLogger;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SplashViewModel extends BaseViewModel<SplashListener> {
@@ -64,7 +65,7 @@ public class SplashViewModel extends BaseViewModel<SplashListener> {
                     }
                 }, throwable -> {
                     // TODO: Should use AppLog in develop
-                    Crashlytics.logException(new Throwable("checkUpdate Error!", throwable));
+                    Crashlytics.logException(AppLogger.createLog(AppLogger.CHECK_UPDATE_FAIL, throwable));
                     setIsLoading(false);
                     if(listener != null)
                         listener.retryCheckUpdate();

@@ -15,6 +15,7 @@ import vn.homecredit.hcvn.data.model.OtpPassParam;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.AppLogger;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SetPasswordViewModel extends BaseViewModel {
@@ -114,7 +115,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                 }, throwable -> {
                     setIsLoading(false);
                     handleError(throwable);
-                    Crashlytics.logException(new Throwable("Forgot Password fail!", throwable));
+                    Crashlytics.logException(AppLogger.createLog(AppLogger.FORGOT_PWD_FAIL, throwable));
                 });
         getCompositeDisposable().add(disposable);
     }
@@ -136,7 +137,7 @@ public class SetPasswordViewModel extends BaseViewModel {
                 }, throwable -> {
                     setIsLoading(false);
                     handleError(throwable);
-                    Crashlytics.logException(new Throwable("SignUp & Set Password fail!", throwable));
+                    Crashlytics.logException(AppLogger.createLog(AppLogger.SIGN_UP_FAIL, throwable));
                 });
         getCompositeDisposable().add(disposable);
     }

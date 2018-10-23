@@ -20,8 +20,13 @@ public class HcApiException extends Throwable {
     public static final int ERROR_UNKNOWN = 1;
     private int errorResponseCode;
     private String errorResponseMessage;
+    /**
+     * Just add this variable for remote logging because we'll transform original throwable to local throwable
+     */
+    private Throwable serverThrowable;
 
     public HcApiException(Throwable throwable, Class clazz) {
+        serverThrowable = throwable;
         mapException(throwable, clazz);
     }
 
