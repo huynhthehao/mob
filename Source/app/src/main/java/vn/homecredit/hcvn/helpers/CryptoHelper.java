@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import vn.homecredit.hcvn.helpers.entities.Asn1Object;
 import vn.homecredit.hcvn.helpers.entities.DerParser;
+import vn.homecredit.hcvn.utils.StringUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -212,28 +213,64 @@ public final class CryptoHelper {
         return pubKey;
     }
 
-    public static String md5(final String s) {
-        final String MD5 = "MD5";
-        try {
-            // Create MD5 Hash
-            MessageDigest digest = java.security.MessageDigest.getInstance(MD5);
-            digest.update(s.getBytes());
-            byte messageDigest[] = digest.digest();
+    public static String getMd5Hash(final String inputString) {
+        final String encryptType = "MD5";
+        return getEncryptHash(inputString, encryptType);
+    }
 
-            // Create Hex String
-            StringBuilder hexString = new StringBuilder();
-            for (byte aMessageDigest : messageDigest) {
-                String h = Integer.toHexString(0xFF & aMessageDigest);
-                while (h.length() < 2)
-                    h = "0" + h;
-                hexString.append(h);
-            }
-            return hexString.toString();
+    public static String getSha1Hash(final String inputString)
+    {
+        final String encryptType = "SHA-1";
+        return getEncryptHash(inputString, encryptType);
+    }
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+    private static String getEncryptHash(final String inputString, final String encryptType)
+    {
+        try
+        {
+            MessageDigest digest = MessageDigest.getInstance(encryptType);
+            digest.reset();
+            digest.update(inputString.getBytes("UTF-8"));
+            return getHexString(digest.digest());
         }
-        return "";
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private static String getHexString(final byte[] inputHash) {
+        StringBuilder hexString = new StringBuilder();
+        for (byte aMessageDigest : inputHash) {
+            String h = Integer.toHexString(0xFF & aMessageDigest);
+            while (h.length() < 2)
+                h = "0" + h;
+            hexString.append(h);
+        }
+        return hexString.toString();
+    }
+
+    public static String splitStringWithChar(String input, int numberOfSeparator) {
+        char separator = '-';
+        byte separatorLength = 6;
+
+        if (StringUtils.isNullOrWhiteSpace(input))
+            return input;
+
+        input = input.trim();
+        String result = String.valueOf(input.charAt(0));
+        int separatorCount = 0;
+
+        for (int i = 1; i < input.length(); i++) {
+            if (i % separatorLength == 0) {
+                if (separatorCount++ < numberOfSeparator)
+                    result = result + separator;
+            }
+            result = result + input.charAt(i);
+        }
+
+        return result;
     }
 }
 
