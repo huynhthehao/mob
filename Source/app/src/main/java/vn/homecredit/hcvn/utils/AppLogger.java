@@ -14,6 +14,7 @@ import com.google.gson.JsonIOException;
 
 import timber.log.Timber;
 import vn.homecredit.hcvn.BuildConfig;
+import vn.homecredit.hcvn.data.model.api.HcApiException;
 
 public final class AppLogger implements RemoteLoggerKey {
     private static final String FORMAT_KEY = "%s ~ %s";
@@ -65,8 +66,13 @@ public final class AppLogger implements RemoteLoggerKey {
 
     public static Throwable createLog(String key, Object target) {
         String logMessage = String.format(FORMAT_KEY, key, asString(target));
-        if (target instanceof Throwable)
-            return new Throwable(logMessage, (Throwable) target);
+        if (target instanceof Throwable) {
+            Throwable exception = null;
+            if (target instanceof HcApiException)
+                exception = ((HcApiException) target).getInternalError();
+            if (exception == null) exception = (Throwable) target;
+            return new Throwable(logMessage, exception);
+        }
         return new Throwable(logMessage);
     }
 

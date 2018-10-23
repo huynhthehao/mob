@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.androidnetworking.error.ANError;
 
-import java.io.IOException;
 import java.net.UnknownHostException;
 
 import vn.homecredit.hcvn.HCVNApp;
@@ -23,10 +22,11 @@ public class HcApiException extends Throwable {
     /**
      * Just add this variable for remote logging because we'll transform original throwable to local throwable
      */
-    private Throwable serverThrowable;
+    private transient Throwable internalError;
+    private String serverError;
 
     public HcApiException(Throwable throwable, Class clazz) {
-        serverThrowable = throwable;
+        internalError = throwable;
         mapException(throwable, clazz);
     }
 
@@ -43,8 +43,13 @@ public class HcApiException extends Throwable {
         return errorResponseMessage;
     }
 
+    public Throwable getInternalError() {
+        return internalError;
+    }
+
     private<T> void mapException(Throwable throwable, Class<T> clazz) {
         if (throwable instanceof ANError) {
+            serverError = ((ANError) throwable).getErrorBody();
             if (((ANError) throwable).getErrorCode() == ERROR_CODE_UNAUTHORIZED) {
                 errorResponseCode = ERROR_CODE_UNAUTHORIZED;
                 errorResponseMessage = ((ANError) throwable).getErrorBody();
