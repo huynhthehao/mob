@@ -21,11 +21,11 @@ public interface DeviceInfo {
 
     String getPlayerId();
 
-    void setPlayerId(String playerId);
-
     String getPushToken();
 
     void setPushToken(String pushToken);
 
     String trackingKey();
+
+    String getPrivateId();
 }

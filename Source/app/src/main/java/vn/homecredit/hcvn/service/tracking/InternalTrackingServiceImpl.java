@@ -1,14 +1,11 @@
 package vn.homecredit.hcvn.service.tracking;
 
-import android.os.Build;
-
 import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.tracking.InternalTrackingModel;
 import vn.homecredit.hcvn.data.remote.RestService;
@@ -18,7 +15,6 @@ import vn.homecredit.hcvn.ui.notification.model.NotificationAnalyticData;
 import vn.homecredit.hcvn.utils.DateUtils;
 import vn.homecredit.hcvn.utils.Log;
 import vn.homecredit.hcvn.utils.StringUtils;
-import vn.homecredit.hcvn.utils.TimeHelper;
 
 public class InternalTrackingServiceImpl implements AnalyticsService {
 
@@ -111,7 +107,7 @@ public class InternalTrackingServiceImpl implements AnalyticsService {
             internalTrackingModel.setUserId(profileRespData.getUserId() == null ? "" : profileRespData.getUserId());
             internalTrackingModel.setUserName(profileRespData.getUserName() == null ? "" : profileRespData.getUserName());
         }
-        internalTrackingModel.setActionTime(DateUtils.nowUtc());
+        internalTrackingModel.setActionTime(DateUtils.getCurrentUTCTime());
         internalTrackingModel.setDeviceModel(deviceInfo.getModel());
         internalTrackingModel.setDeviceBrand(deviceInfo.getBrand());
         internalTrackingModel.setDeviceId(deviceInfo.getId());

@@ -11,18 +11,14 @@ import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import timber.log.Timber;
 import vn.homecredit.hcvn.BuildConfig;
+import vn.homecredit.hcvn.helpers.CryptoHelper;
 import vn.homecredit.hcvn.utils.DateUtils;
-import vn.homecredit.hcvn.utils.Log;
-
-import static vn.homecredit.hcvn.helpers.CryptoHelper.md5;
+import vn.homecredit.hcvn.utils.StringUtils;
 
 @Singleton
 public class DeviceInfoImpl implements DeviceInfo {
@@ -31,11 +27,11 @@ public class DeviceInfoImpl implements DeviceInfo {
 
     private final Context mContext;
     private String mId;
+    private String privateId;
     private String mModel;
     private int mPlatform;
     private String mVersion;
     private String mBrand;
-    private String mPlayerId;
     private String mPushToken;
 
     @Inject
@@ -45,8 +41,6 @@ public class DeviceInfoImpl implements DeviceInfo {
         mVersion = BuildConfig.VERSION_NAME;
         mPlatform = 0;
         mBrand = Build.BRAND;
-
-        mPlayerId = "";
         mPushToken = "";
     }
 
@@ -57,10 +51,11 @@ public class DeviceInfoImpl implements DeviceInfo {
 
         try {
             mId = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+            return mId;
         } catch (Exception ex) {
             Timber.w("DeviceInfo: Unable to get id: %s", ex.toString());
+            return "";
         }
-        return "";
     }
 
 
@@ -91,13 +86,9 @@ public class DeviceInfoImpl implements DeviceInfo {
 
     @Override
     public String getPlayerId() {
-        return mPlayerId;
+        return getPrivateId();
     }
 
-    @Override
-    public void setPlayerId(String playerId) {
-        mPlayerId = playerId;
-    }
 
     @Override
     public String getPushToken() {
@@ -114,7 +105,22 @@ public class DeviceInfoImpl implements DeviceInfo {
         String deviceId = getId();
         String date = DateUtils.nowSimple();
         String key = String.format("%s|%s|%s", PREFIX_KEY, date, deviceId);
-        return md5(key);
+        return CryptoHelper.getMd5Hash(key);
     }
 
+    @Override
+    public String getPrivateId(){
+        if(!StringUtils.isNullOrWhiteSpace(privateId))
+            return privateId;
+
+        String deviceId = getId();
+        deviceId = String.format("%s-%s-%s-%s",
+                Build.MODEL,
+                Build.FINGERPRINT,
+                Build.PRODUCT,
+                deviceId);
+        String hashId = CryptoHelper.getSha1Hash(deviceId);
+        privateId = CryptoHelper.splitStringWithChar(hashId, 5);
+        return privateId;
+    }
 }

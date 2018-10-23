@@ -44,7 +44,7 @@ import vn.homecredit.hcvn.ui.notification.model.OfferModel;
 
 @Singleton
 public class OneSignalServiceImpl implements OneSignalService {
-    private final DeviceInfo mDeviceInfo;
+    private final DeviceInfo deviceInfo;
     private PreferencesHelper preferencesHelper;
     private TrackingService trackingService;
     private InternalTrackingServiceImpl internalTrackingService;
@@ -55,7 +55,7 @@ public class OneSignalServiceImpl implements OneSignalService {
                                 TrackingService trackingService,
                                 InternalTrackingServiceImpl internalTrackingService,
                                 NotificationManager notificationManager) {
-        mDeviceInfo = deviceInfo;
+        this.deviceInfo = deviceInfo;
         this.preferencesHelper = preferencesHelper;
         this.trackingService = trackingService;
         this.internalTrackingService = internalTrackingService;
@@ -85,10 +85,8 @@ public class OneSignalServiceImpl implements OneSignalService {
     @Override
     public void tryGetPlayerId() {
         OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
-        String userID = status.getSubscriptionStatus().getUserId();
         String token = status.getSubscriptionStatus().getPushToken();
-        mDeviceInfo.setPlayerId(userID);
-        mDeviceInfo.setPushToken(token);
+        deviceInfo.setPushToken(token);
     }
 
     @Override
