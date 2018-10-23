@@ -44,7 +44,7 @@ public class SplashViewModel extends BaseViewModel<SplashListener> {
     @Override
     public void init() {
         super.init();
-        mOneSignalService.tryGetPlayerId();
+        mOneSignalService.trygetPrivateId();
         checkUpdate();
     }
 
