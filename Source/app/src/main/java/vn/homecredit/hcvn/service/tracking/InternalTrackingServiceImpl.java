@@ -92,6 +92,7 @@ public class InternalTrackingServiceImpl implements AnalyticsService {
         internalTrackingModel.setCategory(CATEGORY_PAGE);
         internalTrackingModel.setAction(ACTION_PAGE_APPEAR);
         internalTrackingModel.setLabel(screen);
+        internalTrackingModel.setPage(screen);
         processTracking(internalTrackingModel);
     }
 
@@ -107,6 +108,10 @@ public class InternalTrackingServiceImpl implements AnalyticsService {
             internalTrackingModel.setUserId(profileRespData.getUserId() == null ? "" : profileRespData.getUserId());
             internalTrackingModel.setUserName(profileRespData.getUserName() == null ? "" : profileRespData.getUserName());
         }
+        if (deviceInfo == null) {
+            return internalTrackingModel;
+        }
+        internalTrackingModel.setDeviceName(deviceInfo.getModel());
         internalTrackingModel.setActionTime(DateUtils.getCurrentUTCTime());
         internalTrackingModel.setDeviceModel(deviceInfo.getModel());
         internalTrackingModel.setDeviceBrand(deviceInfo.getBrand());
