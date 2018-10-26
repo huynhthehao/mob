@@ -3,9 +3,6 @@ package vn.homecredit.hcvn.ui.home;
 import android.content.Context;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
