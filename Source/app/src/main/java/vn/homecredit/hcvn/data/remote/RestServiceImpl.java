@@ -9,10 +9,6 @@ package vn.homecredit.hcvn.data.remote;
 import android.text.TextUtils;
 import android.util.Base64;
 
-import com.androidnetworking.common.Priority;
-import com.rx2androidnetworking.Rx2ANRequest;
-
-import java.io.File;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,11 +52,9 @@ import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 import vn.homecredit.hcvn.ui.payment.model.MakePaymentRequestValue;
 import vn.homecredit.hcvn.ui.payment.model.MakePaymentResp;
 
-//import vn.homecredit.hcvn.data.model.momo.RePaymentResp;
 
 @Singleton
 public class RestServiceImpl implements RestService {
-
     public static final String RUNTIME_PLATFORM = "Android";
     private final boolean useMock;
     private ApiHeader mApiHeader;

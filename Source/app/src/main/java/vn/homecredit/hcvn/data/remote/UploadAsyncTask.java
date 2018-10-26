@@ -1,10 +1,7 @@
 package vn.homecredit.hcvn.data.remote;
 
-
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,7 +22,6 @@ public class UploadAsyncTask extends AsyncTask<Void, Integer, String> {
 
     HttpClient httpClient = new DefaultHttpClient();
     private Context context;
-    private ProgressDialog progressDialog;
     private String url;
     private String filePath;
     private Map<String, String> bodyParams = null;
@@ -108,7 +104,6 @@ public class UploadAsyncTask extends AsyncTask<Void, Integer, String> {
             }
         } catch (UnsupportedEncodingException | ClientProtocolException e) {
             e.printStackTrace();
-            Log.e("UPLOAD", e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

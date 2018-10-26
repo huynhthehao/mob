@@ -23,18 +23,16 @@ import vn.homecredit.hcvn.data.model.LanguageCode;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.VersionResp;
 import vn.homecredit.hcvn.di.PreferenceInfo;
-import vn.homecredit.hcvn.utils.CountryValue;
 import vn.homecredit.hcvn.utils.StringUtils;
 
 public class AppPreferencesHelper implements PreferencesHelper {
 
     // Do not edit these keys
     public static final String PREF_KEY_LOGGED_ON_INFO = "logged_on_user_key_";
-    public static final String PREF_KEY_LOGGED_ON_User = "logged_on_user";
+    public static final String PREF_KEY_LOGGED_ON_USER = "logged_on_user";
     public static final String PREF_KEY_FINGERPRINT_ENABLE = "touch_id_enable_";
     public static final String PREF_KEY_FINGERPRINT_SETTING = "touch_id_setting_";
-
-    public static final String PREF_KEY_CREDO_CONSENT_STATUS = "credo_consent_status_";
+    public static final String PREF_KEY_CREDO_CONSENT_STATUS = "CREDO_CONSENT_STATUS_";
 
 
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
@@ -154,13 +152,13 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public boolean getNotificationSetting() {
-        String currentUserPhoneNumber = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String currentUserPhoneNumber = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_USER, String.class);
         return mPrefs.getBoolean(PREF_KEY_NOTIFICATION_SETTING + currentUserPhoneNumber, true);
     }
 
     @Override
     public void setNotificationSetting(boolean isEnable) {
-        String currentUserPhoneNumber = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String currentUserPhoneNumber = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_USER, String.class);
         mPrefs.edit().putBoolean(PREF_KEY_NOTIFICATION_SETTING + currentUserPhoneNumber, isEnable).commit();
     }
 
@@ -199,7 +197,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
     }
 
     public boolean getFingerPrintSetting() {
-        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_USER, String.class);
         String key = PREF_KEY_FINGERPRINT_SETTING + currentUser;
         return mPrefs.getBoolean(key, false);
     }
@@ -207,7 +205,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setFingerPrintSetting(boolean isEnable) {
-        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_USER, String.class);
         String key = PREF_KEY_FINGERPRINT_SETTING + currentUser;
         mPrefs.edit().putBoolean(key, isEnable).commit();
     }
@@ -215,28 +213,28 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
     @Override
     public void setFingerprintEnableStatus() {
-        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_USER, String.class);
         String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
         saveObject(key, "1");
     }
 
     @Override
     public String getFingerprintEnableStatus() {
-        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_USER, String.class);
         String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
         return getObject(key, String.class);
     }
 
     @Override
     public void setCredoConsentStatus() {
-        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_USER, String.class);
         String key = PREF_KEY_CREDO_CONSENT_STATUS + currentUser;
         saveObject(key, "1");
     }
 
     @Override
     public String getCredoConsentStatus() {
-        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_USER, String.class);
         String key = PREF_KEY_CREDO_CONSENT_STATUS + currentUser;
         return getObject(key, String.class);
     }
