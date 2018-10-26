@@ -105,8 +105,8 @@ android {
 
         product {
             dimension "mode"
-            versionName "2.0.3"
-            versionCode 69
+            versionName "2.0.4"
+            versionCode 70
             applicationId "vn.homecredit.hcvn"
             buildConfigField "String", "APPCENTER_SECRET", '"fe79a2d9-dcb4-4e67-9152-ae1c7a992704"'
             buildConfigField "String", "BASE_URL", '"https://onlineapi.homecredit.vn"'
