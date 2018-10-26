@@ -222,8 +222,11 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             requestPermissions.add(READ_PHONE_STATE);
         }
 
-        if(requestPermissions.size() < 1)
+        // In case all permissions have been granted in current app
+        if(requestPermissions.size() < 1) {
+            homeViewModel.collectAndSentCredoData(getApplicationContext());
             return;
+        }
 
         String[] permissionRequestArray = new String[requestPermissions.size()];
         permissionRequestArray = requestPermissions.toArray(permissionRequestArray);
