@@ -59,6 +59,10 @@ public interface PreferencesHelper {
 
     String getFingerprintEnableStatus();
 
+    String getCredoConsentStatus();
+
+    void setCredoConsentStatus();
+
     void setCurrentBadgeCount(int currentBadgeCount);
 
     int getCurrentBadgeCount();

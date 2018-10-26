@@ -11,14 +11,14 @@ package vn.homecredit.hcvn.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.style.StyleSpan;
 import android.view.Menu;
@@ -26,15 +26,14 @@ import android.view.MenuItem;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import vn.homecredit.hcvn.R;
-import vn.homecredit.hcvn.data.model.api.ProfileResp;
 import vn.homecredit.hcvn.data.model.api.contract.HcContract;
 import vn.homecredit.hcvn.data.model.enums.FirstComeFlow;
 import vn.homecredit.hcvn.data.repository.NotificationRepository;
@@ -42,6 +41,7 @@ import vn.homecredit.hcvn.databinding.ActivityHomeBinding;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseActivity;
 import vn.homecredit.hcvn.ui.contract.scheduleDetail.ScheduleDetailActivity;
+import vn.homecredit.hcvn.ui.credo.CredoConsentDialogFragment;
 import vn.homecredit.hcvn.ui.custom.ActionDialogFragment;
 import vn.homecredit.hcvn.ui.notification.NotificationsFragment;
 import vn.homecredit.hcvn.ui.notification.model.OfferModel;
@@ -50,12 +50,18 @@ import vn.homecredit.hcvn.ui.payment.momo.whichContract.WhichContractActivity;
 import vn.homecredit.hcvn.ui.settings.SettingsActivity;
 import vn.homecredit.hcvn.utils.SpanBuilder;
 
+import static android.Manifest.permission.READ_CONTACTS;
+import static android.Manifest.permission.READ_PHONE_STATE;
+import static android.Manifest.permission.READ_SMS;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewModel> implements DashBoardDialogFragment.OnDashboardClicked,
         ViewPager.OnPageChangeListener, NotificationsFragment.OnNotificationCountListener, HomeExtraMothodsListener {
     public static final String BUNDLE_SHOW_DASHBOARD = "BUNDLE_SHOW_DASHBOARD";
     public static final String BUNDLE_SELECT_NOTIFICATION_TAB = "BUNDLE_SELECT_NOTIFICATION_TAB";
     DialogFragment dashboardFragment;
     public static final String BUNDLE_SHOW_FIRSTCOME = "BUNDLE_SHOW_FIRSTCOME";
+    private final int REQUEST_CODE = 1;
 
     @Inject
     HomeViewModel homeViewModel;
@@ -184,19 +190,49 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding, HomeViewMode
             showDashboard(getString(R.string.hello), homeViewModel.getUserName());
         }
 
-        if (!homeViewModel.canShowFingerprintGuiding())
+        if (homeViewModel.canShowFingerprintGuiding()) {
+            int bundleValue = getIntent().getIntExtra(BUNDLE_SHOW_FIRSTCOME, FirstComeFlow.AFTER_LOGIN.getValue());
+            FirstComeFlow firstComeFlow = FirstComeFlow.parse(bundleValue);
+            ActionDialogFragment.showDialog(getFragmentManager(),
+                    getFirstComeDialogContent(firstComeFlow),
+                    R.string.setting_goto,
+                    R.drawable.ic_finger_print_red,
+                    () -> {
+                        Intent intent = SettingsActivity.newIntent(getBaseContext());
+                        startActivity(intent);
+                    });
+        }
+
+        if(homeViewModel.canShowCredoConsentDialog())
+            CredoConsentDialogFragment.showDialog(getFragmentManager(),() -> checkAndGetPermissions());
+    }
+
+
+    private void checkAndGetPermissions() {
+        List<String> requestPermissions = new ArrayList<>();
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), READ_CONTACTS) != PERMISSION_GRANTED) {
+            requestPermissions.add(READ_CONTACTS);
+        }
+
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), READ_SMS) != PERMISSION_GRANTED) {
+            requestPermissions.add(READ_SMS);
+        }
+
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), READ_PHONE_STATE) != PERMISSION_GRANTED) {
+            requestPermissions.add(READ_PHONE_STATE);
+        }
+
+        if(requestPermissions.size() < 1)
             return;
 
-        int bundleValue = getIntent().getIntExtra(BUNDLE_SHOW_FIRSTCOME, FirstComeFlow.AFTER_LOGIN.getValue());
-        FirstComeFlow firstComeFlow = FirstComeFlow.parse(bundleValue);
-        ActionDialogFragment.showDialog(getFragmentManager(),
-                getFirstComeDialogContent(firstComeFlow),
-                R.string.setting_goto,
-                R.drawable.ic_finger_print_red,
-                () -> {
-                    Intent intent = SettingsActivity.newIntent(getBaseContext());
-                    startActivity(intent);
-                });
+        String[] permissionRequestArray = new String[requestPermissions.size()];
+        permissionRequestArray = requestPermissions.toArray(permissionRequestArray);
+        ActivityCompat.requestPermissions(this, permissionRequestArray, REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[],int[] grantResults) {
+        homeViewModel.collectAndSentCredoData(getApplicationContext());
     }
 
 

@@ -6,7 +6,10 @@
 
 package vn.homecredit.hcvn.data.remote;
 
-import java.util.List;
+import com.androidnetworking.common.ANRequest;
+
+import java.io.File;
+import java.util.Map;
 
 import io.reactivex.Single;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
@@ -38,7 +41,7 @@ import vn.homecredit.hcvn.ui.notification.model.NotificationResp;
 import vn.homecredit.hcvn.ui.payment.model.MakePaymentRequestValue;
 import vn.homecredit.hcvn.ui.payment.model.MakePaymentResp;
 
-public interface RestService extends RestUrl {
+public interface RestService{
     //Account
     Single<VersionResp> checkUpdate();
 
@@ -90,6 +93,8 @@ public interface RestService extends RestUrl {
     Single<RePaymentResp> getRePayment(String contractId);
 
     Single<MakePaymentResp> makePaymentForMomo(MakePaymentRequestValue requestValue);
+
+    Map<String, String> getApiAuthHeaders(boolean includeDeviceId);
 
     //Support
     Single<SupportResp> submitFeedback(String subject, String description, String phoneNumber, String contractId);
