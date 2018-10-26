@@ -24,6 +24,7 @@ import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.helpers.fingerprint.FingerPrintHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
+import vn.homecredit.hcvn.utils.AppLogger;
 import vn.homecredit.hcvn.utils.FingerPrintAuthValue;
 import vn.homecredit.hcvn.utils.StringUtils;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
@@ -142,6 +143,7 @@ public class LoginViewModel extends BaseViewModel<LoginListener> {
                         return;
 
                     if (profileResp.getResponseCode() != 0) {
+                        Crashlytics.logException(AppLogger.createLog(AppLogger.LOGIN_FAIL, profileResp));
                         showMessage(profileResp.getResponseMessage());
                     } else {
                         accountRepository.saveLoginInfo(phoneNumber, password);
@@ -150,7 +152,7 @@ public class LoginViewModel extends BaseViewModel<LoginListener> {
                             listener.openHomeActivity();
                     }
                 }, throwable -> {
-                    Crashlytics.logException(new Throwable("Login fail!", throwable));
+                    Crashlytics.logException(AppLogger.createLog(AppLogger.LOGIN_FAIL, throwable));
                     setIsLoading(false);
                     handleError(throwable);
                 });

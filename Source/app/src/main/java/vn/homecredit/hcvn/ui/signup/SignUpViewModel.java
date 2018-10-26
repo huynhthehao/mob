@@ -10,12 +10,12 @@ import javax.inject.Inject;
 import io.reactivex.disposables.Disposable;
 import vn.homecredit.hcvn.R;
 import vn.homecredit.hcvn.data.DataManager;
-import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.model.OtpPassParam;
+import vn.homecredit.hcvn.data.model.enums.OtpFlow;
 import vn.homecredit.hcvn.data.repository.AccountRepository;
 import vn.homecredit.hcvn.ui.base.BaseViewModel;
 import vn.homecredit.hcvn.utils.AppConstants;
-import vn.homecredit.hcvn.utils.Log;
+import vn.homecredit.hcvn.utils.AppLogger;
 import vn.homecredit.hcvn.utils.rx.SchedulerProvider;
 
 public class SignUpViewModel extends BaseViewModel {
@@ -78,7 +78,7 @@ public class SignUpViewModel extends BaseViewModel {
                             }
                         },
                         throwable -> {
-                            Crashlytics.logException(new Throwable("SignUp fail!", throwable));
+                            Crashlytics.logException(AppLogger.createLog(AppLogger.SIGN_UP_FAIL, throwable));
                             setIsLoading(false);
                             handleError(throwable);
                         });
