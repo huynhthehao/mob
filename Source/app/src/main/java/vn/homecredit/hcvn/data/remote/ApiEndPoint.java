@@ -18,5 +18,4 @@ public final class ApiEndPoint {
     public static final String ENDPOINT_TRACKING = BuildConfig.BASE_URL + "/api/analytic";
 
     public static final String ENDPOINT_PAYOO = "https://payoo.vn/map/public/getnearshop?";
-
 }

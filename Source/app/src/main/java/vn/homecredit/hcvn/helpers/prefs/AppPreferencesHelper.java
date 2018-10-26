@@ -34,6 +34,8 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public static final String PREF_KEY_FINGERPRINT_ENABLE = "touch_id_enable_";
     public static final String PREF_KEY_FINGERPRINT_SETTING = "touch_id_setting_";
 
+    public static final String PREF_KEY_CREDO_CONSENT_STATUS = "credo_consent_status_";
+
 
     private static final String PREF_KEY_ACCESS_TOKEN = "PREF_KEY_ACCESS_TOKEN";
     private static final String PREF_KEY_PROFILE = "PREF_KEY_PROFILE";
@@ -128,7 +130,7 @@ public class AppPreferencesHelper implements PreferencesHelper {
 
 
     private static String getCurrentLanguageCode(SharedPreferences preferences) {
-        // Comment cause just support vn nowUtc, will open later when we support another languages.
+        // Comment cause just support vn getCurrentUTCTime, will open later when we support another languages.
         /*String langId = mPrefs.getString(PREF_KEY_LANGUAGE_CODE, "");
 
         if (langId != null && !langId.equals(""))
@@ -222,6 +224,20 @@ public class AppPreferencesHelper implements PreferencesHelper {
     public String getFingerprintEnableStatus() {
         String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
         String key = PREF_KEY_FINGERPRINT_ENABLE + currentUser;
+        return getObject(key, String.class);
+    }
+
+    @Override
+    public void setCredoConsentStatus() {
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = PREF_KEY_CREDO_CONSENT_STATUS + currentUser;
+        saveObject(key, "1");
+    }
+
+    @Override
+    public String getCredoConsentStatus() {
+        String currentUser = getObject(AppPreferencesHelper.PREF_KEY_LOGGED_ON_User, String.class);
+        String key = PREF_KEY_CREDO_CONSENT_STATUS + currentUser;
         return getObject(key, String.class);
     }
 

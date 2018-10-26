@@ -363,4 +363,35 @@ Bất cứ dấu vân tay nào được cài đặt với thiết bị này đ�
     <string name="more_detail">Xem chi tiết</string>
     <string name="vip_customer">Khách hàng VIP</string>
     <string name="offers_fail">Chúng tôi không tải được dữ liệu về ưu đãi của bạn, vui lòng kiểm tra kết nối và thử lại sau</string>
+
+    <string name="desc_credo_consent">
+        <![CDATA[
+        <html>
+            <body>
+                <p style="line-height:140%;text-align: justify;"><span style="white-space: pre-wrap;">Tại Home Credit, chúng tôi luôn mong muốn được đem đến những sản phẩm và dịch vụ được thiết kế dành riêng cho bạn. Để làm được điều đó, chúng tôi mong bạn cho phép chúng tôi được biết và hiểu về thói quen sử dụng điện thoại của bạn thông qua việc thu thập và phân tích các dữ liệu thống kê từ điện thoại của bạn</span></p>
+                <p style="line-height:140%;text-align: justify;"><span style="white-space: pre-wrap;">Các dữ liệu thống kê được thu thập sẽ chỉ là các thông tin vô danh. Chúng tôi bảo đảm sẽ không có bất kỳ nội dung tin nhắn, nội dung cuộc gọi hay thông tin cá nhân mang tính chất định danh nào được tải/thu thập từ điện thoại của bạn. Bạn hoàn toàn có thể yên tâm về quyền riêng tư của mình</span></p>
+                <p style="line-height:140%;text-align: justify;"><span style="white-space: pre-wrap;">Ngoài ra, chúng tôi cũng xin lưu ý thêm một số thông tin liên quan như sau:</span></p>
+                <ol start="1">
+                    <li style="margin-left: -10pt;" dir="ltr">
+                        <p style="line-height:140%;text-align: justify; margin-left: 10pt;">
+                            <span style="white-space: pre-wrap; display: inline !important;">Ứng dụng Home Credit đã được tích hợp sẵn một phần mềm có khả năng thu thập các dữ liệu thống kê từ điện thoại của bạn.  Bạn có thể tìm hiểu thêm về các loại dữ liệu thống kê cụ thể tại trang thông tin điện tử của Home Credit</span>
+                        </p>
+                    </li>
+                    <li style="margin-left: -10pt;" dir="ltr">
+                        <p style="line-height:140%;text-align: justify; margin-left: 10pt;">
+                            <span style="white-space: pre-wrap; display: inline !important;">Dữ liệu thống kê được thu thập sẽ được phân tích, lưu trữ và sử dụng bởi Home Credit, và đồng thời có thể được chia sẻ cho một số bên thứ ba nhất định để phục vụ cho mục đích đánh giá và kiểm soát rủi ro liên quan đến khoản vay và cho việc sử dụng các dịch vụ khác của bạn tại Home Credit</span>
+                        </p>
+                    </li>
+                    <li style="margin-left: -10pt;" dir="ltr">
+                        <p style="line-height:140%;text-align: justify; margin-left: 10pt;">
+                            <span style="white-space: pre-wrap; display: inline !important;">Ứng dụng Home Credit sẽ thu thập và chuyển các dữ liệu thống kê về cho Home Credit. Hoạt động này có thể diễn ra tại bất kỳ thời điểm nào kể từ thời điểm bạn chọn ô <b><font color="#E21838">Đồng ý</font></b> dưới đây cho đến khi ứng dụng Home Credit được gỡ khỏi điện thoại của bạn</span>
+                        </p>
+                    </li>
+                </ol>
+            </body>
+        </html>]]>
+    </string>
+
+    <string name="button_agree">Đồng ý</string>
+    <string name="button_disagree">Không đồng ý</string>
 </resources>

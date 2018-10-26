@@ -9,10 +9,12 @@ package vn.homecredit.hcvn.data.remote;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import com.androidnetworking.common.Priority;
+import com.rx2androidnetworking.Rx2ANRequest;
 
+import java.io.File;
 import java.nio.charset.Charset;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -21,7 +23,6 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 import vn.homecredit.hcvn.BuildConfig;
 import vn.homecredit.hcvn.data.DefaultAndroidNetworking;
-
 import vn.homecredit.hcvn.data.model.api.HcApiException;
 import vn.homecredit.hcvn.data.model.api.OtpTimerResp;
 import vn.homecredit.hcvn.data.model.api.ProfileResp;
@@ -47,7 +48,6 @@ import vn.homecredit.hcvn.data.model.tracking.InternalTrackingModel;
 import vn.homecredit.hcvn.data.model.tracking.TrackingResp;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.service.DeviceInfo;
-import vn.homecredit.hcvn.service.OneSignalService;
 import vn.homecredit.hcvn.service.VersionService;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementModel;
 import vn.homecredit.hcvn.ui.contract.statement.model.StatementResp;
@@ -311,7 +311,7 @@ public class RestServiceImpl implements RestService {
 
     @Override
     public Single<SupportHistoryResp> getSupportHistories() {
-        return DefaultAndroidNetworking.get(buildUrl(SUPPORT_HISTORY),
+        return DefaultAndroidNetworking.get(buildUrl(RestUrl.SUPPORT_HISTORY),
                 mApiHeader.getProtectedApiHeader(),
                 SupportHistoryResp.class);
     }
@@ -375,7 +375,7 @@ public class RestServiceImpl implements RestService {
     @Override
     public Single<TrackingResp> trackingAnonymous(InternalTrackingModel data) {
         String url = buildUrl(ApiEndPoint.ENDPOINT_TRACKING + String.format("/track"));
-        Map<String,String> headers = new HashMap<>();
+        Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "TrackingKey " + mDeviceInfo.trackingKey());
         if (mDeviceInfo != null && !TextUtils.isEmpty(mDeviceInfo.getId()))
             headers.put("X-DEVICE-ID", mDeviceInfo.getId());
@@ -448,6 +448,19 @@ public class RestServiceImpl implements RestService {
     }
 
 
+    @Override
+    public Map<String, String> getApiAuthHeaders(boolean includeDeviceId) {
+        ApiHeader.ProtectedApiHeader protectedHeader = mApiHeader.getProtectedApiHeader();
+        Map<String, String> headers = new HashMap<>();
+        if (protectedHeader != null) {
+            headers.put("AccessToken", protectedHeader.getAccessToken());
+            headers.put("Authorization", protectedHeader.getAuthorization());
+            if (includeDeviceId && mDeviceInfo != null) {
+                headers.put("X-DEVICE-ID", mDeviceInfo.getId());
+            }
+        }
+        return headers;
+    }
 
     private String buildUrl(String url) {
         if (url == null) return url;

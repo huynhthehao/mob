@@ -42,6 +42,8 @@ import vn.homecredit.hcvn.helpers.prefs.AppPreferencesHelper;
 import vn.homecredit.hcvn.helpers.prefs.PreferencesHelper;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactory;
 import vn.homecredit.hcvn.rules.acl.AclRuleFactoryImpl;
+import vn.homecredit.hcvn.service.CredoService;
+import vn.homecredit.hcvn.service.CredoServiceImpl;
 import vn.homecredit.hcvn.service.DeviceInfo;
 import vn.homecredit.hcvn.service.DeviceInfoImpl;
 import vn.homecredit.hcvn.service.OneSignalService;
@@ -155,6 +157,12 @@ public class AppModule {
     @Singleton
     public DeviceInfo provideDeviceInfo(DeviceInfoImpl deviceInfo) {
         return deviceInfo;
+    }
+
+    @Provides
+    @Singleton
+    public CredoService provideCredoService(CredoServiceImpl credoService) {
+        return credoService;
     }
 
     @Provides
